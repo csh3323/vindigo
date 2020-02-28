@@ -1,0 +1,15 @@
+{
+	"name": "telescope-app",
+	"version": "0.1.0",
+	"private": true,
+	"description": "The next generation planning tool",
+	"author": "Julian Mills",
+	"license": "MIT",
+	"scripts": {
+		"build": "<todo: build client & server>",
+		"test": "<todo: run unit tests>"
+	},
+	"dependencies": {
+		"typescript": "^3.8.2"
+	}
+}
