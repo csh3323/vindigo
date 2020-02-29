@@ -6,12 +6,11 @@
 	"author": "Julian Mills",
 	"license": "MIT",
 	"scripts": {
-		"build": "npm run build-client && npm run build-server",
 		"test": "<todo: run unit tests>",
 		"build:client": "cd app/client && cross-env NODE_ENV=production webpack",
-		"start:client": "cd app/client && cross-env NODE_ENV=development webpack-dev-server",
-		"build:server": "tsc --build app/server/tsconfig.json",
-		"start:server": "node app/server/dist/main.js"
+		"dev:client": "cd app/client && cross-env NODE_ENV=development webpack-dev-server",
+		"build:server": "cd app/server && tsc --build ./tsconfig.json",
+		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && node ./app/server/dist/main.js\""
 	},
 	"dependencies": {
 		"@types/node": "^13.7.7",
@@ -35,6 +34,7 @@
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^3.2.0",
 		"node-sass": "^4.13.1",
+		"nodemon": "^2.0.2",
 		"sass": "^1.26.2",
 		"sass-loader": "^8.0.2",
 		"style-loader": "^1.1.3",

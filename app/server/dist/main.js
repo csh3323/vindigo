@@ -1,7 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-let something = "aaa";
 function test() {
     require('fs');
+    console.log("Hello World");
 }
+test();
 //# sourceMappingURL=main.js.map
