@@ -1,7 +1,5 @@
-import {A} from '~/another';
+import {TelescopeClient} from './bootstrap/Telescope';
 
-export function test() {
-	console.log('Hi ', A);
+const client = new TelescopeClient();
 
-	
-}
+client.launch();

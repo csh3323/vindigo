@@ -1,4 +1,5 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -10,15 +11,14 @@ module.exports = {
 	entry: path.resolve(__dirname, 'src/main.ts'),
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'client.js',
-		publicPath: 'assets'
+		filename: 'client.js'
 	},
 	mode: process.env.NODE_ENV,
 	devtool: 'source-map',
 	resolve: {
 		alias: {
 			'~': path.resolve(__dirname, 'src'),
-			vue$: 'vue/dist/vue.runtime.esm.js'
+			'vue$': 'vue/dist/vue.runtime.esm.js'
 		},
 		extensions: ['.js', '.ts', '.vue']
 	},
@@ -61,6 +61,7 @@ module.exports = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
+		new VuetifyLoaderPlugin(),
 		new FriendlyErrorsWebpackPlugin(),
 		new ForkTsCheckerWebpackPlugin({
 			vue: true
@@ -69,10 +70,12 @@ module.exports = {
 			template: path.resolve(__dirname, 'index.html')
 		})
 	],
-	// devServer: {
-	// 	hot: true,
-	// 	port: 8080,
-	// 	compress: true,
-	// 	historyApiFallback: true
-	// }
+	devServer: {
+		hot: true,
+		port: 8080,
+		compress: true,
+		historyApiFallback: true,
+    	contentBase: 'assets',
+		publicPath: '/'
+	}
 };
