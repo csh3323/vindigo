@@ -1,5 +1,11 @@
-import {TelescopeClient} from './bootstrap/Telescope';
+// import {TelescopeClient} from './bootstrap/Telescope';
 
-const client = new TelescopeClient();
+// const client = new TelescopeClient();
 
-client.launch();
+// client.launch();
+
+import './components/TelescopeApp.vue';
+
+function anus(string: string) {
+
+}

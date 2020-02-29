@@ -2,7 +2,7 @@
 	<div>
 		<v-card>
 			<v-card-text>
-				Test
+				Test <v-icon>mdi-lock</v-icon>
 			</v-card-text>
 		</v-card>
 	</div>

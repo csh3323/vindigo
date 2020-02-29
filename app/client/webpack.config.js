@@ -22,11 +22,11 @@ module.exports = {
 		},
 		extensions: ['.js', '.ts', '.vue']
 	},
-	optimization: {
-		splitChunks: {
-			chunks: 'all'
-		}
-	},
+	// optimization: {
+	// 	splitChunks: {
+	// 		chunks: 'all'
+	// 	}
+	// },
 	module: {
 		rules: [
 			
