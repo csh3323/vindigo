@@ -4,6 +4,8 @@ import VueI18n from 'vue-i18n';
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 
+import TelescopeApp from '~/components/TelescopeApp.vue';
+
 /**
  * The main Telescope client management class, in charge of
  * handling all client side aspects of Telescope.
@@ -30,9 +32,7 @@ export class TelescopeClient {
 			el: '#app',
             router: null,
             store: null,
-            render: h => {
-				return null;
-			}
+            render: h => h(TelescopeApp),
         });
 
 		// Store a global reference

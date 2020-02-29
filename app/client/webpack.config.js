@@ -29,6 +29,7 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			
 			// Load vue templates, scripts and styles
 			{
 				test: /\.vue$/,
