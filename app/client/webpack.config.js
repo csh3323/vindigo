@@ -50,7 +50,15 @@ module.exports = {
 			// Load css files
 			{
 				test: /(\.css|\.scss|\.sass)/,
-				use: ['style-loader', 'css-loader', 'sass-loader']
+				use: ['style-loader', 'css-loader', {
+					loader: 'sass-loader',
+					options: {
+						implementation: require('sass'),
+						sassOptions: {
+							fiber: require('fibers'),
+						}
+					}
+				}]
 			},
 
 			// Copy over required files

@@ -32,7 +32,11 @@ export class TelescopeClient {
 			el: '#app',
             router: null,
             store: null,
-            render: h => h(TelescopeApp),
+            render: h => h(TelescopeApp, {
+				props: {
+					app: this
+				}
+			}),
         });
 
 		// Store a global reference
