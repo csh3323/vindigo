@@ -2,14 +2,20 @@
 	<div>
 		<v-card>
 			<v-card-text>
-				Test <v-icon>mdi-lock</v-icon>
+				Value = {{values}}
 			</v-card-text>
 		</v-card>
 	</div>
 </template>
 
-<script>
-export default {
-	name: 'TelescopeApp'
-}
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+
+export default defineComponent({
+	name: 'TelescopeApp',
+	props: {},
+	setup(props, ctx) {
+		
+	}
+})
 </script>

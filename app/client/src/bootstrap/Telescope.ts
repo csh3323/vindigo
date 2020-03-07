@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import VueI18n from 'vue-i18n'; 
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
-
+import VueCompositionApi from '@vue/composition-api';
 import TelescopeApp from '~/components/TelescopeApp.vue';
 
 /**
@@ -22,6 +22,7 @@ export class TelescopeClient {
 		Vue.use(VueI18n);
 		Vue.use(Vuetify);
 		Vue.use(VueRouter);
+		Vue.use(VueCompositionApi);
 	}
 
 	/**
@@ -41,6 +42,7 @@ export class TelescopeClient {
 
 		// Store a global reference
 		window['telescope'] = this;
+		
 	}
 
 }

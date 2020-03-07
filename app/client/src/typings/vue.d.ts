@@ -4,7 +4,6 @@ declare module '*.vue' {
 }
 
 declare module 'vuedraggable' {
-
 	const draggable = "";
 
 	export default draggable

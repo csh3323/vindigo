@@ -6,11 +6,16 @@ const HtmlPlugin = require('html-webpack-plugin');
 
 const path = require('path');
 
+// The output path will tell webpack to output the client
+// files directly into the http module within the server
+// side source directory.
+const OUTPUT_PATH = path.resolve(__dirname, '../server/src/http/dist');
+
 module.exports = {
 	context: __dirname,
-	entry: path.resolve(__dirname, 'src/main.ts'),
+	entry: './src/main.ts',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: OUTPUT_PATH,
 		filename: 'client.js'
 	},
 	mode: process.env.NODE_ENV,
@@ -22,11 +27,9 @@ module.exports = {
 		},
 		extensions: ['.js', '.ts', '.vue']
 	},
-	// optimization: {
-	// 	splitChunks: {
-	// 		chunks: 'all'
-	// 	}
-	// },
+	performance: {
+		hints: false
+	},
 	module: {
 		rules: [
 			
