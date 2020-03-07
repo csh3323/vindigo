@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const {createLogger, transports, format} = require('winston');
+const {execSync} = require('child_process');
 const moment = require('moment');
 const path = require('path');
 const pm2 = require('pm2');
@@ -173,6 +174,11 @@ function runTelescope() {
 	require(absPath);
 }
 
+// Execute the client and server build commands
+function buildTelescope() {
+	execSync('npm run build:client && npm run build:server', {stdio: 'inherit'});
+}
+
 // Print out the config JSON
 function showConfig() {
 	const productionConfig = path.join(__dirname, 'data/config.json');
@@ -214,6 +220,11 @@ require('yargs')
 		command: 'config',
 		desc: 'Display the Telescope config',
 		handler: showConfig
+	})
+	.command({
+		command: 'compile',
+		desc: 'Build the telescope client and server',
+		handler: buildTelescope
 	})
 	.option('json', {
 		desc: 'Print out all messages in JSON form'
