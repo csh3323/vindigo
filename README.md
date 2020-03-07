@@ -27,7 +27,7 @@ Telescope is built using [node](https://nodejs.org/en/) which means you will nee
 ### Setup
 First, obtain a copy of Telescope by cloning it from this repo
 ```
-git clone git@github.com:ExodiusStudios/telescope.git
+git clone https://github.com/ExodiusStudios/telescope.git
 ```
 
 Once you have obtained a local copy from github, run the following commands to prepare your instance of Telescope.
