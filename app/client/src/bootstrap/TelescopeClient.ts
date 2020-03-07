@@ -6,6 +6,8 @@ import VueRouter from 'vue-router';
 import VueCompositionApi from '@vue/composition-api';
 import TelescopeApp from '~/components/TelescopeApp.vue';
 
+import '../../assets/style/common.scss';
+
 /**
  * The main Telescope client management class, in charge of
  * handling all client side aspects of Telescope.

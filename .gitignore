@@ -2,6 +2,10 @@
 node_modules
 out/
 
+# Data files
+data/*
+!data/config.default.json
+
 # local env files
 .env.local
 .env.*.local

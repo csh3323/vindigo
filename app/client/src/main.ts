@@ -1,4 +1,4 @@
-import {TelescopeClient} from './bootstrap/Telescope';
+import {TelescopeClient} from './bootstrap/TelescopeClient';
 
 const client = new TelescopeClient();
 

@@ -1,0 +1,224 @@
+#!/usr/bin/env node
+
+const {createLogger, transports, format} = require('winston');
+const moment = require('moment');
+const path = require('path');
+const pm2 = require('pm2');
+const fs = require('fs');
+
+// Create a simple colorized logger
+function makeLogger(json) {
+	return createLogger({
+		level: "debug",
+		transports: [
+			new transports.Console({
+				format: json ? format.json() : format.combine(
+					format.colorize(),
+					format.printf(info => {
+						return `> ${info.level}: ${info.message}`;
+					})
+				)
+			})
+		]
+	});
+}
+
+// Utility to convert memory sizes
+function bytesToSize(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
+// Launch telescope with pm2
+function startTelescope(input) {
+	const logger = makeLogger(input.json);
+	const startFile = path.join(__dirname, 'app/server/dist/main.js');
+	const absPath = path.normalize(startFile);
+
+	const handleErr = (err) => {
+		if(!err) return false;
+		
+		logger.error('Error during daemon initialization: ', err);
+		pm2.disconnect();
+		return true;
+	}
+
+	logger.info('Checking environment...');
+
+	pm2.connect((err) => {
+		if(handleErr(err)) return;
+
+		logger.info('Starting telescope daemon...');
+
+		pm2.start(absPath, {autorestart: false}, (err, proc) => {
+			if(err) {
+				if(err.toString().startsWith('Error: Script already launched')) {
+					logger.warn('Telescope is already running!');
+					pm2.disconnect();
+					return;
+				} else {
+					if(handleErr(err)) return;
+				}
+			}
+
+			pm2.describe(proc[0]['pm_id'], (err, desc) => {
+				if(handleErr(err)) return;
+
+				logger.info('Successfully started Telescope [pid: ' + desc[0].pid + ']');
+				
+				pm2.disconnect();
+			});
+		});
+	});
+}
+
+// Stop the active telescope process
+function stopTelescope(input) {
+	const logger = makeLogger(input.json);
+	const startFile = path.join(__dirname, 'app/server/dist/main.js');
+	const absPath = path.normalize(startFile);
+
+	const handleErr = (err) => {
+		if(!err) return false;
+		
+		logger.error('Error during daemon connection: ', err);
+		pm2.disconnect();
+		return true;
+	}
+
+	pm2.connect((err) => {
+		if(handleErr(err)) return;
+
+		pm2.list((err, res) => {
+			if(handleErr(err)) return;
+
+			let theProc = null;
+			
+			res.forEach(proc => {
+				if(proc.pm2_env.pm_exec_path == absPath) {
+					theProc = proc;
+				}
+			});
+
+			if(theProc && theProc['pm2_env'].status == 'online') {
+				const id = theProc['pm_id'];
+
+				pm2.stop(id, (err) => {
+					if(handleErr(err)) return;
+
+					logger.info('Successfully terminated Telescope');
+					pm2.disconnect();
+				});
+			} else {
+				logger.warn('Telescope is not currently running');
+				pm2.disconnect();
+			}
+		});
+	});
+}
+
+// Print out the daemon status
+function showStatus(input) {
+	const logger = makeLogger(input.json);
+	const startFile = path.join(__dirname, 'app/server/dist/main.js');
+	const absPath = path.normalize(startFile);
+
+	const handleErr = (err) => {
+		if(!err) return false;
+		
+		logger.error('Error during daemon connection: ', err);
+		pm2.disconnect();
+		return true;
+	}
+
+	pm2.connect((err) => {
+		if(handleErr(err)) return;
+
+		pm2.list((err, res) => {
+			if(handleErr(err)) return;
+
+			let theProc = null;
+			
+			res.forEach(proc => {
+				if(proc.pm2_env.pm_exec_path == absPath) {
+					theProc = proc;
+				}
+			});
+
+			if(theProc && theProc['pm2_env'].status == 'online') {
+				const monitor = theProc.monit;
+				const uptime = Date.now() - theProc['pm2_env'].created_at;
+
+				logger.info('Telescope is up and running!');
+				logger.info('');
+				logger.info('Memory: ' + bytesToSize(monitor.memory));
+				logger.info('Cpu:    ' + monitor.cpu + '%');
+				logger.info('Uptime: ' + moment.duration(uptime).humanize());
+			} else {
+				logger.warn('Telescope is not currently running');
+			}
+
+			pm2.disconnect();
+		});
+	});
+}
+
+// Start the Telescope server in the foreground
+function runTelescope() {
+	const startFile = path.join(__dirname, 'app/server/dist/main.js');
+	const absPath = path.normalize(startFile);
+
+	require(absPath);
+}
+
+// Print out the config JSON
+function showConfig() {
+	const productionConfig = path.join(__dirname, 'data/config.json');
+	const defaultConfig = path.join(__dirname, 'data/config.default.json');
+
+	if(fs.existsSync(productionConfig)) {
+		console.log(fs.readFileSync(productionConfig, 'utf8'));
+	} else {
+		console.log(fs.readFileSync(defaultConfig, 'utf8'));
+	}
+}
+
+// Handle the command input
+require('yargs')
+	.scriptName("telescope")
+	.usage('$0 <cmd> [args]')
+	.default('help')
+	.command({
+		command: 'start',
+		desc: 'Launch the Telescope server',
+		handler: startTelescope
+	})
+	.command({
+		command: 'stop',
+		desc: 'Terminate the Telescope server',
+		handler: stopTelescope
+	})
+	.command({
+		command: 'status',
+		desc: 'Show the current daemon status',
+		handler: showStatus
+	})
+	.command({
+		command: 'run',
+		desc: 'Start the Telescope server in the foreground',
+		handler: runTelescope
+	})
+	.command({
+		command: 'config',
+		desc: 'Display the Telescope config',
+		handler: showConfig
+	})
+	.option('json', {
+		desc: 'Print out all messages in JSON form'
+	})
+	.help()
+	.demandCommand()
+	.strict()
+	.parse()

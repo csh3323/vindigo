@@ -1,0 +1,17 @@
+{
+	"debug": false,
+	"installName": "Telescope",
+	"logFile": "telescope.log",
+	"web": {
+		"hostname": "localhost",
+		"port": 80
+	},
+	"database": {
+		"driver": "sqlite",
+		"hostname": "localhost",
+		"port": 3306,
+		"username": "telescope",
+		"password": "",
+		"name": "telescope"
+	}
+}

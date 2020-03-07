@@ -1,7 +1,14 @@
-function test() {
-	require('fs');
-	
-	console.log("Hello World");
-}
+import {TelescopeServer} from './bootstrap/TelescopeServer';
+import ON_DEATH from 'death';
 
-test();
+(function() {
+	const telescope = new TelescopeServer();
+
+	// Launch all related telescope services and start
+	// processing the main telescope event loop.
+	telescope.launch();
+
+	ON_DEATH(() => {
+		telescope.terminate();
+	});
+})();
