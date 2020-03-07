@@ -194,7 +194,7 @@ function showConfig() {
 // Handle the command input
 require('yargs')
 	.scriptName("telescope")
-	.usage('$0 <cmd> [args]')
+	.usage('$0 <cmd> [options]')
 	.default('help')
 	.command({
 		command: 'start',
