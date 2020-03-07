@@ -4,7 +4,7 @@
 	"logFile": "telescope.log",
 	"web": {
 		"hostname": "localhost",
-		"port": 80
+		"port": 8045
 	},
 	"database": {
 		"driver": "sqlite",
