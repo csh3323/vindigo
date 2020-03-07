@@ -3,13 +3,11 @@
 		"target": "esnext",
 		"module": "commonjs",
 		"moduleResolution": "node",
+		"esModuleInterop": true,
 		"outDir": "dist",
 		"sourceMap": true,
 		"baseUrl": "src",
 		"strict": true,
-		"paths": {
-			"@/*": ["*"]
-		},
 		"lib": ["esnext"]
 	},
 	"include": ["src/**/*.ts"],
