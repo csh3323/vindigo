@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import { Server } from 'http';
 import { Logger } from 'winston';
+import path from 'path';
 
 export class TelescopeWebServer {
 
@@ -24,11 +25,14 @@ export class TelescopeWebServer {
 	 */
 	public start() {
 		const port = this.app.config.web.port;
+		const distDir = path.join(__dirname, 'dist');
+		const publicDir = path.join(__dirname, 'public');
 
-		// Register all routes
-		this.http.get('/', (req, res) => {
-			res.send('Hello Worlderietus');
-		});
+		this.logger.info('Serving content from ' + distDir);
+
+		// Statically serve all distribution files and public files
+		this.http.use(express.static(distDir));
+		this.http.use(express.static(publicDir));
 
 		// Listen to all incoming GET requests
 		this.internal = this.http.listen(port, (err) => {

@@ -13,6 +13,7 @@ import fs from "fs";
  * serving client resources.
  */
 export class TelescopeServer {
+
 	private dataDir: string;
 
 	public readonly isDebug: boolean;
@@ -117,5 +118,15 @@ export class TelescopeServer {
 				})
 			]
 		});
+	}
+
+	/**
+	 * Resolve a file inside the data directory
+	 * 
+	 * @param file The file
+	 * @returns Absolute path
+	 */
+	public getDataFile(file: string) : string {
+		return path.normalize(path.join(this.dataDir, file));
 	}
 }
