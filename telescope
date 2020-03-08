@@ -130,8 +130,6 @@ function stopTelescope(input) {
 // Print out the daemon status
 function showStatus(input) {
 	const logger = makeLogger(input.json);
-	const startFile = path.join(__dirname, 'app/server/dist/main.js');
-	const mainFile = path.normalize(startFile);
 
 	const handleErr = (err) => {
 		if(!err) return false;
