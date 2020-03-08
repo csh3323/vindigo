@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
-out/
+
+# Distribution files
+app/build/
 
 # Data files
 data/*
