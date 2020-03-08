@@ -9,8 +9,8 @@
 		"test": "<todo: run unit tests>",
 		"build:client": "cd app/client && cross-env NODE_ENV=production webpack",
 		"dev:client": "cd app/client && cross-env NODE_ENV=development webpack-dev-server",
-		"build:server": "cd app/server && tsc --build ./tsconfig.json",
-		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && node ./app/server/dist/main.js\""
+		"build:server": "cd app/server && gulp -f ./gulpfile.js",
+		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && npm run build:client && node ./app/server/dist/main.js\""
 	},
 	"dependencies": {
 		"@vue/composition-api": "^0.4.0",
@@ -40,10 +40,13 @@
 		"file-loader": "^5.1.0",
 		"fork-ts-checker-webpack-plugin": "^4.0.5",
 		"friendly-errors-webpack-plugin": "^1.7.0",
+		"gulp": "^4.0.2",
+		"gulp-typescript": "^6.0.0-alpha.1",
 		"html-webpack-plugin": "^3.2.0",
 		"node-sass": "^4.13.1",
 		"nodemon": "^2.0.2",
 		"pm2": "^4.2.3",
+		"rimraf": "^3.0.2",
 		"sass": "^1.26.2",
 		"sass-loader": "^8.0.2",
 		"style-loader": "^1.1.3",

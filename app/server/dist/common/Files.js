@@ -12,4 +12,3 @@ function readFileJson(path) {
     return JSON.parse(readFileText(path));
 }
 exports.readFileJson = readFileJson;
-//# sourceMappingURL=Files.js.map

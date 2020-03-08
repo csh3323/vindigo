@@ -24,4 +24,3 @@ class TelescopeHttpError extends Error {
     }
 }
 exports.TelescopeHttpError = TelescopeHttpError;
-//# sourceMappingURL=Exceptions.js.map

@@ -86,6 +86,14 @@ class TelescopeServer {
             ]
         });
     }
+    /**
+     * Resolve a file inside the data directory
+     *
+     * @param file The file
+     * @returns Absolute path
+     */
+    getDataFile(file) {
+        return path_1.default.normalize(path_1.default.join(this.dataDir, file));
+    }
 }
 exports.TelescopeServer = TelescopeServer;
-//# sourceMappingURL=TelescopeServer.js.map

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
 class TelescopeWebServer {
     constructor(app) {
         this.app = app;
@@ -16,10 +17,12 @@ class TelescopeWebServer {
      */
     start() {
         const port = this.app.config.web.port;
-        // Register all routes
-        this.http.get('/', (req, res) => {
-            res.send('Hello Worlderietus');
-        });
+        const distDir = path_1.default.join(__dirname, 'dist');
+        const publicDir = path_1.default.join(__dirname, 'public');
+        this.logger.info('Serving content from ' + distDir);
+        // Statically serve all distribution files and public files
+        this.http.use(express_1.default.static(distDir));
+        this.http.use(express_1.default.static(publicDir));
         // Listen to all incoming GET requests
         this.internal = this.http.listen(port, (err) => {
             if (err) {
@@ -39,4 +42,3 @@ class TelescopeWebServer {
     }
 }
 exports.TelescopeWebServer = TelescopeWebServer;
-//# sourceMappingURL=WebServer.js.map

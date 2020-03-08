@@ -14,4 +14,3 @@ const death_1 = __importDefault(require("death"));
         telescope.terminate();
     });
 })();
-//# sourceMappingURL=main.js.map
