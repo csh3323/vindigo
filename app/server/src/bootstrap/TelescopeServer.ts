@@ -7,6 +7,10 @@ import moment from "moment";
 import path from "path";
 import fs from "fs";
 
+// The data directory is resolved relative to the build
+// directory in which production files are outputted.
+const DATA_DIR_RELATIVE_TO_BUILD = "../../../data";
+
 /**
  * The main entry point for Telescope, in charge of
  * maintaining all server side relations as well as
@@ -28,16 +32,16 @@ export class TelescopeServer {
 	 * launching any services.
 	 */
 	public constructor() {
-		this.dataDir = path.join(__dirname, "../../../../data");
+		this.dataDir = path.join(__dirname, DATA_DIR_RELATIVE_TO_BUILD);
 
 		// Load in the config file
-		const conFile = path.join(this.dataDir, "config.json");
+		const conFile = this.getDataFile("config.json");
 
 		if (fs.existsSync(conFile)) {
 			this.config = readFileJson(conFile);
 			this.installing = false;
 		} else {
-			const defaultConFile = path.join(this.dataDir, "config.default.json");
+			const defaultConFile = this.getDataFile("config.default.json");
 
 			if (!fs.existsSync(defaultConFile)) {
 				throw new TelescopeError(
@@ -88,7 +92,7 @@ export class TelescopeServer {
 	 * @returns New logger
 	 */
 	public getLogger(label: string) : Logger {
-		const logFile = path.join(this.dataDir, this.config.logFile);
+		const logFile = this.getDataFile(this.config.logFile);
 
 		const logFormatter = format.printf(({timestamp, label, level, message}) => {
 			return `${timestamp} [${label}] ${level}: ${message}`;

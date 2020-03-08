@@ -9,6 +9,9 @@ const Exceptions_1 = require("../common/Exceptions");
 const Files_1 = require("../common/Files");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+// The data directory is resolved relative to the build
+// directory in which production files are outputted.
+const DATA_DIR_RELATIVE_TO_BUILD = "../../../data";
 /**
  * The main entry point for Telescope, in charge of
  * maintaining all server side relations as well as
@@ -20,15 +23,15 @@ class TelescopeServer {
      * launching any services.
      */
     constructor() {
-        this.dataDir = path_1.default.join(__dirname, "../../../../data");
+        this.dataDir = path_1.default.join(__dirname, DATA_DIR_RELATIVE_TO_BUILD);
         // Load in the config file
-        const conFile = path_1.default.join(this.dataDir, "config.json");
+        const conFile = this.getDataFile("config.json");
         if (fs_1.default.existsSync(conFile)) {
             this.config = Files_1.readFileJson(conFile);
             this.installing = false;
         }
         else {
-            const defaultConFile = path_1.default.join(this.dataDir, "config.default.json");
+            const defaultConFile = this.getDataFile("config.default.json");
             if (!fs_1.default.existsSync(defaultConFile)) {
                 throw new Exceptions_1.TelescopeError("Failed to locate default config file " +
                     "(Make sure config.default.json is in the data folder and is readable!)");
@@ -67,7 +70,7 @@ class TelescopeServer {
      * @returns New logger
      */
     getLogger(label) {
-        const logFile = path_1.default.join(this.dataDir, this.config.logFile);
+        const logFile = this.getDataFile(this.config.logFile);
         const logFormatter = winston_1.format.printf(({ timestamp, label, level, message }) => {
             return `${timestamp} [${label}] ${level}: ${message}`;
         });

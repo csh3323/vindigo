@@ -7,6 +7,13 @@ const path = require('path');
 const pm2 = require('pm2');
 const fs = require('fs');
 
+// Resolve the telescope main
+const mainPath = path.join(__dirname, 'app/build/main.js');
+const mainFile = path.normalize(mainPath);
+const colorGreen = '\x1b[32m';
+const colorCyan = '\x1b[36m';
+const colorReset = '\x1b[0m';
+
 // Create a simple colorized logger
 function makeLogger(json) {
 	return createLogger({
@@ -35,8 +42,6 @@ function bytesToSize(bytes) {
 // Launch telescope with pm2
 function startTelescope(input) {
 	const logger = makeLogger(input.json);
-	const startFile = path.join(__dirname, 'app/server/dist/main.js');
-	const absPath = path.normalize(startFile);
 
 	const handleErr = (err) => {
 		if(!err) return false;
@@ -46,14 +51,14 @@ function startTelescope(input) {
 		return true;
 	}
 
-	logger.info('Checking environment...');
+	logger.info('Received startup request...');
 
 	pm2.connect((err) => {
 		if(handleErr(err)) return;
 
 		logger.info('Starting telescope daemon...');
 
-		pm2.start(absPath, {autorestart: false}, (err, proc) => {
+		pm2.start(mainFile, {autorestart: false}, (err, proc) => {
 			if(err) {
 				if(err.toString().startsWith('Error: Script already launched')) {
 					logger.warn('Telescope is already running!');
@@ -67,7 +72,9 @@ function startTelescope(input) {
 			pm2.describe(proc[0]['pm_id'], (err, desc) => {
 				if(handleErr(err)) return;
 
-				logger.info('Successfully started Telescope [pid: ' + desc[0].pid + ']');
+				logger.info('Successfully started Telescope');
+				logger.info('- Use '+colorCyan+'telescope status'+colorReset+' to view process information');
+				logger.info('- Use '+colorCyan+'telescope stop'+colorReset+' to terminate telescope');
 				
 				pm2.disconnect();
 			});
@@ -78,8 +85,8 @@ function startTelescope(input) {
 // Stop the active telescope process
 function stopTelescope(input) {
 	const logger = makeLogger(input.json);
-	const startFile = path.join(__dirname, 'app/server/dist/main.js');
-	const absPath = path.normalize(startFile);
+	const startFile = path.join(__dirname, 'app/build/main.js');
+	const mainFile = path.normalize(startFile);
 
 	const handleErr = (err) => {
 		if(!err) return false;
@@ -98,7 +105,7 @@ function stopTelescope(input) {
 			let theProc = null;
 			
 			res.forEach(proc => {
-				if(proc.pm2_env.pm_exec_path == absPath) {
+				if(proc.pm2_env.pm_exec_path == mainFile) {
 					theProc = proc;
 				}
 			});
@@ -124,7 +131,7 @@ function stopTelescope(input) {
 function showStatus(input) {
 	const logger = makeLogger(input.json);
 	const startFile = path.join(__dirname, 'app/server/dist/main.js');
-	const absPath = path.normalize(startFile);
+	const mainFile = path.normalize(startFile);
 
 	const handleErr = (err) => {
 		if(!err) return false;
@@ -143,7 +150,7 @@ function showStatus(input) {
 			let theProc = null;
 			
 			res.forEach(proc => {
-				if(proc.pm2_env.pm_exec_path == absPath) {
+				if(proc.pm2_env.pm_exec_path == mainFile) {
 					theProc = proc;
 				}
 			});
@@ -154,9 +161,9 @@ function showStatus(input) {
 
 				logger.info('Telescope is up and running!');
 				logger.info('');
-				logger.info('Memory: ' + bytesToSize(monitor.memory));
-				logger.info('Cpu:    ' + monitor.cpu + '%');
-				logger.info('Uptime: ' + moment.duration(uptime).humanize());
+				logger.info('Memory: ' + colorCyan + bytesToSize(monitor.memory) + colorReset);
+				logger.info('Cpu:    ' + colorCyan + monitor.cpu + '%' + colorReset);
+				logger.info('Uptime: ' + colorCyan + moment.duration(uptime).humanize() + colorReset);
 			} else {
 				logger.warn('Telescope is not currently running');
 			}
@@ -167,16 +174,29 @@ function showStatus(input) {
 }
 
 // Start the Telescope server in the foreground
-function runTelescope() {
-	const startFile = path.join(__dirname, 'app/server/dist/main.js');
-	const absPath = path.normalize(startFile);
+function runTelescope(input) {
+	const logger = makeLogger(input.json);
 
-	require(absPath);
+	logger.info('Starting Telescope as foreground process...')
+
+	require(mainFile);
 }
 
-// Execute the client and server build commands
-function buildTelescope() {
-	execSync('npm run build:client && npm run build:server', {stdio: 'inherit'});
+// Execute the server and client build commands
+function buildTelescope(input) {
+	const logger = makeLogger(input.json);
+	const then = Date.now();
+
+	logger.info('Compiling server and client files...');
+
+	execSync('npm run build:server && npm run build:client', {stdio: 'inherit'});
+
+	const duration = Date.now() - then;
+
+	logger.info('Server & Client compiling successful!'+colorGreen+' ('+duration+'ms)'+colorReset);
+	logger.info('');
+	logger.info('- Telescope can now be started with'+colorCyan+' telescope start'+colorReset);
+	logger.info('- Run telescope directly with'+colorCyan+' telescope run'+colorReset);
 }
 
 // Print out the config JSON
@@ -223,7 +243,7 @@ require('yargs')
 	})
 	.command({
 		command: 'compile',
-		desc: 'Build the telescope client and server',
+		desc: 'Build the telescope server and client',
 		handler: buildTelescope
 	})
 	.option('json', {
