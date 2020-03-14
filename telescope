@@ -187,7 +187,7 @@ function buildTelescope(input) {
 
 	logger.info('Compiling server and client files...');
 
-	execSync('npm run build:server && npm run build:client', {stdio: 'inherit'});
+	execSync('npm run build:server && npm run test:server && npm run build:client', {stdio: 'inherit'});
 
 	const duration = Date.now() - then;
 
