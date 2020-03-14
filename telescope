@@ -241,7 +241,7 @@ require('yargs')
 	})
 	.command({
 		command: 'compile',
-		desc: 'Build the telescope server and client',
+		desc: 'Build & test the telescope server and client',
 		handler: buildTelescope
 	})
 	.option('json', {

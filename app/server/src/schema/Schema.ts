@@ -1,43 +1,8 @@
 import { Validator } from 'jsonschema';
+import { SchemaBlueprint } from './Blueprint';
+import { SchemaValidation } from './Validation';
 
 type SchemaOrBuilder = object|((bp: SchemaBlueprint) => object);
-
-/**
- * Provides utilities for building up a Schema
- * and describing its contents, relations,
- * and rules.
- */
-export class SchemaBlueprint {
-
-	/** List of sub schema references */
-	private references: Schema[] = [];
-
-	/**
-	 * Insert a reference to another Schema instance
-	 * 
-	 * @param schema The other schema
-	 */
-	public reference(schema: Schema): object {
-		this.references.push(schema);
-
-		return {
-			$ref: '/' + schema.identifier
-		}
-	}
-
-	/**
-	 * Apply the configuration within this blueprint
-	 * to the given schema instance
-	 * 
-	 * @param schema The schema
-	 */
-	public applyTo(schema: Schema) {
-		this.references.forEach(sub => {
-			schema.addReference(sub);
-		});
-	}
-
-}
 
 /**
  * Represents a schema describing a JSON structure
@@ -47,10 +12,10 @@ export class SchemaBlueprint {
 export class Schema {
 
 	public readonly identifier: string;
+	public readonly schema: object;
 
 	private references: Schema[];
 	private validator: Validator;
-	private schema: object;
 
 	private constructor(id: string, schema: object) {
 		this.references = [];
@@ -60,6 +25,16 @@ export class Schema {
 			...schema,
 			id: '/' + id
 		};
+	}
+
+	/**
+	 * Returns a list of all Schemas this Schema depends
+	 * on for validation.
+	 * 
+	 * @returns Schema list
+	 */
+	public getDependencies() : Schema[] {
+		return [...this.references];
 	}
 
 	/**
@@ -81,11 +56,14 @@ export class Schema {
 	 * schema and returns the result.
 	 * 
 	 * @param json Json structure
+	 * @returns The validation result
 	 */
-	public validate(json: object|string) {
-		const result = this.validator.validate(json, this.schema);
+	public validate(json: object|string) : SchemaValidation {
+		const structure = (typeof json == 'object') ? json : JSON.parse(json);
 
-		console.log(result);
+		return new SchemaValidation(
+			this.validator.validate(structure, this.schema)
+		);
 	}
 
 	/**
@@ -108,13 +86,3 @@ export class Schema {
 	}
 
 }
-
-const $person = Schema.of("Person", () => ({
-	type: 'object',
-	properties: {
-		name: {
-			type: 'string'
-		}
-	},
-	required: ['name']
-}));

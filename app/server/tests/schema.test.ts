@@ -1,13 +1,15 @@
-import { Schema } from '../src/schema/Schema';
+import { Person, Residence, observatory, hotel, lighthouse } from './schema.res';
 
-function sum(a, b) {
-  return a + b;
-}
+test('schema identifier has slash', () => {
+	expect(Person.schema['id']).toBe('/Person');
+});
 
-test('adds 1 + 2 to equal 3', () => {
-	const n: number = 3;
+test('schema keeps dependencies', () => {
+	expect(Residence.getDependencies()).toContain(Person);
+});
 
-	Schema.of("name", () => ({}));
-
-	expect(sum(1, 2)).toBe(n);
+test('schema valides correctly', () => {
+	expect(Residence.validate(observatory).isValid).toBeTruthy();
+	expect(Residence.validate(lighthouse).isValid).toBeTruthy();
+	expect(Residence.validate(hotel).isValid).toBeTruthy();
 });
