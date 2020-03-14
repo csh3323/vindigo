@@ -1,5 +1,7 @@
 import { Validator } from 'jsonschema';
 
+type SchemaOrBuilder = object|((bp: SchemaBlueprint) => object);
+
 /**
  * Provides utilities for building up a Schema
  * and describing its contents, relations,
@@ -97,9 +99,9 @@ export class Schema {
 	 * @param schema Contents
 	 * @returns New Schema
 	 */
-	public static of(name: string, builder: (bp: SchemaBlueprint) => object) : Schema {
+	public static of(name: string, content: SchemaOrBuilder) : Schema {
 		const blueprint = new SchemaBlueprint();
-		const schema = builder(blueprint);
+		const schema = (typeof content == 'function') ? content(blueprint) : content;
 		const instance = new Schema(name, schema);
 		blueprint.applyTo(instance);
 		return instance;
