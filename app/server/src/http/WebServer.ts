@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
+import { setupRouter } from './Router';
 import { Server } from 'http';
 import { Logger } from 'winston';
 import path from 'path';
@@ -25,14 +26,9 @@ export class TelescopeWebServer {
 	 */
 	public start() {
 		const port = this.app.config.web.port;
-		const distDir = path.join(__dirname, 'dist');
-		const publicDir = path.join(__dirname, 'public');
-
-		this.logger.info('Serving content from ' + distDir);
-
-		// Statically serve all distribution files and public files
-		this.http.use(express.static(distDir));
-		this.http.use(express.static(publicDir));
+		
+		// Setup the routes
+		this.setupRoutes(this.http);
 
 		// Listen to all incoming GET requests
 		this.internal = this.http.listen(port, (err) => {
@@ -44,6 +40,23 @@ export class TelescopeWebServer {
 
 			this.logger.info('Successfully listening on port ' + port);
 		});
+	}
+
+	/**
+	 * Called to setup routes on the given express app
+	 * 
+	 * @param app The express app
+	 */
+	private setupRoutes(app: Application) {
+		const distDir = path.join(__dirname, 'dist');
+		const publicDir = path.join(__dirname, 'public');
+
+		// Statically serve all distribution files and public files
+		app.use(express.static(distDir));
+		app.use(express.static(publicDir));
+
+		// Configure API routes
+		setupRouter(app);
 	}
 
 	/**
