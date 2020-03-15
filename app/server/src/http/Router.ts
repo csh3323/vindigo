@@ -1,11 +1,14 @@
 import { Router } from 'express';
 
 /**
- * Configure the backend API router
+ * Configure the core backend API endpoints.
+ * 
+ * Extensions will be able to hook in additional API endpoints
+ * after the core routes have been registered.
  * 
  * @param router The router 
  */
-export function setupRouter(router: Router) {
+export function setupCoreRoutes(router: Router) {
 
 	// Authentication
 

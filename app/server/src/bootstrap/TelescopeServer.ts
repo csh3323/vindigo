@@ -1,5 +1,5 @@
 import { Logger, createLogger, format, transports } from "winston";
-import { TelescopeWebServer } from "../http/WebServer";
+import { TelescopeHost } from "../http/TelescopeHost";
 import { TelescopeError } from "../common/Exceptions";
 import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
@@ -22,7 +22,7 @@ export class TelescopeServer {
 
 	public readonly isDebug: boolean;
 
-	public webServer: TelescopeWebServer;
+	public httpHost: TelescopeHost;
 	public config: Config;
 	public logger: Logger;
 	public installing: boolean;
@@ -61,7 +61,7 @@ export class TelescopeServer {
 		this.logger = this.getLogger('Telescope');
 
 		// Instantiate services
-		this.webServer = new TelescopeWebServer(this);
+		this.httpHost = new TelescopeHost(this);
 	}
 
 	/**
@@ -72,7 +72,7 @@ export class TelescopeServer {
 	public launch() {
 		this.logger.info('Launching telescope server');
 
-		this.webServer.start();
+		this.httpHost.start();
 	}
 
 	/**
@@ -82,7 +82,7 @@ export class TelescopeServer {
 	public terminate() {
 		this.logger.info('Terminating telescope server');
 
-		this.webServer.stop();
+		this.httpHost.stop();
 	}
 
 	/**

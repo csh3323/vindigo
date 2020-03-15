@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { Schema } from "schema";
+import { UserProfile } from "auth/User";
 
 /**
  * Controllers are an essential component of the backend API
@@ -24,7 +26,7 @@ export interface Controller {
 	 * 
 	 * @returns Schema object
 	 */
-	schema() : object;
+	schema() : Schema;
 
 	/**
 	 * Called in order to execute logic related to this
@@ -32,7 +34,8 @@ export interface Controller {
 	 * 
 	 * @param req Request
 	 * @param res Response
+	 * @param user The user profile
 	 */
-	handle(req: Request, res: Response) : void;
+	handle(req: Request, res: Response, user: UserProfile) : void;
 
 }
