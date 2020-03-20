@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import VueCompositionApi from '@vue/composition-api';
 import TelescopeApp from '~/components/TelescopeApp.vue';
 
+import 'vuetify/dist/vuetify.min.css';
 import '../../assets/style/common.scss';
 
 /**
@@ -31,10 +32,21 @@ export class TelescopeClient {
 	 * Launch the Telescope Client
 	 */
 	public launch() {
+		const vuetify = new Vuetify({
+			theme: {
+				dark: true
+			}
+		});
+
+		let abc = 1;
+
+		abc.toExponential();
+
 		this.rootVue = new Vue({
 			el: '#app',
             router: null,
             store: null,
+			vuetify: vuetify,
             render: h => h(TelescopeApp, {
 				props: {
 					app: this

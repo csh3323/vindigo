@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { TelescopeHost } from './TelescopeHost';
 
 /**
  * Configure the core backend API endpoints.
@@ -8,7 +9,7 @@ import { Router } from 'express';
  * 
  * @param router The router 
  */
-export function setupCoreRoutes(router: Router) {
+export function setupCoreRoutes(host: TelescopeHost, router: Router) {
 
 	// Authentication
 

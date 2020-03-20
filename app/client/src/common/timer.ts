@@ -1,4 +1,4 @@
-import { onMounted, onBeforeUnmount } from '@vue/composition-api';
+import { onMounted, onUnmounted } from '@vue/composition-api';
 
 /**
  * Executes an interval specefied by the given time in milliseconds
@@ -15,7 +15,7 @@ export function interval(interval: number, callback: Function) {
 		task = setInterval(callback, interval);
 	});
 
-	onBeforeUnmount(() => {
+	onUnmounted(() => {
 		clearInterval(task);
 	});
 }

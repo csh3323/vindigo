@@ -1,12 +1,16 @@
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
-import express, { Router, Application, Request } from 'express';
+import express, { Router, Application, Request, Response, RequestHandler } from 'express';
 import { setupCoreRoutes } from './Router';
 import { Channel } from './Channel';
 import { Logger } from 'winston';
 import { Server } from 'http';
 import path from 'path';
 import WebSocket from 'ws';
+import bodyParser from 'body-parser';
+import { Controller } from './Controller';
+import { UserProfile } from 'auth/User';
+import { HttpStatus } from 'common/Statuses';
 
 /**
  * The TelescopeHost class runs the HTTP server
@@ -42,7 +46,7 @@ export class TelescopeHost {
 		const port = this.app.config.web.port;
 		
 		// Setup the routes
-		this.setupRouting(this.server);
+		this.registerRouters(this.server);
 
 		// Listen to all incoming GET requests
 		this.httpServer = this.server.listen(port, (err) => {
@@ -64,29 +68,35 @@ export class TelescopeHost {
 	}
 
 	/**
-	 * Called to setup routes on the given express app
+	 * Called to setup essential routers on the given
+	 * express application instance.
 	 * 
 	 * @param app The express app
 	 */
-	private setupRouting(app: Application) {
+	private registerRouters(app: Application) {
 		const distDir = path.join(__dirname, 'dist');
 		const publicDir = path.join(__dirname, 'public');
-
-		// Statically serve all distribution files and public files
-		app.use(express.static(distDir));
-		app.use(express.static(publicDir));
-
-		// Configure API routes
+		const staticRouter = Router();
 		const apiRouter = Router();
 
-		setupCoreRoutes(apiRouter);
+		// Configure the static router
+		staticRouter.use(
+			express.static(distDir),
+			express.static(publicDir)
+		);
+
+		// Configure the API router
+		setupCoreRoutes(this, apiRouter);
 		this.setupSocket(apiRouter);
 
-		app.use('/api', apiRouter);
+		// Register the router
+		app.use('/', staticRouter)
+		app.use('/api', bodyParser.json(), apiRouter);
 	}
 
 	/**
-	 * Setup and configure the socket endpoint
+	 * Setup and configure the socket endpoint for
+	 * live updates.
 	 * 
 	 * @param router Router
 	 */
@@ -94,6 +104,46 @@ export class TelescopeHost {
 		router.ws('/channel', (ws: WebSocket, req: Request) => {
 			ws.on
 		});
+	}
+
+	/**
+	 * Connect the given controller instance to a
+	 * valid RequestHandler which can be passed
+	 * into route handlers.
+	 * 
+	 * @param controller The controllers
+	 * @returns RequestHandler
+	 */
+	public connect(controller: Controller) : RequestHandler {
+		return (req, res) => {
+			let user: UserProfile|undefined;
+
+			// TODO Implement token retrieval
+			user = new UserProfile("not implemented");
+
+			// Authorize the call and respond with 401 Unauthorized
+			// when the user is not currently logged in, and with
+			// 403 Forbidden when the user lacks permission.
+			if(!controller.authorize(req, user)) {
+				res.sendStatus(user ? HttpStatus.Forbidden : HttpStatus.Unauthorized);
+				return; 
+			}
+
+			const reqBody = req.body || {};
+
+			// Validate the request payload using the Json Schema
+			// specified by the controller.
+			const reqResult = controller.schema().validate(reqBody);
+
+			if(!reqResult.isValid) {
+				res.status(HttpStatus.BadRequest).json(reqResult.reasons);
+				return; 
+			}
+
+			// Forward the request and response handles to the
+			// controller handle method for further processing.
+			controller.handle(req, res);
+		};
 	}
 
 }
