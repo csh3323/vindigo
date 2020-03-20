@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserProfile } from "../auth/UserProfile";
 import { Schema } from "../schema/Schema";
+import { TelescopeServer } from "../bootstrap/TelescopeServer";
 
 /**
  * Controllers are an essential component of the backend API
@@ -36,10 +37,11 @@ export interface Controller {
 	 * inbound connection.
 	 * 
 	 * @param req Request
+	 * @param app The telescope server
 	 * @param user The user profile, only available when the user is logged in
 	 * @returns Whether the connection is permitted
 	 */
-	authorize(req: Request, user?: UserProfile) : boolean;
+	authorize(app: TelescopeServer, req: Request, user?: UserProfile) : boolean;
 
 	/**
 	 * Called in order to describe the schema expected
@@ -55,9 +57,10 @@ export interface Controller {
 	 * API call.
 	 * 
 	 * @param req Request
+	 * @param app The telescope server
 	 * @param res Response
 	 * @param user The user profile, only available when the user is logged in
 	 */
-	handle(req: Request, res: Response, user?: UserProfile) : void;
+	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : void;
 
 }

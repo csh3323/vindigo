@@ -79,7 +79,7 @@ export class WebService {
 		);
 
 		// Configure the API router
-		setupCoreRoutes(apiRouter);
+		setupCoreRoutes(this.app, apiRouter);
 		this.setupSocket(apiRouter);
 
 		// Register the router
