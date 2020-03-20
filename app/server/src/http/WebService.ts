@@ -1,6 +1,6 @@
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
-import express, { Router, Application } from 'express';
+import express, { Router, Application, Request, Response } from 'express';
 import { setupCoreRoutes } from './Router';
 import { Logger } from 'winston';
 import { Server } from 'http';
@@ -85,6 +85,11 @@ export class WebService {
 		// Register the router
 		app.use('/', staticRouter)
 		app.use('/api', bodyParser.json(), apiRouter);
+
+		// Register the fallback route
+		app.use('/', (_: Request, res: Response) => {
+			res.status(404).send("<h2>404</h2><p>The page you tried to access does not exist</p>");
+		})
 	}
 
 	/**
