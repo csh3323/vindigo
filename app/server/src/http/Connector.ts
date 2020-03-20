@@ -1,6 +1,6 @@
 import { Controller } from "./Controller";
 import { RequestHandler } from "express";
-import { UserProfile } from "../auth/User";
+import { UserProfile } from "../auth/UserProfile";
 import { HttpStatus } from "../common/Statuses";
 
 /**

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserProfile } from "../auth/User";
+import { UserProfile } from "../auth/UserProfile";
 import { Schema } from "../schema/Schema";
 
 /**

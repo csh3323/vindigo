@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Schema } from "../../schema/Schema";
-import { UserProfile } from "../../auth/User";
+import { UserProfile } from "../../auth/UserProfile";
 import { Controller } from "../Controller";
 
 /**
