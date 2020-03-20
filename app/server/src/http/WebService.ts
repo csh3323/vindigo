@@ -25,7 +25,7 @@ export class WebService {
 	public constructor(app: TelescopeServer) {
 		this.app = app;
 		this.server = express();
-		this.logger = app.getLogger('HttpHost');
+		this.logger = app.getLogger('WebService');
 
 		// Inject web socket functionality
 		setupWs(this.server);

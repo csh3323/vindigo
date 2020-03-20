@@ -3,7 +3,6 @@ import { WebService } from "../http/WebService";
 import { TelescopeError } from "../common/Exceptions";
 import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
-import moment from "moment";
 import path from "path";
 import fs from "fs";
 
@@ -18,14 +17,15 @@ const DATA_DIR_RELATIVE_TO_BUILD = "../../../data";
  */
 export class TelescopeServer {
 
-	private dataDir: string;
+	// Services
+	public readonly web: WebService;
 
+	public readonly config: Config;
+	public readonly logger: Logger;
 	public readonly isDebug: boolean;
 
-	public httpHost: WebService;
-	public config: Config;
-	public logger: Logger;
-	public installing: boolean;
+	private installing: boolean;
+	private dataDir: string;
 
 	/**
 	 * Initialize telescope server resources without
@@ -61,7 +61,7 @@ export class TelescopeServer {
 		this.logger = this.getLogger('Telescope');
 
 		// Instantiate services
-		this.httpHost = new WebService(this);
+		this.web = new WebService(this);
 	}
 
 	/**
@@ -72,7 +72,7 @@ export class TelescopeServer {
 	public launch() {
 		this.logger.info('Launching telescope server');
 
-		this.httpHost.start();
+		this.web.start();
 	}
 
 	/**
@@ -82,7 +82,7 @@ export class TelescopeServer {
 	public terminate() {
 		this.logger.info('Terminating telescope server');
 
-		this.httpHost.stop();
+		this.web.stop();
 	}
 
 	/**
@@ -132,5 +132,13 @@ export class TelescopeServer {
 	 */
 	public getDataFile(file: string) : string {
 		return path.normalize(path.join(this.dataDir, file));
+	}
+
+	/**
+	 * Returns whether the Telescope panel is currently
+	 * in installation mode
+	 */
+	get isInstalling() : boolean {
+		return this.isInstalling;
 	}
 }

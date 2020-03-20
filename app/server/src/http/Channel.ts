@@ -1,5 +1,5 @@
 import WebSocket, { Server } from 'ws';
-import { UserProfile } from 'auth/User';
+import { UserProfile } from '../auth/User';
 
 export class Channel {
 

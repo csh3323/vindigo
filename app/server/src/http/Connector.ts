@@ -1,7 +1,7 @@
 import { Controller } from "./Controller";
 import { RequestHandler } from "express";
-import { UserProfile } from "auth/User";
-import { HttpStatus } from "common/Statuses";
+import { UserProfile } from "../auth/User";
+import { HttpStatus } from "../common/Statuses";
 
 /**
  * Connect the given controller instance to a

@@ -14,7 +14,7 @@ export class TelescopeError extends Error {
  * An error thrown when an error is caught during
  * the handling of an incoming HTTP request.
  */
-export class TelescopeHttpError extends Error {
+export class WebServiceError extends Error {
 	public request: Express.Request;
 
 	constructor(message: string, req: Express.Request) {

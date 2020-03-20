@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { connect } from 'http/Connector';
 import { TestController } from './controllers/TestController';
+import { connect } from './Connector';
 
 /**
  * Configure the core backend API endpoints.

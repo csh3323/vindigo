@@ -1,7 +1,7 @@
-import { Controller } from "http/Controller";
-import { UserProfile } from "auth/User";
 import { Request, Response } from "express";
-import { Schema } from "schema/Schema";
+import { Schema } from "../../schema/Schema";
+import { UserProfile } from "../../auth/User";
+import { Controller } from "../Controller";
 
 /**
  * Simple test controller used to test the backend API

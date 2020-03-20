@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Schema } from "schema";
-import { UserProfile } from "auth/User";
+import { UserProfile } from "../auth/User";
+import { Schema } from "../schema/Schema";
 
 /**
  * Controllers are an essential component of the backend API
