@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { TelescopeHost } from './TelescopeHost';
+import { connect } from 'http/Connector';
+import { TestController } from './controllers/TestController';
 
 /**
  * Configure the core backend API endpoints.
@@ -9,7 +10,9 @@ import { TelescopeHost } from './TelescopeHost';
  * 
  * @param router The router 
  */
-export function setupCoreRoutes(host: TelescopeHost, router: Router) {
+export function setupCoreRoutes(router: Router) {
+
+	router.get('/testing', connect(new TestController()));
 
 	// Authentication
 
