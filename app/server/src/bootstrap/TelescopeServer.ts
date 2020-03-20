@@ -1,5 +1,5 @@
 import { Logger, createLogger, format, transports } from "winston";
-import { TelescopeHost } from "../http/TelescopeHost";
+import { WebService } from "../http/WebService";
 import { TelescopeError } from "../common/Exceptions";
 import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
@@ -22,7 +22,7 @@ export class TelescopeServer {
 
 	public readonly isDebug: boolean;
 
-	public httpHost: TelescopeHost;
+	public httpHost: WebService;
 	public config: Config;
 	public logger: Logger;
 	public installing: boolean;
@@ -61,7 +61,7 @@ export class TelescopeServer {
 		this.logger = this.getLogger('Telescope');
 
 		// Instantiate services
-		this.httpHost = new TelescopeHost(this);
+		this.httpHost = new WebService(this);
 	}
 
 	/**

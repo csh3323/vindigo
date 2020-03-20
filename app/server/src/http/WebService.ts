@@ -1,22 +1,19 @@
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
-import express, { Router, Application, Request, Response, RequestHandler } from 'express';
+import express, { Router, Application } from 'express';
 import { setupCoreRoutes } from './Router';
-import { Channel } from './Channel';
 import { Logger } from 'winston';
 import { Server } from 'http';
 import path from 'path';
 import WebSocket from 'ws';
 import bodyParser from 'body-parser';
-import { Controller } from './Controller';
-import { UserProfile } from 'auth/User';
-import { HttpStatus } from 'common/Statuses';
 
 /**
- * The TelescopeHost class runs the HTTP server
- * used for serving client files, 
+ * The WebService class is responsible for managing
+ * and holding all HTTP connections and related
+ * assets.
  */
-export class TelescopeHost {
+export class WebService {
 
 	public readonly logger: Logger;
 	public readonly app: TelescopeServer;
@@ -25,14 +22,10 @@ export class TelescopeHost {
 	/** The  low level server instance */
 	private httpServer?: Server;
 
-	/** Currently connected channels */
-	private channels: Channel[];
-
 	public constructor(app: TelescopeServer) {
 		this.app = app;
 		this.server = express();
 		this.logger = app.getLogger('HttpHost');
-		this.channels = [];
 
 		// Inject web socket functionality
 		setupWs(this.server);
@@ -101,7 +94,7 @@ export class TelescopeHost {
 	 * @param router Router
 	 */
 	private setupSocket(router: WsRouter) {
-		router.ws('/channel', (ws: WebSocket, req: Request) => {
+		router.ws('/channel', (ws: WebSocket) => {
 			ws.on
 		});
 	}
