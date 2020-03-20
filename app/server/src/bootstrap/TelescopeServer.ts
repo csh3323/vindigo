@@ -5,6 +5,7 @@ import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
 import path from "path";
 import fs from "fs";
+import { DatabaseService } from "../database/DatabaseService";
 
 // The data directory is resolved relative to the build
 // directory in which production files are outputted.
@@ -19,6 +20,7 @@ export class TelescopeServer {
 
 	// Services
 	public readonly web: WebService;
+	public readonly database: DatabaseService;
 
 	public readonly config: Config;
 	public readonly logger: Logger;
@@ -62,6 +64,7 @@ export class TelescopeServer {
 
 		// Instantiate services
 		this.web = new WebService(this);
+		this.database = new DatabaseService(this);
 	}
 
 	/**
