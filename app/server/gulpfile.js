@@ -1,11 +1,12 @@
 const {series, parallel, src, dest} = require('gulp');
 const ts = require('gulp-typescript');
+const sm = require('gulp-sourcemaps');
 const rimraf = require('rimraf');
 const path = require('path');
 
 // Declare constants
 const tsProject = ts.createProject('tsconfig.json');
-const distDir = path.join(__dirname, '../build');
+const distDir = path.join(__dirname, '../../dist/server');
 
 // Cleaning the distribution files
 function clean(cb) {
@@ -14,9 +15,15 @@ function clean(cb) {
 
 // Typescript source files
 function typescript() {
-	const tsr = tsProject.src().pipe(tsProject());
+	return tsProject.src()
+		.pipe(sm.init())
+		.pipe(tsProject())
+		.pipe(sm.write())
+		.pipe(dest(distDir))
 
-	return tsr.js.pipe(dest(distDir));
+	// const tsr = tsProject.src().pipe(tsProject());
+
+	// return tsr.js.pipe(dest(distDir));
 }
 
 // Required staticly served web resources

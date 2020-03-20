@@ -1,4 +1,4 @@
-import { Schema } from '../src/schema';
+import { Schema } from '../src/schema/Schema';
 
 // Simple person schema
 const Person = Schema.of("Person", {

@@ -2,11 +2,13 @@ import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
 import express, { Router, Application, Request, Response } from 'express';
 import { setupCoreRoutes } from './Router';
+import bodyParser from 'body-parser';
 import { Logger } from 'winston';
 import { Server } from 'http';
-import path from 'path';
 import WebSocket from 'ws';
-import bodyParser from 'body-parser';
+import path from 'path';
+import fs from 'fs';
+
 
 /**
  * The WebService class is responsible for managing
@@ -67,10 +69,16 @@ export class WebService {
 	 * @param app The express app
 	 */
 	private registerRouters(app: Application) {
-		const distDir = path.join(__dirname, 'dist');
+		const distDir = path.join(__dirname, '../../../dist/client');
 		const publicDir = path.join(__dirname, 'public');
 		const staticRouter = Router();
 		const apiRouter = Router();
+
+		// Validate the existence of dist
+		if(!fs.existsSync(distDir)) {
+			this.app.terminate();
+			throw new Error('Failed to locate client distribution files');
+		}
 
 		// Configure the static router
 		staticRouter.use(

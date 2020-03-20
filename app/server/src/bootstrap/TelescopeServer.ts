@@ -1,11 +1,11 @@
 import { Logger, createLogger, format, transports } from "winston";
+import { DatabaseService } from "../database/DatabaseService";
 import { WebService } from "../http/WebService";
 import { TelescopeError } from "../common/Exceptions";
 import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
 import path from "path";
 import fs from "fs";
-import { DatabaseService } from "../database/DatabaseService";
 
 // The data directory is resolved relative to the build
 // directory in which production files are outputted.

@@ -8,7 +8,7 @@ const pm2 = require('pm2');
 const fs = require('fs');
 
 // Resolve the telescope main
-const mainPath = path.join(__dirname, 'app/build/main.js');
+const mainPath = path.join(__dirname, 'dist/server/main.js');
 const mainFile = path.normalize(mainPath);
 const colorGreen = '\x1b[32m';
 const colorCyan = '\x1b[36m';
@@ -85,8 +85,7 @@ function startTelescope(input) {
 // Stop the active telescope process
 function stopTelescope(input) {
 	const logger = makeLogger(input.json);
-	const startFile = path.join(__dirname, 'app/build/main.js');
-	const mainFile = path.normalize(startFile);
+	const mainFile = path.normalize(mainPath);
 
 	const handleErr = (err) => {
 		if(!err) return false;

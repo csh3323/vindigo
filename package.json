@@ -9,7 +9,7 @@
 		"build:client": "cd app/client && cross-env NODE_ENV=production webpack",
 		"dev:client": "cd app/client && cross-env NODE_ENV=development webpack-dev-server",
 		"build:server": "cd app/server && gulp -f ./gulpfile.js",
-		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && npm run build:client && node ./app/build/main.js\"",
+		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && node ./dist/server/main.js\"",
 		"test:server": "jest app/server/tests"
 	},
 	"dependencies": {
@@ -49,6 +49,7 @@
 		"fork-ts-checker-webpack-plugin": "^4.0.5",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"gulp": "^4.0.2",
+		"gulp-sourcemaps": "^2.6.5",
 		"gulp-typescript": "^6.0.0-alpha.1",
 		"html-webpack-plugin": "^3.2.0",
 		"jest": "^25.1.0",
