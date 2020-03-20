@@ -9,12 +9,6 @@ import { TelescopeServer } from "../../bootstrap/TelescopeServer";
  */
 export class TestController implements Controller {
 
-	authorize(app: TelescopeServer, req: Request, user?: UserProfile): boolean {
-		console.log(app.logger.info('yeetus'));
-		
-		return Math.random() > 0.5;
-	}
-
 	schema(): Schema {
 		return Schema.of('TestSchema', {
 			type: 'object',
@@ -25,6 +19,12 @@ export class TestController implements Controller {
 				}
 			}
 		});
+	}
+
+	authorize(app: TelescopeServer, req: Request, user?: UserProfile): boolean {
+		console.log(app.logger.info('yeetus'));
+
+		return Math.random() > 0.5;
 	}
 
 	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile): void {

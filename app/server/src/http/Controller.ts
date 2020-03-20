@@ -33,6 +33,15 @@ import { TelescopeServer } from "../bootstrap/TelescopeServer";
 export interface Controller {
 
 	/**
+	 * Called in order to describe the schema expected
+	 * from the request body. The schema is described
+	 * using the JSONSchema specification.
+	 * 
+	 * @returns Schema object
+	 */
+	schema() : Schema;
+
+	/**
 	 * Called in order to verify authorization for the
 	 * inbound connection.
 	 * 
@@ -42,15 +51,6 @@ export interface Controller {
 	 * @returns Whether the connection is permitted
 	 */
 	authorize(app: TelescopeServer, req: Request, user?: UserProfile) : boolean;
-
-	/**
-	 * Called in order to describe the schema expected
-	 * from the request body. The schema is described
-	 * using the JSONSchema specification.
-	 * 
-	 * @returns Schema object
-	 */
-	schema() : Schema;
 
 	/**
 	 * Called in order to execute logic related to this
