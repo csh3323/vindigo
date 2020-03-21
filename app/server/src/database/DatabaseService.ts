@@ -14,7 +14,7 @@ export class DatabaseService {
 	public readonly app: TelescopeServer;
 
 	/** The Sequelize connection instance */
-	public readonly connection: Sequelize;
+	private connection: Sequelize;
 
 	public constructor(app: TelescopeServer) {
 		this.app = app;
@@ -30,7 +30,7 @@ export class DatabaseService {
 		if(driver == 'sqlite') {
 			options.dialect = 'sqlite';
 			options.storage = app.getDataFile('database.sqlite');
-		} else if(driver == 'postgres' || driver == 'mariadb' || driver == 'mysql') {
+		} else if(driver == 'postgres' || driver == 'mariadb') {
 			options.dialect = driver;
 			options.username = username;
 			options.password = password;
@@ -60,6 +60,15 @@ export class DatabaseService {
 	 */
 	public stop() {
 		this.connection.close();
+	}
+
+	/**
+	 * Returns the active sequelize connection
+	 * 
+	 * @returns Sequelize
+	 */
+	public get() : Sequelize {
+		return this.connection;
 	}
 
 }
