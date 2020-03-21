@@ -75,7 +75,9 @@ export class TelescopeServer {
 	public launch() {
 		this.logger.info('Launching telescope server');
 
+		// Start services
 		this.web.start();
+		this.database.start();
 	}
 
 	/**
@@ -85,7 +87,9 @@ export class TelescopeServer {
 	public terminate() {
 		this.logger.info('Terminating telescope server');
 
+		// Shutdown services
 		this.web.stop();
+		this.database.stop();
 	}
 
 	/**

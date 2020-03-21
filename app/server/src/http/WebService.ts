@@ -56,7 +56,7 @@ export class WebService {
 	}
 
 	/**
-	 * Stop the active 
+	 * Stop the active WebService
 	 */
 	public stop() {
 		if(this.httpServer) this.httpServer.close();
