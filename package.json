@@ -14,18 +14,15 @@
 	},
 	"dependencies": {
 		"@vue/composition-api": "^0.4.0",
-		"bluebird": "^3.7.2",
 		"body-parser": "^1.19.0",
 		"death": "^1.1.0",
 		"express": "^4.17.1",
 		"express-ws": "^4.0.0",
 		"jsonschema": "^1.2.5",
+		"knex": "^0.20.12",
 		"lodash": "^4.17.15",
-		"mariadb": "^2.3.1",
 		"moment": "^2.24.0",
 		"pg": "^7.18.2",
-		"pg-hstore": "^2.3.3",
-		"sequelize": "^5.21.5",
 		"sqlite3": "^4.1.1",
 		"umzug": "^2.2.0",
 		"vue": "^2.6.11",
@@ -38,7 +35,6 @@
 		"ws": "^7.2.3"
 	},
 	"devDependencies": {
-		"@types/bluebird": "^3.5.30",
 		"@types/death": "^1.1.0",
 		"@types/express": "^4.17.3",
 		"@types/express-ws": "^3.0.0",

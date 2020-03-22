@@ -1,7 +1,7 @@
 import { Logger } from "winston";
 import { TelescopeServer } from "../bootstrap/TelescopeServer";
-import { Sequelize, Dialect, Options } from 'sequelize';
 import { TelescopeError } from "../common/Exceptions";
+import Knex, {Config as KnexConfig, QueryBuilder, Raw} from 'knex';
 
 /**
  * The DatabaseService class is responsible for managing
@@ -14,35 +14,72 @@ export class DatabaseService {
 	public readonly app: TelescopeServer;
 
 	/** The Sequelize connection instance */
-	private connection: Sequelize;
+	private instance: Knex
 
 	public constructor(app: TelescopeServer) {
 		this.app = app;
 		this.logger = app.getLogger('DatabsaseService');
 
 		// Detect the requested driver
-		const {driver, hostname, username, password, port, name} = app.config.database;
-		const options: Options = {
-			logging: (msg) => this.logger.debug(msg)
+		const config = app.config.database;
+		const options: KnexConfig = {
+			debug: process.env.NODE_ENV == 'development',
+			log: {
+				warn: (msg) => {
+					this.logger.warn(msg);
+				},
+				error: (msg) => {
+					this.logger.error(msg);
+				},
+				debug: (msg) => {
+					this.logger.debug(msg);
+				},
+				deprecate: (msg) => {
+					this.logger.warn('deprecate: ' + msg);
+				}
+			}
 		};
-	
+
 		// Load the correct database details
-		if(driver == 'sqlite') {
-			options.dialect = 'sqlite';
-			options.storage = app.getDataFile('database.sqlite');
-		} else if(driver == 'postgres' || driver == 'mariadb') {
-			options.dialect = driver;
-			options.username = username;
-			options.password = password;
-			options.database = name;
-			options.host = hostname;
-			options.port = port;
-		} else {
-			throw new TelescopeError('Unknown database driver ' + driver);
+		switch(config.driver) {
+			case 'sqlite': {
+				options.client = 'sqlite3'
+				options.connection = {
+					filename: app.getDataFile('database.sqlite')
+				};
+				break;
+			}
+			case 'postgres': {
+				options.dialect = 'pg';
+				options.connection = this.buildConnection(app);
+			}
+			case 'mysql': {
+				options.dialect = 'mysql';
+				options.connection = this.buildConnection(app);
+			}
+			default: {
+				throw new TelescopeError('Unknown database driver ' + config.driver);
+			}
 		}
 
-		// Setup the sequelize instance
-		this.connection = new Sequelize(options);
+		// Create the knex instance
+		this.instance = Knex(options);
+	}
+
+	/**
+	 * Build a connection configuration for Knex
+	 * 
+	 * @param app TelescopeApp
+	 */
+	private buildConnection(app: TelescopeServer) : object {
+		const db = app.config.database;
+
+		return {
+			host: db.hostname,
+			user: db.username,
+			password: db.password,
+			database: db.name
+		}
 	}
 
 	/**
@@ -50,8 +87,13 @@ export class DatabaseService {
 	 * connection params.
 	 */
 	public start() {
-		this.connection.authenticate().then(() => {
-			this.logger.info('Successfully authenticated with database');
+		this.validate().then(success => {
+			if(success) {
+				this.logger.info('Successfully authenticated with database');
+			} else {
+				this.logger.error('Failed database setup');
+				this.app.terminate();
+			}
 		});
 	}
 
@@ -59,16 +101,50 @@ export class DatabaseService {
 	 * Stop the active DatabaseService
 	 */
 	public stop() {
-		this.connection.close();
+		this.knex.destroy();
 	}
 
 	/**
-	 * Returns the active sequelize connection
+	 * Validate the database connection
 	 * 
-	 * @returns Sequelize
+	 * @returns Boolean promise
 	 */
-	public get() : Sequelize {
-		return this.connection;
+	private async validate() : Promise<boolean> {
+		try {
+			await this.knex.raw('select 1+1 as result');
+			return true;
+		} catch (err) {
+			this.logger.error('Failed validation: ', err.message);
+			return false;
+		}
+	}
+
+	/**
+	 * Returns a Knex.js query builder for the given table
+	 * 
+	 * @returns QueryBuilder
+	 */
+	public query(table: string) : QueryBuilder {
+		return this.instance(table);
+	}
+
+	/**
+	 * Utility callback for easy use of the provided knex
+	 * instance
+	 * 
+	 * @param cb Callback receiving the knex instance
+	 */
+	public build(cb: (knex: Knex) => void) {
+		cb(this.instance);
+	}
+
+	/**
+	 * Returns the underlying Knex instance
+	 * 
+	 * @returns Knex instance
+	 */
+	public get knex() : Knex {
+		return this.instance;
 	}
 
 }

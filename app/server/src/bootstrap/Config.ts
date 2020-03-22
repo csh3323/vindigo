@@ -11,10 +11,11 @@ export interface Config {
 	}
 	database: {
 		driver: string
-		hostname: string
-		port: number
-		username: string
-		password: string
-		name: string
+		hostname?: string
+		username?: string
+		password?: string
+		prefix?: string
+		name?: string
+		port?: number
 	}
 }
