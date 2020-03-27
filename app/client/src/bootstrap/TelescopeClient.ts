@@ -4,10 +4,13 @@ import VueI18n from 'vue-i18n';
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import VueCompositionApi from '@vue/composition-api';
-import TelescopeApp from '~/components/TelescopeApp.vue';
+import AppComponent from '~/components/BoardPage.vue';
 
 import 'vuetify/dist/vuetify.min.css';
 import '../../assets/style/common.scss';
+import { RoutingService } from '~/routing/RoutingService';
+import { StoreService } from '~/store/StoreService';
+import { registerDefaults as registerRoutes } from '~/routing/RoutingDefaults';
 
 /**
  * The main Telescope client management class, in charge of
@@ -18,6 +21,12 @@ export class TelescopeClient {
 	/** The root vue instance */
 	public rootVue: Vue;
 
+	/** The router configuration */
+	public readonly router: RoutingService;
+
+	/** The store configuration */
+	public readonly store: StoreService;
+
 	public constructor() {
 		Vue.config.productionTip = false;
 
@@ -26,6 +35,9 @@ export class TelescopeClient {
 		Vue.use(Vuetify);
 		Vue.use(VueRouter);
 		Vue.use(VueCompositionApi);
+
+		this.router = new RoutingService();
+		this.store = new StoreService();
 	}
 
 	/**
@@ -38,16 +50,16 @@ export class TelescopeClient {
 			}
 		});
 
-		let abc = 1;
+		// Register core routing endpoints
+		registerRoutes(this.router);
 
-		abc.toExponential();
-
+		// Instantiate the vue instance
 		this.rootVue = new Vue({
 			el: '#app',
-            router: null,
-            store: null,
+            router: this.router.buildRouter(),
+            store: this.store.buildStore(),
 			vuetify: vuetify,
-            render: h => h(TelescopeApp, {
+            render: h => h(AppComponent, {
 				props: {
 					app: this
 				}
@@ -56,7 +68,6 @@ export class TelescopeClient {
 
 		// Store a global reference
 		window['telescope'] = this;
-		
 	}
 
 }
