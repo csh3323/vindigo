@@ -10,6 +10,7 @@ import { onMounted, onUnmounted } from '@vue/composition-api';
  */
 export function interval(interval: number, callback: Function) {
 	let task: any;
+	
 
 	onMounted(() => {
 		task = setInterval(callback, interval);
