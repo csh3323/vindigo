@@ -11,6 +11,7 @@ import '../../assets/style/common.scss';
 import { RoutingService } from '~/routing/RoutingService';
 import { StoreService } from '~/store/StoreService';
 import { registerDefaults as registerRoutes } from '~/routing/RoutingDefaults';
+import { registerDefaults as registerStore } from '~/store/StoreDefaults';
 
 /**
  * The main Telescope client management class, in charge of
@@ -50,8 +51,9 @@ export class TelescopeClient {
 			}
 		});
 
-		// Register core routing endpoints
+		// Register core routing endpoints and store state
 		registerRoutes(this.router);
+		registerStore(this.store);
 
 		// Instantiate the vue instance
 		this.rootVue = new Vue({
