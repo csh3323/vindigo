@@ -1,5 +1,5 @@
 import VueRouter, { RouterOptions, RouteConfig } from 'vue-router';
-import { IPage } from './IPage';
+import { IPage, IRoutablePage } from './IPage';
 import _ from 'lodash';
 
 /**
@@ -15,13 +15,17 @@ export class RoutingService {
 	private readonly config: RouterOptions;
 
 	/** List of all pages */
-	private readonly pages: IPage[];
+	private readonly pages: IRoutablePage[];
+
+	/** The currently active page */
+	private currentPage?: IRoutablePage;
 
 	/** Editing lock */
 	private initialized: boolean;
 
 	public constructor() {
 		this.initialized = false;
+		this.pages = [];
 		this.config = {
 			mode: 'history',
 			routes: []
@@ -34,12 +38,18 @@ export class RoutingService {
 	 * 
 	 * @param route Route config
 	 */
-	public registerRoute(route: IPage) {
+	public registerRoute(path: string, route: IPage) {
 		if(this.initialized) {
 			throw new Error('Router already configured');
+		} else if(this.hasPage(route.id)) {
+			throw new Error('Page with id "' + route.id + '" already registed');
 		}
 
-		this.pages.push(route);
+		// Append a page instance
+		this.pages.push({
+			...route,
+			path: path
+		});
 	}
 
 	/**
@@ -90,9 +100,17 @@ export class RoutingService {
 
 		this.initialized = true;
 		this.config.routes = this.pages.map(page => ({
-			...page,
+			component: page.view,
+			path: page.path,
+			name: page.name,
 			meta: {
 				id: page.id
+			},
+			beforeEnter: (to, _from, next) => {
+				document.title = 'Telescope — ' + to.name;
+				this.currentPage = page;
+				
+				next();
 			}
 		}));
 
@@ -104,8 +122,21 @@ export class RoutingService {
 	 * initialized and further modifications are no
 	 * longer permitted.
 	 */
-	public get isInitialized() {
+	public get isInitialized() : Boolean {
 		return this.initialized;
+	}
+
+	/**
+	 * Returns the currently active page
+	 * 
+	 * @throws when the user has to entered a page yet
+	 */
+	public get current() : IPage {
+		if(!this.currentPage) {
+			throw new Error('The user has not entered a page yet');
+		}
+
+		return this.currentPage;
 	}
 
 }

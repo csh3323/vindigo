@@ -3,6 +3,7 @@
 		"target": "esnext",
 		"module": "esnext",
 		"outDir": "dist",
+		"strict": true,
 		"importHelpers": true,
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,

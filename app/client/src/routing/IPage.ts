@@ -14,6 +14,24 @@ export interface IPage {
 	id: string;
 
 	/**
+	 * The display title of this page, used as page title.
+	 */
+	name: string;
+
+	/**
+	 * The root component to render on this page
+	 */
+	view: any;
+
+}
+
+/**
+ * Represents a resource that can be identified by
+ * a dynamic path.
+ */
+export interface IRoutable {
+
+	/**
 	 * The public URL to this page in the format '/path/to/resource'.
 	 * Path segments may contain dynamic parameters in order to pass
 	 * dynamic content into pages.
@@ -22,14 +40,11 @@ export interface IPage {
 	 */
 	path: string;
 
-	/**
-	 * The display title of this page, used as page title.
-	 */
-	name: string;
-
-	/**
-	 * The root component to render on this page
-	 */
-	view: VueConstructor<Vue>;
-
 }
+
+/**
+ * Represents a page configuration that is also uniquely
+ * identified by a path. Mainly used interally to describe
+ * vartious routing endpoints.
+ */
+export type IRoutablePage = IPage & IRoutable;
