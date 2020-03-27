@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+type CacheList<T> = ItemEntry<T>[]|null;
+
 /**
  * Item lists are used to create extendible arrays
  * which sort their contents based on item weights.
@@ -9,10 +11,11 @@ import _ from 'lodash';
 export class ItemList<T> {
 
 	private items: { [key: string]: Item<T> };
-	private cache: ItemEntry<T>[];
+	private cache: CacheList<T>;
 
 	constructor() {
 		this.items = {};
+		this.cache = null;
 	}
 
 	/**
@@ -109,6 +112,21 @@ export class ItemList<T> {
 	 */
 	public toArray() : ItemEntry<T>[] {
 		const items = _.map(this.items, (value, key) => ({key, value}));
+
+		if(this.cache) {
+			return this.cache;
+		} else {
+			const arr = items
+				.sort((a, b) => a.value.weight - b.value.weight)
+				.map(item => ({
+					key: item.key,
+					value: item.value.content
+				}));
+
+			this.cache = arr;
+
+			return arr;
+		}
 
 		return this.cache || items
 			.sort((a, b) => a.value.weight - b.value.weight)
