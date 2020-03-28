@@ -48,32 +48,34 @@
 			<v-container fluid class="board-content mb-0 pa-5">
 
 				<!-- Board List -->
-				<v-card
-					v-for="list in board.lists" :key="list.id" 
-					width="300"
-					class="board-content__list d-inline-block elevation-4"
-				>
-					<v-card-title class="body-1 pl-3 pt-3 pr-3 pb-0">
-						<div class="text-truncate">
-							{{list.title}}
+				<transition-group appear name="slide-fade">
+					<v-card
+						v-for="list in board.lists" :key="list.id" 
+						width="300"
+						class="board-content__list d-inline-block elevation-4"
+					>
+						<v-card-title class="body-1 pl-3 pt-3 pr-3 pb-0">
+							<div class="text-truncate">
+								{{list.title}}
+							</div>
+							<v-spacer/>
+							<v-btn icon small @click="removeList(list.id)">
+								<v-icon small>mdi-dots-vertical</v-icon>
+							</v-btn>
+						</v-card-title>
+						<div class="board-content__list-content pl-3 pr-3 pb-3 pt-1">
+							<task v-for="task in list.tasks" :key="task.id" :data="task"></task>
 						</div>
-						<v-spacer/>
-						<v-btn icon small>
-							<v-icon small>mdi-dots-vertical</v-icon>
-						</v-btn>
-					</v-card-title>
-					<div class="board-content__list-content pl-3 pr-3 pb-3 pt-1">
-						<task v-for="task in list.tasks" :key="task.id" :data="task"></task>
-					</div>
-					<div class="pl-3 pr-3 pb-3">
-						<v-btn outlined small block color="blue">
-							<v-icon left>
-								mdi-plus
-							</v-icon>
-							Add task
-						</v-btn>
-					</div>
-				</v-card>
+						<div class="pl-3 pr-3 pb-3">
+							<v-btn outlined small block color="blue">
+								<v-icon left>
+									mdi-plus
+								</v-icon>
+								Add task
+							</v-btn>
+						</div>
+					</v-card>
+				</transition-group>
 
 			</v-container>
 		</v-content>
@@ -97,6 +99,7 @@ export default defineComponent({
 	},
 	setup(props, ctx) {
 		const router = injectKey(RouterKey).router;
+		const test = ref(false);
 
 		// Board information object
 		const board = reactive({
@@ -138,6 +141,14 @@ export default defineComponent({
 				title: _.capitalize(random.word()),
 				tasks: tasks
 			});
+		}
+
+		// Remove a list by id
+		function removeList(id: String) {
+			const list = _.find(board.lists, (list) => list.id == id);
+			const idx = board.lists.indexOf(list);
+
+			board.lists.splice(idx, 1);
 		}
 
 		// Sidebar items list
@@ -193,7 +204,9 @@ export default defineComponent({
 			sbItems,
 			board,
 			boardStyle,
-			addList
+			addList,
+			removeList,
+			test
 		}
 	}
 });
@@ -230,5 +243,19 @@ export default defineComponent({
 			margin-left: 0;
 		}
 	}
+}
+
+.slide-fade-enter-active {
+	transition: transform .1s ease, opacity .1s ease;
+}
+
+.slide-fade-leave-active {
+	transition: transform .1s ease, opacity .1s ease, max-width 0.2s ease;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+	transform: translateY(-10px);
+	opacity: 0;
+	max-width: 0;
 }
 </style>

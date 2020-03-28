@@ -3,14 +3,14 @@
 		<v-container fluid grid-list-sm class="pb-0">
 			<v-layout wrap>
 				<v-flex xs2 v-for="tag in data.tags" :key="tag">
-					<v-tooltip top>
-						<template v-slot:activator="{on}">
-							<div v-on="on" :style="colorTag(tag)"></div>
-						</template>
+					<!-- <v-tooltip top>
+						<template v-slot:activator="{on}"> -->
+							<div :style="colorTag(tag)"></div>
+						<!-- </template>
 						<span>
 							Tag name
 						</span>
-					</v-tooltip>
+					</v-tooltip> -->
 				</v-flex>
 			</v-layout>
 		</v-container>
