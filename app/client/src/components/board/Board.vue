@@ -69,7 +69,7 @@ import { Route } from 'vue-router';
 /**
  * Handle sidebar navigation and generation
  */
-function useSidebar() {
+function useSidebar(controls: any) {
 	const routing = injectKey(RouterKey);
 	const current = ref<Route>(routing.router.currentRoute);
 
@@ -131,7 +131,7 @@ function useSidebar() {
 				title: 'Add list',
 				active: false,
 				handle() {
-					
+					controls.addList();
 				}
 			}
 		]
@@ -189,9 +189,12 @@ function useBoard() {
 export default defineComponent({
 	name: 'board',
 	setup(props, ctx) {
+		const board = useBoard();
+		const sidebar = useSidebar(board.boardControls);
+
 		return {
-			...useSidebar(),
-			...useBoard()
+			...sidebar,
+			...board
 		}
 	}
 });
