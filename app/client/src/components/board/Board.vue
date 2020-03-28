@@ -9,22 +9,25 @@
 			class="board-sidebar secondary elevation-5"
 		>
 			<v-list nav dense class="board-sidebar__nav">
-				<template v-for="btn in sidebar">
-					<v-divider v-if="btn.divider" :key="btn.title"/>
-					<v-tooltip v-else right :key="btn.title">
-						<template v-slot:activator="{on}">
-							<v-list-item :ripple="false" v-on="on" @click="btn.handle" class="my-2">
-								<v-list-item-action>
-									<v-img v-if="btn.img" :src="btn.img" :transition="false"></v-img>
-									<v-icon v-else>{{btn.icon}}</v-icon>
-								</v-list-item-action>
-							</v-list-item>
-						</template>
-						<span>
-							{{btn.title}}
-						</span>
-					</v-tooltip>
-				</template>
+				<div v-for="btn in sidebar" :key="btn.title" class="board-sidebar-item">
+					<v-divider v-if="btn.divider"/>
+					<template v-else>
+						<div :class="{'board-sidebar-item__indicator': true, 'board-sidebar-item__indicator--active': btn.active}"></div>
+						<v-tooltip right>
+							<template v-slot:activator="{on}">
+								<v-list-item :ripple="false" v-on="on" @click="btn.handle" class="my-2">
+									<v-list-item-action>
+										<v-img v-if="btn.img" :src="btn.img" :transition="false"></v-img>
+										<v-icon v-else>{{btn.icon}}</v-icon>
+									</v-list-item-action>
+								</v-list-item>
+							</template>
+							<span>
+								{{btn.title}}
+							</span>
+						</v-tooltip>
+					</template>
+				</div>
 			</v-list>
 		</v-navigation-drawer>
 
@@ -46,7 +49,7 @@
 		<!-- Telescope Board -->
 		<v-content class="board" :style="boardStyle">
 			<v-container fluid class="board-content mb-0 pa-5">
-				<router-view/>
+				<router-view :board="board" :controls="boardControls"/>
 			</v-container>
 		</v-content>
 	</v-app>
@@ -55,87 +58,69 @@
 <script lang="ts">
 import HomeIcon from '../../../assets/img/icon.png';
 
-import { defineComponent, ref, computed, reactive } from "@vue/composition-api";
+import { defineComponent, ref, computed, reactive, onMounted, onUnmounted } from "@vue/composition-api";
 import { StoreKey, injectKey, RouterKey } from "../../common/Providers";
 import { StoreService } from "../../store/StoreService";
 import * as debug from '../../common/Debug';
-import { isHexColor } from '../../common/Utility';
+import { isHexColor, routeChanged } from '../../common/Utility';
 import _ from 'lodash';
+import { Route } from 'vue-router';
 
-export default defineComponent({
-	name: 'board',
-	setup(props, ctx) {
-		const routing = injectKey(RouterKey);
-		const board = reactive(debug.newBoardWithTasks());
+/**
+ * Handle sidebar navigation and generation
+ */
+function useSidebar() {
+	const routing = injectKey(RouterKey);
+	const current = ref<Route>(routing.router.currentRoute);
 
-		// Compute the background
-		const boardStyle = computed(() => {
-			const style = {} as any;
+	// Listen for changes of the current route
+	routeChanged((to) => {
+		current.value = to;
+	});
 
-			if(isHexColor(board.background)) {
-				style.backgroundColor = board.background;
-			} else {
-				style.backgroundImage = 'url(' + board.background + ')';
-			}
+	// Construct the sidebar with dyanmic current value
+	const sidebar = computed(() => {
+		const currId = current.value.meta.id;
 
-			return style;
-		});
-
-		// Append a new list
-		function addList() {
-			board.lists.push(debug.newList());
-		}
-
-		// Remove a list by id
-		function removeList(id: string) {
-			const list = _.find(board.lists, (list) => list.id == id);
-			const idx = board.lists.indexOf(list);
-
-			board.lists.splice(idx, 1);
-		}
-		
-		// Add a new task
-		function addTask(list: string) {
-			const theList = _.find(board.lists, (ls) => ls.id == list);
-
-			theList.tasks.push(debug.newTask());
-		}
-
-		// Sidebar items list
-		const sidebar = ref([
+		return [
 			{
 				img: HomeIcon,
 				title: 'Homepage',
+				active: false,
 				handle() {
-					routing.router.push('/');
+					routing.goto('/');
 				}
 			},
 			{
 				icon: 'mdi-cards',
 				title: 'List Overview',
+				active: currId == 'board-lists',
 				handle() {
-					
+					routing.goto('tasks');
 				}
 			},
 			{
 				icon: 'mdi-calendar',
 				title: 'Calendar View',
+				active: currId == 'board-calendar',
 				handle() {
-					
+					routing.goto('calendar');
 				}
 			},
 			{
 				icon: 'mdi-account',
 				title: 'Members',
+				active: currId == 'board-members',
 				handle() {
-					
+					routing.goto('members');
 				}
 			},
 			{
 				icon: 'mdi-cog',
 				title: 'Board Settings',
+				active: currId == 'board-settings',
 				handle() {
-					
+					routing.goto('settings');
 				}
 			},
 			{
@@ -144,19 +129,69 @@ export default defineComponent({
 			{
 				icon: 'mdi-plus-circle-outline',
 				title: 'Add list',
+				active: false,
 				handle() {
-					addList();
+					
 				}
 			}
-		])
+		]
+	});
 
+	return {
+		sidebar
+	}
+}
+
+/**
+ * Handle board logic including lists and tasks
+ */
+function useBoard() {
+	const board = reactive(debug.newBoardWithTasks());
+
+	const boardStyle = computed(() => {
+		const style = {} as any;
+
+		if(isHexColor(board.background)) {
+			style.backgroundColor = board.background;
+		} else {
+			style.backgroundImage = 'url(' + board.background + ')';
+		}
+
+		return style;
+	});
+
+	const boardControls = { 
+		addList() {
+			board.lists.push(debug.newList());
+		},
+
+		removeList(id: string) {
+			const list = _.find(board.lists, (list) => list.id == id);
+			const idx = board.lists.indexOf(list);
+
+			board.lists.splice(idx, 1);
+		},
+		
+		addTask(list: string) {
+			const theList = _.find(board.lists, (ls) => ls.id == list);
+
+			theList.tasks.push(debug.newTask());
+		}
+	}
+
+	return {
+		board,
+		boardStyle,
+		boardControls
+	}
+}
+
+export default defineComponent({
+	name: 'board',
+	setup(props, ctx) {
 		return {
-			sidebar,
-			board,
-			boardStyle,
-			addList,
-			addTask,
-			removeList
+			...useSidebar(),
+			...useBoard()
 		}
 	}
 });
@@ -165,6 +200,26 @@ export default defineComponent({
 <style lang="scss">
 .app-titlebar {
 	backdrop-filter: blur(3px);
+}
+
+.board-sidebar-item {
+	position: relative;
+
+	&__indicator {
+		width: 4px;
+		position: absolute;
+		top: 0;
+		left: -12px;
+		bottom: 0;
+		background-color: rgb(0, 204, 255);
+		border-top-right-radius: 100px;
+		border-bottom-right-radius: 100px;
+		transition: left .2s;
+
+		&--active {
+			left: -8px;
+		}
+	}
 }
 
 .board {

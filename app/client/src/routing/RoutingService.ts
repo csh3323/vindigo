@@ -1,4 +1,4 @@
-import VueRouter, { RouterOptions, RouteConfig } from 'vue-router';
+import VueRouter, { RouterOptions, RouteConfig, RawLocation, Route } from 'vue-router';
 import { IPage, IRoutablePage } from './IPage';
 import _ from 'lodash';
 import { Router } from 'express';
@@ -103,24 +103,57 @@ export class RoutingService {
 		}
 
 		this.initialized = true;
-		this.config.routes = this.pages.map(page => ({
+		this.config.routes = this.pages.map(this.composeRoute.bind(this));
+
+		const router = new VueRouter(this.config);
+		this.vueRouter = router;
+		return router;
+	}
+
+	/**
+	 * Recursively compose a RouteConfig tree for the
+	 * given page and all its child pages.
+	 * 
+	 * @param page The page
+	 * @returns RouteConfig
+	 */
+	private composeRoute(page: IRoutablePage) : RouteConfig {
+		const route: RouteConfig = {
 			component: page.view,
 			path: page.path,
 			name: page.name,
-			meta: {
-				id: page.id
-			},
+			meta: { id: page.id },
+			children: (page.children || []).map(page => this.composeRoute(page)),
 			beforeEnter: (to, _from, next) => {
 				document.title = 'Telescope — ' + to.name;
 				this.currentPage = page;
 				
 				next();
 			}
-		}));
+		}
 
-		const router = new VueRouter(this.config);
-		this.vueRouter = router;
-		return router;
+		if(page.redirect) {
+			route.redirect = page.redirect;
+		}
+
+		return route;
+	}
+
+	/**
+	 * Navigate to the specified location
+	 * 
+	 * @param location The location, or undefined if no navigation was peformed
+	 */
+	public async goto(location: RawLocation) : Promise<Route|undefined> {
+		try {
+			const route = await this.router.push(location);
+			console.debug('Navigated to route ' + route.name);
+			return route;
+		} catch (err) {
+			if(err.name == 'NavigationDuplicated') return;
+			console.error('Error caught during page navigation');
+			throw err;
+		}
 	}
 
 	/**

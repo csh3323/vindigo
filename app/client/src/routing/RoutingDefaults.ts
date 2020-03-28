@@ -15,6 +15,7 @@ export function registerDefaults(router: RoutingService) {
 		id: 'board',
 		name: 'Board Overview',
 		view: BoardPage,
+		redirect: '/board/:id/tasks',
 		children: [
 			{
 				path: 'tasks',
@@ -26,6 +27,12 @@ export function registerDefaults(router: RoutingService) {
 				path: 'calendar',
 				id: 'board-calendar',
 				name: 'Board Calendar',
+				view: BoardLists
+			},
+			{
+				path: 'members',
+				id: 'board-members',
+				name: 'Board Members',
 				view: BoardLists
 			},
 			{

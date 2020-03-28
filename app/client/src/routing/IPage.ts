@@ -19,7 +19,7 @@ export interface IPage {
 	name: string;
 
 	/**
-	 * The root component to render on this page
+	 * The component to render on this page
 	 */
 	view: any;
 
@@ -27,6 +27,12 @@ export interface IPage {
 	 * List of child pages, used for hierarchical rendering
 	 */
 	children?: IRoutablePage[];
+
+	/**
+	 * An optional redirection route to offset the request to
+	 * another routing handler
+	 */
+	redirect?: string;
 }
 
 /**

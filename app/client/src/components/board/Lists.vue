@@ -44,9 +44,13 @@ export default defineComponent({
 	components: {
 		Task
 	},
+	props: {
+		board: { required: true },
+		controls: { required: true, type: Object }
+	},
 	setup(props, ctx) {
 		return {
-			
+			...props.controls
 		}
 	}
 });
