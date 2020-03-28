@@ -17,16 +17,16 @@ import { VueConstructor } from 'vue';
  * @param method The method to override
  * @param callback Custom logic to patch onto the original method
  */
-export function patch(component: VueConstructor, method: string, callback: (any) => any) {
-	const handler = component['methods'][method];
+// export function patch(component: VueConstructor, method: string, callback: (any) => any) {
+// 	const handler = component['methods'][method];
 
-	component['methods'][method] = function() {
-		const value = handler ? handler.apply(this, arguments) : undefined;
+// 	component['methods'][method] = function() {
+// 		const value = handler ? handler.apply(this, arguments) : undefined;
 
-		callback.apply(this, [value].concat(arguments));
+// 		callback.apply(this, [value].concat(arguments));
 
-		return value;
-	};
+// 		return value;
+// 	};
 
-	Object.assign(component['methods'][method], handler);
-}
+// 	Object.assign(component['methods'][method], handler);
+// }

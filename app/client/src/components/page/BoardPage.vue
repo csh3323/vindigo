@@ -161,6 +161,7 @@ export default defineComponent({
 	.v-list-item:first-child {
 		margin-top: 2px !important;
 	}
+	
 }
 
 .board-content {
