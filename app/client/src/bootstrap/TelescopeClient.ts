@@ -1,5 +1,6 @@
 import 'vuetify/dist/vuetify.min.css';
 import '../../assets/style/common.scss';
+import '../../assets/style/default.scss';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -48,7 +49,7 @@ export class TelescopeClient {
 	public launch() {
 		const colorTheme = {
 			primary: Colors.blueGrey.base,
-			secondary: Colors.grey.darken3,
+			secondary: Colors.grey.darken4,
 			accent: Colors.lightBlue.base,
 			success: Colors.lightGreen.base,
 		};

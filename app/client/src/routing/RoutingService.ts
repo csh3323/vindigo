@@ -1,6 +1,7 @@
 import VueRouter, { RouterOptions, RouteConfig } from 'vue-router';
 import { IPage, IRoutablePage } from './IPage';
 import _ from 'lodash';
+import { Router } from 'express';
 
 /**
  * The class used to define application routes
@@ -16,6 +17,9 @@ export class RoutingService {
 
 	/** List of all pages */
 	private readonly pages: IRoutablePage[];
+
+	/** The vue router instance */
+	private vueRouter?: VueRouter;
 
 	/** The currently active page */
 	private currentPage?: IRoutablePage;
@@ -114,7 +118,9 @@ export class RoutingService {
 			}
 		}));
 
-		return new VueRouter(this.config);
+		const router = new VueRouter(this.config);
+		this.vueRouter = router;
+		return router;
 	}
 
 	/**
@@ -137,6 +143,19 @@ export class RoutingService {
 		}
 
 		return this.currentPage;
+	}
+
+	/**
+	 * Returns the internal vue router instance
+	 * 
+	 * @throws when the router has not been built yet
+	 */
+	public get router() : VueRouter {
+		if(this.vueRouter === undefined) {
+			throw new Error('The router has not been built yet');
+		}
+
+		return this.vueRouter;
 	}
 
 }
