@@ -1,11 +1,11 @@
 import { RoutingService } from './RoutingService';
-import BoardPage from '../components/page/BoardPage.vue';
+import BoardPage from '../components/board/Board.vue';
 
 export function registerDefaults(router: RoutingService) {
 	
 	router.registerRoute('/', {
-		id: 'page-not-found',
-		name: 'Page Not Found',
+		id: 'dev-page',
+		name: 'Board',
 		view: BoardPage
 	});
 
