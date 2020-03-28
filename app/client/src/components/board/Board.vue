@@ -9,13 +9,13 @@
 			class="board-sidebar secondary elevation-5"
 		>
 			<v-list nav dense class="board-sidebar__nav">
-				<template v-for="btn in sbItems">
+				<template v-for="btn in sidebar">
 					<v-divider v-if="btn.divider" :key="btn.title"/>
 					<v-tooltip v-else right :key="btn.title">
 						<template v-slot:activator="{on}">
 							<v-list-item :ripple="false" v-on="on" @click="btn.handle" class="my-2">
 								<v-list-item-action>
-									<v-img v-if="btn.img" :src="btn.img"></v-img>
+									<v-img v-if="btn.img" :src="btn.img" :transition="false"></v-img>
 									<v-icon v-else>{{btn.icon}}</v-icon>
 								</v-list-item-action>
 							</v-list-item>
@@ -29,7 +29,7 @@
 		</v-navigation-drawer>
 
 		<!-- Toolbar -->
-		<v-app-bar app color="rgba(0, 0, 0, 0.25)" class="elevation-0">
+		<v-app-bar app color="rgba(0, 0, 0, 0.3)" class="app-titlebar elevation-0">
 			<span class="white--text title">
 				{{board.title}}
 			</span>
@@ -46,37 +46,7 @@
 		<!-- Telescope Board -->
 		<v-content class="board" :style="boardStyle">
 			<v-container fluid class="board-content mb-0 pa-5">
-
-				<!-- Board List -->
-				<transition-group appear name="slide-fade">
-					<v-card
-						v-for="list in board.lists" :key="list.id" 
-						width="300"
-						class="board-content__list d-inline-block elevation-4"
-					>
-						<v-card-title class="body-1 pl-3 pt-3 pr-3 pb-0">
-							<div class="text-truncate">
-								{{list.title}}
-							</div>
-							<v-spacer/>
-							<v-btn icon small @click="removeList(list.id)">
-								<v-icon small>mdi-dots-vertical</v-icon>
-							</v-btn>
-						</v-card-title>
-						<div class="board-content__list-content pl-3 pr-3 pb-3 pt-1">
-							<task v-for="task in list.tasks" :key="task.id" :data="task"></task>
-						</div>
-						<div class="pl-3 pr-3 pb-3">
-							<v-btn outlined small block color="blue">
-								<v-icon left>
-									mdi-plus
-								</v-icon>
-								Add task
-							</v-btn>
-						</div>
-					</v-card>
-				</transition-group>
-
+				<router-view/>
 			</v-container>
 		</v-content>
 	</v-app>
@@ -88,36 +58,24 @@ import HomeIcon from '../../../assets/img/icon.png';
 import { defineComponent, ref, computed, reactive } from "@vue/composition-api";
 import { StoreKey, injectKey, RouterKey } from "../../common/Providers";
 import { StoreService } from "../../store/StoreService";
-import { random } from 'faker';
-import Task from './Task.vue';
+import * as debug from '../../common/Debug';
+import { isHexColor } from '../../common/Utility';
 import _ from 'lodash';
 
 export default defineComponent({
 	name: 'board',
-	components: {
-		Task
-	},
 	setup(props, ctx) {
-		const router = injectKey(RouterKey).router;
-		const test = ref(false);
-
-		// Board information object
-		const board = reactive({
-			// backgroundImage: 'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2560x1703/2af5e1bfcfbaaac81054e415c60443dd/photo-1451187580459-43490279c0fa',
-			backgroundImage: null,
-			backgroundColor: '#1289A7',
-			title: 'Project Asteroids',
-			lists: [] as any[]
-		});
+		const routing = injectKey(RouterKey);
+		const board = reactive(debug.newBoardWithTasks());
 
 		// Compute the background
 		const boardStyle = computed(() => {
 			const style = {} as any;
 
-			if(board.backgroundImage) {
-				style.backgroundImage = 'url(' + board.backgroundImage + ')';
+			if(isHexColor(board.background)) {
+				style.backgroundColor = board.background;
 			} else {
-				style.backgroundColor = board.backgroundColor;
+				style.backgroundImage = 'url(' + board.background + ')';
 			}
 
 			return style;
@@ -125,39 +83,31 @@ export default defineComponent({
 
 		// Append a new list
 		function addList() {
-			let tasks: any[] = [];
-			let count = 1 + (Math.random() * 7);
-
-			for(let i = 0; i < count; i++) {
-				tasks.push({
-					id: ''+Math.random(),
-					title: _.capitalize(random.words()),
-					tags: ['#A3CB38', '#e74c3c']
-				});
-			}
-
-			board.lists.push({
-				id: ''+Math.random(),
-				title: _.capitalize(random.word()),
-				tasks: tasks
-			});
+			board.lists.push(debug.newList());
 		}
 
 		// Remove a list by id
-		function removeList(id: String) {
+		function removeList(id: string) {
 			const list = _.find(board.lists, (list) => list.id == id);
 			const idx = board.lists.indexOf(list);
 
 			board.lists.splice(idx, 1);
 		}
+		
+		// Add a new task
+		function addTask(list: string) {
+			const theList = _.find(board.lists, (ls) => ls.id == list);
+
+			theList.tasks.push(debug.newTask());
+		}
 
 		// Sidebar items list
-		const sbItems = ref([
+		const sidebar = ref([
 			{
 				img: HomeIcon,
 				title: 'Homepage',
 				handle() {
-					router.push('/');
+					routing.router.push('/');
 				}
 			},
 			{
@@ -201,18 +151,22 @@ export default defineComponent({
 		])
 
 		return {
-			sbItems,
+			sidebar,
 			board,
 			boardStyle,
 			addList,
-			removeList,
-			test
+			addTask,
+			removeList
 		}
 	}
 });
 </script>
 
 <style lang="scss">
+.app-titlebar {
+	backdrop-filter: blur(3px);
+}
+
 .board {
 	background-size: cover;
 	background-position: center center;

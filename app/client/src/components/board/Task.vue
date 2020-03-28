@@ -1,6 +1,6 @@
 <template>
 	<v-card class="task elevation-1">
-		<v-container fluid grid-list-sm class="pb-0">
+		<v-container fluid grid-list-sm class="pb-0" v-if="data.tags.length">
 			<v-layout wrap>
 				<v-flex xs2 v-for="tag in data.tags" :key="tag">
 					<!-- <v-tooltip top>
@@ -14,7 +14,7 @@
 				</v-flex>
 			</v-layout>
 		</v-container>
-		<v-card-text class="pl-3 pb-3 pr-3 pt-2 black--text">
+		<v-card-text class="pl-3 pb-3 pr-3 pt-3 black--text">
 			{{data.title}}
 		</v-card-text>
 	</v-card>

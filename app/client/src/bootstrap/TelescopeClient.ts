@@ -1,4 +1,4 @@
-import 'vuetify/dist/vuetify.css';
+import 'vuetify/dist/vuetify.min.css';
 import '../../assets/style/common.scss';
 import '../../assets/style/default.scss';
 

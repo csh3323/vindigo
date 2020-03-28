@@ -23,6 +23,10 @@ export interface IPage {
 	 */
 	view: any;
 
+	/**
+	 * List of child pages, used for hierarchical rendering
+	 */
+	children?: IRoutablePage[];
 }
 
 /**
