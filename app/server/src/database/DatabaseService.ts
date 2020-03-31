@@ -39,6 +39,17 @@ export class DatabaseService {
 				deprecate: (msg) => {
 					this.logger.warn('deprecate: ' + msg);
 				}
+			},
+			pool: {
+				min: 1,
+				max: 7,
+				afterCreate: (conn: any, done: any) => {
+					this.logger.debug('Initialized new connection');
+					done(false, conn);
+				}
+			},
+			migrations: {
+				tableName: this.tableName('migrations')
 			}
 		};
 
@@ -92,6 +103,8 @@ export class DatabaseService {
 	 * connection params.
 	 */
 	public start() {
+		this.logger.info('Configured database driver for ' + this.app.config.database.driver);
+
 		this.validate().then(success => {
 			if(success) {
 				this.logger.info('Successfully authenticated with database');
@@ -122,6 +135,15 @@ export class DatabaseService {
 			this.logger.error('Failed validation: ', err.message);
 			return false;
 		}
+	}
+
+	/**
+	 * Prefixes the given table name with the table prefix
+	 * 
+	 * @param name The table
+	 */
+	public tableName(name: string) : string {
+		return (this.app.config.database.prefix || '') + name;
 	}
 
 	/**

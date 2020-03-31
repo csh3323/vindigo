@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { TestController } from './controllers/TestController';
 import { TelescopeServer } from '../bootstrap/TelescopeServer';
 import { createConnector } from './Connector';
+import { WebService } from './WebService';
 
 /**
  * Configure the core backend API endpoints.
@@ -9,11 +10,11 @@ import { createConnector } from './Connector';
  * Extensions will be able to hook in additional API endpoints
  * after the core routes have been registered.
  * 
- * @param app The TelescopeServer
+ * @param web The WebService
  * @param router The router 
  */
-export function setupCoreRoutes(app: TelescopeServer, router: Router) {
-	const connect = createConnector(app);
+export function setupCoreRoutes(web: WebService, router: Router) {
+	const connect = createConnector(web);
 
 	router.get('/testing', connect(new TestController()));
 

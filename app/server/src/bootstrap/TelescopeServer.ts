@@ -74,6 +74,12 @@ export class TelescopeServer {
 	 */
 	public launch() {
 		this.logger.info('Launching telescope server');
+		
+		if(this.isDebug) {
+			this.logger.info('Initializing in development mode');
+		} else {
+			this.logger.info('Initializing production services');
+		}
 
 		// Start services
 		this.web.start();

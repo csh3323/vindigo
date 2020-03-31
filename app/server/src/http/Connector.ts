@@ -3,17 +3,20 @@ import { RequestHandler } from "express";
 import { UserProfile } from "../auth/UserProfile";
 import { HttpStatus } from "../common/Statuses";
 import { TelescopeServer } from "../bootstrap/TelescopeServer";
+import { WebService } from "./WebService";
 
 /**
  * Create a connector function that can connect
  * a supplied Controller to an express supported
  * RequestHandler function.
  * 
- * @param app The TelescopeServer
+ * @param web The WebService
  * @returns connector function
  */
-export function createConnector(app: TelescopeServer) {
+export function createConnector(web: WebService) {
 	return function connect(controller: Controller) : RequestHandler {
+		web.logger.debug('Connecting controller ' + controller.constructor.name)
+
 		return (req, res) => {
 			let user: UserProfile|undefined;
 
@@ -23,7 +26,7 @@ export function createConnector(app: TelescopeServer) {
 			// Authorize the call and respond with 401 Unauthorized
 			// when the user is not currently logged in, and with
 			// 403 Forbidden when the user lacks permission.
-			if(!controller.authorize(app, req, user)) {
+			if(!controller.authorize(web.app, req, user)) {
 				res.sendStatus(user ? HttpStatus.Forbidden : HttpStatus.Unauthorized);
 				return; 
 			}
@@ -41,7 +44,7 @@ export function createConnector(app: TelescopeServer) {
 
 			// Forward the request and response handles to the
 			// controller handle method for further processing.
-			controller.handle(app, req, res);
+			controller.handle(web.app, req, res);
 		};
 	}
 }
