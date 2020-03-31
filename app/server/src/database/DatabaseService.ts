@@ -1,7 +1,8 @@
 import { Logger } from "winston";
 import { TelescopeServer } from "../bootstrap/TelescopeServer";
 import { TelescopeError } from "../common/Exceptions";
-import Knex, {Config as KnexConfig, QueryBuilder, Raw} from 'knex';
+import { Model } from 'objection';
+import Knex, { Config } from 'knex';
 
 /**
  * The DatabaseService class is responsible for managing
@@ -22,7 +23,8 @@ export class DatabaseService {
 
 		// Detect the requested driver
 		const config = app.config.database;
-		const options: KnexConfig = {
+		const options: Config = {
+			useNullAsDefault: true,
 			debug: process.env.NODE_ENV == 'development',
 			log: {
 				warn: (msg) => {
@@ -64,6 +66,9 @@ export class DatabaseService {
 
 		// Create the knex instance
 		this.instance = Knex(options);
+
+		// Setup the model
+		Model.knex(this.instance);
 	}
 
 	/**
@@ -117,25 +122,6 @@ export class DatabaseService {
 			this.logger.error('Failed validation: ', err.message);
 			return false;
 		}
-	}
-
-	/**
-	 * Returns a Knex.js query builder for the given table
-	 * 
-	 * @returns QueryBuilder
-	 */
-	public query(table: string) : QueryBuilder {
-		return this.instance(table);
-	}
-
-	/**
-	 * Utility callback for easy use of the provided knex
-	 * instance
-	 * 
-	 * @param cb Callback receiving the knex instance
-	 */
-	public build(cb: (knex: Knex) => void) {
-		cb(this.instance);
 	}
 
 	/**
