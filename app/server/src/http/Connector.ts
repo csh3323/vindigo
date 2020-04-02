@@ -1,7 +1,7 @@
 import { Controller } from "./Controller";
 import { RequestHandler } from "express";
 import { HttpStatus } from "../common/Statuses";
-import { TelescopeServer } from "../bootstrap/TelescopeServer";
+import { TeleboardServer } from "../bootstrap/TeleboardServer";
 import { WebService } from "./WebService";
 import { UserProfile } from "../database/model/UserProfile";
 

@@ -1,6 +1,6 @@
 /**
  * A class representing a single user account on
- * this Telescope instance. Each user contains
+ * this Teleboard instance. Each user contains
  * a snapshot of information 
  */
 export class UserProfileLegacy {

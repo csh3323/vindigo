@@ -1,4 +1,4 @@
-import { TelescopeServer } from '../bootstrap/TelescopeServer';
+import { TeleboardServer } from '../bootstrap/TeleboardServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
 import express, { Router, Application, Request, Response } from 'express';
 import { setupCoreRoutes } from './Router';
@@ -18,13 +18,13 @@ import fs from 'fs';
 export class WebService {
 
 	public readonly logger: Logger;
-	public readonly app: TelescopeServer;
+	public readonly app: TeleboardServer;
 	public readonly server: Application;
 
 	/** The  low level server instance */
 	private httpServer?: Server;
 
-	public constructor(app: TelescopeServer) {
+	public constructor(app: TeleboardServer) {
 		this.app = app;
 		this.server = express();
 		this.logger = app.getLogger('WebService');
@@ -35,7 +35,7 @@ export class WebService {
 
 	/**
 	 * Start the web server and bind to the port defined
-	 * in the Telescope config
+	 * in the Teleboard config
 	 */
 	public start() {
 		const port = this.app.config.web.port;

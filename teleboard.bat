@@ -1,5 +1,5 @@
 @echo off
-node telescope %*
+node teleboard %*
 
 rem errorlevel 9009 means the command didn't work
 if %errorlevel% == 9009 (
@@ -10,4 +10,4 @@ if %errorlevel% == 9009 (
 
 :error
 echo.
-echo It looks like NodeJS is not installed yet. Node is required to run Telescope
+echo It looks like NodeJS is not installed yet. Node is required to run Teleboard

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { TestController } from './controllers/TestController';
-import { TelescopeServer } from '../bootstrap/TelescopeServer';
+import { TeleboardServer } from '../bootstrap/TeleboardServer';
 import { createConnector } from './Connector';
 import { WebService } from './WebService';
 

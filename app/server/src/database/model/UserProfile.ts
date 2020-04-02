@@ -1,7 +1,7 @@
 import { Model } from "objection";
 
 /**
- * Represents a registered Telescope user account
+ * Represents a registered Teleboard user account
  */
 export class UserProfile extends Model {
 

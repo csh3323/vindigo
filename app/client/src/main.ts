@@ -1,5 +1,5 @@
-import {TelescopeClient} from './bootstrap/TelescopeClient';
+import {TeleboardClient} from './bootstrap/TeleboardClient';
 
-const client = new TelescopeClient();
+const client = new TeleboardClient();
 
 client.launch();

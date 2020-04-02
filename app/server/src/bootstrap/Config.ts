@@ -1,5 +1,5 @@
 /**
- * Config used to configure the Telescope setup
+ * Config used to configure the Teleboard setup
  */
 export interface Config {
 	debug: boolean,

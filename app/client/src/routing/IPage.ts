@@ -1,7 +1,7 @@
 import { VueConstructor } from 'vue';
 
 /**
- * Represents a single page accessible in the Telescope
+ * Represents a single page accessible in the Teleboard
  * client application. Each page is uniquely identified
  * by its id field, allowing routes to be referenced and
  * removed during configuration.

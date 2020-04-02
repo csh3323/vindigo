@@ -125,7 +125,7 @@ export class RoutingService {
 			meta: { id: page.id },
 			children: (page.children || []).map(page => this.composeRoute(page)),
 			beforeEnter: (to, _from, next) => {
-				document.title = 'Telescope — ' + to.name;
+				document.title = 'Teleboard — ' + to.name;
 				this.currentPage = page;
 				
 				next();

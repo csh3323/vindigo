@@ -46,7 +46,7 @@
 			/>
 		</v-app-bar>
 
-		<!-- Telescope Board -->
+		<!-- Teleboard Board -->
 		<v-content class="board" :style="boardStyle">
 			<v-container fluid class="board-content mb-0 pa-5">
 				<router-view :board="board" :controls="boardControls"/>
@@ -65,6 +65,7 @@ import * as debug from '../../common/Debug';
 import { isHexColor, routeChanged } from '../../common/Utility';
 import _ from 'lodash';
 import { Route } from 'vue-router';
+import { IBoardList } from '../../common/Board';
 
 /**
  * Handle sidebar navigation and generation
@@ -166,14 +167,21 @@ function useBoard() {
 		},
 
 		removeList(id: string) {
-			const list = _.find(board.lists, (list) => list.id == id);
-			const idx = board.lists.indexOf(list);
+			const theList = _.find(board.lists, (list) => list.id == id);
 
-			board.lists.splice(idx, 1);
+			if(theList === undefined) {
+				throw new Error();
+			}
+
+			board.lists.splice(board.lists.indexOf(theList), 1);
 		},
 		
 		addTask(list: string) {
 			const theList = _.find(board.lists, (ls) => ls.id == list);
+
+			if(theList === undefined) {
+				throw new Error();
+			}
 
 			theList.tasks.push(debug.newTask());
 		}

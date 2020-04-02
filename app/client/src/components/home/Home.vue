@@ -16,7 +16,7 @@
 			/>
 		</v-app-bar>
 
-		<!-- Telescope Board -->
+		<!-- Teleboard Board -->
 		<v-content class="homepage red">
 			<div class="pa-5">
 				<v-card class="mb-3">

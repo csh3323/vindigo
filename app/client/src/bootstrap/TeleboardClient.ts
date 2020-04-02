@@ -16,10 +16,10 @@ import { registerDefaults as registerRoutes } from '~/routing/RoutingDefaults';
 import { registerDefaults as registerStore } from '~/store/StoreDefaults';
 
 /**
- * The main Telescope client management class, in charge of
- * handling all client side aspects of Telescope.
+ * The main Teleboard client management class, in charge of
+ * handling all client side aspects of Teleboard.
  */
-export class TelescopeClient {
+export class TeleboardClient {
 
 	/** The root vue instance */
 	public instance!: Vue;
@@ -44,7 +44,7 @@ export class TelescopeClient {
 	}
 
 	/**
-	 * Launch the Telescope Client
+	 * Launch the Teleboard Client
 	 */
 	public launch() {
 		const colorTheme = {
@@ -83,7 +83,7 @@ export class TelescopeClient {
         });
 
 		// Store a global reference
-		Object.defineProperty(window, 'telescope', {
+		Object.defineProperty(window, 'teleboard', {
 			value: this,
 			writable: false
 		});

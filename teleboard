@@ -7,7 +7,7 @@ const path = require('path');
 const pm2 = require('pm2');
 const fs = require('fs');
 
-// Resolve the telescope main
+// Resolve the teleboard main
 const mainPath = path.join(__dirname, 'dist/server/main.js');
 const mainFile = path.normalize(mainPath);
 const colorGreen = '\x1b[32m';
@@ -39,8 +39,8 @@ function bytesToSize(bytes) {
    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-// Launch telescope with pm2
-function startTelescope(input) {
+// Launch teleboard with pm2
+function startTeleboard(input) {
 	const logger = makeLogger(input.json);
 
 	const handleErr = (err) => {
@@ -56,12 +56,12 @@ function startTelescope(input) {
 	pm2.connect((err) => {
 		if(handleErr(err)) return;
 
-		logger.info('Starting telescope daemon...');
+		logger.info('Starting teleboard daemon...');
 
 		pm2.start(mainFile, {autorestart: false}, (err, proc) => {
 			if(err) {
 				if(err.toString().startsWith('Error: Script already launched')) {
-					logger.warn('Telescope is already running!');
+					logger.warn('Teleboard is already running!');
 					pm2.disconnect();
 					return;
 				} else {
@@ -72,9 +72,9 @@ function startTelescope(input) {
 			pm2.describe(proc[0]['pm_id'], (err, desc) => {
 				if(handleErr(err)) return;
 
-				logger.info('Successfully started Telescope');
-				logger.info('- Use '+colorCyan+'telescope status'+colorReset+' to view process information');
-				logger.info('- Use '+colorCyan+'telescope stop'+colorReset+' to terminate telescope');
+				logger.info('Successfully started Teleboard');
+				logger.info('- Use '+colorCyan+'teleboard status'+colorReset+' to view process information');
+				logger.info('- Use '+colorCyan+'teleboard stop'+colorReset+' to terminate teleboard');
 				
 				pm2.disconnect();
 			});
@@ -82,8 +82,8 @@ function startTelescope(input) {
 	});
 }
 
-// Stop the active telescope process
-function stopTelescope(input) {
+// Stop the active teleboard process
+function stopTeleboard(input) {
 	const logger = makeLogger(input.json);
 	const mainFile = path.normalize(mainPath);
 
@@ -115,11 +115,11 @@ function stopTelescope(input) {
 				pm2.stop(id, (err) => {
 					if(handleErr(err)) return;
 
-					logger.info('Successfully terminated Telescope');
+					logger.info('Successfully terminated Teleboard');
 					pm2.disconnect();
 				});
 			} else {
-				logger.warn('Telescope is not currently running');
+				logger.warn('Teleboard is not currently running');
 				pm2.disconnect();
 			}
 		});
@@ -156,13 +156,13 @@ function showStatus(input) {
 				const monitor = theProc.monit;
 				const uptime = Date.now() - theProc['pm2_env'].created_at;
 
-				logger.info('Telescope is up and running!');
+				logger.info('Teleboard is up and running!');
 				logger.info('');
 				logger.info('Memory: ' + colorCyan + bytesToSize(monitor.memory) + colorReset);
 				logger.info('Cpu:    ' + colorCyan + monitor.cpu + '%' + colorReset);
 				logger.info('Uptime: ' + colorCyan + moment.duration(uptime).humanize() + colorReset);
 			} else {
-				logger.warn('Telescope is not currently running');
+				logger.warn('Teleboard is not currently running');
 			}
 
 			pm2.disconnect();
@@ -170,17 +170,17 @@ function showStatus(input) {
 	});
 }
 
-// Start the Telescope server in the foreground
-function runTelescope(input) {
+// Start the Teleboard server in the foreground
+function runTeleboard(input) {
 	const logger = makeLogger(input.json);
 
-	logger.info('Starting Telescope as foreground process...')
+	logger.info('Starting Teleboard as foreground process...')
 
 	require(mainFile);
 }
 
 // Execute the server and client build commands
-function buildTelescope(input) {
+function buildTeleboard(input) {
 	const logger = makeLogger(input.json);
 	const then = Date.now();
 
@@ -192,8 +192,8 @@ function buildTelescope(input) {
 
 	logger.info('Server & Client compiling successful!'+colorGreen+' ('+duration+'ms)'+colorReset);
 	logger.info('');
-	logger.info('- Telescope can now be started with'+colorCyan+' telescope start'+colorReset);
-	logger.info('- Run telescope directly with'+colorCyan+' telescope run'+colorReset);
+	logger.info('- Teleboard can now be started with'+colorCyan+' teleboard start'+colorReset);
+	logger.info('- Run teleboard directly with'+colorCyan+' teleboard run'+colorReset);
 }
 
 // Print out the config JSON
@@ -210,18 +210,18 @@ function showConfig() {
 
 // Handle the command input
 require('yargs')
-	.scriptName("telescope")
+	.scriptName("teleboard")
 	.usage('$0 <cmd> [options]')
 	.default('help')
 	.command({
 		command: 'start',
-		desc: 'Launch the Telescope server',
-		handler: startTelescope
+		desc: 'Launch the Teleboard server',
+		handler: startTeleboard
 	})
 	.command({
 		command: 'stop',
-		desc: 'Terminate the Telescope server',
-		handler: stopTelescope
+		desc: 'Terminate the Teleboard server',
+		handler: stopTeleboard
 	})
 	.command({
 		command: 'status',
@@ -230,18 +230,18 @@ require('yargs')
 	})
 	.command({
 		command: 'run',
-		desc: 'Start the Telescope server in the foreground',
-		handler: runTelescope
+		desc: 'Start the Teleboard server in the foreground',
+		handler: runTeleboard
 	})
 	.command({
 		command: 'config',
-		desc: 'Display the Telescope config',
+		desc: 'Display the Teleboard config',
 		handler: showConfig
 	})
 	.command({
 		command: 'compile',
-		desc: 'Build & test the telescope server and client',
-		handler: buildTelescope
+		desc: 'Build & test the teleboard server and client',
+		handler: buildTeleboard
 	})
 	.option('json', {
 		desc: 'Print out all messages in JSON form'

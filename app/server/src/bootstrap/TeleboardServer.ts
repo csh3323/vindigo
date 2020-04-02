@@ -1,7 +1,7 @@
 import { Logger, createLogger, format, transports } from "winston";
 import { DatabaseService } from "../database/DatabaseService";
 import { WebService } from "../http/WebService";
-import { TelescopeError } from "../common/Exceptions";
+import { TeleboardError } from "../common/Exceptions";
 import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
 import path from "path";
@@ -12,11 +12,11 @@ import fs from "fs";
 const DATA_DIR_RELATIVE_TO_BUILD = "../../../data";
 
 /**
- * The main entry point for Telescope, in charge of
+ * The main entry point for Teleboard, in charge of
  * maintaining all server side relations as well as
  * serving client resources.
  */
-export class TelescopeServer {
+export class TeleboardServer {
 
 	// Services
 	public readonly web: WebService;
@@ -30,7 +30,7 @@ export class TelescopeServer {
 	private dataDir: string;
 
 	/**
-	 * Initialize telescope server resources without
+	 * Initialize teleboard server resources without
 	 * launching any services.
 	 */
 	public constructor() {
@@ -46,7 +46,7 @@ export class TelescopeServer {
 			const defaultConFile = this.getDataFile("config.default.json");
 
 			if (!fs.existsSync(defaultConFile)) {
-				throw new TelescopeError(
+				throw new TeleboardError(
 					"Failed to locate default config file " +
 					"(Make sure config.default.json is in the data folder and is readable!)"
 				);
@@ -60,7 +60,7 @@ export class TelescopeServer {
 		this.isDebug = this.config.debug || process.env.NODE_ENV == "development";
 
 		// Setup the global logger
-		this.logger = this.getLogger('Telescope');
+		this.logger = this.getLogger('Teleboard');
 
 		// Instantiate services
 		this.web = new WebService(this);
@@ -68,12 +68,12 @@ export class TelescopeServer {
 	}
 
 	/**
-	 * Launch the Telescope Server
+	 * Launch the Teleboard Server
 	 *
 	 * @package
 	 */
 	public launch() {
-		this.logger.info('Launching telescope server');
+		this.logger.info('Launching teleboard server');
 		
 		if(this.isDebug) {
 			this.logger.info('Initializing in development mode');
@@ -87,11 +87,11 @@ export class TelescopeServer {
 	}
 
 	/**
-	 * Terminate the active Telescope process and shut down
+	 * Terminate the active Teleboard process and shut down
 	 * all related services.
 	 */
 	public terminate() {
-		this.logger.info('Terminating telescope server');
+		this.logger.info('Terminating teleboard server');
 
 		// Shutdown services
 		this.web.stop();
@@ -148,7 +148,7 @@ export class TelescopeServer {
 	}
 
 	/**
-	 * Returns whether the Telescope panel is currently
+	 * Returns whether the Teleboard panel is currently
 	 * in installation mode
 	 */
 	get isInstalling() : boolean {

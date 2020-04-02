@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Schema } from "../../schema/Schema";
 import { Controller } from "../Controller";
-import { TelescopeServer } from "../../bootstrap/TelescopeServer";
+import { TeleboardServer } from "../../bootstrap/TeleboardServer";
 import { UserProfile } from "../../database/model/UserProfile";
 
 /**
@@ -24,11 +24,11 @@ export class TestController implements Controller {
 		});
 	}
 	
-	async authorize(app: TelescopeServer, req: Request, user?: UserProfile) {
+	async authorize(app: TeleboardServer, req: Request, user?: UserProfile) {
 		return true;
 	}
 
-	async handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) {
+	async handle(app: TeleboardServer, req: Request, res: Response, user?: UserProfile) {
 		res.send("Hello World! 🔭 " + JSON.stringify(req.body));
 
 		await UserProfile.query().insert({

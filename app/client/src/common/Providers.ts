@@ -1,10 +1,10 @@
 import { InjectionKey, inject } from '@vue/composition-api';
-import { TelescopeClient } from '../bootstrap/TelescopeClient';
+import { TeleboardClient } from '../bootstrap/TeleboardClient';
 import { StoreService } from '../store/StoreService';
 import { RoutingService } from '../routing/RoutingService';
 
-/** The TelescopeClient instance */
-export const AppKey: InjectionKey<TelescopeClient> = Symbol('telescope');
+/** The TeleboardClient instance */
+export const AppKey: InjectionKey<TeleboardClient> = Symbol('teleboard');
 
 /** The Vuex store instance */
 export const StoreKey: InjectionKey<StoreService> = Symbol('store');

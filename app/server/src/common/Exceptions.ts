@@ -1,7 +1,7 @@
 /**
- * Root class for all errors thrown by Telescope
+ * Root class for all errors thrown by Teleboard
  */
-export class TelescopeError extends Error {
+export class TeleboardError extends Error {
 	constructor(message: string) {
 		super(message);
 		

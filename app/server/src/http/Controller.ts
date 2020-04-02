@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Schema } from "../schema/Schema";
-import { TelescopeServer } from "../bootstrap/TelescopeServer";
+import { TeleboardServer } from "../bootstrap/TeleboardServer";
 import { UserProfile } from "../database/model/UserProfile";
 
 /**
@@ -46,21 +46,21 @@ export interface Controller {
 	 * inbound connection.
 	 * 
 	 * @param req Request
-	 * @param app The telescope server
+	 * @param app The teleboard server
 	 * @param user The user profile, only available when the user is logged in
 	 * @returns Whether the connection is permitted
 	 */
-	authorize(app: TelescopeServer, req: Request, user?: UserProfile) : Promise<Boolean>;
+	authorize(app: TeleboardServer, req: Request, user?: UserProfile) : Promise<Boolean>;
 
 	/**
 	 * Called in order to execute logic related to this
 	 * API call.
 	 * 
 	 * @param req Request
-	 * @param app The telescope server
+	 * @param app The teleboard server
 	 * @param res Response
 	 * @param user The user profile, only available when the user is logged in
 	 */
-	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : Promise<any>;
+	handle(app: TeleboardServer, req: Request, res: Response, user?: UserProfile) : Promise<any>;
 
 }

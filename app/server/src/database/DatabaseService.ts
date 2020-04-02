@@ -1,6 +1,6 @@
 import { Logger } from "winston";
-import { TelescopeServer } from "../bootstrap/TelescopeServer";
-import { TelescopeError } from "../common/Exceptions";
+import { TeleboardServer } from "../bootstrap/TeleboardServer";
+import { TeleboardError } from "../common/Exceptions";
 import { Model } from 'objection';
 import Knex, { Config } from 'knex';
 
@@ -12,12 +12,12 @@ import Knex, { Config } from 'knex';
 export class DatabaseService {
 
 	public readonly logger: Logger;
-	public readonly app: TelescopeServer;
+	public readonly app: TeleboardServer;
 
 	/** The Sequelize connection instance */
 	private instance: Knex
 
-	public constructor(app: TelescopeServer) {
+	public constructor(app: TeleboardServer) {
 		this.app = app;
 		this.logger = app.getLogger('DatabsaseService');
 
@@ -71,7 +71,7 @@ export class DatabaseService {
 				options.connection = this.buildConnection(app);
 			}
 			default: {
-				throw new TelescopeError('Unknown database driver ' + config.driver);
+				throw new TeleboardError('Unknown database driver ' + config.driver);
 			}
 		}
 
@@ -85,9 +85,9 @@ export class DatabaseService {
 	/**
 	 * Build a connection configuration for Knex
 	 * 
-	 * @param app TelescopeApp
+	 * @param app TeleboardApp
 	 */
-	private buildConnection(app: TelescopeServer) : object {
+	private buildConnection(app: TeleboardServer) : object {
 		const db = app.config.database;
 
 		return {
