@@ -24,8 +24,7 @@ export class TestController implements Controller {
 		});
 	}
 	
-
-	authorize(app: TelescopeServer, req: Request, user?: UserProfile): boolean {
+	async authorize(app: TelescopeServer, req: Request, user?: UserProfile) {
 		return true;
 	}
 

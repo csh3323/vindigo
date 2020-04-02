@@ -50,7 +50,7 @@ export interface Controller {
 	 * @param user The user profile, only available when the user is logged in
 	 * @returns Whether the connection is permitted
 	 */
-	authorize(app: TelescopeServer, req: Request, user?: UserProfile) : boolean;
+	authorize(app: TelescopeServer, req: Request, user?: UserProfile) : Promise<Boolean>;
 
 	/**
 	 * Called in order to execute logic related to this
@@ -61,6 +61,6 @@ export interface Controller {
 	 * @param res Response
 	 * @param user The user profile, only available when the user is logged in
 	 */
-	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : void|Promise<any>;
+	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : Promise<any>;
 
 }
