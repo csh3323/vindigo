@@ -3,7 +3,7 @@
  * this Telescope instance. Each user contains
  * a snapshot of information 
  */
-export class UserProfile {
+export class UserProfileLegacy {
 
 	/** The users permissions */
 	public readonly permissions: string[];
@@ -23,8 +23,8 @@ export class UserProfile {
 		this.email = "";
 	}
 
-	public static getFromJWT() : Promise<UserProfile> {
-		return Promise.resolve(new UserProfile("todo"));
+	public static getFromJWT() : Promise<UserProfileLegacy> {
+		return Promise.resolve(new UserProfileLegacy("todo"));
 	}
 
 }

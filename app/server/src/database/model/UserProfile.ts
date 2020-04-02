@@ -5,6 +5,10 @@ import { Model } from "objection";
  */
 export class UserProfile extends Model {
 
+	firstName?: string;
+	lastName?: string;
+	email?: string;
+
 	static get tableName() {
 		return 'profiles';
 	}

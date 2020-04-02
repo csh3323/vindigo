@@ -16,7 +16,7 @@ import { WebService } from './WebService';
 export function setupCoreRoutes(web: WebService, router: Router) {
 	const connect = createConnector(web);
 
-	router.get('/testing', connect(new TestController()));
+	router.post('/test', connect(new TestController()));
 
 	// Authentication
 

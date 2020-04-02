@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UserProfile } from "../auth/UserProfile";
 import { Schema } from "../schema/Schema";
 import { TelescopeServer } from "../bootstrap/TelescopeServer";
+import { UserProfile } from "../database/model/UserProfile";
 
 /**
  * Controllers are an essential component of the backend API
@@ -61,6 +61,6 @@ export interface Controller {
 	 * @param res Response
 	 * @param user The user profile, only available when the user is logged in
 	 */
-	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : void;
+	handle(app: TelescopeServer, req: Request, res: Response, user?: UserProfile) : void|Promise<any>;
 
 }

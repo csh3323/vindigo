@@ -1,14 +1,14 @@
 import WebSocket, { Server } from 'ws';
-import { UserProfile } from '../auth/UserProfile';
+import { UserProfileLegacy } from '../auth/UserProfileLegacy';
 
 export class Channel {
 
-	public readonly user: UserProfile;
+	public readonly user: UserProfileLegacy;
 
 	private ws: WebSocket;
 
 
-	public constructor(ws: WebSocket, user: UserProfile) {
+	public constructor(ws: WebSocket, user: UserProfileLegacy) {
 		this.user = user;
 		this.ws = ws;
 	}
