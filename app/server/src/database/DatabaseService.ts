@@ -25,7 +25,6 @@ export class DatabaseService {
 		// Detect the requested driver
 		const config = app.config.database;
 		const options: Config = {
-			useNullAsDefault: true,
 			debug: process.env.NODE_ENV == 'development',
 			log: {
 				warn: (msg) => {
@@ -43,14 +42,7 @@ export class DatabaseService {
 			},
 			pool: {
 				min: 1,
-				max: 7,
-				afterCreate: (conn: any, done: any) => {
-					if(!this.app.options.isInCLI) {
-						this.logger.debug('Initialized new connection');
-					}
-
-					done(false, conn);
-				}
+				max: 5
 			},
 			migrations: {
 				tableName: this.tableName('migrations'),

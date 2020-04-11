@@ -12,6 +12,14 @@ const GREEN = '\x1b[32m';
 const CYAN = '\x1b[36m';
 const RESET = '\x1b[0m';
 
+// Utility to convert memory sizes
+function bytesToSize(bytes: number) {
+	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+	if (bytes == 0) return '0 Byte';
+	var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)) + '');
+	return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
+}
+
 (function() {
 	const teleboard = new TeleboardServer({isInCLI: true});
 	const mainFile = path.join(__dirname, './main.js');
@@ -35,12 +43,17 @@ const RESET = '\x1b[0m';
 	// Start the database service
 	teleboard.database.start();
 
-	// Utility to convert memory sizes
-	function bytesToSize(bytes: number) {
-		var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-		if (bytes == 0) return '0 Byte';
-		var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)) + '');
-		return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
+	// Find the latest applied migration
+	async function getCurrent() {
+		const migrator = teleboard.database.knex.migrate;
+		const list = await migrator.list();
+		const completed = list[0];
+
+		if(completed.length < 1) return 'none'
+
+		const latest = completed[completed.length - 1];
+
+		return latest.substring(latest.indexOf('_') + 1);
 	}
 
 	// Launch teleboard with pm2
@@ -225,36 +238,54 @@ const RESET = '\x1b[0m';
 	}
 
 	// Execute all remaining migrations
-	function migrateUpdate() {
+	async function migrateUpdate() {
 		const migrator = teleboard.database.knex.migrate;
+		const list = await migrator.list();
 
-		migrator.latest();
+		if(list[1].length < 1) {
+			logger.warn('Migrations already up-to-date');
+		} else {
+			const amount = list[1].length;
 
-		logger.info('Executed all remaining migrations');
+			await migrator.latest();
+
+			logger.info('Executed ' + CYAN + amount + RESET + ' remaining migrations');
+		}
+
 		teleboard.terminate();
 	}
 
 	// Migrate the next migration
-	function migrateNext(input: any) {
+	async function migrateNext() {
 		const migrator = teleboard.database.knex.migrate;
+		const list = await migrator.list();
 
-		for(let i = 0; i < input.count; i++) {
-			migrator.up();
+		if(list[1].length < 1) {
+			logger.warn('Migrations already up-to-date');
+		} else {
+			await migrator.up();
+
+			const current = await getCurrent();
+			logger.info('Applied migration, now at ' + GREEN + current + RESET);
 		}
 
-		logger.info('Executed ' + CYAN + input.count + RESET + ' migrations');
 		teleboard.terminate();
 	}
 
 	// Undo the previous migration
-	function migrateRollback(input: any) {
+	async function migrateRollback() {
 		const migrator = teleboard.database.knex.migrate;
+		const list = await migrator.list();
 
-		for(let i = 0; i < input.count; i++) {
-			migrator.down();
+		if(list[0].length < 1) {
+			logger.warn('No migrations to rollback');
+		} else {
+			await migrator.down();
+
+			const current = await getCurrent();
+			logger.info('Applied migration, now at ' + GREEN + current + RESET);
 		}
 
-		logger.info('Rolled back ' + CYAN + input.count + RESET + ' migrations');
 		teleboard.terminate();
 	}
 
@@ -311,34 +342,20 @@ const RESET = '\x1b[0m';
 			.command({
 				command: 'migrate:next',
 				describe: 'Execute the next migration',
-				handler: migrateNext,
-				builder: (yargs: any) => {
-					return yargs.option('c', {
-						alias: 'count',
-						describe: 'the amount of migrations to execute, defaults to one',
-						default: 1,
-						type: 'number'
-					})
-				}
+				handler: migrateNext
 			})
 			.command({
 				command: 'migrate:rollback',
 				describe: 'Undo the previous migration',
-				handler: migrateRollback,
-				builder: (yargs: any) => {
-					return yargs.option('c', {
-						alias: 'count',
-						describe: 'the amount of migrations to rollback, defaults to one',
-						default: 1,
-						type: 'number'
-					})
-				}
+				handler: migrateRollback
 			})
 			.help()
 			.demandCommand()
 			.strict()
 			.parse()
-	} finally {
+	} catch(err) {
+		teleboard.logger.error('Error caught in CLI');
+		teleboard.logger.error(err);
 		teleboard.terminate();
 	}
 })();
