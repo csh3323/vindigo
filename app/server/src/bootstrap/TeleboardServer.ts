@@ -6,6 +6,7 @@ import { readFileJson } from "../common/Files";
 import { Config } from "./Config";
 import path from "path";
 import fs from "fs";
+import { InitOptions } from "./Options";
 
 // The data directory is resolved relative to the build
 // directory in which production files are outputted.
@@ -22,6 +23,7 @@ export class TeleboardServer {
 	public readonly web: WebService;
 	public readonly database: DatabaseService;
 
+	public readonly options: InitOptions;
 	public readonly config: Config;
 	public readonly logger: Logger;
 	public readonly isDebug: boolean;
@@ -33,8 +35,9 @@ export class TeleboardServer {
 	 * Initialize teleboard server resources without
 	 * launching any services.
 	 */
-	public constructor() {
+	public constructor(options: InitOptions) {
 		this.dataDir = path.join(__dirname, DATA_DIR_RELATIVE_TO_BUILD);
+		this.options = options;
 
 		// Load in the config file
 		const conFile = this.getDataFile("config.json");
@@ -113,7 +116,8 @@ export class TeleboardServer {
 
 		return createLogger({
 			level: "debug",
-			transports: [
+			transports: this.options.isInCLI ? [] : [
+
 				// Log every message to the logfile
 				new transports.File({
 					filename: logFile,

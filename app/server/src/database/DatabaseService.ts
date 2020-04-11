@@ -3,6 +3,7 @@ import { TeleboardServer } from "../bootstrap/TeleboardServer";
 import { TeleboardError } from "../common/Exceptions";
 import { Model } from 'objection';
 import Knex, { Config } from 'knex';
+import path from "path";
 
 /**
  * The DatabaseService class is responsible for managing
@@ -44,12 +45,18 @@ export class DatabaseService {
 				min: 1,
 				max: 7,
 				afterCreate: (conn: any, done: any) => {
-					this.logger.debug('Initialized new connection');
+					if(!this.app.options.isInCLI) {
+						this.logger.debug('Initialized new connection');
+					}
+
 					done(false, conn);
 				}
 			},
 			migrations: {
-				tableName: this.tableName('migrations')
+				tableName: this.tableName('migrations'),
+				directory: path.join(__dirname, '../../../migrations'),
+				stub: 'migration.stub'
+				
 			}
 		};
 
@@ -103,13 +110,20 @@ export class DatabaseService {
 	 * connection params.
 	 */
 	public start() {
-		this.logger.info('Configured database driver for ' + this.app.config.database.driver);
+		if(!this.app.options.isInCLI) {
+			this.logger.info('Configured database driver for ' + this.app.config.database.driver);	
+		}
 
 		this.validate().then(success => {
-			if(success) {
-				this.logger.info('Successfully authenticated with database');
-			} else {
-				this.logger.error('Failed database setup');
+			if(!this.app.options.isInCLI) {
+				if(success) {
+					this.logger.info('Successfully authenticated with database');
+				} else {
+					this.logger.error('Failed database setup');
+				}
+			}
+
+			if(!success) {
 				this.app.terminate();
 			}
 		});
