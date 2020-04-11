@@ -116,7 +116,13 @@ export class TeleboardServer {
 
 		return createLogger({
 			level: "debug",
-			transports: this.options.isInCLI ? [] : [
+			transports: this.options.isInCLI ? [
+
+				new transports.Console({
+					silent: true
+				})
+
+			] : [
 
 				// Log every message to the logfile
 				new transports.File({

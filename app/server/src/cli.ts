@@ -44,11 +44,12 @@ const RESET = '\x1b[0m';
 	}
 
 	// Launch teleboard with pm2
-	function startTeleboard(input: any) {
+	function startTeleboard() {
 		const handleErr = (err: any) => {
 			if(!err) return false;
 			
 			logger.error('Error during daemon initialization: ', err);
+			teleboard.terminate();
 			pm2.disconnect();
 			return true;
 		}
@@ -64,6 +65,7 @@ const RESET = '\x1b[0m';
 				if(err) {
 					if(err.toString().startsWith('Error: Script already launched')) {
 						logger.warn('Teleboard is already running!');
+						teleboard.terminate();
 						pm2.disconnect();
 						return;
 					} else {
@@ -78,6 +80,7 @@ const RESET = '\x1b[0m';
 					logger.info('- Use '+CYAN+'teleboard status'+RESET+' to view process information');
 					logger.info('- Use '+CYAN+'teleboard stop'+RESET+' to terminate teleboard');
 					
+					teleboard.terminate();
 					pm2.disconnect();
 				});
 			});
@@ -85,11 +88,12 @@ const RESET = '\x1b[0m';
 	}
 
 	// Stop the active teleboard process
-	function stopTeleboard(input: any) {
+	function stopTeleboard() {
 		const handleErr = (err: any) => {
 			if(!err) return false;
 			
 			logger.error('Error during daemon connection: ', err);
+			teleboard.terminate();
 			pm2.disconnect();
 			return true;
 		}
@@ -115,10 +119,12 @@ const RESET = '\x1b[0m';
 						if(handleErr(err)) return;
 
 						logger.info('Successfully terminated Teleboard');
+						teleboard.terminate();
 						pm2.disconnect();
 					});
 				} else {
 					logger.warn('Teleboard is not currently running');
+					teleboard.terminate();
 					pm2.disconnect();
 				}
 			});
@@ -126,11 +132,12 @@ const RESET = '\x1b[0m';
 	}
 
 	// Print out the daemon status
-	function showStatus(input: any) {
+	function showStatus() {
 		const handleErr = (err: any) => {
 			if(!err) return false;
 			
 			logger.error('Error during daemon connection: ', err);
+			teleboard.terminate();
 			pm2.disconnect();
 			return true;
 		}
@@ -162,20 +169,21 @@ const RESET = '\x1b[0m';
 					logger.warn('Teleboard is not currently running');
 				}
 
+				teleboard.terminate();
 				pm2.disconnect();
 			});
 		});
 	}
 
 	// Start the Teleboard server in the foreground
-	function runTeleboard(input: any) {
+	function runTeleboard() {
 		logger.info('Starting Teleboard as foreground process...')
 
 		require(mainFile);
 	}
 
 	// Execute the server and client build commands
-	function buildTeleboard(input: any) {
+	function buildTeleboard() {
 		const then = Date.now();
 
 		logger.info('Compiling server and client files...');
@@ -188,18 +196,22 @@ const RESET = '\x1b[0m';
 		logger.info('');
 		logger.info('- Teleboard can now be started with'+CYAN+' teleboard start'+RESET);
 		logger.info('- Run teleboard directly with'+CYAN+' teleboard run'+RESET);
+
+		teleboard.terminate();
 	}
 
 	// Print out the config JSON
 	function showConfig() {
-		const productionConfig = path.join(__dirname, 'data/config.json');
-		const defaultConfig = path.join(__dirname, 'data/config.default.json');
+		const productionConfig = path.join(__dirname, '../../data/config.json');
+		const defaultConfig = path.join(__dirname, '../../data/config.default.json');
 
 		if(fs.existsSync(productionConfig)) {
 			console.log(fs.readFileSync(productionConfig, 'utf8'));
 		} else {
 			console.log(fs.readFileSync(defaultConfig, 'utf8'));
 		}
+
+		teleboard.terminate();
 	}
 
 	// Create a new migration file
@@ -209,100 +221,124 @@ const RESET = '\x1b[0m';
 		migrator.make(input.name);
 
 		logger.info('Created new migration ' + CYAN + input.name);
+		teleboard.terminate();
 	}
 
 	// Execute all remaining migrations
 	function migrateUpdate() {
+		const migrator = teleboard.database.knex.migrate;
 
+		migrator.latest();
+
+		logger.info('Executed all remaining migrations');
+		teleboard.terminate();
 	}
 
 	// Migrate the next migration
 	function migrateNext(input: any) {
+		const migrator = teleboard.database.knex.migrate;
 
+		for(let i = 0; i < input.count; i++) {
+			migrator.up();
+		}
+
+		logger.info('Executed ' + CYAN + input.count + RESET + ' migrations');
+		teleboard.terminate();
 	}
 
 	// Undo the previous migration
 	function migrateRollback(input: any) {
+		const migrator = teleboard.database.knex.migrate;
 
+		for(let i = 0; i < input.count; i++) {
+			migrator.down();
+		}
+
+		logger.info('Rolled back ' + CYAN + input.count + RESET + ' migrations');
+		teleboard.terminate();
 	}
 
 	// Handle the command input
-	yargs
-		.scriptName("teleboard")
-		.usage('$0 <cmd> [options]')
-		.command({
-			command: 'start',
-			describe: 'Launch the Teleboard server',
-			handler: startTeleboard
-		})
-		.command({
-			command: 'stop',
-			describe: 'Terminate the Teleboard server',
-			handler: stopTeleboard
-		})
-		.command({
-			command: 'status',
-			describe: 'Show the current daemon status',
-			handler: showStatus
-		})
-		.command({
-			command: 'run',
-			describe: 'Start the Teleboard server in the foreground',
-			handler: runTeleboard
-		})
-		.command({
-			command: 'config',
-			describe: 'Display the Teleboard config',
-			handler: showConfig
-		})
-		.command({
-			command: 'compile',
-			describe: 'Build & test the teleboard server and client',
-			handler: buildTeleboard
-		})
-		.command({
-			command: 'migrate:make <name>',
-			describe: 'Create a new migration file',
-			handler: migrateMake,
-			builder: (yargs: any) => {
-				return yargs.positional('name', {
-					describe: 'The name of the migration'
-				});
-			}
-		})
-		.command({
-			command: 'migrate:update',
-			describe: 'Execute all remaining migrations',
-			handler: migrateUpdate
-		})
-		.command({
-			command: 'migrate:next',
-			describe: 'Execute the next migration',
-			handler: migrateNext,
-			builder: (yargs: any) => {
-				return yargs.option('c', {
-					alias: 'count',
-					describe: 'the amount of migrations to execute, defaults to one',
-					default: 1,
-					type: 'number'
-				})
-			}
-		})
-		.command({
-			command: 'migrate:rollback',
-			describe: 'Undo the previous migration',
-			handler: migrateRollback,
-			builder: (yargs: any) => {
-				return yargs.option('c', {
-					alias: 'count',
-					describe: 'the amount of migrations to rollback, defaults to one',
-					default: 1,
-					type: 'number'
-				})
-			}
-		})
-		.help()
-		.demandCommand()
-		.strict()
-		.parse()
+	try {
+		yargs
+			.scriptName("teleboard")
+			.usage('$0 <cmd> [options]')
+			.command({
+				command: 'start',
+				describe: 'Launch the Teleboard server',
+				handler: startTeleboard
+			})
+			.command({
+				command: 'stop',
+				describe: 'Terminate the Teleboard server',
+				handler: stopTeleboard
+			})
+			.command({
+				command: 'status',
+				describe: 'Show the current daemon status',
+				handler: showStatus
+			})
+			.command({
+				command: 'run',
+				describe: 'Start the Teleboard server in the foreground',
+				handler: runTeleboard
+			})
+			.command({
+				command: 'config',
+				describe: 'Display the Teleboard config',
+				handler: showConfig
+			})
+			.command({
+				command: 'compile',
+				describe: 'Build & test the teleboard server and client',
+				handler: buildTeleboard
+			})
+			.command({
+				command: 'migrate:make <name>',
+				describe: 'Create a new migration file',
+				handler: migrateMake,
+				builder: (yargs: any) => {
+					return yargs.positional('name', {
+						describe: 'The name of the migration'
+					});
+				}
+			})
+			.command({
+				command: 'migrate:update',
+				describe: 'Execute all remaining migrations',
+				handler: migrateUpdate
+			})
+			.command({
+				command: 'migrate:next',
+				describe: 'Execute the next migration',
+				handler: migrateNext,
+				builder: (yargs: any) => {
+					return yargs.option('c', {
+						alias: 'count',
+						describe: 'the amount of migrations to execute, defaults to one',
+						default: 1,
+						type: 'number'
+					})
+				}
+			})
+			.command({
+				command: 'migrate:rollback',
+				describe: 'Undo the previous migration',
+				handler: migrateRollback,
+				builder: (yargs: any) => {
+					return yargs.option('c', {
+						alias: 'count',
+						describe: 'the amount of migrations to rollback, defaults to one',
+						default: 1,
+						type: 'number'
+					})
+				}
+			})
+			.help()
+			.demandCommand()
+			.strict()
+			.parse()
+	} finally {
+		teleboard.terminate();
+	}
 })();
