@@ -7,7 +7,6 @@ dist/
 # Data files
 data/*
 !data/config.default.json
-!data/migration.stub.js
 
 # local env files
 .env.local
