@@ -54,9 +54,7 @@ export class DatabaseService {
 			},
 			migrations: {
 				tableName: this.tableName('migrations'),
-				directory: path.join(__dirname, '../../../migrations'),
-				stub: 'migration.stub'
-				
+				directory: path.join(__dirname, '../../../migrations')
 			}
 		};
 
