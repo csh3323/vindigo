@@ -12,6 +12,7 @@
 		"port": 3306,
 		"username": "teleboard",
 		"password": "",
+		"prefix": "tb_",
 		"name": "teleboard"
 	}
 }
