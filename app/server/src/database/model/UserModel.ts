@@ -7,22 +7,24 @@ import { prefixTable } from '../DatabaseService';
 export class UserModel extends Model {
 
 	static get tableName() {
-		return prefixTable('profiles');
+		return prefixTable('users');
 	}
 
 	static get jsonSchema() {
 		return {
 			type: 'object',
 			required: [
-				'firstName',
-				'lastName',
-				'email'
+				'email',
+				'username',
+				'role',
+				'active'
 			],
 			properties: {
-				id: { type: 'integer' },
-				firstName: { type: 'string', minLength: 1, maxLength: 64 },
-        		lastName: { type: 'string', minLength: 1, maxLength: 64 },
-				email: { type: 'string' }
+				user_id: { type: 'integer' },
+				email: { type: 'string' },
+        		username: { type: 'string' },
+				role: { type: 'string' },
+				active: { type: 'boolean' }
 			}
 		}
 	}
