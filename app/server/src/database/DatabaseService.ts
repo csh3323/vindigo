@@ -46,7 +46,9 @@ export class DatabaseService {
 			},
 			migrations: {
 				tableName: this.tableName('migrations'),
-				directory: path.join(__dirname, '../../../migrations')
+				directory: path.join(__dirname, './migrations'),
+				stub: path.join(__dirname, './MigrationStub.ts'),
+				extension: 'ts'
 			}
 		};
 
@@ -159,4 +161,20 @@ export class DatabaseService {
 		return this.instance;
 	}
 
+}
+
+/**
+ * Instantiate a new teleboard instance
+ * to obtain the table prefix.
+ * 
+ * @readonly 
+ */
+export function getTablePrefix(table: string) : string {
+	const teleboard = new TeleboardServer({isInCLI: true});
+
+	try {
+		return teleboard.config.database.prefix + table;
+	} finally {
+		teleboard.terminate();
+	}
 }

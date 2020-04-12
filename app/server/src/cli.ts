@@ -228,10 +228,13 @@ function bytesToSize(bytes: number) {
 	}
 
 	// Create a new migration file
-	function migrateMake(input: any) {
+	async function migrateMake(input: any) {
 		const migrator = teleboard.database.knex.migrate;
 
-		migrator.make(input.name);
+		await migrator.make(input.name, {
+			directory: path.join(__dirname, '../../app/server/src/database/migrations'),
+			stub:  path.join(__dirname, '../../app/server/src/database/MigrationStub.ts'),
+		});
 
 		logger.info('Created new migration ' + CYAN + input.name);
 		teleboard.terminate();
