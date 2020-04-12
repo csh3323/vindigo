@@ -31,12 +31,6 @@ export class TestController implements Controller {
 	async handle(app: TeleboardServer, req: Request, res: Response, user?: UserModel) {
 		res.send("Hello World! 🔭 " + JSON.stringify(req.body));
 
-		await UserModel.query().insert({
-			firstName: 'John',
-			lastName: 'Johnson',
-			email: 'john@johnson.com'
-		});
-
 		res.json(await UserModel.query())
 	}
 

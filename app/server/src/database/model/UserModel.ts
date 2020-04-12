@@ -1,16 +1,13 @@
-import { Model } from "objection";
+import { Model } from 'objection';
+import { prefixTable } from '../DatabaseService';
 
 /**
  * Represents a registered Teleboard user account
  */
 export class UserModel extends Model {
 
-	firstName?: string;
-	lastName?: string;
-	email?: string;
-
 	static get tableName() {
-		return 'profiles';
+		return prefixTable('profiles');
 	}
 
 	static get jsonSchema() {
