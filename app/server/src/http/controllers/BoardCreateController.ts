@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { Schema } from "../../schema/Schema";
 import { Controller } from "../Controller";
-import { TeleboardServer } from "../../bootstrap/TeleboardServer";
-import { UserModel } from "../../database/model/UserModel";
 import { BoardModel } from "../../database/model/BoardModel";
 import { AuthorizeContext, HandlerContext } from "../Context";
 
