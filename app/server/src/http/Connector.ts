@@ -3,7 +3,7 @@ import { RequestHandler } from "express";
 import { HttpStatus } from "../common/Statuses";
 import { TeleboardServer } from "../bootstrap/TeleboardServer";
 import { WebService } from "./WebService";
-import { UserProfile } from "../database/model/UserProfile";
+import { UserModel } from "../database/model/UserModel";
 
 /**
  * Create a connector function that can connect
@@ -18,10 +18,10 @@ export function createConnector(web: WebService) {
 		web.logger.debug('Connecting controller ' + controller.constructor.name)
 
 		return async (req, res) => {
-			let user: UserProfile|undefined;
+			let user: UserModel|undefined;
 
 			// TODO Implement token retrieval
-			user = new UserProfile();
+			user = new UserModel();
 
 			// Authorize the call and respond with 401 Unauthorized
 			// when the user is not currently logged in, and with

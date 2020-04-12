@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Schema } from "../schema/Schema";
 import { TeleboardServer } from "../bootstrap/TeleboardServer";
-import { UserProfile } from "../database/model/UserProfile";
+import { UserModel } from "../database/model/UserModel";
 
 /**
  * Controllers are an essential component of the backend API
@@ -50,7 +50,7 @@ export interface Controller {
 	 * @param user The user profile, only available when the user is logged in
 	 * @returns Whether the connection is permitted
 	 */
-	authorize(app: TeleboardServer, req: Request, user?: UserProfile) : Promise<Boolean>;
+	authorize(app: TeleboardServer, req: Request, user?: UserModel) : Promise<Boolean>;
 
 	/**
 	 * Called in order to execute logic related to this
@@ -61,6 +61,6 @@ export interface Controller {
 	 * @param res Response
 	 * @param user The user profile, only available when the user is logged in
 	 */
-	handle(app: TeleboardServer, req: Request, res: Response, user?: UserProfile) : Promise<any>;
+	handle(app: TeleboardServer, req: Request, res: Response, user?: UserModel) : Promise<any>;
 
 }

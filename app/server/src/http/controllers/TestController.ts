@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Schema } from "../../schema/Schema";
 import { Controller } from "../Controller";
 import { TeleboardServer } from "../../bootstrap/TeleboardServer";
-import { UserProfile } from "../../database/model/UserProfile";
+import { UserModel } from "../../database/model/UserModel";
 
 /**
  * Simple test controller used to test the backend API
@@ -24,20 +24,20 @@ export class TestController implements Controller {
 		});
 	}
 	
-	async authorize(app: TeleboardServer, req: Request, user?: UserProfile) {
+	async authorize(app: TeleboardServer, req: Request, user?: UserModel) {
 		return true;
 	}
 
-	async handle(app: TeleboardServer, req: Request, res: Response, user?: UserProfile) {
+	async handle(app: TeleboardServer, req: Request, res: Response, user?: UserModel) {
 		res.send("Hello World! 🔭 " + JSON.stringify(req.body));
 
-		await UserProfile.query().insert({
+		await UserModel.query().insert({
 			firstName: 'John',
 			lastName: 'Johnson',
 			email: 'john@johnson.com'
 		});
 
-		res.json(await UserProfile.query())
+		res.json(await UserModel.query())
 	}
 
 }

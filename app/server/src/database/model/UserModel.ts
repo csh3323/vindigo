@@ -3,7 +3,7 @@ import { Model } from "objection";
 /**
  * Represents a registered Teleboard user account
  */
-export class UserProfile extends Model {
+export class UserModel extends Model {
 
 	firstName?: string;
 	lastName?: string;
