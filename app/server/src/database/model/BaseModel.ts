@@ -6,6 +6,4 @@ import { Model } from "objection";
  */
 export abstract class BaseModel extends Model {
 
-	[key: string]: any;
-
 }

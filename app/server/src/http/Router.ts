@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import { TestController } from './controllers/TestController';
-import { TeleboardServer } from '../bootstrap/TeleboardServer';
 import { createConnector } from './Connector';
 import { WebService } from './WebService';
 import { BoardCreateController } from './controllers/BoardCreateController';
@@ -16,8 +14,6 @@ import { BoardCreateController } from './controllers/BoardCreateController';
  */
 export function setupCoreRoutes(web: WebService, router: Router) {
 	const connect = createConnector(web);
-
-	router.post('/test', connect(new TestController()));
 
 	// Authentication
 

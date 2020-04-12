@@ -7,6 +7,8 @@ import { BaseModel } from './BaseModel';
  * and represent a single card in a board. Tasks
  * are ordered within lists, and lists are ordered
  * within boards.
+ * 
+ * TODO Replace schema with typed properties
  */
 export class TaskModel extends BaseModel {
 

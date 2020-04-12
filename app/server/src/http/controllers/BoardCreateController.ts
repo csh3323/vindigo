@@ -4,6 +4,7 @@ import { Controller } from "../Controller";
 import { TeleboardServer } from "../../bootstrap/TeleboardServer";
 import { UserModel } from "../../database/model/UserModel";
 import { BoardModel } from "../../database/model/BoardModel";
+import { AuthorizeContext, HandlerContext } from "../Context";
 
 /**
  * Create a new empty board 
@@ -22,20 +23,20 @@ export class BoardCreateController implements Controller {
 		});
 	}
 	
-	async authorize(app: TeleboardServer, req: Request, user?: UserModel) {
+	async authorize(req: Request, ctx: AuthorizeContext) {
 		return true;
 	}
 
-	async handle(app: TeleboardServer, req: Request, res: Response, user?: UserModel) {
-		const name = req.body.name;
+	async handle(req: Request, res: Response, ctx: HandlerContext) {
+		const result = await BoardModel.query().insertAndFetch({
+			name: req.body.name,
+			author: ctx.user!.user_id,
+			closed: false
+		});
 
-		const value = await BoardModel.query().findById(1)
-
-		res.send(JSON.stringify(value));
-
-		// BoardModel.query().insertAndFetch({
-		// 	name: req.body.name,
-		// })
+		ctx.respond({
+			id: result.board_id
+		});
 	}
 
 }

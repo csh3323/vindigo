@@ -6,6 +6,27 @@ import { WebService } from "./WebService";
 import { UserModel } from "../database/model/UserModel";
 
 /**
+ * Utility function used to build a valid JSON
+ * response given the value.
+ * 
+ * @param value Any value, or error
+ * @returns JSON response
+ */
+function buildJsonResponse(value: any) : any {
+	if(value instanceof Error) {
+		return {
+			success: false,
+			error: value.message
+		}
+	} else {
+		return {
+			success: true,
+			result: value
+		}
+	}
+}
+
+/**
  * Create a connector function that can connect
  * a supplied Controller to an express supported
  * RequestHandler function.
@@ -18,15 +39,22 @@ export function createConnector(web: WebService) {
 		web.logger.debug('Connecting controller ' + controller.constructor.name)
 
 		return async (req, res) => {
-			let user: UserModel|undefined;
+			let user = new UserModel();
+			let state = {};
 
-			// TODO Implement token retrieval
-			user = new UserModel();
+			// TODO Temporarily fake the user
+			user.user_id = 0
+			user.email = 'unknown@exodius.studio';
+			user.username = 'unknown';
 
 			// Authorize the call and respond with 401 Unauthorized
 			// when the user is not currently logged in, and with
 			// 403 Forbidden when the user lacks permission.
-			const isAuthorized = await controller.authorize(web.app, req, user);
+			const isAuthorized = await controller.authorize(req, {
+				app: web.app,
+				user: user,
+				state: state
+			});
 
 			if(!isAuthorized) {
 				res.sendStatus(user ? HttpStatus.Forbidden : HttpStatus.Unauthorized);
@@ -49,11 +77,16 @@ export function createConnector(web: WebService) {
 			// Forward the request and response handles to the
 			// controller handle method for further processing.
 			try {
-				await controller.handle(web.app, req, res);
+				await controller.handle(req, res, {
+					app: web.app,
+					user: user,
+					state: state,
+					respond: (value: any) => res.json(buildJsonResponse(value))
+				});
 			} catch(err) {
-				web.logger.error('-> Failed call: error caught inside call handle');
-				web.logger.error(err);
 				res.sendStatus(HttpStatus.InternalServerError);
+				web.logger.error('-> Failed call: error caught inside call handle');
+				console.error(err);
 			}
 		};
 	}

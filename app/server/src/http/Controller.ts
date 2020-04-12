@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Schema } from "../schema/Schema";
 import { TeleboardServer } from "../bootstrap/TeleboardServer";
 import { UserModel } from "../database/model/UserModel";
+import { AuthorizeContext, HandlerContext } from "./Context";
 
 /**
  * Controllers are an essential component of the backend API
@@ -46,21 +47,19 @@ export interface Controller {
 	 * inbound connection.
 	 * 
 	 * @param req Request
-	 * @param app The teleboard server
-	 * @param user The user profile, only available when the user is logged in
+	 * @param ctx Additional authorization context
 	 * @returns Whether the connection is permitted
 	 */
-	authorize(app: TeleboardServer, req: Request, user?: UserModel) : Promise<Boolean>;
+	authorize(req: Request, ctx: AuthorizeContext) : Promise<Boolean>;
 
 	/**
 	 * Called in order to execute logic related to this
 	 * API call.
 	 * 
 	 * @param req Request
-	 * @param app The teleboard server
 	 * @param res Response
-	 * @param user The user profile, only available when the user is logged in
+	 * @param ctx Additional handler context
 	 */
-	handle(app: TeleboardServer, req: Request, res: Response, user?: UserModel) : Promise<any>;
+	handle(req: Request, res: Response, ctx: HandlerContext) : Promise<any>;
 
 }

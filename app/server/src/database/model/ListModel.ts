@@ -6,6 +6,8 @@ import { BaseModel } from './BaseModel';
 /**
  * Lists are contained with boards, and group
  * related tasks together in an ordered fashion.
+ * 
+ * TODO Replace schema with typed properties
  */
 export class ListModel extends BaseModel {
 

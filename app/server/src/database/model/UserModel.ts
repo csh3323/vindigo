@@ -7,31 +7,23 @@ import { BaseModel } from './BaseModel';
  */
 export class UserModel extends BaseModel {
 
+	public user_id!: number;
+	public email!: string;
+	public username!: string;
+	public role!: string;
+	public disabled!: boolean;
+	public password!: string;
+	public password_salt!: string;
+	public last_login_at!: any;
+	public created_at!: any;
+	public updated_at!: any;
+
 	static get tableName() {
 		return prefixTable('users');
 	}
 
 	static get idColumn() {
 		return 'user_id';
-	}
-
-	static get jsonSchema() {
-		return {
-			type: 'object',
-			required: [
-				'email',
-				'username',
-				'role',
-				'active'
-			],
-			properties: {
-				user_id: { type: 'integer' },
-				email: { type: 'string' },
-        		username: { type: 'string' },
-				role: { type: 'string' },
-				active: { type: 'boolean' }
-			}
-		}
 	}
 
 }

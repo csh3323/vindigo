@@ -9,7 +9,6 @@ import WebSocket from 'ws';
 import path from 'path';
 import fs from 'fs';
 
-
 /**
  * The WebService class is responsible for managing
  * and holding all HTTP connections and related
