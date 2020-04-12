@@ -5,7 +5,7 @@ const USERS_TABLE = getTablePrefix('users');
 
 exports.up = function(knex: Knex) {
 	return knex.schema.createTable(USERS_TABLE, (table) => {
-		table.increments('uid').primary();
+		table.increments('uid').unsigned().primary();
 		table.string('email');
 		table.string('username');
 		table.string('role');
