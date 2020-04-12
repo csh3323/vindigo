@@ -14,6 +14,8 @@ export class BoardModel extends BaseModel {
 	public name!: string;
 	public closed!: boolean;
 	public author!: number;
+	public created_at!: any;
+	public updated_at!: any;
 
 	static get tableName() {
 		return prefixTable('boards');

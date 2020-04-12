@@ -28,10 +28,13 @@ export class BoardCreateController implements Controller {
 	}
 
 	async handle(req: Request, res: Response, ctx: HandlerContext) {
+		const currDate = new Date();
 		const result = await BoardModel.query().insertAndFetch({
 			name: req.body.name,
 			author: ctx.user!.user_id,
-			closed: false
+			closed: false,
+			created_at: currDate,
+			updated_at: currDate
 		});
 
 		ctx.respond({
