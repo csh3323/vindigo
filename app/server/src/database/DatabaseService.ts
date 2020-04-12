@@ -169,7 +169,7 @@ export class DatabaseService {
  * 
  * @readonly 
  */
-export function getTablePrefix(table: string) : string {
+export function prefixTable(table: string) : string {
 	const teleboard = new TeleboardServer({isInCLI: true});
 
 	try {

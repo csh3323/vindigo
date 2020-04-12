@@ -1,7 +1,7 @@
 import Knex from 'knex';
-import {getTablePrefix} from '../DatabaseService';
+import { prefixTable } from '../DatabaseService';
 
-const USERS_TABLE = getTablePrefix('users');
+const USERS_TABLE = prefixTable('users');
 
 exports.up = function(knex: Knex) {
 	return knex.schema.createTable(USERS_TABLE, (table) => {
