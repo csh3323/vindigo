@@ -5,4 +5,7 @@ import { Model } from "objection";
  * their structure from.
  */
 export abstract class BaseModel extends Model {
+
+	[key: string]: any;
+
 }
