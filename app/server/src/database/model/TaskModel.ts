@@ -13,6 +13,10 @@ export class TaskModel extends Model {
 		return prefixTable('tasks');
 	}
 
+	static get idColumn() {
+		return 'task_id';
+	}
+
 	static get jsonSchema() {
 		return {
 			type: 'object',

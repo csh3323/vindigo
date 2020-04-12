@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
+import { TaskModel } from './TaskModel';
 
 /**
  * Lists are contained with boards, and group
@@ -9,6 +10,10 @@ export class ListModel extends Model {
 
 	static get tableName() {
 		return prefixTable('lists');
+	}
+
+	static get idColumn() {
+		return 'list_id';
 	}
 
 	static get jsonSchema() {
@@ -24,6 +29,19 @@ export class ListModel extends Model {
 				name: { type: 'string' },
 				order_number: { type: 'integer' },
         		owner_board: { type: 'integer' }
+			}
+		}
+	}
+
+	static get relationMappings() {
+		return {
+			tasks: {
+				relation: Model.HasManyRelation,
+				modelClass: TaskModel,
+				join: {
+					from: `${this.tableName}.${this.idColumn}`,
+					to: `${ListModel.tableName}.owner_list`
+				}
 			}
 		}
 	}

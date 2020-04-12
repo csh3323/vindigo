@@ -8,6 +8,8 @@ const TASKS_TABLE = prefixTable('tasks');
 
 exports.up = function(knex: Knex) {
 	return knex.schema
+
+		// User accounts table
 		.createTable(USERS_TABLE, (table) => {
 			table.increments('user_id').unsigned();
 			table.string('email');
@@ -15,7 +17,10 @@ exports.up = function(knex: Knex) {
 			table.string('role');
 			table.boolean('active');
 			table.timestamps();
-		}).createTable(BOARDS_TABLE, (table) => {
+		})
+		
+		// Boards table
+		.createTable(BOARDS_TABLE, (table) => {
 			table.increments('board_id').unsigned();
 			table.integer('author').unsigned();
 			table.string('name');
@@ -23,14 +28,20 @@ exports.up = function(knex: Knex) {
 			table.timestamps();
 
 			table.foreign('author').references('user_id').inTable(USERS_TABLE);
-		}).createTable(LISTS_TABLE, (table) => {
+		})
+		
+		// Lists table
+		.createTable(LISTS_TABLE, (table) => {
 			table.increments('list_id').unsigned();
 			table.integer('order_number').unsigned();
 			table.integer('owner_board').unsigned();
 			table.string('name');
 
 			table.foreign('owner_board').references('board_id').inTable(BOARDS_TABLE);
-		}).createTable(TASKS_TABLE, (table) => {
+		})
+
+		// Tasks table
+		.createTable(TASKS_TABLE, (table) => {
 			table.increments('task_id').unsigned();
 			table.integer('order_number').unsigned();
 			table.integer('owner_list').unsigned();

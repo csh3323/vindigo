@@ -10,6 +10,10 @@ export class UserModel extends Model {
 		return prefixTable('users');
 	}
 
+	static get idColumn() {
+		return 'user_id';
+	}
+
 	static get jsonSchema() {
 		return {
 			type: 'object',
