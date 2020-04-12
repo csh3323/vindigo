@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { createConnector } from './Connector';
 import { WebService } from './WebService';
 import { BoardCreateController } from './controllers/BoardCreateController';
+import { BoardListController } from './controllers/BoardListController';
 
 /**
  * Configure the core backend API endpoints.
@@ -32,6 +33,7 @@ export function setupCoreRoutes(web: WebService, router: Router) {
 	// Profile
 
 	// Boards
+	router.get('/board', connect(new BoardListController()));
 	router.post('/board', connect(new BoardCreateController()));
 
 	// Administrative
