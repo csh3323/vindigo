@@ -2,6 +2,7 @@ import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
 import { ListModel } from './ListModel';
 import { BaseModel } from './BaseModel';
+import { UserModel } from './UserModel';
 
 /**
  * Boards are the top level structural entity
@@ -33,6 +34,14 @@ export class BoardModel extends BaseModel {
 				join: {
 					from: `${this.tableName}.${this.idColumn}`,
 					to: `${ListModel.tableName}.owner_board`
+				}
+			},
+			author: {
+				relation: Model.HasOneRelation,
+				modelClass: UserModel,
+				join: {
+					from: `${this.tableName}.author`,
+					to: `${UserModel.tableName}.${UserModel.idColumn}`
 				}
 			}
 		}
