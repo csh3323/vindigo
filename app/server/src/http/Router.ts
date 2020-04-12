@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from 'express-ws';
 import { createConnector } from './Connector';
 import { WebService } from './WebService';
 import { BoardCreateController } from './controllers/BoardCreateController';
@@ -37,5 +37,11 @@ export function setupCoreRoutes(web: WebService, router: Router) {
 	router.post('/board', connect(new BoardCreateController()));
 
 	// Administrative
+
+	// TODO Implement web socket here. We will probably want to use
+	// other classes to keep our close nice and separated. Ultimately
+	// we want to keep a list of all clients and send them messages when
+	// certain events occur e.g. label added, task removed, list moved, etc.
+	// router.ws()
 
 }
