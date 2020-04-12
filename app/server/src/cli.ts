@@ -276,17 +276,23 @@ function bytesToSize(bytes: number) {
 	}
 
 	// Undo the previous migration
-	async function migrateRollback() {
+	async function migrateRollback(input: any) {
 		const migrator = teleboard.database.knex.migrate;
 		const list = await migrator.list();
 
 		if(list[0].length < 1) {
 			logger.warn('No migrations to rollback');
 		} else {
-			await migrator.down();
+			if(input.all) {
+				await migrator.down();
 
-			const current = await getCurrent();
-			logger.info('Applied migration, now at ' + GREEN + current + RESET);
+				const current = await getCurrent();
+				logger.info('Rolled back migration, now at ' + GREEN + current + RESET);
+			} else {
+				await migrator.rollback({}, true);
+
+				logger.info('Rolled back all migration successfully');
+			}
 		}
 
 		teleboard.terminate();
@@ -350,7 +356,14 @@ function bytesToSize(bytes: number) {
 			.command({
 				command: 'migrate:rollback',
 				describe: 'Undo the previous migration',
-				handler: migrateRollback
+				handler: migrateRollback,
+				builder: (yargs) => {
+					return yargs.option('all', {
+						alias: 'a',
+						describe: 'Rollback all migrations',
+						type: 'boolean'
+					});
+				}
 			})
 			.help()
 			.demandCommand()
