@@ -15,11 +15,11 @@ export class BoardListController implements Controller {
 		});
 	}
 	
-	async authorize(req: Request, ctx: AuthorizeContext) {
+	async authorize(_req: Request, _ctx: AuthorizeContext) {
 		return true;
 	}
 
-	async handle(req: Request, res: Response, ctx: HandlerContext) {
+	async handle(_req: Request, _res: Response, ctx: HandlerContext) {
 		const result = await BoardModel.query();
 
 		ctx.respond({

@@ -23,11 +23,11 @@ export class BoardCreateController implements Controller {
 		});
 	}
 	
-	async authorize(req: Request, ctx: AuthorizeContext) {
+	async authorize(_req: Request, _ctx: AuthorizeContext) {
 		return true;
 	}
 
-	async handle(req: Request, res: Response, ctx: HandlerContext) {
+	async handle(req: Request, _res: Response, ctx: HandlerContext) {
 		const currDate = new Date();
 		const result = await BoardModel.query().insertAndFetch({
 			name: req.body.name,
