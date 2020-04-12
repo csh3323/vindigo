@@ -2,7 +2,8 @@
 
 ---
 
-**Disclaimer:** This project is currently in early development 🚧
+## 🚧 DISCLAIMER 🚧
+This project is currently in early development and is currently not useable in any way, shape, or form. 
 
 ## Introducion
 
