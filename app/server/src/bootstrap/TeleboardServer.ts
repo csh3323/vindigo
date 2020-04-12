@@ -39,6 +39,7 @@ export class TeleboardServer {
 		this.dataDir = path.join(__dirname, DATA_DIR_RELATIVE_TO_BUILD);
 		this.options = options;
 
+		// TODO Move to independant and re-useable config loader
 		// Load in the config file
 		const conFile = this.getDataFile("config.json");
 
