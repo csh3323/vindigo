@@ -11,18 +11,21 @@ exports.up = function(knex: Knex) {
 
 		// User accounts table
 		.createTable(USERS_TABLE, (table) => {
-			table.increments('user_id').unsigned();
+			table.increments('user_id');
 			table.string('email');
 			table.string('username');
 			table.string('role');
-			table.boolean('active');
+			table.boolean('disabled');
+			table.string('password');
+			table.string('password_salt');
+			table.timestamp('last_login_at');
 			table.timestamps();
 		})
 		
 		// Boards table
 		.createTable(BOARDS_TABLE, (table) => {
-			table.increments('board_id').unsigned();
-			table.integer('author').unsigned();
+			table.increments('board_id');
+			table.integer('author');
 			table.string('name');
 			table.boolean('closed');
 			table.timestamps();
@@ -32,9 +35,9 @@ exports.up = function(knex: Knex) {
 		
 		// Lists table
 		.createTable(LISTS_TABLE, (table) => {
-			table.increments('list_id').unsigned();
-			table.integer('order_number').unsigned();
-			table.integer('owner_board').unsigned();
+			table.increments('list_id');
+			table.integer('order_number');
+			table.integer('owner_board');
 			table.string('name');
 
 			table.foreign('owner_board').references('board_id').inTable(BOARDS_TABLE);
@@ -42,9 +45,9 @@ exports.up = function(knex: Knex) {
 
 		// Tasks table
 		.createTable(TASKS_TABLE, (table) => {
-			table.increments('task_id').unsigned();
-			table.integer('order_number').unsigned();
-			table.integer('owner_list').unsigned();
+			table.increments('task_id');
+			table.integer('order_number');
+			table.integer('owner_list');
 			table.string('name');
 			table.text('description');
 			
