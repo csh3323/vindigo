@@ -17,9 +17,14 @@ import fs from 'fs';
  */
 export class WebService {
 
-	public readonly logger: Logger;
 	public readonly app: TeleboardServer;
 	public readonly server: Application;
+
+	/** The logger instance */
+	public logger!: Logger;
+
+	/** True when the service is active */
+	private running: boolean = false;
 
 	/** The  low level server instance */
 	private httpServer?: Server;
@@ -27,7 +32,6 @@ export class WebService {
 	public constructor(app: TeleboardServer) {
 		this.app = app;
 		this.server = express();
-		this.logger = app.getLogger('WebService');
 
 		// Inject web socket functionality
 		setupWs(this.server);
@@ -38,6 +42,12 @@ export class WebService {
 	 * in the Teleboard config
 	 */
 	public start() {
+		if(this.running) return;
+		this.running = true;
+
+		this.logger = this.app.getLogger('WebService');
+		this.logger.info('Configuring internal web server...');
+
 		const port = this.app.config.web.port;
 		
 		// Setup the routes
@@ -59,7 +69,13 @@ export class WebService {
 	 * Stop the active WebService
 	 */
 	public stop() {
-		if(this.httpServer) this.httpServer.close();
+		if(!this.running) return;
+
+		if(this.httpServer) {
+			this.httpServer.close();
+		}
+
+		this.running = false;
 	}
 
 	/**

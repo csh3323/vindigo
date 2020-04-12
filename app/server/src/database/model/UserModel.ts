@@ -1,10 +1,11 @@
 import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
+import { BaseModel } from './BaseModel';
 
 /**
  * Represents a registered Teleboard user account
  */
-export class UserModel extends Model {
+export class UserModel extends BaseModel {
 
 	static get tableName() {
 		return prefixTable('users');

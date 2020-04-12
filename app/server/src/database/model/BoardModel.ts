@@ -1,13 +1,14 @@
 import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
 import { ListModel } from './ListModel';
+import { BaseModel } from './BaseModel';
 
 /**
  * Boards are the top level structural entity
  * of Teleboard. Boards contain lists, which
  * in return contain tasks.
  */
-export class BoardModel extends Model {
+export class BoardModel extends BaseModel {
 
 	static get tableName() {
 		return prefixTable('boards');

@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
+import { BaseModel } from './BaseModel';
 
 /**
  * Tasks are the most important part of Teleboard
@@ -7,7 +8,7 @@ import { prefixTable } from '../DatabaseService';
  * are ordered within lists, and lists are ordered
  * within boards.
  */
-export class TaskModel extends Model {
+export class TaskModel extends BaseModel {
 
 	static get tableName() {
 		return prefixTable('tasks');

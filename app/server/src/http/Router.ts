@@ -3,6 +3,7 @@ import { TestController } from './controllers/TestController';
 import { TeleboardServer } from '../bootstrap/TeleboardServer';
 import { createConnector } from './Connector';
 import { WebService } from './WebService';
+import { BoardCreateController } from './controllers/BoardCreateController';
 
 /**
  * Configure the core backend API endpoints.
@@ -35,6 +36,7 @@ export function setupCoreRoutes(web: WebService, router: Router) {
 	// Profile
 
 	// Boards
+	router.post('/board', connect(new BoardCreateController()));
 
 	// Administrative
 

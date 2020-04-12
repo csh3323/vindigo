@@ -1,12 +1,13 @@
 import { Model } from 'objection';
 import { prefixTable } from '../DatabaseService';
 import { TaskModel } from './TaskModel';
+import { BaseModel } from './BaseModel';
 
 /**
  * Lists are contained with boards, and group
  * related tasks together in an ordered fashion.
  */
-export class ListModel extends Model {
+export class ListModel extends BaseModel {
 
 	static get tableName() {
 		return prefixTable('lists');

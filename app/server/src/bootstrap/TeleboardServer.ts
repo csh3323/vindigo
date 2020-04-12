@@ -25,8 +25,9 @@ export class TeleboardServer {
 
 	public readonly options: InitOptions;
 	public readonly config: Config;
-	public readonly logger: Logger;
 	public readonly isDebug: boolean;
+
+	public logger!: Logger;
 
 	private installing: boolean;
 	private dataDir: string;
@@ -64,7 +65,7 @@ export class TeleboardServer {
 		this.isDebug = this.config.debug || process.env.NODE_ENV == "development";
 
 		// Setup the global logger
-		this.logger = this.getLogger('Teleboard');
+		this.initLogger();
 
 		// Instantiate services
 		this.web = new WebService(this);
@@ -100,6 +101,13 @@ export class TeleboardServer {
 		// Shutdown services
 		this.web.stop();
 		this.database.stop();
+	}
+
+	/**
+	 * Instantiate and configure the main Teleboard logger instance
+	 */
+	public initLogger() {
+		this.logger = this.getLogger('Teleboard');
 	}
 
 	/**

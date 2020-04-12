@@ -12,15 +12,19 @@ import path from "path";
  */
 export class DatabaseService {
 
-	public readonly logger: Logger;
 	public readonly app: TeleboardServer;
+
+	/** The logger instance */
+	public logger!: Logger;
+
+	/** True when the service is active */
+	private running: boolean = false;
 
 	/** The Sequelize connection instance */
 	private instance: Knex
 
 	public constructor(app: TeleboardServer) {
 		this.app = app;
-		this.logger = app.getLogger('DatabsaseService');
 
 		// Detect the requested driver
 		const config = app.config.database;
@@ -49,7 +53,8 @@ export class DatabaseService {
 				directory: path.join(__dirname, './migrations'),
 				stub: path.join(__dirname, './MigrationStub.ts'),
 				extension: 'ts'
-			}
+			},
+			useNullAsDefault: true
 		};
 
 		// Load the correct database details
@@ -102,6 +107,11 @@ export class DatabaseService {
 	 * connection params.
 	 */
 	public start() {
+		if(this.running) return;
+		this.running = true;
+
+		this.logger = this.app.getLogger('DatabsaseService');
+
 		if(!this.app.options.isInCLI) {
 			this.logger.info('Configured database driver for ' + this.app.config.database.driver);	
 		}
@@ -125,7 +135,10 @@ export class DatabaseService {
 	 * Stop the active DatabaseService
 	 */
 	public stop() {
+		if(!this.running) return;
+
 		this.knex.destroy();
+		this.running = false;
 	}
 
 	/**
