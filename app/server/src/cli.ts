@@ -240,6 +240,20 @@ function bytesToSize(bytes: number) {
 		teleboard.terminate();
 	}
 
+	// Query the available migrations
+	async function migrateStatus() {
+		const migrator = teleboard.database.knex.migrate;
+		const list = await migrator.list();
+
+		if(list[1].length < 1) {
+			logger.warn('Migrations already up-to-date');
+		} else {
+			logger.info('There are ' + CYAN + list[1].length + RESET + ' pending migrations available');
+		}
+
+		teleboard.terminate();
+	}
+
 	// Execute all remaining migrations
 	async function migrateUpdate() {
 		const migrator = teleboard.database.knex.migrate;
@@ -342,6 +356,11 @@ function bytesToSize(bytes: number) {
 						describe: 'The name of the migration'
 					});
 				}
+			})
+			.command({
+				command: 'migrate:status',
+				describe: 'Query the migration status',
+				handler: migrateStatus
 			})
 			.command({
 				command: 'migrate:update',
