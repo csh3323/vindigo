@@ -1,6 +1,6 @@
 import { TeleboardServer } from '../bootstrap/TeleboardServer';
 import setupWs, { Router as WsRouter } from 'express-ws';
-import express, { Router, Application, Request, Response } from 'express';
+import express, { Router, Application, Request, Response, RequestHandler } from 'express';
 import { setupCoreRoutes } from './Router';
 import bodyParser from 'body-parser';
 import { Logger } from 'winston';
@@ -97,8 +97,9 @@ export class WebService {
 
 		// Configure the static router
 		staticRouter.use(
-			express.static(distDir),
-			express.static(publicDir)
+			express.static(publicDir),							// Load from /public
+			express.static(distDir),							// Load client dist
+			({res}) => res!.sendFile(distDir + '/index.html')	// Fallback to index html
 		);
 
 		// Configure the API router
@@ -106,13 +107,8 @@ export class WebService {
 		this.setupSocket(apiRouter);
 
 		// Register the router
-		app.use('/', staticRouter)
 		app.use('/api', bodyParser.json(), apiRouter);
-
-		// Register the fallback route
-		app.use('/', (_: Request, res: Response) => {
-			res.status(404).send("<h2>404</h2><p>The page you tried to access does not exist</p>");
-		})
+		app.use('/', staticRouter)
 	}
 
 	/**
