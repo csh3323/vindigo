@@ -104,23 +104,10 @@ export class WebService {
 
 		// Configure the API router
 		setupCoreRoutes(this, apiRouter);
-		this.setupSocket(apiRouter);
 
 		// Register the router
 		app.use('/api', bodyParser.json(), apiRouter);
 		app.use('/', staticRouter)
-	}
-
-	/**
-	 * Setup and configure the socket endpoint for
-	 * live updates.
-	 * 
-	 * @param router Router
-	 */
-	private setupSocket(router: WsRouter) {
-		router.ws('/channel', (ws: WebSocket) => {
-			ws.on
-		});
 	}
 
 }

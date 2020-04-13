@@ -3,6 +3,8 @@ import { createConnector } from './Connector';
 import { WebService } from './WebService';
 import { BoardCreateController } from './controllers/BoardCreateController';
 import { BoardListController } from './controllers/BoardListController';
+import WebSocket from 'ws';
+import { Request } from 'express';
 
 /**
  * Configure the core backend API endpoints.
@@ -42,6 +44,8 @@ export function setupCoreRoutes(web: WebService, router: Router) {
 	// other classes to keep our close nice and separated. Ultimately
 	// we want to keep a list of all clients and send them messages when
 	// certain events occur e.g. label added, task removed, list moved, etc.
-	// router.ws()
+	router.ws('/live', (ws: WebSocket, req: Request) => {
+		
+	});
 
 }
