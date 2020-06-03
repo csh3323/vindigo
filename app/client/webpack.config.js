@@ -19,7 +19,6 @@ module.exports = {
 		filename: 'client.js'
 	},
 	mode: process.env.NODE_ENV,
-	devtool: 'source-map',
 	resolve: {
 		alias: {
 			'~': path.resolve(__dirname, 'src'),
