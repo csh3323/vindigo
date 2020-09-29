@@ -67,7 +67,14 @@ module.exports = {
 			{
 				test: /(\.png|\.svg|\.jpg)/,
 				use: 'file-loader'
-			}
+			},
+
+			// Development source maps
+			{
+				test: /\.js$/,
+				enforce: 'pre',
+				use: ['source-map-loader'],
+			},
 		]
 	},
 	plugins: [
