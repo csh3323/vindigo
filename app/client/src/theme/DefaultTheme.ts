@@ -1,17 +1,13 @@
-import { IThemeConfig, IColorScheme, ThemeVariant } from './Theme';
+import { IColorScheme, IThemeConfig, ThemeVariant } from './Theme';
 
 export class DefaultTheme implements IThemeConfig {
 
-	name: string = "Default Light";
-
-	variant = "light" as const
+	id = "default_light";
+	name = "Default Light";
+	variant = ThemeVariant.LIGHT;
 
 	colorscheme: IColorScheme = { 
-		'': ''
+		'some-key': '#FF0000'
 	}
 
-}
-
-export {
-	
 }

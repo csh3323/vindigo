@@ -22,4 +22,36 @@ export interface IColorScheme {
 	[key: string]: string;
 }
 
-export type ThemeVariant = 'light' | 'dark';
+/**
+ * The visual display variant of a theme, either light or dark
+ */
+export enum ThemeVariant {
+	LIGHT, DARK
+}
+
+/**
+ * The configuration values for a single theme
+ */
+export interface IThemeConfig {
+
+	/**
+	 * The unique identifier of this theme
+	 */
+	id: string;
+
+	/**
+	 * The displayname of this theme
+	 */
+	name: string;
+
+	/**
+	 * The variant type of this theme
+	 */
+	variant: ThemeVariant;
+
+	/**
+	 * The colorscheme definition of this theme
+	 */
+	colorscheme: IColorScheme
+
+}
