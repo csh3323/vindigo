@@ -9,7 +9,6 @@ import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import VueCompositionApi from '@vue/composition-api';
 import AppComponent from '../components/App.vue';
-import Colors from "vuetify/es5/util/colors";
 import { RoutingService } from '~/routing/RoutingService';
 import { StoreService } from '~/store/StoreService';
 import { registerDefaults as registerRoutes } from '~/routing/RoutingDefaults';
@@ -47,11 +46,15 @@ export class TeleboardClient {
 	 * Launch the Teleboard Client
 	 */
 	public launch() {
+
+		// TODO Allow for overriding and possibly presets to choose from
 		const colorTheme = {
-			primary: Colors.blueGrey.base,
-			secondary: Colors.grey.darken4,
-			accent: Colors.lightBlue.base,
-			success: Colors.lightGreen.base,
+			'primary': '#607D8B',
+			'secondary': '#212121',
+			'accent': '#03A9F4',
+			'success': '#8BC34A',
+			'sidebar': '#282828',
+			'sidebar-icon': '#8e8e8e'
 		};
 
 		const vuetify = new Vuetify({

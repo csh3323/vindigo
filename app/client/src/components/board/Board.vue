@@ -3,10 +3,9 @@
 		<!-- Sidebar drawer -->
 		<v-navigation-drawer
 			app
-			dark
 			permanent
 			mini-variant
-			class="board-sidebar secondary elevation-5"
+			class="board-sidebar sidebar elevation-5"
 		>
 			<v-list nav dense class="board-sidebar__nav">
 				<div v-for="btn in sidebar" :key="btn.title" class="board-sidebar-item">
@@ -18,7 +17,7 @@
 								<v-list-item :ripple="false" v-on="on" @click="btn.handle" class="my-2">
 									<v-list-item-action>
 										<v-img v-if="btn.img" :src="btn.img" :transition="false"></v-img>
-										<v-icon v-else>{{btn.icon}}</v-icon>
+										<v-icon v-else class="sidebar-icon--text">{{btn.icon}}</v-icon>
 									</v-list-item-action>
 								</v-list-item>
 							</template>
