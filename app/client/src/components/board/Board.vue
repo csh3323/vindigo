@@ -39,7 +39,7 @@
 			<v-text-field
 				prepend-icon="mdi-magnify"
 				style="max-width: 250px"
-				placeholder="Search"
+				placeholder="Search cards..."
 				hide-details
 				dark
 			/>
