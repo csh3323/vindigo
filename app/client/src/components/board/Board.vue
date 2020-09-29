@@ -9,7 +9,7 @@
 		>
 			<v-list nav dense class="board-sidebar__nav">
 				<div v-for="btn in sidebar" :key="btn.title" class="board-sidebar-item">
-					<v-divider v-if="btn.divider"/>
+					<v-divider v-if="btn.divider" class="board-sidebar-item__divider"/>
 					<template v-else>
 						<div :class="{'board-sidebar-item__indicator': true, 'board-sidebar-item__indicator--active': btn.active}"></div>
 						<v-tooltip right>
@@ -229,6 +229,10 @@ export default defineComponent({
 		&--active {
 			left: -8px;
 		}
+	}
+
+	&__divider {
+		background-color: rgba(255, 255, 255, 0.2);
 	}
 }
 
