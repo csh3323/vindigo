@@ -1,7 +1,6 @@
 import VueRouter, { RouterOptions, RouteConfig, RawLocation, Route } from 'vue-router';
 import { IPage, IRoutablePage } from './IPage';
 import _ from 'lodash';
-import { Router } from 'express';
 
 /**
  * The class used to define application routes

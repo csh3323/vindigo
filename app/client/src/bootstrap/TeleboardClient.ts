@@ -8,11 +8,13 @@ import VueI18n from 'vue-i18n';
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import VueCompositionApi from '@vue/composition-api';
-import AppComponent from '../components/App.vue';
+import AppView from '~/views/App.vue';
+import DragfieldComponent from '~/components/Dragfield.vue';
 import { RoutingService } from '~/routing/RoutingService';
 import { StoreService } from '~/store/StoreService';
 import { registerDefaults as registerRoutes } from '~/routing/RoutingDefaults';
 import { registerDefaults as registerStore } from '~/store/StoreDefaults';
+import { ClientRegistry } from './ClientRegistry';
 
 /**
  * The main Teleboard client management class, in charge of
@@ -29,8 +31,23 @@ export class TeleboardClient {
 	/** The store configuration */
 	public readonly store: StoreService;
 
+	/** The teleboard client registry */
+	public readonly registry: ClientRegistry;
+
 	public constructor() {
 		Vue.config.productionTip = false;
+
+		this.router = new RoutingService();
+		this.store = new StoreService();
+		this.registry = new ClientRegistry();
+		this.configure();
+	}
+
+	/**
+	 * Configure client essentials
+	 */
+	private configure() {
+		const registry = this.registry;
 
 		Vue.use(Vuex);
 		Vue.use(VueI18n);
@@ -38,8 +55,7 @@ export class TeleboardClient {
 		Vue.use(VueRouter);
 		Vue.use(VueCompositionApi);
 
-		this.router = new RoutingService();
-		this.store = new StoreService();
+		registry.registerComponent('dragfield', DragfieldComponent);
 	}
 
 	/**
@@ -70,13 +86,15 @@ export class TeleboardClient {
 		registerRoutes(this.router);
 		registerStore(this.store);
 
-		// Instantiate the vue instance
+		// Instantiate the vue instance and pass in core props.
+		// The AppView will take care of wrapping these props
+		// into injectable keys anywhere in the component structure.
 		this.instance = new Vue({
 			el: '#app',
             router: this.router.buildRouter(),
             store: this.store.buildStore(),
 			vuetify: vuetify,
-            render: h => h(AppComponent, {
+            render: h => h(AppView, {
 				props: {
 					app: this,
 					store: this.store,
@@ -90,6 +108,8 @@ export class TeleboardClient {
 			value: this,
 			writable: false
 		});
+
+		// throw new Error("Oh nee");
 	}
 
 }

@@ -47,7 +47,7 @@
 
 		<!-- Teleboard Board -->
 		<v-content class="board" :style="boardStyle">
-			<v-container fluid class="board-content mb-0 pa-5">
+			<v-container fluid class="board-content mb-0 pa-0">
 				<router-view :board="board" :controls="boardControls"/>
 			</v-container>
 		</v-content>

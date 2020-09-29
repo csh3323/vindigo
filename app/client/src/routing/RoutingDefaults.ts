@@ -1,7 +1,7 @@
 import { RoutingService } from './RoutingService';
-import HomePage from '../components/home/Home.vue';
-import BoardPage from '../components/board/Board.vue';
-import BoardLists from '../components/board/Lists.vue';
+import HomePage from '../views/home/Home.vue';
+import BoardPage from '../views/board/Board.vue';
+import BoardLists from '../views/board/Lists.vue';
 
 export function registerDefaults(router: RoutingService) {
 	
