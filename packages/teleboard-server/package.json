@@ -1,15 +1,5 @@
 {
     "name": "teleboard-server",
-    "private": true,
-    "devDependencies": {
-		"cross-env": "^7.0.0",
-		"deepmerge": "^4.2.2",
-		"gulp": "^4.0.2",
-		"gulp-sourcemaps": "^2.6.5",
-		"gulp-typescript": "^6.0.0-alpha.1",
-		"jest": "^25.1.0",
-		"nodemon": "^2.0.2",
-		"ts-jest": "^25.2.1",
-		"typescript": "^3.8.2"
-	}
+    "version": "1.0.0",
+    "private": true
 }
