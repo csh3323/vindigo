@@ -1,15 +1,16 @@
 {
-    "name": "teleboard-app",
-    "private": true,
-    "description": "The next generation planning tool",
+	"name": "teleboard-app",
+	"version": "0.1.0",
+	"private": true,
+	"description": "The next generation planning tool",
 	"author": "Julian Mills",
 	"license": "MIT",
 	"scripts": {
-		"build:client": "cd packages/teleboard-client && cross-env NODE_ENV=production webpack",
-		"dev:client": "cd packages/teleboard-client && cross-env NODE_ENV=development webpack-dev-server",
-		"build:server": "cd packages/teleboard-server && gulp -f ./gulpfile.js",
-		"dev:server": "nodemon -e js,ts,json --watch ./packages/teleboard-server/src -x \"npm run build:server && node ./dist/server/main.js\"",
-		"test:server": "jest packages/teleboard-server/tests"
+		"build:client": "cd app/client && cross-env NODE_ENV=production webpack",
+		"dev:client": "cd app/client && cross-env NODE_ENV=development webpack-dev-server",
+		"build:server": "cd app/server && gulp -f ./gulpfile.js",
+		"dev:server": "nodemon -e js,ts,json --watch ./app/server/src -x \"npm run build:server && node ./dist/server/main.js\"",
+		"test:server": "jest app/server/tests"
 	},
 	"dependencies": {
 		"@types/faker": "^4.1.11",
@@ -21,7 +22,7 @@
 		"faker": "^4.1.0",
 		"jsonschema": "^1.2.5",
 		"knex": "^0.20.12",
-		"lodash": "^4.17.21",
+		"lodash": "^4.17.19",
 		"moment": "^2.24.0",
 		"objection": "^2.1.3",
 		"pg": "^7.18.2",
