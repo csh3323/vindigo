@@ -24,7 +24,7 @@ At its core, Vindigo offers an efficient way of creating, listing, and viewing y
 - Self hosted for full control over your data and setup
 - Support for theming and customized themes
 - Extensible with plugins and an easy to use API
-- Fully open source and licensed under [MIT](https://opensource.org/licenses/MIT)
+- Fully open source and licensed under [MIT](https://github.com/ExodiusStudios/vindigo/blob/master/LICENSE)
 
 ## Installation
 
