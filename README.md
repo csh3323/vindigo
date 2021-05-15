@@ -29,7 +29,7 @@ At its core, Vindigo offers an efficient way of creating, listing, and viewing y
 ## Installation
 
 ### Prerequisites
-Vindigo is built using [node](https://nodejs.org/en/) which means you will need to install NodeJS version 9 or higher. Make sure you also install npm, the package manager for node (it usually comes bundled with node).
+Vindigo is built using [node](https://nodejs.org/en/) which means you will need to install NodeJS version 12 or higher. Make sure you also also have npm, the package manager for node (it usually comes bundled directly with node).
 
 ### Setup
 First, obtain a copy of Vindigo by cloning it from this repo
@@ -37,25 +37,37 @@ First, obtain a copy of Vindigo by cloning it from this repo
 git clone https://github.com/ExodiusStudios/vindigo.git
 ```
 
-Once you have obtained a local copy from github, run the following commands to prepare your instance of Vindigo.
+Once you have obtained a local copy from github, run the following commands to prepare your instance.
 ```
-npm install -g yarn    # Install the yarn package manager
-yarn install           # Install required dependencies
-chmod +x ./vindigo   # Grant execute permission to the CLI
+npm install -g yarn   # Install the yarn package manager
+yarn install          # Install required dependencies
+yarn build            # Build distribution files
+```
+
+You can now use the CLI to manage your Vindigo instance.
+
+**Windows**
+```
+.\vindigo
+```
+
+**Unix based systems**
+```
+chmod +x ./vindigo    # Grant execute permission to the CLI
+./vindigo
 ```
 
 *Notice: If you decide to help contribute to Vindigo, this setup will get you development ready as well ;)*
 
 ### Using the CLI (Command Line Interface)
 
-The CLI provides a useful array of commands allowing you to manage your Vindigo setup. In order to launch Vindigo, run the following command:
+The CLI provides many useful commands allowing you to manage your Vindigo setup. In order to launch Vindigo, run the following command.
 
 ```
 ./vindigo start
 ```
 
 Vindigo will be started in the background and can now be accessed on `http://localhost:8045`.
-
 
 The CLI provides many more commands used to manage your Vindigo setup. The following snippet is directly generated from `./vindigo help`.
 
@@ -66,9 +78,8 @@ Commands:
   vindigo start    Launch the Vindigo server
   vindigo stop     Terminate the Vindigo server
   vindigo status   Show the current daemon status
-  vindigo run      Start the Vindigo server in the foreground
   vindigo config   Display the Vindigo config
-  vindigo compile  Build the vindigo client and server
+  vindigo run      Start the Vindigo server in the foreground
 
 Options:
   --version  Show version number
@@ -83,8 +94,8 @@ Before you can start contributing to Vindigo, make sure to follow the installati
 A development setup with hot reloading can be started with the following two commands (You may have to run them in separate terminals).
 
 ```
-yarn dev:client
-yarn dev:server
+yarn serve:server
+yarn serve:client
 ```
 
 When working on the source code, the frontend and backend will automatically be reloaded as you save files.
