@@ -1,9 +1,11 @@
 import chalk from "chalk";
 import consola from "consola";
 import pm2, { ProcessDescription, StartOptions } from 'pm2';
-import { ENTRYPOINT, SCRIPT_NAME } from "../util";
+import { assertServerDist, ENTRYPOINT, SCRIPT_NAME } from "../util";
 
 export function handleStart() {
+	assertServerDist();
+	
 	pm2.connect((err: any) => {
 		if(err) {
 			consola.error('Could not connect to pm2: ', err);

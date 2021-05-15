@@ -2,7 +2,7 @@ import chalk from "chalk";
 import consola from "consola";
 import dayjs from "dayjs";
 import pm2, { ProcessDescription } from 'pm2';
-import { bytesToSize, ENTRYPOINT, SCRIPT_NAME } from "../util";
+import { bytesToSize, SCRIPT_NAME } from "../util";
 
 export function handleStatus() {
 	pm2.connect((err: any) => {
