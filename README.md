@@ -1,18 +1,18 @@
-![Teleboard](.github/logo-light.png "Teleboard")
+![Vindigo](.github/banner.png "Vindigo")
 
 ---
 
-## 🚧 DISCLAIMER 🚧
-This project is currently in early development and is currently not useable in any way, shape, or form. 
+## 🚧 **DISCLAIMER** 🚧
+This project is currently in early development and is currently not useable in any way, shape or form. **Do not use in production!**
 
 ## Introducion
 
-Teleboard is a next generation planning tool focused on productivity and usability for your team.
+Vindigo is a next generation planning tool focused on productivity and usability for your team.
 
-At its core, Teleboard offers an efficient way of creating, listing, and viewing your projects tasks. Inspired by other great planning tools, teleboard provides you with plenty of customization and extensibility, allowing it to fit your specific needs.
+At its core, Vindigo offers an efficient way of creating, listing, and viewing your projects tasks. Inspired by other great planning tools, vindigo provides you with plenty of customization and extensibility, allowing it to fit your specific needs.
 
 ## Features
-- Implements an easy to use task hierarchy (Boards > Lists > Tasks)
+- Implements an easy to use task hierarchy (Boards - Lists - Tasks)
 - Instant live syncing across multiple browsers
 - User and account management on a per-board basis
 - Self hosted for full control over your data and setup
@@ -23,46 +23,46 @@ At its core, Teleboard offers an efficient way of creating, listing, and viewing
 ## Installation
 
 ### Prerequisites
-Teleboard is built using [node](https://nodejs.org/en/) which means you will need to install NodeJS version 9 or higher. Make sure you also install npm, the package manager for node (it usually comes bundled with node).
+Vindigo is built using [node](https://nodejs.org/en/) which means you will need to install NodeJS version 9 or higher. Make sure you also install npm, the package manager for node (it usually comes bundled with node).
 
 ### Setup
-First, obtain a copy of Teleboard by cloning it from this repo
+First, obtain a copy of Vindigo by cloning it from this repo
 ```
-git clone https://github.com/ExodiusStudios/teleboard.git
+git clone https://github.com/ExodiusStudios/vindigo.git
 ```
 
-Once you have obtained a local copy from github, run the following commands to prepare your instance of Teleboard.
+Once you have obtained a local copy from github, run the following commands to prepare your instance of Vindigo.
 ```
 npm install -g yarn    # Install the yarn package manager
 yarn install           # Install required dependencies
-chmod +x ./teleboard   # Grant execute permission to the CLI
+chmod +x ./vindigo   # Grant execute permission to the CLI
 ```
 
-*Notice: If you decide to help contribute to Teleboard, this setup will get you development ready as well ;)*
+*Notice: If you decide to help contribute to Vindigo, this setup will get you development ready as well ;)*
 
 ### Using the CLI (Command Line Interface)
 
-The CLI provides a useful array of commands allowing you to manage your Teleboard setup. In order to launch Teleboard, run the following command:
+The CLI provides a useful array of commands allowing you to manage your Vindigo setup. In order to launch Vindigo, run the following command:
 
 ```
-./teleboard start
+./vindigo start
 ```
 
-Teleboard will be started in the background and can now be accessed on `http://localhost:8045`.
+Vindigo will be started in the background and can now be accessed on `http://localhost:8045`.
 
 
-The CLI provides many more commands used to manage your Teleboard setup. The following snippet is directly generated from `./teleboard help`.
+The CLI provides many more commands used to manage your Vindigo setup. The following snippet is directly generated from `./vindigo help`.
 
 ```
-./teleboard <cmd> [options]
+./vindigo <cmd> [options]
 
 Commands:
-  teleboard start    Launch the Teleboard server
-  teleboard stop     Terminate the Teleboard server
-  teleboard status   Show the current daemon status
-  teleboard run      Start the Teleboard server in the foreground
-  teleboard config   Display the Teleboard config
-  teleboard compile  Build the teleboard client and server
+  vindigo start    Launch the Vindigo server
+  vindigo stop     Terminate the Vindigo server
+  vindigo status   Show the current daemon status
+  vindigo run      Start the Vindigo server in the foreground
+  vindigo config   Display the Vindigo config
+  vindigo compile  Build the vindigo client and server
 
 Options:
   --version  Show version number
@@ -71,7 +71,7 @@ Options:
 ```
 
 ## Development setup
-Before you can start contributing to Teleboard, make sure to follow the installation tutorial. 
+Before you can start contributing to Vindigo, make sure to follow the installation tutorial. 
 
 ### Run development setup
 A development setup with hot reloading can be started with the following two commands (You may have to run them in separate terminals).
@@ -91,7 +91,7 @@ yarn build:client
 yarn build:server
 
 # Shortcut to run both commands at once
-./teleboard compile
+./vindigo compile
 ```
 
 ### Publishing contributions

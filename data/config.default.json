@@ -1,7 +1,7 @@
 {
 	"debug": false,
-	"installName": "Teleboard",
-	"logFile": "teleboard.log",
+	"name": "Vindigo",
+	"logFile": "vindigo.log",
 	"web": {
 		"hostname": "localhost",
 		"port": 8045
@@ -10,9 +10,9 @@
 		"driver": "sqlite",
 		"hostname": "localhost",
 		"port": 3306,
-		"username": "teleboard",
+		"username": "vindigo",
 		"password": "",
-		"prefix": "tb_",
-		"name": "teleboard"
+		"prefix": "vin_",
+		"name": "vindigo"
 	}
 }

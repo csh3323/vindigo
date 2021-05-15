@@ -10,4 +10,4 @@ if %errorlevel% == 9009 (
 
 :error
 echo.
-echo It looks like NodeJS is not installed yet. Node is required to run Teleboard
+echo It looks like NodeJS is not installed yet. Node is required to run Vindigo

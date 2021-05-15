@@ -1,9 +1,11 @@
-## Source directories
+## Vindigo Packages
 
-**client** - The frontend vue application served by the backend. Written in TypeScript and vue, and uses Webpack as asset bundler.
+These are the packages for the [Vindigo](https://vindigo.app/) monorepo.
 
-**server** - The backend application in charge of running most Teleboard logic. Written in TypeScript and uses gulp as build tool.
+- **vindigo-cli** - Used to manage the active vindigo instance
+- **vindigo-client** - The frontend vue application served by the backend. Written in TypeScript and vue, and uses Webpack as asset bundler.
+- **vindigo-server** - The backend application in charge of running most Vindigo logic. Written in TypeScript and uses gulp as build tool.
 
 ### Distribution files
 
-Building Teleboard results in distribution files being placed at `app/build`. These files should not be comitted and contain a combination of server and client files.
+Building Vindigo results in distribution files being placed at `app/build`. These files should not be comitted and contain a combination of server and client files.
