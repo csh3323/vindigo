@@ -1,5 +1,5 @@
 @echo off
-node teleboard %*
+node vindigo %*
 
 rem errorlevel 9009 means the command didn't work
 if %errorlevel% == 9009 (

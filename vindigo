@@ -1,7 +1,25 @@
 #!/usr/bin/env node
 
+const { join } = require('path');
+const { existsSync } = require('fs');
+const { execSync } = require('child_process');
+const consola = require('consola');
+
+const entrypoint = join(__dirname, 'packages/vindigo-cli/dist/index.js');
+
+if(!existsSync(entrypoint)) {
+	consola.info('Generating CLI files...');
+	
+	try {
+		execSync('yarn workspace vindigo-cli build');
+	} catch(err) {
+		console.error('Failed to build CLI distribution files');
+	}
+}
+
 try {
-	require('./dist/server/cli');
+	require(entrypoint);
 } catch(err) {
 	console.error('Failed to initialize CLI');
+	throw err;
 }
