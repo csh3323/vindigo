@@ -1,5 +1,9 @@
 ![Vindigo](.github/banner.png "Vindigo")
 
+<p align="center">
+  <img src="https://img.shields.io/github/license/ExodiusStudios/vindigo">  
+</p>
+
 ---
 
 ## 🚧 **DISCLAIMER** 🚧
