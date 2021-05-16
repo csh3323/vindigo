@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build",
+			"detail": "Build all packages"
+		},
+		{
+			"type": "npm",
+			"script": "watch",
+			"path": "packages/vindigo-server/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Watch Server",
+			"detail": "Automatically compile the server"
+		},
+		{
+			"type": "npm",
+			"script": "watch",
+			"path": "packages/vindigo-cli/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Watch CLI",
+			"detail": "Automatically compile the CLI"
+		}
+	]
+}
