@@ -2,10 +2,12 @@ import { VindigoServer } from "./server";
 import ON_DEATH from 'death';
 import consola from "consola";
 
+// Instantiate the Vindigo server and make it public
+// to the entire app.
 const vindigo = new VindigoServer();
-
 export { vindigo };
 
+// Start the server and handle exit signals
 try {
 	vindigo.start();
 

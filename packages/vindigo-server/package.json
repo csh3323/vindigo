@@ -4,11 +4,15 @@
     "private": true,
     "scripts": {
         "watch": "nodemon",
-        "build": "tsc"
+        "build": "gulp"
     },
     "devDependencies": {
         "@types/death": "^1.1.1",
         "@types/node": "^15.3.0",
+        "gulp": "^4.0.2",
+        "gulp-sourcemaps": "^3.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "rimraf": "^3.0.2",
         "typescript": "^4.2.4"
     },
     "dependencies": {
