@@ -1,5 +1,7 @@
-console.log('Kaanus');
-
-setTimeout(() => {
-    console.log('Hupekee');
-}, 1000 * 1000);
+console.log('Anus');
+console.log('Anus');
+console.log('Anus');
+console.log('Anus');
+console.log('Anus');
+console.log('Anus');
+console.log('Anus');

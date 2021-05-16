@@ -5,7 +5,9 @@
 	"author": "Julian Mills",
 	"license": "MIT",
 	"scripts": {
-		"build": "yarn workspaces run build"
+		"build": "yarn workspaces run build",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
 	"workspaces": [
 		"packages/vindigo-cli",
@@ -14,5 +16,10 @@
 	],
 	"dependencies": {
 		"consola": "^2.15.3"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.23.0",
+		"@typescript-eslint/parser": "^4.23.0",
+		"eslint": "^7.26.0"
 	}
 }

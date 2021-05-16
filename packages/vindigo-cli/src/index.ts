@@ -12,34 +12,34 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 yargs
-    .scriptName("vindigo")
-    .usage('$0 <cmd> [options]')
-    .command({
-        command: 'start',
-        describe: 'Launch the Vindigo server',
-        handler: handleStart
-    })
-    .command({
-        command: 'stop',
-        describe: 'Terminate the Vindigo server',
-        handler: handleStop
-    })
-    .command({
-        command: 'status',
-        describe: 'Show the current daemon status',
-        handler: handleStatus
-    })
-    .command({
-        command: 'run',
-        describe: 'Start the Teleboard server in the foreground',
-        handler: handleRun
-    })
-    .command({
-        command: 'config',
-        describe: 'Display the Teleboard config',
-        handler: handleConfig
-    })
-    .help()
-    .demandCommand()
-    .strict()
-    .parse()
+	.scriptName("vindigo")
+	.usage('$0 <cmd> [options]')
+	.command({
+		command: 'start',
+		describe: 'Launch the Vindigo server',
+		handler: handleStart
+	})
+	.command({
+		command: 'stop',
+		describe: 'Terminate the Vindigo server',
+		handler: handleStop
+	})
+	.command({
+		command: 'status',
+		describe: 'Show the current daemon status',
+		handler: handleStatus
+	})
+	.command({
+		command: 'run',
+		describe: 'Start the Teleboard server in the foreground',
+		handler: handleRun
+	})
+	.command({
+		command: 'config',
+		describe: 'Display the Teleboard config',
+		handler: handleConfig
+	})
+	.help()
+	.demandCommand()
+	.strict()
+	.parse();

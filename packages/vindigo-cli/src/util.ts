@@ -13,9 +13,9 @@ export const SCRIPT_NAME = 'Vindigo Server';
  * @returns String
  */
 export function bytesToSize(bytes: number) {
-	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 	if (bytes == 0) return '0 Byte';
-	var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)) + '');
+	const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)) + '');
 	return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
 }
 

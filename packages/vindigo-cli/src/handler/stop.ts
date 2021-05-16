@@ -3,10 +3,10 @@ import pm2, { Proc, ProcessDescription } from 'pm2';
 import { ENTRYPOINT, SCRIPT_NAME } from "../util";
 
 export function handleStop() {
-    pm2.connect((err: any) => {
+	pm2.connect((err: any) => {
 		if(err) {
 			consola.error('Could not connect to pm2: ', err);
-    		process.exit(0);
+			process.exit(0);
 		}
 
 		pm2.describe(SCRIPT_NAME, (_: any, proc: ProcessDescription[]) => {
@@ -23,7 +23,7 @@ export function handleStop() {
 					process.exit(0);
 				}
 	
-				consola.success('Successfully terminated Vindigo')
+				consola.success('Successfully terminated Vindigo');
 				pm2.disconnect();
 			});
 		});

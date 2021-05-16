@@ -9,7 +9,7 @@ export function handleStart() {
 	pm2.connect((err: any) => {
 		if(err) {
 			consola.error('Could not connect to pm2: ', err);
-    		process.exit(0);
+			process.exit(0);
 		}
 
 		pm2.describe(SCRIPT_NAME, (_: any, proc: ProcessDescription[]) => {
