@@ -1,9 +1,10 @@
 import chalk from "chalk";
 import consola from "consola";
 import pm2, { ProcessDescription, StartOptions } from 'pm2';
-import { assertServerDist, ENTRYPOINT, SCRIPT_NAME } from "../util";
+import { assertInWorkingDirectory, assertServerDist, ENTRYPOINT, SCRIPT_NAME } from "../util";
 
 export function handleStart() {
+	assertInWorkingDirectory();
 	assertServerDist();
 	
 	pm2.connect((err: any) => {

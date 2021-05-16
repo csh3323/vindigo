@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import consola from 'consola';
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { resolve } from 'path';
 
 export const ENTRYPOINT = join(__dirname, '../../vindigo-server/dist/index.js');
 export const SCRIPT_NAME = 'Vindigo Server';
@@ -25,6 +26,16 @@ export function bytesToSize(bytes: number) {
 export function assertServerDist() {
 	if(!existsSync(ENTRYPOINT)) {
 		consola.info(chalk`Server files are missing, use {cyanBright yarn build} to build the server files first`);
+		process.exit(0);
+	}
+}
+
+/**
+ * Assert the current directory is the vindigo root
+ */
+export function assertInWorkingDirectory() {
+	if(process.cwd() != resolve(__dirname, '../../..')) {
+		consola.error('This command can only be used from the vindigo directory');
 		process.exit(0);
 	}
 }

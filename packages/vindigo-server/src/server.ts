@@ -8,7 +8,7 @@ export class VindigoServer {
 	public start() {
 		consola.info("Starting Vindigo server");
 
-		setTimeout(() => 0, 1000000);
+		consola.info(process.env.TEST);
 	}
 
 	public stop() {
