@@ -26,6 +26,24 @@
 			"problemMatcher": [],
 			"label": "Watch CLI",
 			"detail": "Automatically compile the CLI"
+		},
+		{
+			"type": "npm",
+			"script": "watch",
+			"path": "packages/vindigo-client/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Watch Client",
+			"detail": "Run the webpack development server"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "packages/vindigo-client/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build Client",
+			"detail": "Build the client distribution files"
 		}
 	]
 }

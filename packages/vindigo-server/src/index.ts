@@ -2,7 +2,6 @@ import { VindigoServer } from "./server";
 import ON_DEATH from 'death';
 import consola from "consola";
 import dotenv from 'dotenv';
-import { resolve } from "path";
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +19,6 @@ try {
 		vindigo.stop();
 	});
 } catch(err) {
-	consola.error(err);
+	vindigo.logger.error(err);
 	process.exit(1);
 }

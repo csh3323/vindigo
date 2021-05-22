@@ -3,6 +3,39 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "build": "exit 0"
+        "watch": "cross-env NODE_ENV=development webpack serve",
+        "build": "cross-env NODE_ENV=production webpack"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.14.3",
+        "@types/lodash": "^4.14.170",
+        "@types/vuedraggable": "^2.23.2",
+        "cross-env": "^7.0.3",
+        "css-loader": "^5.2.5",
+        "file-loader": "^6.2.0",
+        "fork-ts-checker-webpack-plugin": "^6.2.10",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "html-webpack-plugin": "^5.3.1",
+        "source-map-loader": "^3.0.0",
+        "style-loader": "^2.0.0",
+        "ts-loader": "^9.2.1",
+        "typescript": "^4.2.4",
+        "vue-loader": "^15.9.7",
+        "vue-template-compiler": "^2.6.12",
+        "webpack": "^5.37.1",
+        "webpack-cli": "^4.7.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {
+        "dayjs": "^1.10.4",
+        "graphql": "^15.5.0",
+        "graphql-tag": "^2.12.4",
+        "graphql-ws": "^4.5.1",
+        "lodash": "^4.17.21",
+        "tslib": "^2.2.0",
+        "vue": "^2.6.12",
+        "vue-i18n": "^8.24.4",
+        "vue-router": "^3.5.1",
+        "vuedraggable": "^2.24.3"
     }
 }
