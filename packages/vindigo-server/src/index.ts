@@ -1,6 +1,5 @@
 import { VindigoServer } from "./server";
 import ON_DEATH from 'death';
-import consola from "consola";
 import dotenv from 'dotenv';
 
 // Load environment variables

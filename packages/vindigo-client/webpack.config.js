@@ -48,10 +48,11 @@ module.exports = {
 
 			// Load css files
 			{
-				test: /(\.css|\.scss|\.sass)/,
+				test: /\.css/,
 				use: [
-					"style-loader",
-					"css-loader"
+					'style-loader',
+					'css-loader',
+					'postcss-loader'
 				]
 			},
 

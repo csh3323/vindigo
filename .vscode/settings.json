@@ -1,5 +1,7 @@
 {
+    "css.customData": [".vscode/postcss_data.json"],
     "files.associations": {
-        ".env": "properties"
+        "*.env": "properties",
+        "*.css": "scss"
     }
 }

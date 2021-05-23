@@ -19,6 +19,7 @@ yarn-error.log*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
+!.vscode/postcss_data.json
 .idea
 *.suo
 *.ntvs*
