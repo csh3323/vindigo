@@ -12,7 +12,6 @@ module.exports = {
 	context: path.resolve(__dirname, "."),
 	entry: path.resolve(__dirname, "src/index.ts"),
 	mode: environment,
-	devtool: devtool,
 	resolve: {
 		alias: {
 			'vue$': 'vue/dist/vue.runtime.esm.js'
@@ -48,9 +47,9 @@ module.exports = {
 
 			// Load css files
 			{
-				test: /\.css/,
+				test: /(\.css|\.postcss)/,
 				use: [
-					'style-loader',
+					'vue-style-loader',
 					'css-loader',
 					'postcss-loader'
 				]

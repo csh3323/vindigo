@@ -1,5 +1,4 @@
 import '@oruga-ui/oruga/dist/oruga.css';
-import './style/main.css';
 
 import App from './view/App.vue';
 import Oruga from '@oruga-ui/oruga';
