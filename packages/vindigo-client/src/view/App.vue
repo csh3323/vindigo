@@ -9,7 +9,11 @@
         		<h1>Vindigo Example Board</h1>
     		</header>
 			<main role="main" class="p-4">
-				<router-view></router-view>
+				<transition>
+					<keep-alive>
+						<router-view></router-view>
+					</keep-alive>
+				</transition>
 			</main>
 		</section>
 	</section>
