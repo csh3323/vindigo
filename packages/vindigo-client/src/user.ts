@@ -1,3 +1,5 @@
+import { IActivity } from "./actvivity";
+
 export interface IUser {
 
 	/**
@@ -34,6 +36,6 @@ export interface IUser {
 	/**
      * holds the activities of the user
      */
-	activities: [];
+	activities: IActivity[];
 
 }
