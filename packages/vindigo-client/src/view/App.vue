@@ -1,11 +1,11 @@
 <template>
-	<section :class="layoutSize">
+	<section class="grid">
 		<sidebar
-			class="sidebar"
+			class="sidebar bg-[#3A3C50] w-[65px]"
 			:open.sync="open"
 		></sidebar>
 		<section class="w-100 bg-[#FAF8FE]">
-			<header>
+			<header class="bg-[#F1EAF6] p-[1.2rem]">
         		<h1>Vindigo Example Board</h1>
     		</header>
 			<main role="main" class="p-4">
@@ -29,11 +29,7 @@ export default Vue.extend({
 	components: {
 		Sidebar
 	},
-	computed: {
-		layoutSize(): String[] {
-			return this.open ? ['grid-sidebar-opened'] : ['grid'];
-		}
-	},
+	computed: {},
 	methods: {},
 });
 </script>
@@ -47,32 +43,6 @@ export default Vue.extend({
 	display: grid;
 	grid-template-columns: auto 1fr;
 	grid-auto-rows: 100vh;
-	transition: all .3s;
-}
-
-.grid-sidebar-opened {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	grid-auto-rows: 100vh;
-}
-
-.sidebar {
-	background-color: #3A3C50;
-}
-
-.grid .sidebar {
-	width: 65px;
-	transition: .3s all;
-}
-
-.grid-sidebar-opened .sidebar {
-	width: 125px;
-	transition: .3s all;
-}
-
-header {
-    padding: 1.2rem;
-    background-color: #F1EAF6;
 }
 
 </style>
