@@ -9,8 +9,16 @@ import { RoutingService } from "./routing";
 import Store from 'vuex';
 import { StoreService } from "./store";
 import Vue from 'vue';
-import dayjs from 'dayjs';
 import VueRouter from 'vue-router';
+import dayjs from 'dayjs';
+
+// Configure packages
+dayjs.locale('nl-nl');
+dayjs.extend(RelativeTime);
+
+Vue.use(Oruga);
+Vue.use(Router);
+Vue.use(Store);
 
 // Define the services
 const routing = new RoutingService();
@@ -18,47 +26,27 @@ const store = new StoreService();
 const extensions = new ExtensionService();
 
 export {
+	extensions,
 	routing,
-	store,
-	extensions
+	store
 };
-
-// Configure packages
-dayjs.locale('nl-nl');
-dayjs.extend(RelativeTime);
-
-// Configure routes
-const routes = [
-	{ path: '/', component: () => import('./view/Home.vue') },
-	{ path: '/list', component: null },
-	{ path: '/edit', component: null },
-	{ path: '/restore', component: null },
-	{ path: '/organization', component: null }
-];
-
-const router = new VueRouter({
-	routes: routes,
-	mode: 'history'
-});
-
-//Vue.use(Oruga);
-Vue.use(Router);
-Vue.use(Store);
 
 // Instantiate the application
 const vue = new Vue({
 	el: '#app',
-	router,
+	router: routing.complete(),
 	render: (m) => {
 		return m(App);
 	}
 });
 
 // Store a global reference
-Object.defineProperty(window, 'Vindigo', {
+Object.defineProperty(window, 'vindigo', {
 	writable: false,
 	value: {
-		vue
+		extensions,
+		routing,
+		store
 	}
 });
 
