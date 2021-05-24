@@ -1,22 +1,24 @@
+import { ITask } from "./task";
+
 export interface IList {
 
-    /**
+	/**
      * 
      */
-    id: number;
+	id: number;
 
-    /**
+	/**
      * this displays the name / title of the list
      */
 	title: string;
 
-    /**
+	/**
      * 
      */
-    color: string;
+	color: string;
 
-    /**
+	/**
      * this holds specific tasks in a list
      */
-    tasks: [];
+	tasks: ITask[];
 }
