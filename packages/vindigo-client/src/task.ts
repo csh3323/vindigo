@@ -1,3 +1,4 @@
+import { IComment } from "./comment";
 import { IUser } from "./user";
 
 export interface ITask {
@@ -8,6 +9,11 @@ export interface ITask {
 	id: number;
 
 	/**
+     * respresent what type of task it is. 
+     */
+	type: string;
+
+	/**
      * displays the title of the task
      */
 	title: string;
@@ -16,6 +22,11 @@ export interface ITask {
      * the assignees of the task
      */
 	assignees: IUser[];
+
+	/**
+      * 
+      */
+	icon: string;
 
 	/**
      * 
@@ -30,5 +41,10 @@ export interface ITask {
 	/**
      * what comments the task has.
      */
-	comments: Comment[];
+	comments: IComment[];
+
+	/**
+     * 
+     */
+	progress: number;
 }
