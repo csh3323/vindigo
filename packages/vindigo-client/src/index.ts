@@ -10,6 +10,7 @@ import Store from 'vuex';
 import { StoreService } from "./store";
 import Vue from 'vue';
 import dayjs from 'dayjs';
+import VueRouter from 'vue-router';
 
 // Define the services
 const routing = new RoutingService();
@@ -26,13 +27,28 @@ export {
 dayjs.locale('nl-nl');
 dayjs.extend(RelativeTime);
 
-Vue.use(Oruga);
+// Configure routes
+const routes = [
+	{ path: '/', component: () => import('./view/Home.vue') },
+	{ path: '/list', component: null },
+	{ path: '/edit', component: null },
+	{ path: '/restore', component: null },
+	{ path: '/organization', component: null }
+];
+
+const router = new VueRouter({
+	routes: routes,
+	mode: 'history'
+});
+
+//Vue.use(Oruga);
 Vue.use(Router);
 Vue.use(Store);
 
 // Instantiate the application
 const vue = new Vue({
 	el: '#app',
+	router,
 	render: (m) => {
 		return m(App);
 	}

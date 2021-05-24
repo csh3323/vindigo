@@ -1,43 +1,40 @@
 <template>
-	<div class="test p-4">
-		<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-			<div class="md:flex">
-				<div class="md:flex-shrink-0">
-					<img
-						class="h-48 w-full object-cover md:w-48"
-						:src="require('./vindigo.png')"
-						alt="Man looking at item at a store"
-					/>
-				</div>
-				<div class="p-8">
-					<div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-						Case studies
-					</div>
-					<a href="#" class="block mt-1">
-						Finding customers for your new business
-					</a>
-					<p class="mt-2 text-gray-500 testing">
-						Getting a new business off the ground is a lot of hard
-						work. Here are five ideas you can use to find your first
-						customers.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+	<section :class="layoutSize">
+		<sidebar
+			class="sidebar"
+			:open.sync="open"
+		></sidebar>
+		<section class="w-100 bg-[#FAF8FE]">
+			<header>
+        		<h1>Vindigo Example Board</h1>
+    		</header>
+			<main role="main" class="p-4">
+				<router-view></router-view>
+			</main>
+		</section>
+	</section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
+/** template components */
+import Sidebar from '../components/template/Sidebar.vue';
+
 export default Vue.extend({
 	name: "app",
-	data: () => ({
-		value: "Test",
-	}),
-	methods: {
-		e() {},
+    data: () => ({
+		open: false
+    }),
+	components: {
+		Sidebar
 	},
+	computed: {
+		layoutSize(): String[] {
+			return this.open ? ['grid-sidebar-opened'] : ['grid'];
+		}
+	},
+	methods: {},
 });
 </script>
 
@@ -45,4 +42,37 @@ export default Vue.extend({
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-auto-rows: 100vh;
+	transition: all .3s;
+}
+
+.grid-sidebar-opened {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-auto-rows: 100vh;
+}
+
+.sidebar {
+	background-color: #3A3C50;
+}
+
+.grid .sidebar {
+	width: 65px;
+	transition: .3s all;
+}
+
+.grid-sidebar-opened .sidebar {
+	width: 125px;
+	transition: .3s all;
+}
+
+header {
+    padding: 1.2rem;
+    background-color: #F1EAF6;
+}
+
 </style>
