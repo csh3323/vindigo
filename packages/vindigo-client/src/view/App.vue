@@ -1,8 +1,6 @@
 <template>
 	<div class="test p-4">
-		<div
-			class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
-		>
+		<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
 			<div class="md:flex">
 				<div class="md:flex-shrink-0">
 					<img
@@ -12,16 +10,12 @@
 					/>
 				</div>
 				<div class="p-8">
-					<div
-						class="uppercase tracking-wide text-sm text-indigo-500 font-semibold"
-					>
+					<div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
 						Case studies
 					</div>
-					<a
-						href="#"
-						class="block mt-1 text-lg leading-tight font-medium text-black hover:underline sm:hover:active:opacity-75"
-						>Finding customers for your new business</a
-					>
+					<a href="#" class="block mt-1">
+						Finding customers for your new business
+					</a>
 					<p class="mt-2 text-gray-500 testing">
 						Getting a new business off the ground is a lot of hard
 						work. Here are five ideas you can use to find your first
@@ -38,10 +32,12 @@ import Vue from "vue";
 
 export default Vue.extend({
 	name: "app",
-    data: () => ({
-        value: "Test" 
-    }),
-	methods: {},
+	data: () => ({
+		value: "Test",
+	}),
+	methods: {
+		e() {},
+	},
 });
 </script>
 

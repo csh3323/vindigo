@@ -1,4 +1,5 @@
 {
+    "css.validate": false,
     "css.customData": [".vscode/postcss_data.json"],
     "files.associations": {
         "*.env": "properties"
