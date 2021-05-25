@@ -9,7 +9,6 @@ import { RoutingService } from "./routing";
 import Store from 'vuex';
 import { StoreService } from "./store";
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import dayjs from 'dayjs';
 
 // Configure packages
