@@ -1,23 +1,24 @@
-import { VindigoServer } from "./server";
+import { DatabaseService } from "./database";
+import { ExtensionService } from "./extensions";
+import { HTTPService } from "./http";
 import ON_DEATH from 'death';
 import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
 
-// Instantiate the Vindigo server and make it public
-// to the entire app.
-const vindigo = new VindigoServer();
-export { vindigo };
+// Define the services
+const extensions = new ExtensionService();
+const database = new DatabaseService();
+const http = new HTTPService();
 
-// Start the server and handle exit signals
-try {
-	vindigo.start();
+export {
+	extensions,
+	database,
+	http
+};
 
-	ON_DEATH(() => {
-		vindigo.stop();
-	});
-} catch(err) {
-	vindigo.logger.error(err);
-	process.exit(1);
-}
+// Listen to application termination
+ON_DEATH(() => {
+	
+});
