@@ -8,8 +8,10 @@
 
 ---
 
-## 🚧 **DISCLAIMER** 🚧
-This project is currently in early development and is currently not useable in any way, shape or form. **Do not use in production!**
+# 🚧 **DISCLAIMER** 🚧
+**This project is currently in early development and is currently not useable in any way, shape or form. Do not use in production!**
+
+Once the project is in a more stable shape, contribution guidelines will be published as well. Stay tuned!
 
 ## Introducion
 
@@ -44,17 +46,17 @@ yarn install          # Install required dependencies
 yarn build            # Build distribution files
 ```
 
-You can now use the CLI to manage your Vindigo instance.
+You can now use the CLI to generate a configuration file for your Vindigo installation.
 
 **Windows**
 ```
-.\vindigo
+.\vindigo config
 ```
 
 **Unix based systems**
 ```
 chmod +x ./vindigo    # Grant execute permission to the CLI
-./vindigo
+./vindigo config
 ```
 
 *Notice: If you decide to help contribute to Vindigo, this setup will get you development ready as well ;)*
@@ -78,7 +80,7 @@ Commands:
   vindigo start    Launch the Vindigo server
   vindigo stop     Terminate the Vindigo server
   vindigo status   Show the current daemon status
-  vindigo config   Display the Vindigo config
+  vindigo config   Generate the Vindigo configuration file
   vindigo run      Start the Vindigo server in the foreground
 
 Options:
