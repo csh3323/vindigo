@@ -1,8 +1,10 @@
+import { ENTRYPOINT, assertConfigExists, assertInWorkingDirectory, assertServerDist } from "../util";
+
 import consola from "consola";
-import { assertInWorkingDirectory, assertServerDist, ENTRYPOINT } from "../util";
 
 export function handleRun() {
 	assertInWorkingDirectory();
+	assertConfigExists();
 	assertServerDist();
     
 	consola.info('Starting Vindigo as foreground process...');

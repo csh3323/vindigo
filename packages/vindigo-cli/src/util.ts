@@ -39,3 +39,15 @@ export function assertInWorkingDirectory() {
 		process.exit(0);
 	}
 }
+
+/**
+ * Assert the existence of the configuration file
+ */
+export function assertConfigExists() {
+	const config = join(__dirname, '../../../config.toml');
+
+	if(!existsSync(config)) {
+		consola.error(chalk`Missing {yellow config.toml}. Use {cyanBright ./vindigo config} to generate your configuration file`);
+		process.exit(0);
+	}
+}

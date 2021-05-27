@@ -1,10 +1,12 @@
+import { ENTRYPOINT, SCRIPT_NAME, assertConfigExists, assertInWorkingDirectory, assertServerDist } from "../util";
+import pm2, { ProcessDescription, StartOptions } from 'pm2';
+
 import chalk from "chalk";
 import consola from "consola";
-import pm2, { ProcessDescription, StartOptions } from 'pm2';
-import { assertInWorkingDirectory, assertServerDist, ENTRYPOINT, SCRIPT_NAME } from "../util";
 
 export function handleStart() {
 	assertInWorkingDirectory();
+	assertConfigExists();
 	assertServerDist();
 	
 	pm2.connect((err: any) => {

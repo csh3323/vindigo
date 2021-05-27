@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
-import yargs from 'yargs';
+import duration from 'dayjs/plugin/duration';
+import { handleConfig } from './handler/config';
+import { handleRun } from './handler/run';
 import { handleStart } from './handler/start';
 import { handleStatus } from './handler/status';
 import { handleStop } from './handler/stop';
-import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { handleRun } from './handler/run';
-import { handleConfig } from './handler/config';
+import yargs from 'yargs';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -31,12 +31,15 @@ yargs
 	})
 	.command({
 		command: 'run',
-		describe: 'Start the Teleboard server in the foreground',
+		describe: 'Start the Vindigo server in the foreground',
 		handler: handleRun
 	})
 	.command({
 		command: 'config',
-		describe: 'Display the Teleboard config',
+		describe: 'Generate the Vindigo configuration file',
+		builder: () => yargs.option('reset', {
+			describe: 'Reset your config to its default state'
+		}),
 		handler: handleConfig
 	})
 	.help()

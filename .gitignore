@@ -1,14 +1,10 @@
 .DS_Store
 node_modules
-tsconfig.tsbuildinfo
+config.toml
 .env
 
 # Distribution files
 dist/
-
-# Data files
-data/*
-!data/config.default.json
 
 # Log files
 npm-debug.log*
