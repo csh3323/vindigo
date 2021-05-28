@@ -14,6 +14,9 @@
 		"packages/vindigo-client",
 		"packages/vindigo-server"
 	],
+	"engines": {
+		"node" : ">=10.12.0"
+	},
 	"dependencies": {
 		"consola": "^2.15.3"
 	},

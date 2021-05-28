@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import { handleConfig } from './handler/config';
+import { handleInit } from './handler/init';
 import { handleRun } from './handler/run';
 import { handleStart } from './handler/start';
 import { handleStatus } from './handler/status';
@@ -35,12 +35,13 @@ yargs
 		handler: handleRun
 	})
 	.command({
-		command: 'config',
-		describe: 'Generate the Vindigo configuration file',
-		builder: () => yargs.option('reset', {
-			describe: 'Reset your config to its default state'
+		command: 'init',
+		describe: 'Configure your vindigo installation',
+		builder: () => yargs.option('force', {
+			alias: 'F',
+			describe: 'Allow overriding of the existing config'
 		}),
-		handler: handleConfig
+		handler: handleInit
 	})
 	.help()
 	.demandCommand()

@@ -26,7 +26,10 @@ export function handleStart() {
 			pm2.start({
 				script: ENTRYPOINT,
 				name: SCRIPT_NAME,
-				autorestart: false
+				autorestart: false,
+				env: {
+					VINDIGO_CLI: 'true'
+				}
 			} as StartOptions, (err: any) => {
 				if(err) {
 					consola.error('Could not start process: ', err);

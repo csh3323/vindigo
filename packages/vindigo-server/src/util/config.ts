@@ -26,5 +26,5 @@ export class ConfigProperty {
  * @returns The value, fallback value, or undefined
  */
 export function config(property: ConfigProperty): string|undefined {
-	return process.env[property.name] || property.fallback;
+	return ;
 }

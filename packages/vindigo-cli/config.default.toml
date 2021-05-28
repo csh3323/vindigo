@@ -1,0 +1,45 @@
+# Vindigo Server configuration file.
+# Generated on %GEN_DATE%.
+# 
+# This configuration file is used to customize and configure
+# your installation of Vindigo. Please resort to the upgrade
+# guide on how to keep your configuration up to date.
+#
+# For more information see https://github.com/ExodiusStudios/vindigo
+
+[general]
+url = "%URL%"
+hostname = "127.0.0.1"
+port = %PORT%
+maintenance = false
+check_version = true
+name = "%NAME%"
+debug = false
+
+[smtp]
+enabled = false
+address = ""
+domain = ""
+user_name = ""
+password = ""
+port = 25
+
+[database]
+driver = "%DB_DRIVER%"
+hostname = "%DB_HOSTNAME%"
+username = "%DB_USERNAME%"
+password = "%DB_PASSWORD%"
+database = "%DB_NAME%"
+port = %DB_PORT%
+path = "%DB_PATH%"
+
+[palette]
+colors = [
+    { name = "Peter River", value = "#3498db"},
+    { name = "Alizarin", value = "#e74c3c"},
+    { name = "Emerald", value = "#2ecc71"},
+    { name = "Turquoise", value = "#1abc9c"},
+    { name = "Amethyst", value = "#9b59b6"},
+    { name = "Asphalt", value = "#34495e"},
+    { name = "Sun Flower", value = "#f1c40f"}
+]

@@ -10,6 +10,7 @@ export function handleRun() {
 	consola.info('Starting Vindigo as foreground process...');
 
 	try {
+		process.env.VINDIGO_CLI = 'true';
 		require(ENTRYPOINT);
 	} catch(err) {
 		consola.error('Failed to start Vindigo server', err);

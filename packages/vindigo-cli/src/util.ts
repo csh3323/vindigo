@@ -44,10 +44,8 @@ export function assertInWorkingDirectory() {
  * Assert the existence of the configuration file
  */
 export function assertConfigExists() {
-	const config = join(__dirname, '../../../config.toml');
-
-	if(!existsSync(config)) {
-		consola.error(chalk`Missing {yellow config.toml}. Use {cyanBright ./vindigo config} to generate your configuration file`);
+	if(!existsSync('./data/config.toml')) {
+		consola.error(chalk`Missing configuration, use {cyanBright ./vindigo init} to generate the configuration file`);
 		process.exit(0);
 	}
 }
