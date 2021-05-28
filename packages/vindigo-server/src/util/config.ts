@@ -1,30 +1,77 @@
+import { merge } from 'lodash';
+import { parse } from 'toml';
+import { readFileSync } from 'fs';
+
 /**
- * A property reference within the config. Supports a default value
- * which is used when the config option is omitted.
+ * The Vindigo Server configuration
  */
-export class ConfigProperty {
-
-	public name: string;
-	public fallback: string|undefined;
-
-	public constructor(name: string, fallback?: string) {
-		this.fallback = fallback;
-		this.name = name;
+export interface IServerConfig {
+	general: {
+		url: string,
+		hostname: string,
+		port: number,
+		maintenance: boolean,
+		check_version: boolean,
+		name: string,
+		debug: boolean
+	},
+	smtp: {
+		enabled: boolean,
+		address: string,
+		domain: string,
+		user_name: string,
+		password: string,
+		port: number
+	},
+	database: {
+		driver: string,
+		hostname: string,
+		username: string,
+		password: string,
+		database: string,
+		port: number,
+		path: string
 	}
-
 }
 
+// The default config is used as fallback when
+// the user config is missing fields.
+const defaultConfig: IServerConfig = {
+	general: {
+		url: '',
+		hostname: '127.0.0.1',
+		port: 8085,
+		maintenance: false,
+		check_version: true,
+		name: 'Vindigo',
+		debug: false
+	},
+	smtp: {
+		enabled: false,
+		address: '',
+		domain: '',
+		user_name: '',
+		password: '',
+		port: 25
+	},
+	database: {
+		driver: 'mysql',
+		hostname: '',
+		username: '',
+		password: '',
+		database: 'vindigo',
+		port: 3306,
+		path: 'data/database.sqlite'
+	}
+};
+
 /**
- * Pull a single property from the server config. Properties are
- * loaded by dotenv, which parse all properties from the `.env`
- * file located in the root directory.
+ * Read the server config into memory
  * 
- * Config properties are defined by instantiating instances of
- * ConfigProperty which can be passed to this function.
- * 
- * @param property The property
- * @returns The value, fallback value, or undefined
+ * @returns The config
  */
-export function config(property: ConfigProperty): string|undefined {
-	return ;
+export function readConfig(): IServerConfig {
+	const config = parse(readFileSync('data/config.toml', 'utf-8'));
+
+	return merge(defaultConfig, config);
 }
