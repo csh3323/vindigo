@@ -46,22 +46,20 @@ yarn install          # Install required dependencies
 yarn build            # Build distribution files
 ```
 
-You can now use the CLI to generate a configuration file for your Vindigo installation.
+You can now use the CLI to further proceed with the installation of Vindigo.
 
 **Windows**
 ```
-.\vindigo config
+.\vindigo init
 ```
 
 **Unix based systems**
 ```
 chmod +x ./vindigo    # Grant execute permission to the CLI
-./vindigo config
+./vindigo init
 ```
 
-*Notice: If you decide to help contribute to Vindigo, this setup will get you development ready as well ;)*
-
-### Using the CLI (Command Line Interface)
+### Using the CLI (Command-line Interface)
 
 The CLI provides many useful commands allowing you to manage your Vindigo setup. In order to launch Vindigo, run the following command.
 
@@ -80,7 +78,7 @@ Commands:
   vindigo start    Launch the Vindigo server
   vindigo stop     Terminate the Vindigo server
   vindigo status   Show the current daemon status
-  vindigo config   Generate the Vindigo configuration file
+  vindigo init     Configure your vindigo installation
   vindigo run      Start the Vindigo server in the foreground
 
 Options:
