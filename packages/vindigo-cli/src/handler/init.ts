@@ -1,11 +1,12 @@
 import { basename, dirname, join } from 'path';
-import { existsSync, mkdirSync, readFileSync, readSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 
 import chalk from 'chalk';
 import consola from 'consola';
+import { getResource } from '../util';
 import inquirer from 'inquirer';
 
-const DEFAULT_CONFIG = join(__dirname, '../../config.default.toml');
+const DEFAULT_CONFIG = getResource('config.default.toml');
 const ACTUAL_CONFIG = './data/config.toml';
 
 export async function handleInit(args: any) {

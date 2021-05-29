@@ -21,6 +21,16 @@ export function bytesToSize(bytes: number) {
 }
 
 /**
+ * Resolve a path in the resource directory
+ * 
+ * @param path The file path
+ * @returns The full path
+ */
+export function getResource(path: string): string {
+	return join(__dirname, '../resources/' + path);
+}
+
+/**
  * Assert the existence of server dist files
  */
 export function assertServerDist() {

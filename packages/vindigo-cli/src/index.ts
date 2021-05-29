@@ -1,3 +1,5 @@
+import { handleMigrateDown, handleMigrateMake, handleMigrateStatus, handleMigrateUp } from './handler/migrate';
+
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { handleInit } from './handler/init';
@@ -42,6 +44,38 @@ yargs
 			describe: 'Allow overriding of the existing config'
 		}),
 		handler: handleInit
+	})
+	.command({
+		command: 'migrate:make <name>',
+		describe: 'Create a new migration',
+		builder: () => yargs.positional('name', {
+			describe: 'The migration name',
+			demandOption: true
+		}),
+		handler: handleMigrateMake
+	})
+	.command({
+		command: 'migrate:apply',
+		describe: 'Apply the next pending migration',
+		builder: () => yargs.option('all', {
+			alias: 'A',
+			describe: 'Apply all outstanding migrations'
+		}),
+		handler: handleMigrateUp
+	})
+	.command({
+		command: 'migrate:rollback',
+		describe: 'Rollback the previous migration',
+		builder: () => yargs.option('all', {
+			alias: 'A',
+			describe: 'Rollback all previous migrations'
+		}),
+		handler: handleMigrateDown
+	})
+	.command({
+		command: 'migrate:status',
+		describe: 'Display migration information',
+		handler: handleMigrateStatus
 	})
 	.help()
 	.demandCommand()

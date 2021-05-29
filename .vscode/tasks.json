@@ -11,12 +11,30 @@
 		},
 		{
 			"type": "npm",
-			"script": "watch",
+			"script": "build",
+			"path": "packages/vindigo-cli/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build CLI",
+			"detail": "Build the cli distribution files"
+		},
+		{
+			"type": "npm",
+			"script": "build",
 			"path": "packages/vindigo-server/",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "Watch Server",
-			"detail": "Automatically compile the server"
+			"label": "Build Server",
+			"detail": "Build the server distribution files"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "packages/vindigo-client/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build Client",
+			"detail": "Build the client distribution files"
 		},
 		{
 			"type": "npm",
@@ -30,20 +48,20 @@
 		{
 			"type": "npm",
 			"script": "watch",
+			"path": "packages/vindigo-server/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Watch Server",
+			"detail": "Automatically compile the server"
+		},
+		{
+			"type": "npm",
+			"script": "watch",
 			"path": "packages/vindigo-client/",
 			"group": "build",
 			"problemMatcher": [],
 			"label": "Watch Client",
 			"detail": "Run the webpack development server"
-		},
-		{
-			"type": "npm",
-			"script": "build",
-			"path": "packages/vindigo-client/",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "Build Client",
-			"detail": "Build the client distribution files"
 		}
 	]
 }
