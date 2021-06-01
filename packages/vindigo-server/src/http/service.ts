@@ -53,10 +53,6 @@ export class HTTPService {
 		this.registerApi();
 		this.registerStatic();
 
-		this.express.use('*', (_req: Request, res: Response) => {
-			res.sendStatus(StatusCodes.NOT_FOUND);
-		});
-
 		this.server.listen(port, () => {
 			logger.success('Vindigo Server running on port ' + port);
 		});
@@ -159,6 +155,12 @@ export class HTTPService {
 			process.exit(0);
 		}
 
+		// Load any static resources
 		this.express.use(express.static(clientPath));
+
+		// Handle remaining routes in client
+		this.express.get('*', (_, res) => {
+			res.sendFile(indexPath);
+		});
 	}
 }

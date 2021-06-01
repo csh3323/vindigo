@@ -9,8 +9,8 @@ const devtool = (environment === 'development') ? 'eval' : 'source-map';
 
 // Export the full webpack config
 module.exports = {
-	context: path.resolve(__dirname, "."),
-	entry: path.resolve(__dirname, "src/index.ts"),
+	context: path.join(__dirname, "."),
+	entry: path.join(__dirname, "src/index.ts"),
 	mode: environment,
 	resolve: {
 		alias: {
@@ -23,7 +23,12 @@ module.exports = {
 		]
 	},
 	output: {
-		clean: true
+		clean: true,
+	},
+	performance: {
+		hints: false,
+		maxEntrypointSize: 512000,
+		maxAssetSize: 512000
 	},
 	module: {
 		rules: [
@@ -74,7 +79,8 @@ module.exports = {
 		new ForkTsCheckerWebpackPlugin(),
 		new FriendlyErrorsWebpackPlugin(),
 		new HtmlPlugin({
-			template: path.resolve(__dirname, "public/index.html")
+			template: path.join(__dirname, "public/index.html"),
+			favicon: path.join(__dirname, "public/favicon.ico")
 		})
 	],
 	devServer: {
@@ -82,6 +88,7 @@ module.exports = {
 		port: 8080,
 		compress: true,
 		historyApiFallback: true,
+		contentBase: path.join(__dirname, 'public'),
 		overlay: {
 			errors: true,
 			warnings: false
