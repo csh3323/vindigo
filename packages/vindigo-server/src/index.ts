@@ -32,4 +32,5 @@ http.start();
 // Listen to application termination
 ON_DEATH(() => {
 	http.stop();
+	process.exit(0);
 });
