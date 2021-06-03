@@ -22,6 +22,17 @@ Vue.use(Store);
 const routing = new RoutingService();
 const store = new StoreService();
 
+// define routes
+routing.defineRoute({
+	path: '/',
+	component: () => import('./view/Home.vue')
+});
+
+routing.defineRoute({
+	path: '/list',
+	component: () => import('./components/List.vue')
+});
+
 export {
 	routing,
 	store
