@@ -49,7 +49,7 @@ export function registerRoutes() {
 				name: 'Kanban View',
 				component: undefined,
 				meta: {
-					icon: 'mdi-column',
+					icon: 'mdi-view-column',
 					order: 2
 				}
 			},
