@@ -38,27 +38,47 @@ export function registerRoutes() {
 			{
 				path: '/tasks',
 				name: 'Tasks View',
-				component: undefined
+				component: undefined,
+				meta: {
+					icon: 'mdi-format-list-bulleted-square',
+					order: 1
+				}
 			},
 			{
 				path: '/kanban',
 				name: 'Kanban View',
-				component: undefined
+				component: undefined,
+				meta: {
+					icon: 'mdi-column',
+					order: 2
+				}
 			},
 			{
 				path: '/calendar',
 				name: 'Calendar View',
-				component: undefined
+				component: undefined,
+				meta: {
+					icon: 'mdi-calendar-blank',
+					order: 3
+				}
 			},
 			{
 				path: '/whiteboard',
 				name: 'Whiteboard View',
-				component: undefined
+				component: undefined,
+				meta: {
+					icon: 'mdi-brush',
+					order: 4
+				}
 			},
 			{
-				path: '',
+				path: '/',
 				name: 'Project Overview',
-				component: undefined
+				component: undefined,
+				meta: {
+					icon: 'mdi-home',
+					order: 0
+				}
 			}
 		]
 	});
