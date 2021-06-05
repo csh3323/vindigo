@@ -1,5 +1,6 @@
 <template>
-	<section>
+	<section class="relative">
+		<div class="sidebar__highlight absolute left-0" :style="offsetActiveRoute"></div>
 		<ol class="sidebar__container">
 			<li class="sidebar__item">
 				<router-link
@@ -17,6 +18,7 @@
 				v-for="(item, index) in listItems"
 				:key="index"
 				:class="['sidebar__item', $route.path.substr(1, $route.path.length) === item.href ? 'active' : '' ]"
+				@click="currentIndex = item.rank"
 			>
 				<router-link :to="item.href">
 					<span :class="['mdi', item.icon]"></span>
@@ -28,6 +30,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { routing } from '../../index';
+import _ from "lodash";
 
 export default Vue.extend({
 	name: "sideBar",
@@ -38,54 +42,49 @@ export default Vue.extend({
 		},
 	},
 	data: () => ({
-		listItems: {
-			a: {
-				icon: "mdi-format-list-bulleted-square",
-				href: "list",
-			},
-			b: {
-				icon: "mdi-calendar-blank",
-				href: "calendar",
-			},
-			c: {
-				icon: "mdi-brush",
-				href: "edit",
-			},
-			d: {
-				icon: "mdi-backup-restore",
-				href: "restore",
-			},
-			e: {
-				icon: "mdi-account-supervisor",
-				href: "organization",
-			},
-			f: {
-				icon: "mdi-plus-circle-outline",
-				href: "#",
-			},
-		},
+		listItems: [],
+		currentIndex: 0
 	}),
-	computed: {},
+	computed: {
+		offsetActiveRoute() {
+			return {
+				top: 52 + (this.$route.meta.order * 51) + 'px'
+			};
+		}
+	},
+	mounted() {
+
+		// initializing list items
+		this.listItems = _.chain(routing.getRoutes()[0].children)
+			.map((child) => ({
+				icon: child.meta.icon,
+				rank: child.meta.order,
+				href: child.path
+			}))
+			.orderBy(item => item.rank, 'asc').value();
+
+		// set the current default index
+		this.currentIndex = this.$route.meta.order;
+	}
 });
 </script>
 
 <style lang="postcss" scoped>
+
+.sidebar__highlight {
+	width: 3px;
+	height: 50px;
+	background-color: #14A7F4;
+	z-index: 100;
+	transition: .3s all;
+}
+
 .sidebar__container > .sidebar__item {
 	@apply py-1 text-center relative;
 }
 
 .sidebar__container > .sidebar__item:first-child {
 	@apply mb-2;
-}
-
-.sidebar__container > .sidebar__item.active::before {
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 3px;
-	display: block;
-	content: " ";
-	@apply absolute bg-blue-300;
 }
 
 .sidebar__container > .sidebar__item:not(:first-child):hover,
@@ -101,4 +100,5 @@ export default Vue.extend({
 .sidebar__container > .sidebar__item span:hover {
 	@apply text-indigo-400 cursor-pointer;
 }
+
 </style>
