@@ -49,4 +49,11 @@ export class RoutingService {
 		return new VueRouter(this.options);
 	}
 
+	/**
+	 * Returns all registered routes.
+	 * @returns registered routes 
+	 */
+	public getRoutes(): any[] {
+		return this.options.routes || [];
+	}
 }
