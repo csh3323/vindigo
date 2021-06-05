@@ -2,18 +2,6 @@
 	<section class="relative">
 		<div class="sidebar__highlight absolute left-0" :style="offsetActiveRoute"></div>
 		<ol class="sidebar__container">
-			<li class="sidebar__item">
-				<router-link
-					class="flex justify-center mt-2"
-					to="/"
-				>
-					<img
-						src="../../../public/icon.png"
-						alt=""
-						width="28px"
-					>
-				</router-link>
-			</li>
 			<li
 				v-for="(item, index) in listItems"
 				:key="index"
