@@ -40,10 +40,9 @@ git clone https://github.com/ExodiusStudios/vindigo.git
 ```
 
 Once you have obtained a local copy from github, run the following commands to prepare your instance.
-```
-npm install -g yarn   # Install the yarn package manager
-yarn install          # Install required dependencies
-yarn build            # Build distribution files
+```bash
+npm install -g yarn  # Install the yarn package manager
+yarn install         # Install required dependencies
 ```
 
 You can now use the CLI to further proceed with the installation of Vindigo.
@@ -54,8 +53,8 @@ You can now use the CLI to further proceed with the installation of Vindigo.
 ```
 
 **Unix based systems**
-```
-chmod +x ./vindigo    # Grant execute permission to the CLI
+```bash
+chmod +x ./vindigo  # Grant execute permission to the CLI
 ./vindigo init
 ```
 
@@ -67,7 +66,7 @@ The CLI provides many useful commands allowing you to manage your Vindigo setup.
 ./vindigo start
 ```
 
-Vindigo will be started in the background and can now be accessed on `http://localhost:8045`.
+Vindigo will be started in the background and can now be accessed on `http://localhost:8085`.
 
 The CLI provides many more commands used to manage your Vindigo setup. The following snippet is directly generated from `./vindigo help`.
 
@@ -88,27 +87,26 @@ Options:
 ```
 
 ## Development setup
-Before you can start contributing to Vindigo, make sure to follow the installation tutorial. 
+Before you can start contributing to Vindigo, make sure to follow the installation tutorial.
 
 ### Run development setup
-A development setup with hot reloading can be started with the following two commands (You may have to run them in separate terminals).
+During development you might want to enable live compiling, to do so run the following commands in separate terminals.
 
-```
-yarn serve:server
-yarn serve:client
+```bash
+yarn workspace vindigo-server watch  # Automatically compile the server
+yarn workspace vindigo-client watch  # Launch a Webpack dev server
+yarn workspace vindigo-cli watch     # Launch a Webpack dev server
 ```
 
-When working on the source code, the frontend and backend will automatically be reloaded as you save files.
+Keep in mind the server will be compiled but not automatically started. The best way to do so is `./vindigo run`, which will launch the server in the foreground.
+
+You can now access Vindigo on `http://localhost:8080`.
 
 ### Building distribution files
-Distributes files are built separately for the client and server
+Distributes files are built separately for all packages, however all can be built with a single command.
 
 ```
-yarn build:client
-yarn build:server
-
-# Shortcut to run both commands at once
-./vindigo compile
+yarn build
 ```
 
 ### Publishing contributions
