@@ -8,9 +8,13 @@ const consola = require('consola');
 const entrypoint = join(__dirname, 'packages/vindigo-cli/dist/index.js');
 
 if(!existsSync(entrypoint)) {
-	consola.info('Generating CLI files...');
-	
+	consola.info('Missing CLI distribution files, building...');
+
 	try {
+		consola.info('Generating server files...');
+		execSync('yarn workspace vindigo-server build');
+
+		consola.info('Generating CLI files...');
 		execSync('yarn workspace vindigo-cli build');
 	} catch(err) {
 		console.error('Failed to build CLI distribution files');
