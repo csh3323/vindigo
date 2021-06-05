@@ -36,7 +36,7 @@ export default Vue.extend({
 	computed: {
 		offsetActiveRoute() {
 			return {
-				top: 52 + (this.$route.meta.order * 51) + 'px'
+				top: (this.$route.meta.order * 51) + 'px'
 			};
 		}
 	},
@@ -61,7 +61,7 @@ export default Vue.extend({
 
 .sidebar__highlight {
 	width: 3px;
-	height: 50px;
+	height: 51px;
 	background-color: #14A7F4;
 	z-index: 100;
 	transition: .3s all;
@@ -71,11 +71,7 @@ export default Vue.extend({
 	@apply py-1 text-center relative;
 }
 
-.sidebar__container > .sidebar__item:first-child {
-	@apply mb-2;
-}
-
-.sidebar__container > .sidebar__item:not(:first-child):hover,
+.sidebar__container > .sidebar__item:hover,
 .sidebar__container > .sidebar__item.active {
 	background-color: #293238;
 }
