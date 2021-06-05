@@ -47,12 +47,12 @@ yarn install         # Install required dependencies
 
 You can now use the CLI to further proceed with the installation of Vindigo.
 
-**Windows**
+**Windows (Command Prompt)**
 ```
 .\vindigo init
 ```
 
-**Unix based systems**
+**Unix based systems (Bash)**
 ```bash
 chmod +x ./vindigo  # Grant execute permission to the CLI
 ./vindigo init
