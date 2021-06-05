@@ -1,23 +1,18 @@
 <template>
-    
+
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 export default Vue.extend({
-   name: 'header' 
+	name: "header",
 });
 </script>
 
 <style lang="postcss">
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 header {
-    width: calc(100vw - 100px);
-    padding: 2rem;
-    background-color: #F1EAF6;
+	width: calc(100vw - 100px);
+	padding: 2rem;
+	background-color: #f1eaf6;
 }
-
 </style>
