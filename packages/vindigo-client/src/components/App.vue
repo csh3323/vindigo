@@ -5,7 +5,7 @@
 			:open.sync="open"
 		></sidebar>
 		<section class="w-100 bg-[#FAF8FE]">
-			<header class="bg-[#F1EAF6] p-[1.2rem]">
+			<header class="bg-[#F1EAF6] p-[0.60rem]">
 				<h1 class="font-bold mb-0" style="line-height: 8px">
 					Vindigo Example Board
 					<i class="mdi mdi-star"></i>
