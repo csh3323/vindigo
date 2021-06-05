@@ -14,7 +14,6 @@ export class RoutingService {
 	private initialized = false;
 
 	public constructor() {
-		this.initialized = false;
 		this.options = {
 			mode: 'history',
 			routes: []
@@ -31,8 +30,8 @@ export class RoutingService {
 			throw new Error('Router already configured');
 		}
 
-		this.logger('Defined ', config.path);
 		this.options.routes = merge(this.options.routes!, [config]);
+		this.logger('Defined ', config.path);
 	}
 
 	/**

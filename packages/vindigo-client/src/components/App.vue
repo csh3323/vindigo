@@ -26,6 +26,7 @@
 <script lang="ts">
 import Sidebar from './layout/Sidebar.vue';
 import Vue from "vue";
+import { store } from '..';
 
 export default Vue.extend({
 	name: "app",
@@ -37,6 +38,9 @@ export default Vue.extend({
 	},
 	computed: {},
 	methods: {},
+	mounted() {
+		
+	}
 });
 </script>
 
