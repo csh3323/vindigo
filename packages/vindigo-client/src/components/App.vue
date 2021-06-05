@@ -24,10 +24,8 @@
 </template>
 
 <script lang="ts">
+import Sidebar from './layout/Sidebar.vue';
 import Vue from "vue";
-
-/** template components */
-import Sidebar from '../components/template/Sidebar.vue';
 
 export default Vue.extend({
 	name: "app",
@@ -43,10 +41,6 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .grid {
 	display: grid;
 	grid-template-columns: auto 1fr;

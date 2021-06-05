@@ -1,6 +1,7 @@
 import '@oruga-ui/oruga/dist/oruga.css';
+import './style/global.css';
 
-import App from './view/App.vue';
+import App from './components/App.vue';
 import Oruga from '@oruga-ui/oruga';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import Router from 'vue-router';
@@ -21,17 +22,6 @@ Vue.use(Store);
 // Define the services
 const routing = new RoutingService();
 const store = new StoreService();
-
-// define routes
-routing.defineRoute({
-	path: '/',
-	component: () => import('./view/Home.vue')
-});
-
-routing.defineRoute({
-	path: '/list',
-	component: () => import('./components/List.vue')
-});
 
 export {
 	routing,

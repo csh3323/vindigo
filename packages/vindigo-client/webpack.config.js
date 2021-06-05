@@ -1,6 +1,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -24,6 +25,31 @@ module.exports = {
 	},
 	output: {
 		clean: true,
+		filename: '[name].[contenthash].js'
+	},
+	optimization: {
+		minimize: true,
+        minimizer: [
+			new TerserPlugin({
+				extractComments: false,
+				terserOptions: {
+					format: {
+						comments: false,
+					}
+				}
+			})
+		],
+		splitChunks: {
+			chunks: 'all',
+		  	cacheGroups: {
+				vendor: {
+					test: /node_modules/,
+					chunks: 'initial',
+					name: 'vendor',
+					enforce: true
+				}
+		  	}
+	  	}
 	},
 	performance: {
 		hints: false,
@@ -45,6 +71,7 @@ module.exports = {
 				loader: 'ts-loader',
 				exclude: /node_modules/,
 				options: {
+					appendTsSuffixTo: [/\.vue$/],
 					configFile: path.resolve(__dirname, "tsconfig.json"),
 					transpileOnly: true
 				}
