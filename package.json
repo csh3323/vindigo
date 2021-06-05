@@ -10,9 +10,9 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"workspaces": [
-		"packages/vindigo-cli",
+		"packages/vindigo-server",
 		"packages/vindigo-client",
-		"packages/vindigo-server"
+		"packages/vindigo-cli"
 	],
 	"engines": {
 		"node" : ">=10.12.0"

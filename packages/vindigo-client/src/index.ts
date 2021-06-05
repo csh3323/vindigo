@@ -10,6 +10,8 @@ import Store from 'vuex';
 import { StoreService } from "./store";
 import Vue from 'vue';
 import dayjs from 'dayjs';
+import { registerRoutes } from './registry/routes';
+import { registerState } from './registry/state';
 
 // Configure packages
 dayjs.locale('nl-nl');
@@ -27,6 +29,13 @@ export {
 	routing,
 	store
 };
+
+// Register all core registries with
+// their initial data and state
+registerRoutes();
+registerState();
+
+// TODO Load extensions
 
 // Instantiate the application
 const vue = new Vue({
