@@ -1,5 +1,6 @@
 import Icon from '../components/Icon.vue';
 import IconButton from '../components/button/IconButton.vue';
+import Avatar from '../components/Avatar.vue';
 import Oruga from '@oruga-ui/oruga';
 import Router from 'vue-router';
 import Store from 'vuex';
@@ -17,6 +18,7 @@ export function registerVue() {
 	Vue.use(VWave);
 
 	Vue.component('icon-btn', IconButton);
-	Vue.component('icon', Icon);
 	Vue.component('toolbar', Toolbar);
+	Vue.component('avatar', Avatar);
+	Vue.component('icon', Icon);
 }
