@@ -1,20 +1,22 @@
 <template>
-	<nav class="sidebar relative">
+	<nav class="sidebar relative w-14">
 		<div
 			class="sidebar__highlight rounded-r-lg absolute left-0"
 			:style="offsetActiveRoute"
 		></div>
 		<ol class="sidebar__container">
-			<li
+			<router-link
 				v-for="(item, index) in listItems"
+				:to="item.href"
 				:key="index"
-				:class="['sidebar__item', $route.path.substr(1, $route.path.length) === item.href ? 'active' : '' ]"
-				@click="currentIndex = item.rank"
 			>
-				<router-link :to="item.href">
-					<span :class="['mdi', item.icon]"></span>
-				</router-link>
-			</li>
+				<li
+					class="sidebar__item"
+					@click="currentIndex = item.rank"
+				>
+					<icon :icon="item.icon" class="text-white"/>
+				</li>
+			</router-link>
 		</ol>
 	</nav>
 </template>
@@ -39,12 +41,14 @@ export default Vue.extend({
 	computed: {
 		offsetActiveRoute(): any {
 			return {
-				top: (this.$route.meta!.order * 51) + 'px'
+				top: (this.$route.meta!.order * 56) + 'px'
 			};
 		}
 	},
 	mounted() {
 		const route = routing.getRoute('Project Container')!
+
+		console.log(route);
 
 		// initializing list items
 		this.listItems = _.chain(route.children)
@@ -63,29 +67,20 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss" scoped>
-.sidebar__highlight {
-	width: 4px;
-	height: 51px;
-	background-color: #14A7F4;
-	z-index: 100;
-	transition: .3s all;
-}
+.sidebar {
 
-.sidebar__container > .sidebar__item {
-	@apply py-1 text-center relative;
-}
+	&__highlight {
+		width: 4px;
+		background-color: #14A7F4;
+		transition: .3s all;
+		z-index: 2;
 
-.sidebar__container > .sidebar__item:hover,
-.sidebar__container > .sidebar__item.active {
-	background-color: #293238;
-}
+		@apply h-14;
+	}
 
-.sidebar__container > .sidebar__item span {
-	@apply text-white;
-	font-size: 1.75rem;
-}
+	&__item {
+		@apply py-1 w-14 h-14 flex items-center justify-center cursor-pointer hover:bg-[#293238];
+	}
 
-.sidebar__container > .sidebar__item span:hover {
-	@apply text-indigo-400 cursor-pointer;
 }
 </style>

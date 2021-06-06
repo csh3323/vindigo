@@ -26,12 +26,22 @@ export function registerRoutes() {
 	});
 
 	routing.defineRoute({
-		path: '/project/:project',
+		path: '/project/:project/',
 		name: 'Project Container',
 		component: ProjectPage,
+		redirect: '/project/:project/overview',
 		children: [
 			{
-				path: '/tasks',
+				path: 'overview',
+				name: 'Project Overview',
+				component: undefined,
+				meta: {
+					icon: 'mdi-home',
+					order: 0
+				}
+			},
+			{
+				path: 'tasks',
 				name: 'Tasks View',
 				component: undefined,
 				meta: {
@@ -40,7 +50,7 @@ export function registerRoutes() {
 				}
 			},
 			{
-				path: '/kanban',
+				path: 'kanban',
 				name: 'Kanban View',
 				component: undefined,
 				meta: {
@@ -49,7 +59,7 @@ export function registerRoutes() {
 				}
 			},
 			{
-				path: '/calendar',
+				path: 'calendar',
 				name: 'Calendar View',
 				component: undefined,
 				meta: {
@@ -58,21 +68,12 @@ export function registerRoutes() {
 				}
 			},
 			{
-				path: '/whiteboard',
+				path: 'whiteboard',
 				name: 'Whiteboard View',
 				component: undefined,
 				meta: {
 					icon: 'mdi-brush',
 					order: 4
-				}
-			},
-			{
-				path: '/',
-				name: 'Project Overview',
-				component: undefined,
-				meta: {
-					icon: 'mdi-home',
-					order: 0
 				}
 			}
 		]
@@ -82,7 +83,7 @@ export function registerRoutes() {
 	routing.defineRoute({
 		name: 'Not Found',
 		path: '*',
-		component: undefined
+		redirect: '/'
 	});
 	
 }

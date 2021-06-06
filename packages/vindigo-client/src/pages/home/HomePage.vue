@@ -2,7 +2,7 @@
     <div>
         <div>Coming soon</div>
         <o-button tag="router-link" to="/project/demo">Go to board</o-button>
-        <icon-button icon="mdi-account" />
+        <icon-btn icon=">mdi-chevron-down"/>
     </div>
 </template>
 

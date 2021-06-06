@@ -1,14 +1,23 @@
 <template>
-	<header class="toolbar flex items-center p-3">
+	<header class="toolbar flex items-center p-3 bg-white">
 		<slot/>
 		<spacer/>
 
-		<icon-btn icon="mdi-plus-circle-outline text-gray-700" class="mx-3" to="#" />
+		<icon-btn class="text-gray-700 mx-3" to="#" icon="mdi-plus-circle-outline"/>
 
 		<div class="toolbar__divider"/>
 
-		<icon-btn icon="mdi-magnify" class="mx-3 text-gray-700" to="#" />
-		<icon-btn icon="mdi-bell" class="mr-3 text-gray-700" to="#" />
+		<icon-btn
+			class="mx-3 text-gray-700"
+			icon="mdi-magnify"
+			to="#"
+		/>
+		
+		<icon-btn
+			class="mr-3 text-gray-700"
+			icon="mdi-bell"
+			to="#"
+		/>
 
 		<div class="toolbar__divider"/>
 		

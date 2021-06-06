@@ -1,12 +1,16 @@
 <template>
     <section class="grid">
 		<sidebar
-			class="sidebar bg-[rgb(47,58,65)] w-14"
+			class="bg-[rgb(47,58,65)]"
 			:open.sync="open"
 		></sidebar>
 		<section class="w-100 bg-[#FAF8FE]">
-			<toolbar>
-				<icon-btn icon="mdi-magnify" class="mx-3 text-gray-700" to="#" />
+			<toolbar class="pl-0">
+				<icon-btn
+					class="mx-3 text-gray-700"
+					icon="mdi-chevron-down"
+					to="#"
+				/>
 				<div class="flex flex-col">
 					<h1 class="font-bold mb-0">
 						Vindigo Example Board
