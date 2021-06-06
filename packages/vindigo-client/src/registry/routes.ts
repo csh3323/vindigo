@@ -1,4 +1,5 @@
 import HomePage from '../pages/home/HomePage.vue';
+import ProjectPage from '../pages/project/ProjectPage.vue';
 import { routing } from "..";
 
 /**
@@ -17,13 +18,7 @@ export function registerRoutes() {
 		name: 'Profile',
 		component: undefined
 	});
-
-	routing.defineRoute({
-		path: '/profile/:user',
-		name: 'Profile',
-		component: undefined
-	});
-
+	
 	routing.defineRoute({
 		path: '/team/:team',
 		name: 'Team Overview',
@@ -33,7 +28,7 @@ export function registerRoutes() {
 	routing.defineRoute({
 		path: '/project/:project',
 		name: 'Project Container',
-		component: undefined,
+		component: ProjectPage,
 		children: [
 			{
 				path: '/tasks',

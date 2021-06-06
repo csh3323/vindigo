@@ -1,6 +1,9 @@
 <template>
-	<section class="relative">
-		<div class="sidebar__highlight absolute left-0" :style="offsetActiveRoute"></div>
+	<nav class="sidebar relative">
+		<div
+			class="sidebar__highlight rounded-r-lg absolute left-0"
+			:style="offsetActiveRoute"
+		></div>
 		<ol class="sidebar__container">
 			<li
 				v-for="(item, index) in listItems"
@@ -13,7 +16,7 @@
 				</router-link>
 			</li>
 		</ol>
-	</section>
+	</nav>
 </template>
 
 <script lang="ts">
@@ -22,7 +25,7 @@ import { routing } from '../../index';
 import _ from "lodash";
 
 export default Vue.extend({
-	name: "sideBar",
+	name: 'Sidebar',
 	props: {
 		open: {
 			required: true,
@@ -30,26 +33,28 @@ export default Vue.extend({
 		},
 	},
 	data: () => ({
-		listItems: [],
+		listItems: [] as any[],
 		currentIndex: 0
 	}),
 	computed: {
-		offsetActiveRoute() {
+		offsetActiveRoute(): any {
 			return {
-				top: (this.$route.meta.order * 51) + 'px'
+				top: (this.$route.meta!.order * 51) + 'px'
 			};
 		}
 	},
 	mounted() {
+		const route = routing.getRoute('Project Container')!
 
 		// initializing list items
-		this.listItems = _.chain(routing.getRoutes()[0].children)
+		this.listItems = _.chain(route.children)
 			.map((child) => ({
 				icon: child.meta.icon,
 				rank: child.meta.order,
 				href: child.path
 			}))
-			.orderBy(item => item.rank, 'asc').value();
+			.orderBy(item => item.rank, 'asc')
+			.value();
 
 		// set the current default index
 		this.currentIndex = this.$route.meta.order;
@@ -58,9 +63,8 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss" scoped>
-
 .sidebar__highlight {
-	width: 3px;
+	width: 4px;
 	height: 51px;
 	background-color: #14A7F4;
 	z-index: 100;
@@ -84,5 +88,4 @@ export default Vue.extend({
 .sidebar__container > .sidebar__item span:hover {
 	@apply text-indigo-400 cursor-pointer;
 }
-
 </style>

@@ -2,24 +2,18 @@ import '@oruga-ui/oruga/dist/oruga.css';
 import './style/global.css';
 
 import App from './components/App.vue';
-import Oruga from '@oruga-ui/oruga';
 import RelativeTime from 'dayjs/plugin/relativeTime';
-import Router from 'vue-router';
 import { RoutingService } from "./routing";
-import Store from 'vuex';
 import { StoreService } from "./store";
 import Vue from 'vue';
 import dayjs from 'dayjs';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/state';
+import { registerVue } from './registry/vue';
 
 // Configure packages
 dayjs.locale('nl-nl');
 dayjs.extend(RelativeTime);
-
-Vue.use(Oruga);
-Vue.use(Router);
-Vue.use(Store);
 
 // Define the services
 const routing = new RoutingService();
@@ -32,6 +26,7 @@ export {
 
 // Register all core registries with
 // their initial data and state
+registerVue();
 registerRoutes();
 registerState();
 

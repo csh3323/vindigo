@@ -28,9 +28,8 @@ export class StoreService implements StoreNamespace<RootState> {
 			throw new Error(`State ${state.id} state already defined`);
 		}
 
-		this.modules[state.id] = state;
-		
-		this.logger('Defined ', state.id);
+		this.modules[state.id] = state;		
+		this.logger('Defined namespace ' + state.id);
 	}
 
 	/**

@@ -10,6 +10,7 @@ export class RoutingService {
 
 	private logger = logger('Router');
 	
+	private index: {[key: string]: RouteConfig} = {};
 	private options: RouterOptions;
 	private initialized = false;
 
@@ -21,17 +22,41 @@ export class RoutingService {
 	}
 
 	/**
+	 * Returns a list of all defined routes
+	 */
+	public get routes(): RouteConfig[] {
+		return this.options.routes!;
+	}
+
+	/**
 	 * Define a new route in the application.
 	 * 
 	 * @param config The config
 	 */
-	public defineRoute(config: RouteConfig) {
+	public defineRoute(config: RouteConfig & RequiredName) {
 		if(this.initialized) {
 			throw new Error('Router already configured');
 		}
 
-		this.options.routes = merge(this.options.routes!, [config]);
-		this.logger('Defined ', config.path);
+		const name = config.name;
+		
+		if(this.index[name]) {
+			throw new Error(`Route with name ${name} already registered`);
+		}
+
+		this.index[name] = config;
+		this.options.routes!.push(config);
+		this.logger('Defined route ' + config.path);
+	}
+
+	/**
+	 * Returns the route with the given name
+	 * 
+	 * @param name The route
+	 * @returns The route config if it is defined
+	 */
+	public getRoute(name: string): RouteConfig|undefined {
+		return this.index[name];
 	}
 
 	/**
@@ -44,16 +69,15 @@ export class RoutingService {
 		if(this.initialized) {
 			throw new Error('Router already configured');
 		}
+
+		console.log(this.options);
 		
 		this.initialized = true;
 		return new VueRouter(this.options);
 	}
 
-	/**
-	 * Returns all registered routes.
-	 * @returns registered routes 
-	 */
-	public getRoutes(): any[] {
-		return this.options.routes || [];
-	}
+}
+
+export interface RequiredName {
+	name: string;
 }
