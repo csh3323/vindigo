@@ -48,12 +48,6 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-.grid {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	grid-auto-rows: 100vh;
-}
-
 .mdi-star {
 	@apply text-yellow-400 ml-1;
 	font-size: 1.1rem;

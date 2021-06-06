@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { cleanInt } from '../../util';
+import { cleanInt } from '../util';
 
 export default Vue.extend({
     name: 'IconButton',

@@ -17,7 +17,16 @@ module.exports = {
 		fontFamily: {
 			'sans': ['Open Sans', 'ui-sans-serif', 'system-ui'],
 			'mono': ['JetBrains Mono', 'ui-monospace', 'Consolas', 'system-ui']
-		}
+		},
+		container: {
+			center: true,
+			padding: '2rem'
+		},
+		screens: {
+			'mobile': '640px',
+			'laptop': '1024px',
+			'desktop': '1300px'
+		},
 	},
 	variants: {
 		extend: {},

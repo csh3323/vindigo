@@ -4435,7 +4435,7 @@ globals@^13.6.0:
   dependencies:
     type-fest "^0.20.2"
 
-globby@11.0.3, globby@^11.0.1:
+globby@11.0.3, globby@^11.0.1, globby@^11.0.3:
   version "11.0.3"
   resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.3.tgz#9b1f0cb523e171dd1ad8c7b2a9fb4b644b9593cb"
   integrity sha512-ffdmosjA807y7+lA1NM0jELARVmYul/715xiILEjo3hBLPTcirgQNnXECn5g3mtR8TOLCVbkfua1Hpen25/Xcg==
@@ -7249,6 +7249,16 @@ postcss-loader@^5.3.0:
     klona "^2.0.4"
     semver "^7.3.4"
 
+postcss-mixins@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-mixins/-/postcss-mixins-8.1.0.tgz#bbb46f017ca6b0b6ec88b5814b106cdf2fea2817"
+  integrity sha512-c8zHQm0QtiGUe5fpn8jAjZauQwCg2BsKyJDynamJ6cxVakBQFFh0qpo0FPnrb0/diz7tt/emUhOq+fo48rp5Cw==
+  dependencies:
+    globby "^11.0.3"
+    postcss-js "^3.0.3"
+    postcss-simple-vars "^6.0.3"
+    sugarss "^3.0.3"
+
 postcss-modules-extract-imports@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/postcss-modules-extract-imports/-/postcss-modules-extract-imports-3.0.0.tgz#cda1f047c0ae80c97dbe28c3e76a43b88025741d"
@@ -7291,6 +7301,11 @@ postcss-selector-parser@^6.0.2, postcss-selector-parser@^6.0.4:
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
+
+postcss-simple-vars@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/postcss-simple-vars/-/postcss-simple-vars-6.0.3.tgz#e66516c7fe980da3498f4a8ad400b9c53861806c"
+  integrity sha512-fkNn4Zio8vN4vIig9IFdb8lVlxWnYR769RgvxCM6YWlFKie/nQaOcaMMMFz/s4gsfHW4/5bJW+i57zD67mQU7g==
 
 postcss-value-parser@^3.3.0:
   version "3.3.1"
@@ -8702,6 +8717,13 @@ subscriptions-transport-ws@^0.9.18:
     iterall "^1.2.1"
     symbol-observable "^1.0.4"
     ws "^5.2.0"
+
+sugarss@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/sugarss/-/sugarss-3.0.3.tgz#bb2489961b98fbd15e4e35d6b9f4f2ee5547a6cb"
+  integrity sha512-uxa2bbuc+w7ov7DyYIhF6bM0qZF3UkFT5/nE8AJgboiVnKsBDbwxs++dehEIe1JNhpMaGJc37wGQ2QrrWey2Sg==
+  dependencies:
+    postcss "^8.1.6"
 
 supports-color@^2.0.0:
   version "2.0.0"

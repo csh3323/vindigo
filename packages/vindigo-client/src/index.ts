@@ -7,9 +7,10 @@ import { RoutingService } from "./routing";
 import { StoreService } from "./store";
 import Vue from 'vue';
 import dayjs from 'dayjs';
+import { registerComponents } from './registry/components';
+import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/state';
-import { registerVue } from './registry/vue';
 
 // Configure packages
 dayjs.locale('nl-nl');
@@ -26,7 +27,8 @@ export {
 
 // Register all core registries with
 // their initial data and state
-registerVue();
+registerComponents();
+registerPlugins();
 registerRoutes();
 registerState();
 

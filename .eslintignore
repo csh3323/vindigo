@@ -1,6 +1,7 @@
 jest.config.js
 gulpfile.js
 webpack.config.js
+postcss.config.js
 node_modules
 dist
 vindigo
