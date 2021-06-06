@@ -1,5 +1,7 @@
 import HomePage from '../pages/home/HomePage.vue';
+import KanbanPage from '../pages/kanban/KanbanOverview.vue';
 import ProjectPage from '../pages/project/ProjectPage.vue';
+import TasksPage from '../pages/tasks/TasksOverview.vue';
 import { routing } from "..";
 
 /**
@@ -43,7 +45,7 @@ export function registerRoutes() {
 			{
 				path: 'tasks',
 				name: 'Tasks View',
-				component: undefined,
+				component: TasksPage,
 				meta: {
 					icon: 'mdi-format-list-bulleted-square',
 					order: 1
@@ -52,7 +54,7 @@ export function registerRoutes() {
 			{
 				path: 'kanban',
 				name: 'Kanban View',
-				component: undefined,
+				component: KanbanPage,
 				meta: {
 					icon: 'mdi-view-column',
 					order: 2
