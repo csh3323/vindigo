@@ -25,6 +25,7 @@ module.exports = {
 	},
 	output: {
 		clean: true,
+		publicPath: '/',
 		filename: '[name].[contenthash].js'
 	},
 	optimization: {
