@@ -1,6 +1,6 @@
 <template>
 	<div class="board-card shadow-sm bg-gray-400">
-		<div>ss</div>
+		<div></div>
 	</div>
 </template>
 
@@ -19,10 +19,8 @@ export default Vue.extend({
 
 <style lang="postcss" scoped>
 .board-card {
-	display: grid;
 	grid-template-columns: 5px 300px;
-	height: 185px;
-	@apply shadow-sm;
+	@apply grid shadow-sm h-[185px];
 }
 
 .board-card > div:nth-child(0) {

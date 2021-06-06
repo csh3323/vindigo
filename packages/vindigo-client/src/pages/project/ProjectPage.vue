@@ -21,7 +21,7 @@
 					</small>
 				</div>
 			</toolbar>
-			<main role="main">
+			<main role="main" style="height: 89.3188819885%">
 				<transition>
 					<keep-alive>
 						<router-view></router-view>
