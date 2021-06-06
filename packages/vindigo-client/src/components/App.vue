@@ -1,5 +1,7 @@
 <template>
-	<router-view/>
+	<div class="h-screen bg-page-background">
+		<router-view/>
+	</div>
 </template>
 
 <script lang="ts">

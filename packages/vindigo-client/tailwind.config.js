@@ -10,8 +10,13 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				gray: colors.trueGray
+				'gray': colors.trueGray,
+				'page-background': '#FAF8FE'
 			}
+		},
+		fontFamily: {
+			'sans': ['Open Sans', 'ui-sans-serif', 'system-ui'],
+			'mono': ['JetBrains Mono', 'ui-monospace', 'Consolas', 'system-ui']
 		}
 	},
 	variants: {

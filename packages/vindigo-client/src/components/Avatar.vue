@@ -1,7 +1,7 @@
 <template>
     <router-link :to="profileUrl">
-        <div class="avatar inline-flex rounded-full bg-gradient-to-b from-yellow-600 to-pink-600">
-            <div class="avatar__space rounded-full bg-white">
+        <div class="avatar inline-flex rounded-full bg-gradient-to-b from-yellow-600 to-pink-600" :style="borderStyle">
+            <div class="avatar__space rounded-full bg-white" :style="borderStyle">
                 <img :src="src" :style="imgStyle" class="rounded-full"/>
             </div>
         </div>
@@ -13,7 +13,7 @@ import Vue from 'vue';
 import { cleanInt } from '../util';
 
 export default Vue.extend({
-    name: 'Icon',
+    name: 'Avatar',
     props: {
         user: {
             type: Number,
@@ -33,6 +33,11 @@ export default Vue.extend({
         profileUrl(): string {
             return `/profile/${this.user}`;
         },
+        borderStyle(): any {
+            return {
+                padding: Math.ceil(cleanInt(this.size) / 24) + 'px'
+            }
+        },
         imgStyle(): any {
             const size = cleanInt(this.size);
 
@@ -44,9 +49,3 @@ export default Vue.extend({
     }
 })
 </script>
-
-<style lang="postcss">
-.avatar, .avatar__space {
-    padding: 2px;
-}
-</style>

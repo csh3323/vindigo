@@ -1,10 +1,10 @@
 <template>
-    <section class="grid">
+    <section class="project-page grid">
 		<sidebar
-			class="bg-[rgb(47,58,65)]"
+			class="bg-[#2f3a41]"
 			:open.sync="open"
 		></sidebar>
-		<section class="w-100 bg-[#FAF8FE]">
+		<section>
 			<toolbar class="pl-0">
 				<icon-btn
 					class="mx-3 text-gray-700"
@@ -12,11 +12,11 @@
 					to="#"
 				/>
 				<div class="flex flex-col">
-					<h1 class="font-bold mb-0">
+					<h1 class="font-bold">
 						Vindigo Example Board
 						<i class="mdi mdi-star"></i>
 					</h1>
-					<small class="font-thin">
+					<small class="font-thin -mt-1">
 						Kanban view
 					</small>
 				</div>
