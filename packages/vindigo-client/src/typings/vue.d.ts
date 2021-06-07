@@ -4,3 +4,4 @@ declare module '*.vue' {
 }
 
 declare module 'v-wave';
+declare module 'vuetrend';

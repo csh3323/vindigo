@@ -1,6 +1,7 @@
 import Oruga from '@oruga-ui/oruga';
 import Router from 'vue-router';
 import Store from 'vuex';
+import Trend from 'vuetrend';
 import VWave from 'v-wave';
 import Vue from 'vue';
 
@@ -12,4 +13,5 @@ export function registerPlugins() {
 	Vue.use(Router);
 	Vue.use(Store);
 	Vue.use(VWave);
+	Vue.use(Trend);
 }

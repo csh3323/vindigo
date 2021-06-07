@@ -36,9 +36,9 @@
 				to="#"
 			/>
 			<avatar
-				:user="10"
 				class="ml-2"
-				src="https://firebasestorage.googleapis.com/v0/b/cao-master-v2.appspot.com/o/avatars%2F3KuBif2UEReCgzW7LRaBdTIkiQA3?alt=media&token=1a54f0ed-0e0f-412d-9f0b-3cc83e93ba89"
+				:user="10"
+				:src="require('/src/assets/profile.png')"
 			/>
 		</div>
 	</header>
