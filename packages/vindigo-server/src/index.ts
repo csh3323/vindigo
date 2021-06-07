@@ -29,6 +29,9 @@ export {
 // the vindigo client and API endpoints.
 http.start();
 
+// Start the Database service
+database.start();
+
 // Listen to application termination
 ON_DEATH(() => {
 	http.stop();
