@@ -21,7 +21,7 @@
 					</small>
 				</div>
 			</toolbar>
-			<main role="main" class="max-w-[100%] overflow-y-hidden" style="height: 89.3188819885%">
+			<main role="main" class="grid max-w-[100%] h-full">
 				<transition>
 					<keep-alive>
 						<router-view></router-view>
@@ -51,6 +51,11 @@ export default Vue.extend({
 .mdi-star {
 	@apply text-yellow-400 ml-1;
 	font-size: 1.1rem;
+}
+
+.project-page {
+	grid-template-columns: 56px auto;
+	grid-template-rows: 100vh;
 }
 
 .app__header > .app__header_container {
