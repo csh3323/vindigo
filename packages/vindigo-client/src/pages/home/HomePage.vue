@@ -40,12 +40,20 @@
                     />
                 </section>
             </div>
-            <div class="col-span-full laptop:col-span-2 order-first laptop:order-none -mt-20">
-                <section-title icon="mdi-chart-line-variant">
-                    Activity
-                </section-title>
-                <activity-box class="bg-purple-500 h-52"/>
-            </div>
+            <aside class="col-span-full laptop:col-span-2 order-first laptop:order-none -mt-20">
+                <section>
+                    <section-title icon="mdi-chart-line-variant">
+                        Activity
+                    </section-title>
+                    <activity-card class="bg-purple-500 mt-2 h-52"/>
+                </section>
+                <section class="pt-8">
+                    <section-title icon="mdi-check-circle-outline">
+                        Focus tasks
+                    </section-title>
+                    <focus-tasks class="bg-[#DDE0EB] mt-2 h-96"/>
+                </section>
+            </aside>
         </main>
 	</section>
 </template>
@@ -53,10 +61,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import { commerce } from 'faker';
-import ActivityBox from './ActivityCard.vue';
+import ActivityCard from './ActivityCard.vue';
+import FocusTasks from './FocusTasks.vue';
 
 export default Vue.extend({
-	components: { ActivityBox },
+	components: { ActivityCard, FocusTasks },
     name: 'HomePage',
     
     data: () => ({

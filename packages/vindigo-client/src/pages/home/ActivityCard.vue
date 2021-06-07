@@ -1,5 +1,5 @@
 <template>
-    <div class="activity-card flex flex-col mt-2 rounded-3xl p-4">
+    <div class="activity-card flex flex-col rounded-3xl p-4">
         <div class="text-white text-5xl font-light text-right">
             {{timeStr}}
         </div>
