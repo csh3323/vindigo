@@ -35,7 +35,7 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
-        "@oruga-ui/oruga": "^0.4.0",
+        "@oruga-ui/oruga": "^0.4.1",
         "connection-string": "^4.3.4",
         "dayjs": "^1.10.4",
         "faker": "^5.5.3",

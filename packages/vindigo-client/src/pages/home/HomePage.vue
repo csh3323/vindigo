@@ -1,8 +1,7 @@
 <template>
     <section class="home-page">
-        <toolbar class="pl-0">
-            <img :src="logoUrl" class="h-10"/>
-        </toolbar>
+        <toolbar class="pl-0"/>
+
         <div class="h-80 laptop:h-72 -mt-14 bg-white flex items-center justify-center">
             <!-- Display just "Welcome" when user is signed out -->
             <avatar
@@ -71,12 +70,6 @@ export default Vue.extend({
     data: () => ({
         
     }),
-
-    computed: {
-        logoUrl() {
-            return require('../../assets/vindigo-black.svg');
-        }
-    },
 
     methods: {
         getBoardName() {

@@ -26,12 +26,16 @@ export default Vue.extend({
         size: {
             type: [String, Number],
             default: 34
+        },
+        openProfile: {
+            type: Boolean,
+            default: true
         }
     },
 
     computed: {
-        profileUrl(): string {
-            return `/profile/${this.user}`;
+        profileUrl(): string|undefined {
+            return this.openProfile ? `/profile/${this.user}` : undefined;
         },
         borderStyle(): any {
             return {

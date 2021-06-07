@@ -1,7 +1,6 @@
 import VueRouter, { RouteConfig, RouterOptions } from "vue-router";
 
 import { logger } from "./util";
-import { merge } from "lodash";
 
 /**
  * The service in charge of managing routing 

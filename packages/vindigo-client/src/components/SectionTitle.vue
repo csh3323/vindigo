@@ -14,10 +14,6 @@ export default Vue.extend({
         icon: {
             type: String,
             required: true
-        },
-        text: {
-            type: String,
-            required: true
         }
     }
 })
