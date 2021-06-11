@@ -1,6 +1,6 @@
 <template>
 	<div class="board-card shadow-sm bg-gray-400">
-		<div></div>
+		<div />
 	</div>
 </template>
 

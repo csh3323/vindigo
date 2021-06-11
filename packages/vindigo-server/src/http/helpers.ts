@@ -1,9 +1,8 @@
-import { GraphQLFileLoader, loadSchema, loadSchemaSync, makeExecutableSchema, mergeSchemas } from "graphql-tools";
+import { GraphQLFileLoader, loadSchemaSync, makeExecutableSchema } from "graphql-tools";
 
 import { GraphQLSchema } from "graphql";
 import { ISchemaProvider } from "./provide";
 import { IncomingMessage } from "http";
-import { logger } from "..";
 import { merge } from "lodash";
 import { readFileSync } from "fs";
 

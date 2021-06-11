@@ -1,4 +1,4 @@
-import { basename, dirname, join } from 'path';
+import { basename, dirname } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 
 import chalk from 'chalk';

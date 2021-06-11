@@ -10,10 +10,10 @@ import Vue from 'vue';
  * Define all Vue components and directives
  */
 export function registerComponents() {
-	Vue.component('section-title', SectionTitle);
-	Vue.component('board-tile', BoardTile);
-	Vue.component('icon-btn', IconButton);
-	Vue.component('toolbar', Toolbar);
-	Vue.component('avatar', Avatar);
-	Vue.component('icon', Icon);
+	Vue.component('SectionTitle', SectionTitle);
+	Vue.component('BoardTile', BoardTile);
+	Vue.component('IconBtn', IconButton);
+	Vue.component('Toolbar', Toolbar);
+	Vue.component('Avatar', Avatar);
+	Vue.component('Icon', Icon);
 }

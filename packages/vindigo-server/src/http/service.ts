@@ -1,5 +1,5 @@
 import { IncomingMessage, createServer } from "http";
-import { buildSchema, getAddress, readSchema } from "./helpers";
+import { buildSchema, getAddress } from "./helpers";
 
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";

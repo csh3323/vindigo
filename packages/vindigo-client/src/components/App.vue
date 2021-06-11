@@ -1,6 +1,6 @@
 <template>
 	<div class="h-screen bg-page-background">
-		<router-view/>
+		<router-view />
 	</div>
 </template>
 

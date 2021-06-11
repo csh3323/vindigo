@@ -18,7 +18,7 @@ export class DatabaseService {
 	public async start() {
 
 		// database config options
-		let options = this.config.database;
+		const options = this.config.database;
 
 		try {
 			this.connection = await createConnection({

@@ -1,4 +1,3 @@
-import { GraphQLSchema } from "graphql";
 import { IResolvers } from "graphql-tools";
 
 /**

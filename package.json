@@ -6,8 +6,8 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "yarn workspaces run build",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"lint": "eslint . --ext .ts,.vue",
+		"lint:fix": "eslint . --fix --ext .ts,.vue"
 	},
 	"workspaces": [
 		"packages/vindigo-server",
@@ -15,7 +15,7 @@
 		"packages/vindigo-cli"
 	],
 	"engines": {
-		"node" : ">=10.12.0"
+		"node": ">=10.12.0"
 	},
 	"dependencies": {
 		"consola": "^2.15.3"
@@ -23,6 +23,8 @@
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^4.23.0",
 		"@typescript-eslint/parser": "^4.23.0",
-		"eslint": "^7.26.0"
+		"eslint": "^7.26.0",
+		"eslint-plugin-unused-imports": "^1.1.1",
+		"eslint-plugin-vue": "^7.11.0"
 	}
 }

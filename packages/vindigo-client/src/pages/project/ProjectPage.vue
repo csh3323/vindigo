@@ -1,9 +1,9 @@
 <template>
-    <section class="project-page grid">
+	<section class="project-page grid">
 		<sidebar
 			class="bg-[#2f3a41]"
 			:open.sync="open"
-		></sidebar>
+		/>
 		<section>
 			<toolbar class="pl-0">
 				<icon-btn
@@ -14,7 +14,7 @@
 				<div class="flex flex-col">
 					<h1 class="font-bold">
 						Vindigo Example Board
-						<i class="mdi mdi-star"></i>
+						<i class="mdi mdi-star" />
 					</h1>
 					<small class="font-thin -mt-1">
 						Kanban view
@@ -24,7 +24,7 @@
 			<main role="main" class="grid max-w-[100%] h-full">
 				<transition>
 					<keep-alive>
-						<router-view></router-view>
+						<router-view />
 					</keep-alive>
 				</transition>
 			</main>
@@ -38,12 +38,12 @@ import Vue from "vue";
 
 export default Vue.extend({
 	name: 'ProjectPage',
-    data: () => ({
-		open: false
-    }),
 	components: {
 		Sidebar
-	}
+	},
+	data: () => ({
+		open: false
+	})
 });
 </script>
 

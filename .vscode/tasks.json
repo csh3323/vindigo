@@ -62,6 +62,22 @@
 			"problemMatcher": [],
 			"label": "Watch Client",
 			"detail": "Run the webpack development server"
+		},
+		{
+			"type": "npm",
+			"script": "lint",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Linter",
+			"detail": "Run ESLint over the entire codebase"
+		},
+		{
+			"type": "npm",
+			"script": "lint:fix",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Linter (Fix)",
+			"detail": "Run ESLint over the entire codebase and perform fixes"
 		}
 	]
 }

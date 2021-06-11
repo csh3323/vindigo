@@ -1,5 +1,5 @@
 import consola from "consola";
-import pm2, { Proc, ProcessDescription } from 'pm2';
+import pm2, { ProcessDescription } from 'pm2';
 import { ENTRYPOINT, SCRIPT_NAME } from "../util";
 
 export function handleStop() {

@@ -1,26 +1,43 @@
 {
     "root": true,
-    "parser": "@typescript-eslint/parser",
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module"
+    },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "unused-imports"
     ],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:vue/recommended"
     ],
     "rules": {
         "semi": 2,
         "indent": 0,
-        "no-constant-condition": ["error", { "checkLoops": false }],
+        "unused-imports/no-unused-imports": 1,
+        "no-constant-condition": [2, { "checkLoops": false }],
         "@typescript-eslint/explicit-member-accessibility": 1,
         "@typescript-eslint/explicit-module-boundary-types": 0,
 		"@typescript-eslint/no-explicit-any": 0,
 		"@typescript-eslint/no-empty-function": 0,
 		"@typescript-eslint/no-unused-vars": 0,
 		"@typescript-eslint/no-non-null-assertion": 0,
-        "@typescript-eslint/indent": ["error", "tab", {
-            "SwitchCase": 1
-        }]
+        "@typescript-eslint/indent": [2, "tab", { "SwitchCase": 1 }],
+        "vue/no-v-html": 0,
+        "vue/require-prop-types": 0,
+        "vue/require-default-prop": 0,
+        "vue/html-indent": [2, "tab"],
+        "vue/script-indent": [2, "tab"],
+        "vue/no-mutating-props": 0,
+        "vue/max-attributes-per-line": [2, { "singleline": 2, "multiline": 2 }]
+    },
+    "env": {
+        "commonjs": true,
+        "browser": true,
+        "node": true
     }
 }

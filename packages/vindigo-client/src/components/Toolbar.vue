@@ -5,7 +5,7 @@
 				:src="logoUrl"
 				class="h-10 select-none"
 				@dragstart.prevent
-			/>
+			>
 		</slot>
 
 		<div class="flex-grow" />

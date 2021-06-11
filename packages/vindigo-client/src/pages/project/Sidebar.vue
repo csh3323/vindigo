@@ -3,18 +3,18 @@
 		<div
 			class="sidebar__highlight rounded-r-lg absolute left-0 h-14 w-1 z-10 transition-all bg-[#14A7F4]"
 			:style="offsetActiveRoute"
-		></div>
+		/>
 		<ol class="sidebar__container">
 			<router-link
 				v-for="(item, index) in listItems"
-				:to="item.href"
 				:key="index"
+				:to="item.href"
 			>
 				<li
 					class="sidebar__item py-1 w-14 h-14 flex items-center justify-center cursor-pointer hover:bg-[#293238]"
 					@click="currentIndex = item.rank"
 				>
-					<icon :icon="item.icon" class="text-white"/>
+					<icon :icon="item.icon" class="text-white" />
 				</li>
 			</router-link>
 		</ol>
@@ -46,7 +46,7 @@ export default Vue.extend({
 		}
 	},
 	mounted() {
-		const route = routing.getRoute('Project Container')!
+		const route = routing.getRoute('Project Container')!;
 
 		console.log(route);
 

@@ -1,33 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users')
 export class User extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-    @Column({name: 'created_at'})
-    createdAt: string;
+	@Column({name: 'created_at'})
+	public createdAt: string;
 
-    @Column({name: 'updated_at'})
-    updatedAt: string;
+	@Column({name: 'updated_at'})
+	public updatedAt: string;
 
-    @Column()
-    username: string;
+	@Column()
+	public username: string;
 
-    @Column()
-    password: string;
+	@Column()
+	public password: string;
 
-    @Column()
-    salt: string;
+	@Column()
+	public salt: string;
 
-    @Column()
-    email: string;
+	@Column()
+	public email: string;
 
-    @Column({name: 'first_name'})
-    firstName: string;
+	@Column({name: 'first_name'})
+	public firstName: string;
 
-    @Column({name: 'last_name'})
-    lastName: string;
+	@Column({name: 'last_name'})
+	public lastName: string;
 
 }
