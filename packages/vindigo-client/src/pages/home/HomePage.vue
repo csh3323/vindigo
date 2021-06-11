@@ -8,6 +8,7 @@
 				:user="10"
                 :size="80"
 				:src="require('/src/assets/profile.png')"
+                :open-profile="false"
 			/>
             <div class="pl-6">
                 <h2 class="font-extrabold text-2xl">Welcome back,</h2>

@@ -1,11 +1,11 @@
 <template>
-    <router-link :to="profileUrl">
+    <component :is="avatarTag" :to="profileUrl">
         <div class="avatar inline-flex rounded-full bg-gradient-to-b from-yellow-500 to-pink-600" :style="borderStyle">
             <div class="avatar__space rounded-full bg-white" :style="borderStyle">
                 <img :src="src" :style="imgStyle" class="rounded-full" style="image-rendering: crisp-edges;"/>
             </div>
         </div>
-    </router-link>
+    </component>
 </template>
 
 <script lang="ts">
@@ -34,8 +34,11 @@ export default Vue.extend({
     },
 
     computed: {
+        avatarTag(): string {
+            return this.openProfile ? `router-link` : 'span';
+        },
         profileUrl(): string|undefined {
-            return this.openProfile ? `/profile/${this.user}` : undefined;
+            return `/profile/${this.user}`;
         },
         borderStyle(): any {
             return {
