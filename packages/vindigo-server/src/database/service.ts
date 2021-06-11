@@ -1,7 +1,8 @@
 import { Connection, createConnection } from "typeorm";
-import { logger } from "..";
+
 import { IServerConfig } from "../util/config";
-import { User } from "./model/User";
+import { User } from "./model/user";
+import { logger } from "..";
 
 /**
  * The service used to connect to the database

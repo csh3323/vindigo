@@ -6,11 +6,12 @@ import { GraphQLError } from "graphql";
 import { ISchemaProvider } from "./provide";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
+import { UserSchema } from "./schemas/users/schema";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
 import { existsSync } from "fs";
-import express, {  } from "express";
+import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import helmet from "helmet";
 import { logger } from "..";
@@ -48,6 +49,8 @@ export class HTTPService {
 	 */
 	public start() {
 		const port = this.config.general.port;
+
+		this.providers.push(new UserSchema());
 
 		this.registerApi();
 		this.registerStatic();

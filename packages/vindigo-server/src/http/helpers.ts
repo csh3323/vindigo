@@ -40,7 +40,6 @@ export function buildSchema(providers: ISchemaProvider[]): GraphQLSchema {
  */
 export function readSchema(path: string): GraphQLSchema {
 	return loadSchemaSync(path, {
-		loaders: [new GraphQLFileLoader()],
-		assumeValidSDL: true
+		loaders: [new GraphQLFileLoader()]
 	});
 }

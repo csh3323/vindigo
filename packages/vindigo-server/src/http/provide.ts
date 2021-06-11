@@ -1,10 +1,11 @@
 import { IResolvers } from "graphql-tools";
+import { User } from "../database/model/user";
 
 /**
  * Used to enable type checking for resolver
  * declarations while including correct resolver context
  */
-export type GraphQLResolvers = IResolvers<any, ResolverContext>
+export type GraphQLResolvers<Source = any> = IResolvers<Source, ResolverContext>
 
 /**
  * A provider of a GraphQL Schema together with
@@ -25,7 +26,7 @@ export interface ISchemaProvider {
 	/**
 	 * The associated graphql schema resolvers, if present
 	 */
-	resolvers: GraphQLResolvers;
+	resolvers: GraphQLResolvers<any>;
 
 }
 
@@ -33,5 +34,5 @@ export interface ISchemaProvider {
  * The context instance passed to resolvers
  */
 export interface ResolverContext {
-	profile: any;
+	user: User;
 }

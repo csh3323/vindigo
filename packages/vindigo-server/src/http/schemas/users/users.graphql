@@ -1,0 +1,75 @@
+type Query {
+    "Fetch a user by their id"
+    fetchUserById(id: Int): User
+
+    "Fetch a user by their username"
+    fetchUserByUsername(username: String): User 
+}
+
+type Mutation {
+    "Create a new user account"
+    register(details: UserRegistration): User
+
+    "Sign in with the given account details"
+    authenticate(details: UserAuthentication): AuthenticatedUser
+}
+
+"""
+The details required to register a new account
+"""
+input UserRegistration {
+    username: String!,
+    firstName: String!,
+    lastName: String!,
+    email: String!,
+    password: String!
+}
+
+"""
+The details required to sign in
+"""
+input UserAuthentication {
+    email: String
+    username: String
+    password: String!
+}
+
+"""
+Information returned when authenticating
+with the server
+"""
+type AuthenticatedUser {
+    token: String
+    user: User
+}
+
+"""
+Represents a single Vindigo user
+"""
+type User {
+    "The unique user id"
+    id: Int!
+
+    "The public email address"
+    email: String!
+
+    "The username of the user"
+    username: String!
+
+    "The first name of the user"
+    firstName: String!
+
+    "The last name of the user"
+    lastName: String!
+
+    "The current activity status of the user"
+    activity: UserActivity!
+}
+
+"""
+Represents an activity state
+"""
+enum UserActivity {
+    IDLE,
+    ACTIVE
+}
