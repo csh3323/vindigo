@@ -2,6 +2,12 @@ import { GraphQLSchema } from "graphql";
 import { IResolvers } from "graphql-tools";
 
 /**
+ * Used to enable type checking for resolver
+ * declarations while including correct resolver context
+ */
+export type GraphQLResolvers = IResolvers<any, ResolverContext>
+
+/**
  * A provider of a GraphQL Schema together with
  * implementation resolvers.
  */
@@ -15,11 +21,18 @@ export interface ISchemaProvider {
 	/**
 	 * The schema associated with this module, if present
 	 */
-	schema: GraphQLSchema;
+	schema: string;
 
 	/**
 	 * The associated graphql schema resolvers, if present
 	 */
-	resolvers: IResolvers;
+	resolvers: GraphQLResolvers;
 
+}
+
+/**
+ * The context instance passed to resolvers
+ */
+export interface ResolverContext {
+	profile: any;
 }
