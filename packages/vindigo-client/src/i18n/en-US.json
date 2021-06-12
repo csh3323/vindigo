@@ -1,0 +1,11 @@
+{
+	"HOMEPAGE_WELCOME_BACK": "Welcome back, {0}",
+	"HOMEPAGE_SECTION_RECENTS": "Recent projects",
+	"HOMEPAGE_SECTION_TEAMS": "Your teams",
+	"HOMEPAGE_SECTION_ACTIVITY": "Activity",
+	"HOMEPAGE_SECTION_FOCUS": "Focus tasks",
+	"VIEW_TASKS": "Tasks view",
+	"VIEW_KANBAN": "Kanban view",
+	"VIEW_CALENDAR": "Calendar view",
+	"VIEW_WHITEBOARD": "Whiteboard view"
+}

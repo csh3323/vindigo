@@ -6,6 +6,10 @@
 		"sourceMap": true,
 		"lib": ["ESNext", "DOM"]
 	},
+	"typeRoots": [
+		"./node_modules/@types",
+		"./typings"
+    ],
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.vue"

@@ -38,6 +38,7 @@ registerState();
 const vue = new Vue({
 	el: '#app',
 	router: routing.complete(),
+	store: store.complete(),
 	render: (m) => {
 		return m(App);
 	}

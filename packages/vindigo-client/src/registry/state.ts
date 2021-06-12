@@ -6,7 +6,7 @@ import { storeMutations } from "./mutations";
  * The root state for the vindigo client
  */
 export interface RootState {
-	test: string;
+	initialized: boolean;
 }
 
 /**
@@ -19,7 +19,7 @@ export function registerState() {
 		mutations: storeMutations,
 		actions: storeActions,
 		state: {
-			test: ''
+			initialized: false
 		}
 	});
 
