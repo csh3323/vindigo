@@ -93,14 +93,14 @@ Before you can start contributing to Vindigo, make sure to follow the installati
 During development you might want to enable live compiling, to do so run the following commands in separate terminals.
 
 ```bash
-yarn workspace vindigo-server watch  # Automatically compile the server
+yarn workspace vindigo-server watch  # Automatically compile & start the server
 yarn workspace vindigo-client watch  # Launch a Webpack dev server
-yarn workspace vindigo-cli watch     # Launch a Webpack dev server
+yarn workspace vindigo-cli watch     # Automatically compile the CLI
 ```
 
-Keep in mind the server will be compiled but not automatically started. The best way to do so is `./vindigo run`, which will launch the server in the foreground.
-
 You can now access Vindigo on `http://localhost:8080`.
+
+Any changes made to the code will result in your changes being compiled live. Keep in mind while the CLI is automatically compiled you will still need to execute it manually.
 
 ### Building distribution files
 Distributes files are built separately for all packages, however all can be built with a single command.

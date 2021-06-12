@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "watch": "nodemon",
-        "build": "gulp"
+        "build": "gulp",
+        "start": "cd ../.. && ./vindigo run"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
