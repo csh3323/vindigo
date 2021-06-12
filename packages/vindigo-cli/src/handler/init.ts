@@ -96,7 +96,7 @@ export async function handleInit(args: any) {
 			default: 'vindigo'
 		},
 		{
-			name: 'DB_PATH',
+			name: 'DB_NAME',
 			message: 'SQLite path',
 			type: 'input',
 			default: 'data/database.sqlite',

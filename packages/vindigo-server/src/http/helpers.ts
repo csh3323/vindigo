@@ -1,7 +1,7 @@
 import { GraphQLFileLoader, loadSchemaSync, makeExecutableSchema } from "graphql-tools";
 
 import { GraphQLSchema } from "graphql";
-import { ISchemaProvider } from "./provide";
+import { ISchemaProvider } from "./provider";
 import { IncomingMessage } from "http";
 import { merge } from "lodash";
 import { readFileSync } from "fs";
@@ -18,8 +18,6 @@ export function getAddress(request: IncomingMessage): string {
 
 /**
  * Configure the GraphQL API Endpoints
- * 
- * TODO Load files in parallel 
  */
 export function buildSchema(providers: ISchemaProvider[]): GraphQLSchema {
 	const resolvers = merge(providers.map((pro) => pro.resolvers || {}));

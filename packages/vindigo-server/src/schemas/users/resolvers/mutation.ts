@@ -1,9 +1,9 @@
+import { ApiError, AuthenticationError } from '../../../http/errors';
 import { compare, hash } from 'bcrypt';
 
-import { ApiError } from "../../../errors";
-import { GraphQLResolvers } from "../../../provide";
-import { User } from "../../../../database/model/user";
-import { logger } from '../../../..';
+import { GraphQLResolvers } from '../../../http/provider';
+import { User } from '../../../models/user';
+import { logger } from '../../..';
 
 const SALT_ROUNDS = 7;
 
@@ -18,7 +18,7 @@ export default {
 		user.email = details.email;
 		user.password = password;
 
-		logger.info('Creating new user ' + details.email);
+		logger.info(`Registered new user ${details.username}`);
 
 		return user.save();
 	},
@@ -27,25 +27,30 @@ export default {
 			throw new ApiError('invalid-request');
 		}
 
+		// Handle both email and username authentcation
 		const filter = details.email ? {
 			email: details.email
 		} : {
 			username: details.username
 		};
 
+		// Find the user account
 		const user = await User.findOne({where: filter});
 
 		if(!user) {
-			throw new ApiError('unknown-user');
+			throw new AuthenticationError();
 		}
 
+		// Validate the password
 		const valid = await compare(details.password, user.password);
 
 		if(!valid) {
-			throw new ApiError('unknown-user');
+			throw new AuthenticationError();
 		}
 
 		const token = "something";
+
+		logger.info(`Authenticated ${user.username}`);
 
 		return {
 			user,

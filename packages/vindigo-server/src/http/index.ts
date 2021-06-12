@@ -3,10 +3,9 @@ import { buildSchema, getAddress } from "./helpers";
 
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";
-import { ISchemaProvider } from "./provide";
+import { ISchemaProvider } from "./provider";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
-import { UserSchema } from "./schemas/users/schema";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
@@ -25,11 +24,11 @@ import ws from "ws";
 export class HTTPService {
 
 	public clients = new Map<WebSocket, IncomingMessage>();
-	public providers: ISchemaProvider[] = [];
 	public express: express.Application;
-
+	
 	private server: Server;
 	private config: IServerConfig;
+	private providers: ISchemaProvider[] = [];
 
 	public constructor(config: IServerConfig) {
 		this.config = config;
@@ -49,8 +48,6 @@ export class HTTPService {
 	 */
 	public start() {
 		const port = this.config.general.port;
-
-		this.providers.push(new UserSchema());
 
 		this.registerApi();
 		this.registerStatic();
@@ -74,6 +71,16 @@ export class HTTPService {
 	 */
 	public get clientAmount(): number {
 		return this.clients.size;
+	}
+
+	/**
+	 * Define a new schema provider to insert further
+	 * types and fields into the GraphQL schema.
+	 * 
+	 * @param provider The provider
+	 */
+	public defineProvider(provider: ISchemaProvider) {
+		this.providers.push(provider);
 	}
 
 	/**

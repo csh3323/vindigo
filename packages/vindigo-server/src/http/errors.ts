@@ -14,3 +14,15 @@ export class ApiError extends Error {
 	}
 
 }
+
+/**
+ * Thrown when authentication fails without providing
+ * a specific reason for the failure.
+ */
+export class AuthenticationError extends ApiError {
+
+	public constructor() {
+		super('auth-failed');
+	}
+
+}

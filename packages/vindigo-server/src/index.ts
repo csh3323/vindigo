@@ -1,9 +1,11 @@
-import { DatabaseService } from "./database/service";
+import { DatabaseService } from "./database";
 import { ExtensionService } from "./extensions";
-import { HTTPService } from "./http/service";
+import { HTTPService } from "./http";
 import ON_DEATH from 'death';
 import consola from "consola";
 import { readConfig } from "./util/config";
+import { registerModels } from "./registry/models";
+import { registerSchemas } from "./registry/schemas";
 
 // Assert CLI bootstrap
 if(process.env.VINDIGO_CLI !== 'true') {
@@ -25,11 +27,10 @@ export {
 	http
 };
 
-// Start the HTTP service in order to serve
-// the vindigo client and API endpoints.
-http.start();
+registerModels();
+registerSchemas();
 
-// Start the Database service
+http.start();
 database.start();
 
 // Listen to application termination

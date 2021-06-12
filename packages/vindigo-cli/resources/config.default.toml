@@ -18,12 +18,11 @@ debug = false
 
 [database]
 driver = "%DB_DRIVER%"
+database = "%DB_NAME%"
 hostname = "%DB_HOSTNAME%"
 username = "%DB_USERNAME%"
 password = "%DB_PASSWORD%"
-database = "%DB_NAME%"
 port = %DB_PORT%
-path = "%DB_PATH%"
 
 [smtp]
 enabled = false

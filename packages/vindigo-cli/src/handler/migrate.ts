@@ -132,7 +132,7 @@ function initMigrator(config: IServerConfig): Knex.Migrator {
 		case 'sqlite': {
 			options.client = 'sqlite3';
 			options.connection = {
-				filename: config.database.path
+				filename: config.database.database
 			};
 			break;
 		}

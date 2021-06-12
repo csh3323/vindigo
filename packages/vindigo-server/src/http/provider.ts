@@ -1,5 +1,5 @@
 import { IResolvers } from "graphql-tools";
-import { User } from "../database/model/user";
+import { User } from "../models/user";
 
 /**
  * Used to enable type checking for resolver

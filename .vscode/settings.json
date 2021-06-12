@@ -1,10 +1,11 @@
 {
     "css.validate": false,
     "css.customData": [".vscode/postcss_data.json"],
+    "editor.insertSpaces": false,
     "files.associations": {
         "*.env": "properties"
     },
     "editor.quickSuggestions": {
         "strings": true
-    }
+    },
 }

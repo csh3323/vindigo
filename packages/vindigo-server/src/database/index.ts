@@ -1,7 +1,7 @@
-import { Connection, createConnection } from "typeorm";
+import { BaseEntity, Connection, createConnection } from "typeorm";
 
 import { IServerConfig } from "../util/config";
-import { User } from "./model/user";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { logger } from "..";
 
 /**
@@ -11,11 +11,16 @@ export class DatabaseService {
 
 	private config: IServerConfig;
 	private connection: Connection;
+	private models: (typeof BaseEntity)[] = [];
 
 	public constructor(config: IServerConfig) {
 		this.config = config;
 	}
 
+	/**
+	 * Start the Database Service and connect to
+	 * the configured database.
+	 */
 	public async start() {
 
 		// database config options
@@ -28,12 +33,23 @@ export class DatabaseService {
 				port: options.port,
 				username: options.username,
 				password: options.password,
-				database: options.database || options.path,
-				entities: [User]
+				database: options.database,
+				namingStrategy: new SnakeNamingStrategy(),
+				entities: this.models,
 			});
 		} catch (err) {
 			logger.error('Error instantiating database connection: ' + err.message);
 		}
+	}
+
+	/**
+	 * Define a new schema provider to insert further
+	 * types and fields into the GraphQL schema.
+	 * 
+	 * @param provider The provider
+	 */
+	public defineModel(model: typeof BaseEntity) {
+		this.models.push(model);
 	}
 
 }

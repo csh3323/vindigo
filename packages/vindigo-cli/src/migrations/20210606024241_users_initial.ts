@@ -1,16 +1,19 @@
 import { Knex } from 'knex';
 
-exports.up = async ({ schema, fn }: Knex) => {
-
-	return schema.createTable('users', function(table) {
+exports.up = async ({ schema }: Knex) => {
+	return schema.createTable('users', (table) => {
 		table.increments();
 		table.string('username').notNullable();
 		table.string('password').notNullable();
 		table.string('email').notNullable();
+		table.string('bio').notNullable();
 		table.string('first_name').notNullable();
 		table.string('last_name').notNullable();
-		table.timestamp('created_at').defaultTo(fn.now());
-		table.timestamp('updated_at').defaultTo(fn.now());
+		table.timestamp('created_at').notNullable();
+		table.timestamp('last_seen_at').notNullable();
+		table.boolean('is_enabled').notNullable().defaultTo(true);
+		table.string('role').notNullable().defaultTo('guest');
+		table.string('language').notNullable().defaultTo('en-US');
 	});
 };
 
