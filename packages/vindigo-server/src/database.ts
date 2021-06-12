@@ -1,8 +1,8 @@
 import { BaseEntity, Connection, createConnection } from "typeorm";
 
-import { IServerConfig } from "../util/config";
+import { IServerConfig } from "./util/config";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import { logger } from "..";
+import { logger } from ".";
 
 /**
  * The service used to connect to the database
