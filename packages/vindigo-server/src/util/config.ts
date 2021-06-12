@@ -15,6 +15,9 @@ export interface IServerConfig {
 		name: string,
 		debug: boolean
 	},
+	http: {
+		jwt_secret_key: string
+	},
 	smtp: {
 		enabled: boolean,
 		address: string,
@@ -45,6 +48,9 @@ const defaultConfig: IServerConfig = {
 		check_version: true,
 		name: 'Vindigo',
 		debug: false
+	},
+	http: {
+		jwt_secret_key: 'vindigo_jwt'
 	},
 	smtp: {
 		enabled: false,
