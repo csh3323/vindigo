@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import consola from 'consola';
 import { getResource } from '../util';
 import inquirer from 'inquirer';
+import * as uniqid from 'uniqid';
 
 const DEFAULT_CONFIG = getResource('config.default.toml');
 const ACTUAL_CONFIG = './data/config.toml';
@@ -105,6 +106,7 @@ export async function handleInit(args: any) {
 	]);
 
 	values['GEN_DATE'] = new Date().toString();
+	values['JWT_SECRET'] = uniqid.default();
 	
 	const defaultConfig = readFileSync(DEFAULT_CONFIG, 'utf-8');
 	const replacements: any = Object.fromEntries(Object.entries(values).map(([k, v]) => [`%${k}%`, v]));
