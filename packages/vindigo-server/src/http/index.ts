@@ -1,6 +1,5 @@
 import { IncomingMessage, createServer } from "http";
 import { buildSchema, getAddress } from "./helpers";
-
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";
 import { ISchemaProvider } from "./provider";
@@ -17,6 +16,8 @@ import { logger } from "..";
 import path from "path";
 import { useServer } from "graphql-ws/lib/use/ws";
 import ws from "ws";
+import { verify } from "jsonwebtoken";
+import { User } from "../models/user";
 
 /**
  * The service in charge of serving http requests
@@ -100,7 +101,28 @@ export class HTTPService {
 			const authorization = req.header('Authorization');
 			const context: any = { req, res };
 
-			// TODO Bean can implement auth I dont want to
+			// add user to the context if they provided a valid token
+			// used for future authorization per-route
+			if(authorization) {
+				const token = authorization?.replace(/Bearer\s/, '');
+				const secret = this.config.http.jwt_secret_key;
+				let payload: string;
+
+				try {
+					payload = verify(token, secret) as string;
+				} catch (error) {
+					return res.send(new ApiError('400', `Authentication failed: ${error.message}`));
+				}
+
+				// payload contains the user ID
+				const user = await User.findOne(payload);
+
+				if(!user) {
+					throw new ApiError('unknown user from token');
+				}
+
+				context.user = user;
+			}
 
 			graphqlHTTP({
 				schema: schema,

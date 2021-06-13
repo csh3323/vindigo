@@ -21,6 +21,7 @@ const database = new DatabaseService(config);
 const http = new HTTPService(config);
 
 export {
+	config,
 	extensions,
 	database,
 	logger,

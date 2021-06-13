@@ -1,9 +1,10 @@
 import { ApiError, AuthenticationError } from '../../../http/errors';
 import { compare, hash } from 'bcrypt';
-
 import { GraphQLResolvers } from '../../../http/provider';
 import { User } from '../../../models/user';
 import { logger } from '../../..';
+import { sign } from 'jsonwebtoken';
+import { config } from '../../../index';
 
 const SALT_ROUNDS = 7;
 
@@ -48,7 +49,8 @@ export default {
 			throw new AuthenticationError();
 		}
 
-		const token = "something";
+		const secret = config.http.jwt_secret_key;
+		const token = sign(String(user.id), secret);
 
 		logger.info(`Authenticated ${user.username}`);
 
