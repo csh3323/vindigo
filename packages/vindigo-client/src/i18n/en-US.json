@@ -4,8 +4,9 @@
 	"HOMEPAGE_SECTION_TEAMS": "Your teams",
 	"HOMEPAGE_SECTION_ACTIVITY": "Activity",
 	"HOMEPAGE_SECTION_TASKS": "Focus tasks",
-	"VIEW_TASKS": "Tasks view",
-	"VIEW_KANBAN": "Kanban view",
-	"VIEW_CALENDAR": "Calendar view",
-	"VIEW_WHITEBOARD": "Whiteboard view"
+	"VIEW_HOME": "Project overview",
+	"VIEW_TASKS": "Tasks",
+	"VIEW_KANBAN": "Kanban",
+	"VIEW_CALENDAR": "Calendar",
+	"VIEW_WHITEBOARD": "Whiteboard"
 }

@@ -2,7 +2,7 @@ import { Dictionary } from "vue-router/types/router";
 import VueI18n from "vue-i18n";
 import dayjs from "dayjs";
 import { keyBy } from "lodash";
-import languages from "./languages";
+import languages from "./registry/languages";
 import { logger } from "./util";
 import { vue } from ".";
 

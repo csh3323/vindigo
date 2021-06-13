@@ -39,6 +39,7 @@ export function registerRoutes() {
 				name: 'Project Overview',
 				component: ProjectHome,
 				meta: {
+					name: 'VIEW_HOME',
 					icon: 'mdi-home',
 					order: 0
 				}
@@ -48,6 +49,7 @@ export function registerRoutes() {
 				name: 'Tasks View',
 				component: TasksPage,
 				meta: {
+					name: 'VIEW_TASKS',
 					icon: 'mdi-format-list-bulleted-square',
 					order: 1
 				}
@@ -57,6 +59,7 @@ export function registerRoutes() {
 				name: 'Kanban View',
 				component: KanbanPage,
 				meta: {
+					name: 'VIEW_KANBAN',
 					icon: 'mdi-view-column',
 					order: 2
 				}
@@ -66,6 +69,7 @@ export function registerRoutes() {
 				name: 'Calendar View',
 				component: undefined,
 				meta: {
+					name: 'VIEW_CALENDAR',
 					icon: 'mdi-calendar-blank',
 					order: 3
 				}
@@ -75,6 +79,7 @@ export function registerRoutes() {
 				name: 'Whiteboard View',
 				component: undefined,
 				meta: {
+					name: 'VIEW_WHITEBOARD',
 					icon: 'mdi-brush',
 					order: 4
 				}

@@ -17,7 +17,7 @@
 						<i class="mdi mdi-star" />
 					</h1>
 					<small class="font-thin -mt-1">
-						Kanban view
+						{{ $t($route.meta.name) }}
 					</small>
 				</div>
 			</toolbar>
