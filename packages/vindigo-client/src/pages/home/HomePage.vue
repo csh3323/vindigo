@@ -12,7 +12,7 @@
 			/>
 			<div class="pl-6">
 				<h2 class="font-extrabold text-2xl">
-					Welcome back,
+					{{ $t('HOMEPAGE_WELCOME') }}
 				</h2>
 				<h1 class="font-extrabold text-2xl">
 					Julian
@@ -22,7 +22,7 @@
 		<main class="container grid grid-cols-6 laptop:gap-24">
 			<div class="col-span-full laptop:col-span-4 pt-8">
 				<section-title icon="mdi-clock-outline">
-					Recent projects
+					{{ $t('HOMEPAGE_SECTION_RECENTS') }}
 				</section-title>
 				<section class="grid grid-cols-6 gap-5 pt-4">
 					<board-tile
@@ -33,7 +33,7 @@
 					/>
 				</section>
 				<section-title class="mt-10" icon="mdi-briefcase">
-					Your teams
+					{{ $t('HOMEPAGE_SECTION_TEAMS') }}
 				</section-title>
 				<section class="grid grid-cols-6 gap-5 pt-4">
 					<board-tile
@@ -47,13 +47,13 @@
 			<aside class="col-span-full laptop:col-span-2 order-first laptop:order-none -mt-20">
 				<section>
 					<section-title icon="mdi-chart-line-variant">
-						Activity
+						{{ $t('HOMEPAGE_SECTION_ACTIVITY') }}
 					</section-title>
 					<activity-card class="bg-purple-500 mt-2 h-52" />
 				</section>
 				<section class="pt-8">
 					<section-title icon="mdi-check-circle-outline">
-						Focus tasks
+						{{ $t('HOMEPAGE_SECTION_TASKS') }}
 					</section-title>
 					<focus-tasks class="bg-[#DDE0EB] mt-2 h-96" />
 				</section>

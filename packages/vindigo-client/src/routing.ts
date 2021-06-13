@@ -8,7 +8,6 @@ import { logger } from "./util";
 export class RoutingService {
 
 	private logger = logger('Router');
-	
 	private index: {[key: string]: RouteConfig} = {};
 	private options: RouterOptions;
 	private initialized = false;
@@ -69,8 +68,6 @@ export class RoutingService {
 			throw new Error('Router already configured');
 		}
 
-		console.log(this.options);
-		
 		this.initialized = true;
 		return new VueRouter(this.options);
 	}

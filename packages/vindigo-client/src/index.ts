@@ -1,7 +1,7 @@
-import '@oruga-ui/oruga/dist/oruga.css';
 import './style/global.css';
 
 import App from './components/App.vue';
+import { I18nService } from './i18n';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import { RoutingService } from "./routing";
 import { StoreService } from "./store";
@@ -19,10 +19,12 @@ dayjs.extend(RelativeTime);
 // Define the services
 const routing = new RoutingService();
 const store = new StoreService();
+const i18n = new I18nService();
 
 export {
 	routing,
-	store
+	store,
+	i18n
 };
 
 // Register all core registries with
@@ -39,6 +41,7 @@ const vue = new Vue({
 	el: '#app',
 	router: routing.complete(),
 	store: store.complete(),
+	i18n: i18n.complete(),
 	render: (m) => {
 		return m(App);
 	}
@@ -49,7 +52,9 @@ Object.defineProperty(window, 'vindigo', {
 	writable: false,
 	value: {
 		routing,
-		store
+		store,
+		i18n,
+		vue
 	}
 });
 

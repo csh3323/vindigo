@@ -1,9 +1,9 @@
 {
-	"HOMEPAGE_WELCOME_BACK": "Welkom terug, {0}",
+	"HOMEPAGE_WELCOME": "Welkom terug,",
 	"HOMEPAGE_SECTION_RECENTS": "Recente projecten",
 	"HOMEPAGE_SECTION_TEAMS": "Jouw organisaties",
 	"HOMEPAGE_SECTION_ACTIVITY": "Activiteit",
-	"HOMEPAGE_SECTION_FOCUS": "Belangrijke taken",
+	"HOMEPAGE_SECTION_TASKS": "Belangrijke taken",
 	"VIEW_TASKS": "Takenlijst",
 	"VIEW_KANBAN": "Kanban",
 	"VIEW_CALENDAR": "Kalender",

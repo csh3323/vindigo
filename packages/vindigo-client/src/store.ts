@@ -10,7 +10,6 @@ import { logger } from "./util";
 export class StoreService implements StoreNamespace<RootState> {
 
 	private logger = logger('Router');
-	
 	private modules: {[key: string]: StoreNamespace<any>} = {};
 	private initialized = false;
 	

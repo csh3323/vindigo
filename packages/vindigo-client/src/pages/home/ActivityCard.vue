@@ -51,6 +51,12 @@ export default Vue.extend({
 		dateStr: '',
 	}),
 
+	watch: {
+		'$i18n.locale'() {
+			this.updateTime();
+		}
+	},
+
 	mounted() {
 		this.updateTime();
 

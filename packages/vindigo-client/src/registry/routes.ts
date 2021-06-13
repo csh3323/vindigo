@@ -1,5 +1,6 @@
 import HomePage from '../pages/home/HomePage.vue';
 import KanbanPage from '../pages/kanban/KanbanOverview.vue';
+import ProjectHome from '../pages/project/ProjectHome.vue';
 import ProjectPage from '../pages/project/ProjectPage.vue';
 import TasksPage from '../pages/tasks/TasksOverview.vue';
 import { routing } from "..";
@@ -36,7 +37,7 @@ export function registerRoutes() {
 			{
 				path: 'overview',
 				name: 'Project Overview',
-				component: undefined,
+				component: ProjectHome,
 				meta: {
 					icon: 'mdi-home',
 					order: 0
