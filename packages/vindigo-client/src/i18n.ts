@@ -30,7 +30,10 @@ export class I18nService {
 		
 		this.languageList = languages;
 		this.languageIndex = keyBy(languages, (lang => lang.id));
-		this.fetchTranslations(this.defaultLang);
+
+		this.fetchTranslations(this.defaultLang).then(() => {
+			vue.$store.commit('setLoaded', 'i18n');
+		});
 	}
 
 	/**

@@ -5,7 +5,10 @@ import { RootState } from "./state";
  * Register store mutations
  */
 export const storeMutations: MutationTree<RootState> = {
-	initialized(state) {
-		state.initialized = true;
+
+	// Mark a scope as successfully loaded
+	setLoaded(state, scope: string) {
+		state.loading[scope] = true;
 	}
+
 };

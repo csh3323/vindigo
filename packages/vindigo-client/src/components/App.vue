@@ -46,14 +46,10 @@ export default Vue.extend({
 
 	computed: {
 		isReady(): boolean {
-			return this.$store.state.initialized;
-		}
-	},
+			const loading = this.$store.state.loading;
 
-	mounted() {
-		setTimeout(() => {
-			this.$store.commit('initialized');
-		}, 200);
+			return loading.i18n;
+		}
 	}
 });
 </script>

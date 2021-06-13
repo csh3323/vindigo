@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree, Store } from 'vuex';
 
-import { RootState } from './registry/state';
+import { RootState } from './registry/store/state';
 import { logger } from "./util";
 
 /**

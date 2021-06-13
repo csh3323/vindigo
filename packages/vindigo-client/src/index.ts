@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
-import { registerState } from './registry/state';
+import { registerState } from './registry/store/state';
 
 // Configure packages
 dayjs.locale('nl-nl');

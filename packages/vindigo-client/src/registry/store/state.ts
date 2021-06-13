@@ -1,4 +1,5 @@
-import { store } from "..";
+import { Dictionary } from "vue-router/types/router";
+import { store } from "../..";
 import { storeActions } from "./actions";
 import { storeMutations } from "./mutations";
 
@@ -6,7 +7,8 @@ import { storeMutations } from "./mutations";
  * The root state for the vindigo client
  */
 export interface RootState {
-	initialized: boolean;
+	profile: any,
+	loading: Dictionary<boolean>
 }
 
 /**
@@ -19,7 +21,10 @@ export function registerState() {
 		mutations: storeMutations,
 		actions: storeActions,
 		state: {
-			initialized: false
+			profile: null,
+			loading: {
+				i18n: false
+			}
 		}
 	});
 
