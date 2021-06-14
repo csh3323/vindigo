@@ -1,8 +1,8 @@
-import HomePage from '../pages/home/HomePage.vue';
-import KanbanPage from '../pages/kanban/KanbanOverview.vue';
-import ProjectHome from '../pages/project/ProjectHome.vue';
-import ProjectPage from '../pages/project/ProjectPage.vue';
-import TasksPage from '../pages/tasks/TasksOverview.vue';
+import HomePage from '../views/home/HomePage.vue';
+import KanbanPage from '../views/project/kanban/KanbanOverview.vue';
+import ProjectHome from '../views/project/ProjectHome.vue';
+import ProjectPage from '../views/project/ProjectPage.vue';
+import TasksPage from '../views/project/tasks/TasksOverview.vue';
 import { routing } from "..";
 
 /**
