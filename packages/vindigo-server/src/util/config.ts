@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { get, merge } from 'lodash';
 import { parse } from 'toml';
 import { readFileSync } from 'fs';
 
@@ -15,8 +15,8 @@ export interface IServerConfig {
 		name: string,
 		debug: boolean
 	},
-	http: {
-		jwt_secret_key: string
+	auth: {
+		secret: string
 	},
 	smtp: {
 		enabled: boolean,
@@ -49,8 +49,8 @@ const defaultConfig: IServerConfig = {
 		name: 'Vindigo',
 		debug: false
 	},
-	http: {
-		jwt_secret_key: 'vindigo_jwt'
+	auth: {
+		secret: ''
 	},
 	smtp: {
 		enabled: false,
@@ -72,12 +72,27 @@ const defaultConfig: IServerConfig = {
 };
 
 /**
+ * Validate a config and prevent serious issues
+ * 
+ * @param config The config
+ * @returns The fixed config
+ */
+function validateConfig(config: IServerConfig): IServerConfig {
+	if(!get(config, 'auth.secret')) {
+		throw new Error('Auth secret must be specified');
+	}
+
+	return config;
+}
+
+/**
  * Read the server config into memory
  * 
  * @returns The config
  */
 export function readConfig(): IServerConfig {
 	const config = parse(readFileSync('data/config.toml', 'utf-8'));
+	const final: IServerConfig = merge(defaultConfig, config);
 
-	return merge(defaultConfig, config);
+	return validateConfig(final);
 }

@@ -105,7 +105,7 @@ export class HTTPService {
 			// used for future authorization per-route
 			if(authorization) {
 				const token = authorization?.replace(/Bearer\s/, '');
-				const secret = this.config.http.jwt_secret_key;
+				const secret = this.config.auth.secret;
 				let payload: string;
 
 				try {

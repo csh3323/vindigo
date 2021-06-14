@@ -16,8 +16,8 @@ check_version = true
 name = "%NAME%"
 debug = false
 
-[http]
-jwt_secret_key = "%JWT_SECRET%"
+[auth]
+secret = "%JWT_SECRET%"
 
 [database]
 driver = "%DB_DRIVER%"
