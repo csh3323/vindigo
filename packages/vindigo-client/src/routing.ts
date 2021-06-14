@@ -1,6 +1,7 @@
+import { isString } from "lodash";
 import VueRouter, { RouteConfig, RouterOptions } from "vue-router";
 
-import { logger } from "./util";
+import { getRouteMeta, logger, updateTitle } from "./util";
 
 /**
  * The service in charge of managing routing 
@@ -11,11 +12,12 @@ export class RoutingService {
 	private index: {[key: string]: RouteConfig} = {};
 	private options: RouterOptions;
 	private initialized = false;
+	private instance!: VueRouter;
 
 	public constructor() {
 		this.options = {
 			mode: 'history',
-			routes: []
+			routes: [],
 		};
 	}
 
@@ -67,9 +69,25 @@ export class RoutingService {
 		if(this.initialized) {
 			throw new Error('Router already configured');
 		}
+		
+		const router = new VueRouter(this.options);
+		
+		router.beforeEach((to, _from, next) => {
+			const title = getRouteMeta(to, 'title');
+
+			if(isString(title)) {
+				updateTitle(title);
+			} else if(title !== false && to.name) {
+				updateTitle(to.name);
+			}
+			
+			next();
+		});
 
 		this.initialized = true;
-		return new VueRouter(this.options);
+		this.instance = router;
+
+		return router;
 	}
 
 }

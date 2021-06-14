@@ -13,7 +13,10 @@ export function registerRoutes() {
 	routing.defineRoute({
 		path: '/',
 		name: 'Homepage',
-		component: HomePage
+		component: HomePage,
+		meta: {
+			title: ''
+		}
 	});
 
 	routing.defineRoute({
@@ -33,6 +36,9 @@ export function registerRoutes() {
 		name: 'Project Container',
 		component: ProjectPage,
 		redirect: '/project/:project/overview',
+		meta: {
+			title: false
+		},
 		children: [
 			{
 				path: 'overview',

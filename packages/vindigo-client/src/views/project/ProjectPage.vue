@@ -35,15 +35,22 @@
 <script lang="ts">
 import Sidebar from './Sidebar.vue';
 import Vue from "vue";
+import { updateTitle } from '../../util';
 
 export default Vue.extend({
 	name: 'ProjectPage',
 	components: {
 		Sidebar
 	},
+
 	data: () => ({
 		open: false
-	})
+	}),
+
+	created() {
+		// TODO Use real project title
+		updateTitle('Example Project');
+	}
 });
 </script>
 
