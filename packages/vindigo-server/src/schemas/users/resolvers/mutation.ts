@@ -49,7 +49,7 @@ export default {
 			throw new AuthenticationError();
 		}
 
-		const secret = config.http.jwt_secret_key;
+		const secret = config.auth.secret;
 		const token = sign(String(user.id), secret);
 
 		logger.info(`Authenticated ${user.username}`);
