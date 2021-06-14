@@ -8,11 +8,12 @@ import { getRouteMeta, logger, updateTitle } from "./util";
  */
 export class RoutingService {
 
+	public instance!: VueRouter;
+	
 	private logger = logger('Router');
 	private index: {[key: string]: RouteConfig} = {};
 	private options: RouterOptions;
 	private initialized = false;
-	private instance!: VueRouter;
 
 	public constructor() {
 		this.options = {

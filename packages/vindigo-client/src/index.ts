@@ -11,20 +11,22 @@ import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/store/state';
+import { APIService } from './api';
 
 // Configure packages
-dayjs.locale('nl-nl');
 dayjs.extend(RelativeTime);
 
 // Define the services
 const routing = new RoutingService();
 const store = new StoreService();
 const i18n = new I18nService();
+const api = new APIService();
 
 export {
 	routing,
 	store,
-	i18n
+	i18n,
+	api
 };
 
 // Register all core registries with
@@ -54,6 +56,7 @@ Object.defineProperty(window, 'vindigo', {
 		routing,
 		store,
 		i18n,
+		api,
 		vue
 	}
 });

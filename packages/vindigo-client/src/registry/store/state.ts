@@ -8,6 +8,8 @@ import { storeMutations } from "./mutations";
  */
 export interface RootState {
 	profile: any,
+	authToken: string|undefined,
+	refreshToken: string|undefined,
 	loading: Dictionary<boolean>
 }
 
@@ -22,6 +24,8 @@ export function registerState() {
 		actions: storeActions,
 		state: {
 			profile: null,
+			authToken: localStorage.getItem('vindigo:authToken') || undefined,
+			refreshToken: localStorage.getItem('vindigo:refreshToken') || undefined,
 			loading: {
 				i18n: false
 			}

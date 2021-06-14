@@ -9,6 +9,8 @@ import { logger } from "./util";
  */
 export class StoreService implements StoreNamespace<RootState> {
 
+	public instance!: Store<RootState>;
+	
 	private logger = logger('Router');
 	private modules: {[key: string]: StoreNamespace<any>} = {};
 	private initialized = false;
@@ -37,7 +39,7 @@ export class StoreService implements StoreNamespace<RootState> {
 	 * 
 	 * @returns The vue router
 	 */
-	public complete(): Store<unknown> {
+	public complete(): Store<RootState> {
 		if(this.initialized) {
 			throw new Error('Store already configured');
 		}
@@ -49,12 +51,16 @@ export class StoreService implements StoreNamespace<RootState> {
 		}
 		
 		delete this.modules['core'];
-		this.initialized = true;
 
-		return new Store({
+		const store = new Store({
 			...core,
 			modules: this.modules
 		});
+
+		this.instance = store;
+		this.initialized = true;
+
+		return store;
 	}
 
 	/**
