@@ -1,5 +1,7 @@
 import { ISchemaProvider } from '../../http/provider';
+import Mutation from './resolvers/mutation';
 import Query from './resolvers/query';
+import User from './resolvers/user';
 import { join } from "path";
 
 /**
@@ -13,7 +15,9 @@ export class CoreSchema implements ISchemaProvider {
 	public schema = join(__dirname, 'core.graphql');
 
 	public resolvers = {
-		Query
+		Query,
+		Mutation,
+		User
 	}
 
 }
