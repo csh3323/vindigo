@@ -3,27 +3,47 @@ import { RootState } from "./state";
 import { api } from "../..";
 import gql from "graphql-tag";
 
-const CONFIG_QUERY = gql`
-	query FetchConfig {
-		config {
-			instanceName
-			allowRegister
-			allowAnonymous
-		}
-	}
-`;
-
 /**
  * Register store actions
  */
 export const storeActions: ActionTree<RootState, RootState> = {
 	
-	// Request the latest version of the config
+	/**
+	 * Request the latest client config
+	 */
 	async fetchConfig({ commit }) {
-		const res = await api.query(CONFIG_QUERY);
+		const { config } = await api.query(gql`
+			query FetchConfig {
+				config {
+					instanceName
+					allowRegister
+					allowAnonymous
+				}
+			}
+		`);
 		
-		commit('storeConfig', res.config);
+		commit('storeConfig', config);
 		commit('setLoaded', 'config');
+	},
+
+	/**
+	 * Authenticate with the server
+	 */
+	async authenticate({ state, commit }) {
+		if(!state.refreshToken) {
+			commit('setLoaded', 'auth');
+		} else {
+			const { renewToken } = await api.query(gql`
+				query RenewToken($refresh: String!) {
+					renewToken(refresh: $refresh) {
+						token
+					}
+				}
+			`);
+
+			commit('storeTokens', renewToken.token);
+			commit('setLoaded', 'auth');
+		}
 	}
 
 };

@@ -31,8 +31,8 @@
 </template>
 
 <script lang="ts">
-import { identity, values } from "lodash";
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
 	name: "Vindigo",
@@ -46,9 +46,7 @@ export default Vue.extend({
 	}),
 
 	computed: {
-		isReady(): boolean {
-			return values(this.$store.state.loading).every(identity);
-		}
+		...mapState(['isReady'])
 	}
 });
 </script>

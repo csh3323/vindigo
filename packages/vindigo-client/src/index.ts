@@ -7,14 +7,13 @@ import RelativeTime from 'dayjs/plugin/relativeTime';
 import { RoutingService } from "./routing";
 import { StoreService } from "./store";
 import Vue from 'vue';
-import { config } from 'vue/types/umd';
 import dayjs from 'dayjs';
 import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/store/state';
 
-// Configure packages
+
 dayjs.extend(RelativeTime);
 
 // Define the services
@@ -62,6 +61,10 @@ Object.defineProperty(window, 'vindigo', {
 	}
 });
 
-export { vue };
-
+// Request the latest client config
 store.instance.dispatch('fetchConfig');
+
+// Sign in with the existing token
+store.instance.dispatch('authenticate');
+
+export { vue };

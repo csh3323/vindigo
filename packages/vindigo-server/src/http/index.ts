@@ -6,7 +6,6 @@ import { GraphQLError } from "graphql";
 import { ISchemaProvider } from "./provider";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
-import { User } from "../models/user";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
@@ -17,7 +16,6 @@ import helmet from "helmet";
 import { logger } from "..";
 import path from "path";
 import { useServer } from "graphql-ws/lib/use/ws";
-import { verify } from "jsonwebtoken";
 import ws from "ws";
 
 /**
