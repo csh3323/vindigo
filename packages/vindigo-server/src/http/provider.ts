@@ -5,7 +5,7 @@ import { User } from "../models/user";
  * Used to enable type checking for resolver
  * declarations while including correct resolver context
  */
-export type GraphQLResolvers<Source = any> = IResolvers<Source, ResolverContext>
+export type GraphQLResolvers<Source = void> = IResolvers<Source, ResolverContext>
 
 /**
  * A provider of a GraphQL Schema together with

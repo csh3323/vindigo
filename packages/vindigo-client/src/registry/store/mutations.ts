@@ -9,6 +9,11 @@ export const storeMutations: MutationTree<RootState> = {
 	// Mark a scope as successfully loaded
 	setLoaded(state, scope: string) {
 		state.loading[scope] = true;
+	},
+
+	// Save the config instance
+	storeConfig(state, config) {
+		state.config = config;
 	}
 
 };

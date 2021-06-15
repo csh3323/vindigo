@@ -1,0 +1,30 @@
+type Query {
+
+	"Fetch the relevant client config"
+	config: ClientConfig!
+
+}
+
+type Mutation {
+	_placeholder: Boolean
+}
+
+type Subscription {
+	_placeholder: Boolean
+}
+
+"""
+Configuration block holding values relevant to the client.
+The client config should be queried on application launch
+and provide hints about authentication, UI, and more.
+"""
+type ClientConfig {
+	"The name of the current Vindigo instance"
+	instanceName: String!
+
+	"Whether registrations are open"
+	allowRegister: Boolean!
+
+	"Whether anonymous users are allowed"
+	allowAnonymous: Boolean!
+}

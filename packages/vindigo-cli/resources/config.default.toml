@@ -16,8 +16,10 @@ check_version = true
 name = "%NAME%"
 debug = false
 
-[auth]
+[authentication]
 secret = "%JWT_SECRET%"
+anonymous_users = false
+registrations = false
 
 [database]
 driver = "%DB_DRIVER%"

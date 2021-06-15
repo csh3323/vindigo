@@ -120,6 +120,12 @@ module.exports = {
 		overlay: {
 			errors: true,
 			warnings: false
-		}
+		},
+		proxy: [
+			{
+				context: () => true,
+				target: 'http://localhost:8085',
+			}
+		]
 	}
 };

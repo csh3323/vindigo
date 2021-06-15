@@ -1,5 +1,6 @@
+import { Client, Sink, createClient } from 'graphql-ws';
 import { DocumentNode, print } from "graphql";
-import { Client, createClient, Sink } from 'graphql-ws';
+
 import { Dictionary } from "vue-router/types/router";
 import { store } from ".";
 

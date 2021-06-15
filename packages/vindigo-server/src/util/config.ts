@@ -1,4 +1,4 @@
-import { get, merge } from 'lodash';
+import { merge } from 'lodash';
 import { parse } from 'toml';
 import { readFileSync } from 'fs';
 
@@ -15,8 +15,10 @@ export interface IServerConfig {
 		name: string,
 		debug: boolean
 	},
-	auth: {
-		secret: string
+	authentication: {
+		secret: string,
+		anonymous_users: boolean,
+		registrations: boolean
 	},
 	smtp: {
 		enabled: boolean,
@@ -49,8 +51,10 @@ const defaultConfig: IServerConfig = {
 		name: 'Vindigo',
 		debug: false
 	},
-	auth: {
-		secret: ''
+	authentication: {
+		secret: '',
+		anonymous_users: false,
+		registrations: false
 	},
 	smtp: {
 		enabled: false,
@@ -78,7 +82,7 @@ const defaultConfig: IServerConfig = {
  * @returns The fixed config
  */
 function validateConfig(config: IServerConfig): IServerConfig {
-	if(!get(config, 'auth.secret')) {
+	if(!config.authentication.secret) {
 		throw new Error('Auth secret must be specified');
 	}
 

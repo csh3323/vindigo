@@ -1,17 +1,18 @@
 import './style/global.css';
 
+import { APIService } from './api';
 import App from './components/App.vue';
 import { I18nService } from './i18n';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import { RoutingService } from "./routing";
 import { StoreService } from "./store";
 import Vue from 'vue';
+import { config } from 'vue/types/umd';
 import dayjs from 'dayjs';
 import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/store/state';
-import { APIService } from './api';
 
 // Configure packages
 dayjs.extend(RelativeTime);
@@ -62,3 +63,5 @@ Object.defineProperty(window, 'vindigo', {
 });
 
 export { vue };
+
+store.instance.dispatch('fetchConfig');

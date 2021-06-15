@@ -1,3 +1,4 @@
+import { ClientConfig } from "../../model/config";
 import { Dictionary } from "vue-router/types/router";
 import { store } from "../..";
 import { storeActions } from "./actions";
@@ -10,7 +11,8 @@ export interface RootState {
 	profile: any,
 	authToken: string|undefined,
 	refreshToken: string|undefined,
-	loading: Dictionary<boolean>
+	loading: Dictionary<boolean>,
+	config: ClientConfig
 }
 
 /**
@@ -27,7 +29,13 @@ export function registerState() {
 			authToken: localStorage.getItem('vindigo:authToken') || undefined,
 			refreshToken: localStorage.getItem('vindigo:refreshToken') || undefined,
 			loading: {
-				i18n: false
+				i18n: false,
+				config: false
+			},
+			config: {
+				instanceName: '',
+				allowAnonymous: false,
+				allowRegister: false
 			}
 		}
 	});

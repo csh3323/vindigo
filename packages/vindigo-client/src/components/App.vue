@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts">
+import { identity, values } from "lodash";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -46,9 +47,7 @@ export default Vue.extend({
 
 	computed: {
 		isReady(): boolean {
-			const loading = this.$store.state.loading;
-
-			return loading.i18n;
+			return values(this.$store.state.loading).every(identity);
 		}
 	}
 });

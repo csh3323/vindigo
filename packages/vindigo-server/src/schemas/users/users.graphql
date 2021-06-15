@@ -1,12 +1,12 @@
-type Query {
+extend type Query {
     "Fetch a user by their id"
-    fetchUserById(id: Int): User
+    profileById(id: Int): User
 
     "Fetch a user by their username"
-    fetchUserByUsername(username: String): User 
+    profileByName(username: String): User 
 }
 
-type Mutation {
+extend type Mutation {
     "Create a new user account"
     register(details: UserRegistration): User
 

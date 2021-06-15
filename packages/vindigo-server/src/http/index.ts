@@ -1,10 +1,12 @@
 import { IncomingMessage, createServer } from "http";
 import { buildSchema, getAddress } from "./helpers";
+
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";
 import { ISchemaProvider } from "./provider";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
+import { User } from "../models/user";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
@@ -15,9 +17,8 @@ import helmet from "helmet";
 import { logger } from "..";
 import path from "path";
 import { useServer } from "graphql-ws/lib/use/ws";
-import ws from "ws";
 import { verify } from "jsonwebtoken";
-import { User } from "../models/user";
+import ws from "ws";
 
 /**
  * The service in charge of serving http requests
@@ -84,6 +85,28 @@ export class HTTPService {
 		this.providers.push(provider);
 	}
 
+	private authenticate(context: any, header: string) {
+		// const token = header?.replace(/Bearer\s/, '');
+		// const secret = this.config.authentication.secret;
+
+		// let payload: string;
+
+		// try {
+		// 	payload = verify(token, secret) as string;
+		// } catch (error) {
+		// 	return res.send(new ApiError('400', `Authentication failed: ${error.message}`));
+		// }
+
+		// // payload contains the user ID
+		// const user = await User.findOne(payload);
+
+		// if(!user) {
+		// 	throw new ApiError('unknown user from token');
+		// }
+
+		// context.user = user;
+	}
+
 	/**
 	 * Register the API related routes on the HTTP server
 	 * 
@@ -104,24 +127,7 @@ export class HTTPService {
 			// add user to the context if they provided a valid token
 			// used for future authorization per-route
 			if(authorization) {
-				const token = authorization?.replace(/Bearer\s/, '');
-				const secret = this.config.auth.secret;
-				let payload: string;
-
-				try {
-					payload = verify(token, secret) as string;
-				} catch (error) {
-					return res.send(new ApiError('400', `Authentication failed: ${error.message}`));
-				}
-
-				// payload contains the user ID
-				const user = await User.findOne(payload);
-
-				if(!user) {
-					throw new ApiError('unknown user from token');
-				}
-
-				context.user = user;
+				// 
 			}
 
 			graphqlHTTP({
