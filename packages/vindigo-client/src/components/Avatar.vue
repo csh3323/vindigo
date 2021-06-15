@@ -1,7 +1,7 @@
 <template>
 	<component :is="avatarTag" :to="profileUrl">
 		<div class="avatar inline-flex rounded-full bg-gradient-to-b from-yellow-500 to-pink-600" :style="borderStyle">
-			<div class="avatar__space rounded-full bg-white" :style="borderStyle">
+			<div class="avatar__space rounded-full bg-white dark:bg-gray-800" :style="borderStyle">
 				<img
 					:src="src" :style="imgStyle"
 					class="rounded-full" style="image-rendering: crisp-edges;"

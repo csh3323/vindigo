@@ -1,6 +1,6 @@
 <template>
-	<div class="board-tile h-32 bg-[#DDE0EB] rounded-2xl p-4">
-		<div class="board-tile__title text-gray-700 font-bold">
+	<div class="board-tile h-32 bg-[#DDE0EB] dark:bg-[#202127] rounded-2xl p-4">
+		<div class="board-tile__title text-gray-700 dark:text-gray-200 font-bold">
 			{{ name }}
 		</div>
 	</div>

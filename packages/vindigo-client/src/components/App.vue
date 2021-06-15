@@ -1,5 +1,5 @@
 <template>
-	<div class="h-screen bg-page-background">
+	<div class="h-screen bg-page-background dark:bg-gray-900">
 		<router-view v-if="isReady" />
 
 		<!-- Loading overlay -->
@@ -47,6 +47,28 @@ export default Vue.extend({
 
 	computed: {
 		...mapState(['isReady'])
+	},
+
+	watch: {
+		'$store.state.isDark'() {
+			this.updateTheme();
+		}
+	},
+
+	created() {
+		this.updateTheme();
+	},
+
+	methods: {
+		updateTheme() {
+			const html = document.documentElement;
+
+			if(this.$store.state.isDark) {
+				html.classList.add('dark');
+			} else {
+				html.classList.remove('dark');
+			}
+		}
 	}
 });
 </script>

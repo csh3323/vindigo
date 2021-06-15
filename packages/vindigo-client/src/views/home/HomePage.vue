@@ -2,7 +2,7 @@
 	<section class="home-page">
 		<toolbar class="pl-0" />
 
-		<div class="h-80 laptop:h-72 -mt-14 bg-white flex items-center justify-center">
+		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center">
 			<!-- Display just "Welcome" when user is signed out -->
 			<avatar
 				:user="10"
@@ -10,7 +10,7 @@
 				:src="require('/src/assets/profile.png')"
 				:open-profile="false"
 			/>
-			<div class="pl-6">
+			<div class="pl-6 dark:text-gray-100">
 				<h2 class="font-extrabold text-2xl">
 					{{ $t('HOMEPAGE_WELCOME') }}
 				</h2>
@@ -55,7 +55,7 @@
 					<section-title icon="mdi-check-circle-outline">
 						{{ $t('HOMEPAGE_SECTION_TASKS') }}
 					</section-title>
-					<focus-tasks class="bg-[#DDE0EB] mt-2 h-96" />
+					<focus-tasks class="bg-[#DDE0EB] dark:bg-gray-800 mt-2 h-96" />
 				</section>
 			</aside>
 		</main>

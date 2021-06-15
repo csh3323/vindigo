@@ -1,5 +1,5 @@
 <template>
-	<header class="toolbar flex items-center px-3 bg-white h-14">
+	<header class="toolbar flex items-center px-3 bg-white dark:bg-gray-800 h-14">
 		<slot>
 			<img
 				:src="logoUrl"
@@ -20,13 +20,13 @@
 		<div class="toolbar__divider"/> -->
 
 		<icon-btn
-			class="mx-3 text-gray-600"
+			class="mx-3 text-gray-600 dark:text-gray-100"
 			icon="mdi-magnify"
 			to="#"
 		/>
 
 		<icon-btn
-			class="mr-3 text-gray-600"
+			class="mr-3 text-gray-600 dark:text-gray-100"
 			icon="mdi-bell"
 			to="#"
 		/>
@@ -36,7 +36,7 @@
 		<div class="flex items-center ml-5 text-gray-800">
 			<o-dropdown aria-role="list" position="bottom-left">
 				<template #trigger>
-					<h1 class="mb-0 font-semibold">
+					<h1 class="mb-0 font-semibold dark:text-gray-100">
 						Julian Mills
 					</h1>
 					<!-- <icon-btn
@@ -72,8 +72,10 @@ export default Vue.extend({
 	},
 
 	computed: {
-		logoUrl() {
-			return require("/src/assets/vindigo-black.svg");
+		logoUrl(): boolean {
+			return this.$store.state.isDark
+				? require("/src/assets/vindigo-white.svg")
+				: require("/src/assets/vindigo-black.svg");
 		},
 	},
 });

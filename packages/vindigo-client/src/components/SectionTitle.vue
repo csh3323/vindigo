@@ -1,5 +1,5 @@
 <template>
-	<div class="home-subtitle text-gray-600 font-semibold flex items-center">
+	<div class="home-subtitle text-gray-600 dark:text-gray-400 font-semibold flex items-center">
 		<icon :icon="icon" size="32" />
 		<slot />
 	</div>
