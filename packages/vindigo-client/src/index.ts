@@ -1,4 +1,5 @@
 import './style/global.css';
+import './style/oruga.css';
 
 import { APIService } from './api';
 import App from './components/App.vue';
