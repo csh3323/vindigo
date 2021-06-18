@@ -22,7 +22,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState } from "vuex";
-import Authenticate from '../views/Authenticate.vue';
+import Authenticate from '../views/authenticate/Authenticate.vue';
 
 export default Vue.extend({
 	name: "Vindigo",
