@@ -14,8 +14,7 @@ export default {
 		const user = new User();
 
 		user.username = details.username;
-		user.firstName = details.firstName;
-		user.lastName = details.lastName;
+		user.name = details.fullname;
 		user.email = details.email;
 		user.password = password;
 

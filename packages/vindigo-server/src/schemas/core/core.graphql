@@ -26,8 +26,7 @@ The details required to register a new account
 """
 input UserRegistration {
     username: String!,
-    firstName: String!,
-    lastName: String!,
+    fullname: String!,
     email: String!,
     password: String!
 }
@@ -79,11 +78,8 @@ type User {
     "The username of the user"
     username: String!
 
-    "The first name of the user"
-    firstName: String!
-
-    "The last name of the user"
-    lastName: String!
+    "The full name of the user"
+    fullName: String!
 
     "The current activity status of the user"
     activity: UserActivity!

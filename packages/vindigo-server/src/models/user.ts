@@ -25,10 +25,7 @@ export class User extends BaseEntity {
 	public email: string;
 
 	@Column()
-	public firstName: string;
-
-	@Column()
-	public lastName: string;
+	public name: string;
 
 	@Column()
 	public isEnabled: boolean;

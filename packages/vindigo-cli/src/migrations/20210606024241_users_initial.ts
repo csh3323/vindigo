@@ -7,8 +7,7 @@ exports.up = async ({ schema }: Knex) => {
 		table.string('password').notNullable();
 		table.string('email').notNullable();
 		table.string('bio').notNullable();
-		table.string('first_name').notNullable();
-		table.string('last_name').notNullable();
+		table.string('name').notNullable();
 		table.timestamp('created_at').notNullable();
 		table.timestamp('last_seen_at').notNullable();
 		table.boolean('is_enabled').notNullable().defaultTo(true);
