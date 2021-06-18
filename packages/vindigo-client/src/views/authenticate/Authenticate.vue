@@ -2,14 +2,20 @@
 	<section class="auth-page">
 		<toolbar class="pl-0" />
 		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center" />
-		<div class="h-full flex flex-col justify-center items-center">
-			<div class="text-center text-3xl font-bold pb-8">
-				<img :src="logoUrl" class="h-14">
-			</div>
-			<div class="mx-auto w-96 h-96 rounded-2xl shadow-2xl p-8 bg-purple-500 z-10 ring-8 ring-offset-purple-500v">
-				Test
-			</div>
-		</div>
+		<section class="flex -mt-8 rounded-2xl bg-blue-400 w-[65vw] mx-auto">
+			<section class="flex col-start-6">
+				<h1>Welcome</h1>
+				<o-input></o-input>
+				<o-input></o-input>
+				<div class="flex justify-between">
+
+				</div>
+				<o-button>Sign in</o-button>
+			</section>
+			<section class="flex col-start-6">
+				ss
+			</section>
+		</section>
 	</section>
 </template>
 
