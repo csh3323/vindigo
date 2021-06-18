@@ -1,11 +1,13 @@
 <template>
 	<header class="toolbar flex items-center px-3 bg-white dark:bg-gray-800 h-14">
 		<slot>
-			<img
-				:src="logoUrl"
-				class="h-10 select-none"
-				@dragstart.prevent
-			>
+			<router-link to="/">
+				<img
+					:src="logoUrl"
+					class="h-10 select-none"
+					@dragstart.prevent
+				>
+			</router-link>
 		</slot>
 
 		<div class="flex-grow" />

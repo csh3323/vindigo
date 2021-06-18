@@ -3,6 +3,7 @@ import BoardTile from '../components/BoardTile.vue';
 import Icon from '../components/Icon.vue';
 import IconButton from '../components/IconButton.vue';
 import LanguagePicker from '../components/LanguagePicker.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import SectionTitle from '../components/SectionTitle.vue';
 import Toolbar from '../components/Toolbar.vue';
 import Vue from 'vue';
@@ -12,6 +13,7 @@ import Vue from 'vue';
  */
 export function registerComponents() {
 	Vue.component('LanguagePicker', LanguagePicker);
+	Vue.component('LoadingSpinner', LoadingSpinner);
 	Vue.component('SectionTitle', SectionTitle);
 	Vue.component('BoardTile', BoardTile);
 	Vue.component('IconBtn', IconButton);

@@ -1,26 +1,15 @@
 <template>
 	<div class="h-screen bg-page-background dark:bg-gray-900">
-		<router-view v-if="isReady" />
+		<template v-if="isReady">
+			<authenticate v-if="shouldAuth" />
+			<router-view v-else />
+		</template>
 
 		<!-- Loading overlay -->
 		<fade-transition>
 			<div v-if="!isReady" class="loading-overlay">
 				<div class="relative select-none">
-					<spinner
-						ref="spinner"
-						loading
-						class="loading-overlay__spinner"
-						:color="spinnerGradient"
-						:size="125"
-					>
-						<img
-							slot="legend-caption"
-							:src="require('/src/assets/icon.svg')"
-							class="relative bottom-3"
-							width="85"
-							@dragstart.prevent
-						>
-					</spinner>
+					<loading-spinner />
 					<div class="loading-overlay__text">
 						Loading...
 					</div>
@@ -33,19 +22,18 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState } from "vuex";
+import Authenticate from '../views/Authenticate.vue';
 
 export default Vue.extend({
 	name: "Vindigo",
-	data: () => ({
-		spinnerGradient: {
-			colors: [
-				{ color: "#00C9FF", offset: '0' },
-				{ color: "#6A42FF", offset: '100' },
-			]
-		}
-	}),
+	components: {
+		Authenticate
+	},
 
 	computed: {
+		shouldAuth(): boolean {
+			return true;
+		},
 		...mapState(['isReady'])
 	},
 

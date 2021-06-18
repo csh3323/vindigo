@@ -1,7 +1,7 @@
-import { isString } from "lodash";
 import VueRouter, { RouteConfig, RouterOptions } from "vue-router";
-
 import { getRouteMeta, logger, updateTitle } from "./util";
+
+import { isString } from "lodash";
 
 /**
  * The service in charge of managing routing 

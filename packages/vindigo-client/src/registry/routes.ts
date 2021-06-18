@@ -1,3 +1,4 @@
+import Authenticate from '../views/Authenticate.vue';
 import HomePage from '../views/home/HomePage.vue';
 import KanbanPage from '../views/project/kanban/KanbanOverview.vue';
 import ProjectHome from '../views/project/ProjectHome.vue';
@@ -16,7 +17,7 @@ export function registerRoutes() {
 		component: HomePage,
 		meta: {
 			title: ''
-		}
+		} 
 	});
 
 	routing.defineRoute({
@@ -94,10 +95,10 @@ export function registerRoutes() {
 	});
 
 	// NOTE 404 error fallback page - Always keep as final route!
-	routing.defineRoute({
-		name: 'Not Found',
-		path: '*',
-		redirect: '/'
-	});
+	// routing.defineRoute({
+	// 	name: 'Not Found',
+	// 	path: '*',
+	// 	redirect: '/'
+	// });
 	
 }
