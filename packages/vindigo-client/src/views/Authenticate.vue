@@ -10,8 +10,6 @@
 				Test
 			</div>
 		</div>
-		<img :src="require('/src/assets/pattern-left.png')" class="fixed bottom-0 left-0 opacity-10">
-		<img :src="require('/src/assets/pattern-right.png')" class="fixed bottom-0 right-0 opacity-10">
 	</section>
 </template>
 
