@@ -38,12 +38,6 @@ export default {
 };
 </script>
 
-<style lang="postcss">
-    html {
-        overflow: hidden;
-    }
-</style>
-
 <style lang="postcss" scoped>
 
     .kanban__container {

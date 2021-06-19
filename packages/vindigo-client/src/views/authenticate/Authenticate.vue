@@ -1,7 +1,10 @@
 <template>
 	<section class="auth-page">
-		<div class="h-96 laptop:h-72 bg-white" />
-		<div class="-mt-44">
+		<div class="h-72 bg-white" />
+		<div class="auth-page__curve">
+			<img :src="require('/src/assets/curve.svg')">
+		</div>
+		<div class="-mt-36 px-8">
 			<img
 				:src="logoUrl"
 				class="h-16 mx-auto mb-3"
@@ -9,9 +12,9 @@
 			<div class="text-center font-semibold text-2xl text-[#2f3a41] mb-6">
 				EXODIUS PLANNING BOARD
 			</div>
-			<section class="auth-box flex mx-auto">
-				<div class="auth-box__left rounded-tl-2xl rounded-bl-2xl flex-1 px-8 py-4 text-center">
-					<div class="relative">
+			<section class="auth-box block laptop:flex mx-auto">
+				<div class="auth-box__left rounded-2xl laptop:rounded-tr-none laptop:rounded-br-none flex-1 px-8 py-4 text-center">
+					<div class="relative h-full">
 						<zoom-x-transition>
 							<component
 								:is="authView"
@@ -21,8 +24,8 @@
 						</zoom-x-transition>
 					</div>
 				</div>
-				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white">
-					<div class="h-80 flex items-center justify-center">
+				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white hidden laptop:block">
+					<div class="h-full flex items-center justify-center">
 						<img :src="require('/src/assets/illustration.png')">
 					</div>
 				</div>
@@ -57,8 +60,19 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
+.auth-page__curve {
+	@apply relative z-0;
+
+	img {
+		@apply absolute;
+	}
+}
+
 .auth-box {
-	width: 735px;
+	@apply relative;
+
+	width: 100%;
+	max-width: 735px;
 
 	&__left {
 		background: linear-gradient(135deg, rgba(2,198,255,1) 0%, rgba(105,67,255,1) 100%);
@@ -67,6 +81,10 @@ export default Vue.extend({
 
 	&__right {
 		@mixin emissive theme('colors.gray.500');
+	}
+
+	&__left, &__right {
+		@apply z-10 h-96;
 	}
 
 	&__toggle {

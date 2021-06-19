@@ -1,5 +1,5 @@
 <template>
-	<section class="sign-in flex flex-col h-80">
+	<section class="sign-in flex flex-col">
 		<h1 class="font-semibold text-white text-2xl uppercase tracking-widest py-3">
 			Welcome
 		</h1>
