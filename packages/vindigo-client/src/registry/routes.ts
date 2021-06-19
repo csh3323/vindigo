@@ -94,10 +94,10 @@ export function registerRoutes() {
 	});
 
 	// NOTE 404 error fallback page - Always keep as final route!
-	// routing.defineRoute({
-	// 	name: 'Not Found',
-	// 	path: '*',
-	// 	redirect: '/'
-	// });
+	routing.defineRoute({
+		name: 'Not Found',
+		path: '*',
+		redirect: '/'
+	});
 	
 }

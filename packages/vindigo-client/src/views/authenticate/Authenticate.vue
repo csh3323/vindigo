@@ -1,34 +1,47 @@
 <template>
 	<section class="auth-page">
-		<toolbar class="pl-0" />
-		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center" />
-		<section class="flex -mt-8 w-[45vw] mx-auto">
-			<section class="flex w-[100%]">
-				<div class="rounded-tl-md rounded-bl-md bg-blue-400 auth__emissive-blue flex-1 px-4 pb-4 text-center">
-					<h1 class="font-semibold text-white my-4">Welcome</h1>
-					<o-input class="auth__input --rounded my-5" placeholder="No label" rounded></o-input>
-					<o-input class="auth__input --rounded my-5" placeholder="No label" rounded></o-input>
-					<div class="flex justify-between">
-						<div>
-							* Remember me
-						</div>
-						<a href="">Forgot password</a>
+		<div class="h-96 laptop:h-72 bg-white" />
+		<div class="-mt-44">
+			<img
+				:src="logoUrl"
+				class="h-16 mx-auto mb-3"
+			>
+			<div class="text-center font-semibold text-2xl text-[#2f3a41] mb-6">
+				EXODIUS PLANNING BOARD
+			</div>
+			<section class="auth-box flex mx-auto">
+				<div class="auth-box__left rounded-tl-2xl rounded-bl-2xl flex-1 px-8 py-4 text-center">
+					<div class="relative">
+						<zoom-x-transition>
+							<component
+								:is="authView"
+								class="absolute inset-0"
+								@toggle="isSigningUp = !isSigningUp"
+							/>
+						</zoom-x-transition>
 					</div>
-					<o-button>Sign in</o-button>
 				</div>
-				<div class="auth__emissive-dark p-4 bg-white rounded-tr-md rounded-br-md flex-1">
-					end
+				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white">
+					<div class="h-80 flex items-center justify-center">
+						<img :src="require('/src/assets/illustration.png')">
+					</div>
 				</div>
 			</section>
-		</section>
+		</div>
 	</section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import SignIn from './Signin.vue';
+import SignUp from './Register.vue';
 
 export default Vue.extend({
 	name: 'Authenticate',
+	
+	data: () => ({
+		isSigningUp: false
+	}),
 
 	computed: {
 		logoUrl(): boolean {
@@ -36,31 +49,32 @@ export default Vue.extend({
 				? require("/src/assets/vindigo-white.svg")
 				: require("/src/assets/vindigo-black.svg");
 		},
+		authView() {
+			return this.isSigningUp ? SignUp : SignIn;
+		}
 	}
 });
 </script>
 
 <style lang="postcss">
+.auth-box {
+	width: 735px;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+	&__left {
+		background: linear-gradient(135deg, rgba(2,198,255,1) 0%, rgba(105,67,255,1) 100%);
+		@mixin emissive theme('colors.blue.500');
+	}
 
-.o-btn {
-	@apply bg-purple-500 !important;
+	&__right {
+		@mixin emissive theme('colors.gray.500');
+	}
+
+	&__toggle {
+		@apply font-light text-sm mt-3 cursor-pointer select-none text-gray-100;
+	}
 }
 
-.auth__emissive-blue {
-	background: linear-gradient(130deg, rgba(2,198,255,1) 0%, rgba(105,67,255,1) 100%);
-	@mixin emissive theme('colors.blue.500');
+.auth-box__input > .o-input {
+	@apply text-center;
 }
-
-.auth__emissive-dark {
-	@mixin emissive theme('colors.gray.500');
-}
-
-.auth__input > .o-input {
-	@apply text-sm text-center py-2;
-}
-
 </style>

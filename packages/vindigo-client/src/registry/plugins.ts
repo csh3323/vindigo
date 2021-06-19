@@ -1,5 +1,3 @@
-import '@oruga-ui/oruga/dist/oruga.css';
-
 import Oruga from '@oruga-ui/oruga';
 import Router from 'vue-router';
 import Store from 'vuex';

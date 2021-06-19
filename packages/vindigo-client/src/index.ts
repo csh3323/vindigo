@@ -1,8 +1,9 @@
-import './style/global.css';
-import './style/oruga.css';
+import '@oruga-ui/oruga/dist/oruga.min.css';
+import './style/global.vue';
+import './style/oruga.vue';
 
 import { APIService } from './api';
-import App from './components/App.vue';
+import App from './views/App.vue';
 import { I18nService } from './i18n';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import { RoutingService } from "./routing";
@@ -13,7 +14,6 @@ import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
 import { registerRoutes } from './registry/routes';
 import { registerState } from './registry/store/state';
-
 
 dayjs.extend(RelativeTime);
 

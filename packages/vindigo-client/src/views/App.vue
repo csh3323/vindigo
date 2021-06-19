@@ -32,7 +32,7 @@ export default Vue.extend({
 
 	computed: {
 		shouldAuth(): boolean {
-			return false;
+			return true;
 		},
 		...mapState(['isReady'])
 	},

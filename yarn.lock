@@ -878,7 +878,7 @@
     "@opencensus/core" "^0.0.8"
     uuid "^3.2.1"
 
-"@oruga-ui/oruga@^0.4.1":
+"@oruga-ui/oruga@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@oruga-ui/oruga/-/oruga-0.4.2.tgz#0d304c330a1cbd7014fd05a405744f745cbdacea"
   integrity sha512-GDk0XSDvLblQMvoX2QYtoEOErCAEeTLbRVa0UUDV42n8VUR6b+DP5KFXSJMXHmPc+SjtuEn1eBctzJb++p8c1A==
