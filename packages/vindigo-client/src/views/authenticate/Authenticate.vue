@@ -1,8 +1,22 @@
 <template>
 	<section class="auth-page">
-		<div class="h-72 bg-white" />
+		<div class="h-72 bg-white dark:bg-gray-800" />
 		<div class="auth-page__curve">
-			<img :src="require('/src/assets/curve.svg')">
+			<svg
+				width="100%"
+				viewBox="0 0 800 47"
+				version="1.1"
+				xml:space="preserve"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink"
+				class="fill-current text-white dark:text-gray-800"
+			>
+				<g transform="matrix(1,0,0,1,5.68434e-14,-203.925)">
+					<path
+						d="M-0,203.925L800,203.925L799.708,203.925C719.824,226.345 607.386,250 400,250L400,250L399.995,250L399.995,250C192.612,250 80.175,226.345 0.292,203.925L-0,203.925Z"
+					/>
+				</g>
+			</svg>
 		</div>
 		<div class="-mt-44 desktop:-mt-32 px-8 z-10 relative">
 			<img
@@ -12,7 +26,7 @@
 			>
 			<div
 				v-if="renderBoardName"
-				class="text-center font-semibold text-2xl text-[#5c5c5c] mb-6"
+				class="text-center font-semibold text-2xl text-[#5c5c5c] dark:text-[#999999] mb-6"
 			>
 				{{ boardName }}
 			</div>
@@ -28,7 +42,7 @@
 						</zoom-x-transition>
 					</div>
 				</div>
-				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white hidden laptop:block">
+				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white dark:bg-gray-100 hidden laptop:block">
 					<div class="h-full flex items-center justify-center">
 						<img :src="require('/src/assets/illustration.png')">
 					</div>
@@ -39,16 +53,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import SignIn from './Signin.vue';
-import SignUp from './Register.vue';
-import { RootState } from '../../registry/store/state';
+import Vue from "vue";
+import SignIn from "./Signin.vue";
+import SignUp from "./Register.vue";
+import { RootState } from "../../registry/store/state";
 
 export default Vue.extend({
-	name: 'Authenticate',
-	
+	name: "Authenticate",
+
 	data: () => ({
-		isSigningUp: false
+		isSigningUp: false,
 	}),
 
 	computed: {
@@ -61,12 +75,12 @@ export default Vue.extend({
 			return (this.$store.state as RootState).config.instanceName;
 		},
 		renderBoardName(): boolean {
-			return this.boardName.toLowerCase() != 'vindigo';
+			return this.boardName.toLowerCase() != "vindigo";
 		},
 		authView() {
 			return this.isSigningUp ? SignUp : SignIn;
-		}
-	}
+		},
+	},
 });
 </script>
 
@@ -74,7 +88,7 @@ export default Vue.extend({
 .auth-page__curve {
 	@apply relative z-0;
 
-	img {
+	svg {
 		@apply absolute;
 	}
 }
@@ -86,15 +100,20 @@ export default Vue.extend({
 	max-width: 735px;
 
 	&__left {
-		background: linear-gradient(135deg, rgba(2,198,255,1) 0%, rgba(105,67,255,1) 100%);
-		@mixin emissive theme('colors.blue.500');
+		background: linear-gradient(
+			135deg,
+			rgba(2, 198, 255, 1) 0%,
+			rgba(105, 67, 255, 1) 100%
+		);
+		@mixin emissive theme("colors.blue.500");
 	}
 
 	&__right {
-		@mixin emissive theme('colors.gray.500');
+		@mixin emissive theme("colors.gray.500");
 	}
 
-	&__left, &__right {
+	&__left,
+	&__right {
 		@apply h-96;
 	}
 
