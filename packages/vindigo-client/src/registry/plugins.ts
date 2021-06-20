@@ -29,6 +29,9 @@ export function registerPlugins() {
 		computed: {
 			$vuex() {
 				return store.instance;
+			},
+			$config() {
+				return store.instance.state.config;
 			}
 		}
 	});

@@ -29,7 +29,11 @@
 			Sign in
 			<o-icon icon="chevron-right" class="absolute" />
 		</o-button>
-		<div class="auth-box__toggle" @click="$emit('toggle')">
+		<div
+			v-if="canRegister"
+			class="auth-box__toggle"
+			@click="$emit('toggle')"
+		>
 			Don't have an account?
 			<strong class="font-semibold">
 				Sign up
@@ -43,21 +47,11 @@
 import Vue from 'vue';
 export default Vue.extend({
 	name: 'Signin',
-	props: [],
-	data: () => ({
-		
-	}),
+	
 	computed: {
-
-	},
-	watch: {
-
-	},
-	mounted() {
-
-	},
-	methods: {
-		
+		canRegister() {
+			return this.$config.allowRegister;
+		}
 	}
 });
 </script>
