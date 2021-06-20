@@ -31,9 +31,9 @@
 		</o-button>
 		<div class="auth-box__toggle" @click="$emit('toggle')">
 			Don't have an account?
-			<bold class="font-semibold">
+			<strong class="font-semibold">
 				Sign up
-			</bold>
+			</strong>
 			instead!
 		</div>
 	</section>

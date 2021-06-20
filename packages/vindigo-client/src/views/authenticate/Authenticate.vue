@@ -4,13 +4,17 @@
 		<div class="auth-page__curve">
 			<img :src="require('/src/assets/curve.svg')">
 		</div>
-		<div class="-mt-36 px-8">
+		<div class="-mt-44 desktop:-mt-32 px-8 z-10 relative">
 			<img
 				:src="logoUrl"
-				class="h-16 mx-auto mb-3"
+				class="h-16 mx-auto"
+				:class="renderBoardName ? 'mb-4' : 'mb-10'"
 			>
-			<div class="text-center font-semibold text-2xl text-[#2f3a41] mb-6">
-				EXODIUS PLANNING BOARD
+			<div
+				v-if="renderBoardName"
+				class="text-center font-semibold text-2xl text-[#5c5c5c] mb-6"
+			>
+				{{ boardName }}
 			</div>
 			<section class="auth-box block laptop:flex mx-auto">
 				<div class="auth-box__left rounded-2xl laptop:rounded-tr-none laptop:rounded-br-none flex-1 px-8 py-4 text-center">
@@ -38,6 +42,7 @@
 import Vue from 'vue';
 import SignIn from './Signin.vue';
 import SignUp from './Register.vue';
+import { RootState } from '../../registry/store/state';
 
 export default Vue.extend({
 	name: 'Authenticate',
@@ -51,6 +56,12 @@ export default Vue.extend({
 			return this.$store.state.isDark
 				? require("/src/assets/vindigo-white.svg")
 				: require("/src/assets/vindigo-black.svg");
+		},
+		boardName(): string {
+			return (this.$store.state as RootState).config.instanceName;
+		},
+		renderBoardName(): boolean {
+			return this.boardName.toLowerCase() != 'vindigo';
 		},
 		authView() {
 			return this.isSigningUp ? SignUp : SignIn;
@@ -84,7 +95,7 @@ export default Vue.extend({
 	}
 
 	&__left, &__right {
-		@apply z-10 h-96;
+		@apply h-96;
 	}
 
 	&__toggle {
