@@ -85,6 +85,10 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
+::-ms-reveal {
+    display: none;
+}
+
 .auth-page__curve {
 	@apply relative z-0;
 

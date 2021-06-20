@@ -4,6 +4,10 @@
  
 	&__icon-right {
 		@apply mr-2;
+
+		.mdi-eye-off, .mdi-eye {
+			opacity: 0.65;
+		}
 	}
 
 	&--rounded {
