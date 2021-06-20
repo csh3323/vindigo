@@ -7,6 +7,7 @@ import VWave from 'v-wave';
 import Vue from 'vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VueI18n from 'vue-i18n';
+import { store } from '..';
 
 /**
  * Define all Vue plugins
@@ -20,4 +21,15 @@ export function registerPlugins() {
 	Vue.use(Store);
 	Vue.use(VWave);
 	Vue.use(Trend);
+
+	// Provide a type safe store reference
+	// since Vuex 3 does not yet support
+	// specifying a state structure.
+	Vue.mixin({
+		computed: {
+			$vuex() {
+				return store.instance;
+			}
+		}
+	});
 }
