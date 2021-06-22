@@ -1,4 +1,4 @@
-import { BaseEntity, Connection, createConnection } from "typeorm";
+import { Connection, createConnection } from "typeorm";
 
 import { IServerConfig } from "./util/config";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
@@ -9,9 +9,10 @@ import { logger } from ".";
  */
 export class DatabaseService {
 
+	public connection: Connection;
+	
 	private config: IServerConfig;
-	private connection: Connection;
-	private models: (typeof BaseEntity)[] = [];
+	private models: Function[] = [];
 
 	public constructor(config: IServerConfig) {
 		this.config = config;
@@ -37,6 +38,8 @@ export class DatabaseService {
 				namingStrategy: new SnakeNamingStrategy(),
 				entities: this.models,
 			});
+
+			console.log('registered', this.models);
 		} catch (err) {
 			logger.error('Error instantiating database connection: ' + err.message);
 		}
@@ -48,7 +51,7 @@ export class DatabaseService {
 	 * 
 	 * @param provider The provider
 	 */
-	public defineModel(model: typeof BaseEntity) {
+	public defineModel(model: Function) {
 		this.models.push(model);
 	}
 

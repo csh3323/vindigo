@@ -31,8 +31,10 @@ export {
 registerModels();
 registerSchemas();
 
-http.start();
-database.start();
+(async () => {
+	await database.start();
+	await http.start();
+})();
 
 // Listen to application termination
 ON_DEATH(() => {

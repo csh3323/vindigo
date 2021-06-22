@@ -1,9 +1,9 @@
 import { ApiError, AuthenticationError } from '../../../http/errors';
 import { compare, hash } from 'bcrypt';
-import { elseThrow, generateAuthToken } from '../../../http/helpers';
 
 import { GraphQLResolvers } from '../../../http/provider';
 import { User } from '../../../models/user';
+import { elseThrow } from '../../../http/helpers';
 import { logger } from '../../..';
 
 const SALT_ROUNDS = 7;
@@ -24,7 +24,7 @@ export default {
 
 		return {
 			user: saved,
-			token: generateAuthToken(user.username)
+			token: '42'
 		};
 	},
 	authenticate: async (_, { details }) => {
@@ -49,7 +49,7 @@ export default {
 
 		return {
 			user: user,
-			token: generateAuthToken(user.username)
+			token: '42'
 		};
 	}
 } as GraphQLResolvers;

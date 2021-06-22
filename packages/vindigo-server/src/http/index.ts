@@ -1,11 +1,14 @@
 import { IncomingMessage, createServer } from "http";
 import { buildSchema, getAddress } from "./helpers";
+import { database, logger } from "..";
 
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";
 import { ISchemaProvider } from "./provider";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
+import { Session } from "../models/session";
+import { TypeormStore } from "connect-typeorm";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
@@ -13,8 +16,8 @@ import { existsSync } from "fs";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import helmet from "helmet";
-import { logger } from "..";
 import path from "path";
+import session from 'express-session';
 import { useServer } from "graphql-ws/lib/use/ws";
 import ws from "ws";
 
@@ -35,9 +38,6 @@ export class HTTPService {
 
 		const app = express();
 
-		app.use(cors());
-		app.use(helmet());
-
 		this.express = app;
 		this.server = createServer(app);
 	}
@@ -46,9 +46,38 @@ export class HTTPService {
 	 * Start the HTTP Service and listen on the
 	 * port specified in the config.
 	 */
-	public start() {
+	public async start() {
 		const port = this.config.general.port;
+		const secret = this.config.authentication.secret;
+		const isProduction = process.env.NODE_ENV == 'production';
+		const sessionRepo = database.connection.getRepository(Session);
+		const app = this.express;
 
+		if(isProduction) {
+			app.set('trust proxy', 1);
+		}
+
+		// Configure express
+		app.use(cors());
+		app.use(helmet());
+		app.use(session({
+			secret: secret,
+			resave: false,
+			saveUninitialized: true,
+			name: 'session',
+			cookie: {
+				secure: isProduction,
+				httpOnly: true,
+				sameSite: true
+			},
+			store: new TypeormStore({
+				cleanupLimit: 2,
+				limitSubquery: false,
+				ttl: 86400
+			}).connect(sessionRepo),
+		}));
+
+		// Hook in core endpoints
 		this.registerApi();
 		this.registerStatic();
 
@@ -83,27 +112,6 @@ export class HTTPService {
 		this.providers.push(provider);
 	}
 
-	private authenticate(context: any, header: string) {
-		// const token = header?.replace(/Bearer\s/, '');
-		// const secret = this.config.authentication.secret;
-
-		// let payload: string;
-
-		// try {
-		// 	payload = verify(token, secret) as string;
-		// } catch (error) {
-		// 	return res.send(new ApiError('400', `Authentication failed: ${error.message}`));
-		// }
-
-		// // payload contains the user ID
-		// const user = await User.findOne(payload);
-
-		// if(!user) {
-		// 	throw new ApiError('unknown user from token');
-		// }
-
-		// context.user = user;
-	}
 
 	/**
 	 * Register the API related routes on the HTTP server
@@ -119,14 +127,9 @@ export class HTTPService {
 		// Configure a plain HTTP endpoint for handling
 		// simple non-subscription GraphQL requests.
 		this.express.use('/graphql', async (req, res) => {
-			const authorization = req.header('Authorization');
 			const context: any = { req, res };
 
-			// add user to the context if they provided a valid token
-			// used for future authorization per-route
-			if(authorization) {
-				// 
-			}
+			console.log('session', req.session);
 
 			graphqlHTTP({
 				schema: schema,
@@ -154,7 +157,8 @@ export class HTTPService {
 				const request = context.extra.request;
 				const socket = context.extra.socket;
 				const address = getAddress(request);
-				const paramAuth = params['Authorization'];
+
+				console.log('socket session', (request as any).session);
 
 				// TODO Bean can implement auth I dont want to
 

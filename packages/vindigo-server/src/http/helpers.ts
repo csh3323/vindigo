@@ -3,10 +3,8 @@ import { GraphQLFileLoader, loadSchemaSync, makeExecutableSchema } from "graphql
 import { GraphQLSchema } from "graphql";
 import { ISchemaProvider } from "./provider";
 import { IncomingMessage } from "http";
-import { config } from "..";
 import { merge } from "lodash";
 import { readFileSync } from "fs";
-import { sign } from "jsonwebtoken";
 
 /**
  * Parses the address from the given message
@@ -52,14 +50,4 @@ export function readSchema(path: string): GraphQLSchema {
  */
 export function elseThrow(err: Error): never {
 	throw err;
-}
-
-/**
- * Generate an authentication token
- * 
- * @param uid The user unique id
- * @returns The auth token
- */
-export function generateAuthToken(uid: string): string {
-	return sign(uid, config.authentication.secret, { expiresIn: '1800s' });
 }
