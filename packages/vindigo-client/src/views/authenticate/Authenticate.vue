@@ -113,7 +113,7 @@ export default Vue.extend({
 	}
 
 	&__right {
-		@mixin emissive theme("colors.gray.500");
+		@mixin emissive theme("colors.gray.300");
 	}
 
 	&__left,
