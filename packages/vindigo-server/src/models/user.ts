@@ -28,6 +28,9 @@ export class User extends BaseEntity {
 	public name: string;
 
 	@Column()
+	public isVerified: boolean;
+
+	@Column()
 	public isEnabled: boolean;
 
 	@Column()

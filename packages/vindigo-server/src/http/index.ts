@@ -1,24 +1,25 @@
+import { ISchemaProvider, ResolverContext } from "./provider";
 import { IncomingMessage, createServer } from "http";
 import { buildSchema, getAddress } from "./helpers";
 import { database, logger } from "..";
+import express, { Request } from "express";
 
 import { ApiError } from "./errors";
 import { GraphQLError } from "graphql";
-import { ISchemaProvider } from "./provider";
 import { IServerConfig } from "../util/config";
 import { Server } from "http";
 import { Session } from "../models/session";
 import { TypeormStore } from "connect-typeorm";
+import { User } from "../models/user";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
 import { existsSync } from "fs";
-import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import helmet from "helmet";
 import path from "path";
 import session from 'express-session';
-import { useServer } from "graphql-ws/lib/use/ws";
+import { useServer } from 'graphql-ws/lib/use/ws';
 import ws from "ws";
 
 /**
@@ -47,34 +48,37 @@ export class HTTPService {
 	 * port specified in the config.
 	 */
 	public async start() {
+		const app = this.express;
 		const port = this.config.general.port;
 		const secret = this.config.authentication.secret;
 		const isProduction = process.env.NODE_ENV == 'production';
 		const sessionRepo = database.connection.getRepository(Session);
-		const app = this.express;
 
 		if(isProduction) {
 			app.set('trust proxy', 1);
 		}
 
+		// Configure the session store
+		const sessionStore = new TypeormStore({
+			cleanupLimit: 2,
+			limitSubquery: false,
+			ttl: 86400
+		}).connect(sessionRepo);
+
 		// Configure express
 		app.use(cors());
 		app.use(helmet());
 		app.use(session({
+			name: 'session',
 			secret: secret,
 			resave: false,
-			saveUninitialized: true,
-			name: 'session',
+			store: sessionStore,
+			saveUninitialized: false,
 			cookie: {
 				secure: isProduction,
 				httpOnly: true,
 				sameSite: true
-			},
-			store: new TypeormStore({
-				cleanupLimit: 2,
-				limitSubquery: false,
-				ttl: 86400
-			}).connect(sessionRepo),
+			}
 		}));
 
 		// Hook in core endpoints
@@ -112,7 +116,6 @@ export class HTTPService {
 		this.providers.push(provider);
 	}
 
-
 	/**
 	 * Register the API related routes on the HTTP server
 	 * 
@@ -127,9 +130,11 @@ export class HTTPService {
 		// Configure a plain HTTP endpoint for handling
 		// simple non-subscription GraphQL requests.
 		this.express.use('/graphql', async (req, res) => {
-			const context: any = { req, res };
+			const context: ResolverContext = { req, res };
 
-			console.log('session', req.session);
+			if(req.session.userId) {
+				context.user = await User.findOne(req.session.userId);
+			}
 
 			graphqlHTTP({
 				schema: schema,
@@ -150,17 +155,16 @@ export class HTTPService {
 		// Configure graphql-ws to provide means of executing
 		// GraphQL requests over web sockets, allowing subscription
 		// streaming to work.
-		useServer({
+		useServer<ResolverContext>({
 			schema,
 			onConnect: async (context) => {
-				const params = context.connectionParams || {} as any;
-				const request = context.extra.request;
+				const request = context.extra.request as Request;
 				const socket = context.extra.socket;
 				const address = getAddress(request);
 
-				console.log('socket session', (request as any).session);
-
-				// TODO Bean can implement auth I dont want to
+				if(request.session.userId) {
+					context.extra.user = await User.findOne(request.session.userId);
+				}
 
 				this.clients.set(socket, request);
 

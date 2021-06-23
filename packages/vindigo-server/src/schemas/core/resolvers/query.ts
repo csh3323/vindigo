@@ -3,7 +3,9 @@ import { User } from "../../../models/user";
 import { config } from "../../..";
 
 export default {
-	config: async () => {
+	config: async (_, _args, ctx) => {
+		console.log(ctx.user);
+		
 		return {
 			instanceName: config.general.name,
 			allowRegister: config.authentication.registrations,

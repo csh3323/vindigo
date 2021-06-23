@@ -9,7 +9,7 @@ import { logger } from '../../..';
 const SALT_ROUNDS = 7;
 
 export default {
-	register: async (_, { details }) => {
+	register: async (_, { details }, ctx) => {
 		const password = await hash(details.password, SALT_ROUNDS);
 		const user = new User();
 
@@ -17,17 +17,22 @@ export default {
 		user.name = details.fullname;
 		user.email = details.email;
 		user.password = password;
-
-		logger.info(`Registered new user ${details.username}`);
+		user.role = 'guest';
+		user.language = 'en-US';
+		user.createdAt = new Date();
+		user.lastSeenAt = new Date();
+		user.isEnabled = true;
+		user.isVerified = false;
 
 		const saved = await user.save();
 
-		return {
-			user: saved,
-			token: '42'
-		};
+		ctx.req.session.userId = user.id;
+		
+		logger.info(`Registered new user ${details.username}`);
+
+		return saved;
 	},
-	authenticate: async (_, { details }) => {
+	authenticate: async (_, { details }, ctx) => {
 		if(!details.email && !details.username) {
 			throw new ApiError('invalid-request');
 		}
@@ -45,11 +50,10 @@ export default {
 			throw new AuthenticationError();
 		}
 
+		ctx.req.session.userId = user.id;
+		
 		logger.info(`Authenticated ${user.username}`);
 
-		return {
-			user: user,
-			token: '42'
-		};
+		return user;
 	}
 } as GraphQLResolvers;

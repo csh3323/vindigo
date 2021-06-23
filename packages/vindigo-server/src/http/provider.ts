@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 import { IResolvers } from "graphql-tools";
 import { User } from "../models/user";
 
@@ -33,6 +35,8 @@ export interface ISchemaProvider {
 /**
  * The context instance passed to resolvers
  */
-export interface ResolverContext {
-	user: User;
+export interface ResolverContext extends Record<PropertyKey, any> {
+	req: Request;
+	res: Response;
+	user?: User;
 }

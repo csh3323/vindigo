@@ -11,10 +11,10 @@ type Query {
 
 type Mutation {
 	"Create a new user account"
-    register(details: UserRegistration): AuthenticatedUser
+    register(details: UserRegistration): User
 
     "Sign in with the given account details"
-    authenticate(details: UserAuthentication): AuthenticatedUser
+    authenticate(details: UserAuthentication): User
 }
 
 type Subscription {
@@ -57,38 +57,18 @@ type ClientConfig {
 }
 
 """
-Information returned when authenticating
-with the server
-"""
-type AuthenticatedUser {
-    token: String
-    user: User
-}
-
-"""
 Represents a single Vindigo user
 """
 type User {
     "The unique user id"
     id: Int!
 
+    "The full name of the user"
+    name: String! 
+
     "The public email address"
     email: String!
 
     "The username of the user"
     username: String!
-
-    "The full name of the user"
-    fullName: String!
-
-    "The current activity status of the user"
-    activity: UserActivity!
-}
-
-"""
-Represents an activity state
-"""
-enum UserActivity {
-    IDLE,
-    ACTIVE
 }
