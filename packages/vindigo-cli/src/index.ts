@@ -7,6 +7,7 @@ import { handleRun } from './handler/run';
 import { handleStart } from './handler/start';
 import { handleStatus } from './handler/status';
 import { handleStop } from './handler/stop';
+import { handleUpdate } from './handler/update';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import yargs from 'yargs';
 
@@ -38,12 +39,17 @@ yargs
 	})
 	.command({
 		command: 'init',
-		describe: 'Configure your vindigo installation',
+		describe: 'Configure your Vindigo installation',
 		builder: () => yargs.option('force', {
 			alias: 'F',
 			describe: 'Allow overriding of the existing config'
 		}),
 		handler: handleInit
+	})
+	.command({
+		command: 'update',
+		describe: 'Perform update scripts',
+		handler: handleUpdate
 	})
 	.command({
 		command: 'migrate:make <name>',

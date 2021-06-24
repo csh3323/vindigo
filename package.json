@@ -1,5 +1,6 @@
 {
 	"name": "vindigo-app",
+	"version": "0.1.0",
 	"private": true,
 	"description": "The next generation planning tool",
 	"author": "Julian Mills",
