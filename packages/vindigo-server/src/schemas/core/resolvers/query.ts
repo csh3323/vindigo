@@ -13,7 +13,14 @@ export default {
 		};
 	},
 	profile: async (_, _args, ctx) => {
-		return ctx.user;
+		const user = ctx.user;
+
+		if(user) {
+			user.lastSeenAt = new Date();
+			user.save();
+		}
+
+		return user;
 	},
 	profileById: async (_, { id }) => {
 		return User.findOne(id);
