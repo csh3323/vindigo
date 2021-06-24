@@ -5,12 +5,14 @@
 		</h1>
 		<form>
 			<o-input
+				v-model="identity"
 				class="auth-box__input my-5 text-center"
-				placeholder="Email Address"
+				placeholder="Email or Username"
 				autocomplete="off"
 				rounded
 			/>
 			<o-input
+				v-model="password"
 				class="auth-box__input my-5"
 				placeholder="Password"
 				password-reveal
@@ -20,12 +22,14 @@
 			/>
 		</form>
 		<div class="flex text-white">
-			<o-checkbox>Remember me</o-checkbox>
+			<o-checkbox v-model="remember">
+				Remember me
+			</o-checkbox>
 			<div class="flex-grow" />
 			<a href="">Forgot password</a>
 		</div>
 		<div class="flex-grow" />
-		<o-button rounded>
+		<o-button rounded @click="authenticate">
 			Sign in
 			<o-icon icon="chevron-right" class="absolute" />
 		</o-button>
@@ -45,12 +49,33 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
-	name: 'Signin',
+	name: 'SignIn',
+
+	data: () => ({
+		identity: '',
+		password: '',
+		remember: false
+	}),
 	
 	computed: {
 		canRegister() {
 			return this.$config.allowRegister;
+		}
+	},
+
+	methods: {
+		async authenticate() {
+			const profile = await this.$vuex.dispatch('signIn', {
+				identity: this.identity,
+				password: this.password,
+				remember: this.remember
+			});
+
+			if(!profile) {
+				this.$oruga.notification.open('Invalid credentials');
+			}
 		}
 	}
 });

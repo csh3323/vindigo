@@ -2,7 +2,7 @@ import { Client, Sink, createClient } from 'graphql-ws';
 import { DocumentNode, print } from "graphql";
 
 import { Dictionary } from "vue-router/types/router";
-import { store } from ".";
+import { logger } from './util';
 
 type Headers = Dictionary<string>;
 
@@ -11,7 +11,7 @@ type Headers = Dictionary<string>;
  */
 export class APIService {
 
-	// private logger = logger('API');
+	private logger = logger('API', true);
 	private endpoint = '/graphql';
 	private client?: Client;
 
@@ -24,18 +24,7 @@ export class APIService {
 	 */
 	public get isConnected(): boolean {
 		return !!this.client;
-	}
-
-	/**
-	 * Insert the authentication token into the
-	 * specified header dictionary.
-	 * 
-	 * @param headers The headers dictionary
-	 */
-	private insertToken(headers: Headers) {
-		if(store.instance.state.authToken) {
-			headers['Authorization'] = 'Bearer ' + store.instance.state.authToken;
-		}
+	
 	}
 
 	/**
@@ -53,7 +42,7 @@ export class APIService {
 			'Accept': 'application/json',
 		};
 
-		this.insertToken(headers);
+		this.logger('Executing query:', print(query));
 
 		const response = await fetch(endpoint, {
 			signal: config?.abort?.signal,
@@ -112,14 +101,7 @@ export class APIService {
 	public connect() {
 		this.close();
 		this.client = createClient({
-			url: '/subscription',
-			connectionParams: () => {
-				const params: Headers = {};
-				
-				this.insertToken(params);
-
-				return params;
-			}
+			url: '/subscription'
 		});
 	}
 

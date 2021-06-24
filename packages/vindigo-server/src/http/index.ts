@@ -75,9 +75,9 @@ export class HTTPService {
 			store: sessionStore,
 			saveUninitialized: false,
 			cookie: {
-				secure: isProduction,
 				httpOnly: true,
-				sameSite: true
+				secure: isProduction,
+				sameSite: isProduction
 			}
 		}));
 

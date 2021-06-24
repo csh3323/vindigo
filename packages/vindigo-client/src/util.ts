@@ -1,16 +1,17 @@
-import { find } from "lodash";
 import { Route } from "vue-router";
+import { find } from "lodash";
 
 /**
  * Create a logger instance that prepends all messages
  * with the specified label.
  * 
  * @param label The label
+ * @param debug Whether the logger is debug
  * @returns Logging function
  */
-export function logger(label: string): (...args: any[]) => void {
+export function logger(label: string, debug = false): (...args: any[]) => void {
 	return (...args: any) => {
-		console.log(`[${label}]`, ...args);
+		(debug ? console.debug : console.log)(`[${label}]`, ...args);
 	};
 }
 

@@ -1,19 +1,48 @@
-import { ApiError, AuthenticationError } from '../../../http/errors';
+import { GraphQLResolvers, ResolverContext } from '../../../http/provider';
 import { compare, hash } from 'bcrypt';
+import { fetchProfileByEmail, fetchProfileByIdentity, fetchProfileByUsername, generateUsername } from '../fetchers/profile';
 
-import { GraphQLResolvers } from '../../../http/provider';
+import { ApiError } from '../../../http/errors';
 import { User } from '../../../models/user';
-import { elseThrow } from '../../../http/helpers';
 import { logger } from '../../..';
 
-const SALT_ROUNDS = 7;
+/**
+ * Sign in the session 
+ * 
+ * @param ctx The context
+ * @param remember Remember session
+ * @param user The user details
+ */
+function sessionSignIn(ctx: ResolverContext, remember: boolean, user: User) {
+	ctx.req.session.userId = user.id;
+
+	if(remember) {
+		ctx.req.session.cookie.maxAge = 2628000000;
+	}
+}
 
 export default {
 	register: async (_, { details }, ctx) => {
-		const password = await hash(details.password, SALT_ROUNDS);
+		const existing = await fetchProfileByEmail(details.email);
+
+		if(existing) {
+			throw new ApiError('email-exists');
+		}
+
+		// Generate a unique username
+		let username = '';
+		let counter = 0;
+
+		do {
+			username = generateUsername(details.email) + (counter || '');
+			counter++;
+		} while(await fetchProfileByUsername(username));
+
+		// Hash the provided password
+		const password = await hash(details.password, 7);
 		const user = new User();
 
-		user.username = details.username;
+		user.username = username;
 		user.name = details.fullname;
 		user.email = details.email;
 		user.password = password;
@@ -24,36 +53,39 @@ export default {
 		user.isEnabled = true;
 		user.isVerified = false;
 
+		// Save the profile to the database
 		const saved = await user.save();
 
-		ctx.req.session.userId = user.id;
-		
+		sessionSignIn(ctx, details.remember, user);
 		logger.info(`Registered new user ${details.username}`);
-
 		return saved;
 	},
 	authenticate: async (_, { details }, ctx) => {
-		if(!details.email && !details.username) {
+		if(!details.identity || !details.password) {
 			throw new ApiError('invalid-request');
 		}
 
-		const filter = details.email ? {
-			email: details.email
-		} : {
-			username: details.username
-		};
+		// Find the user profile
+		const user = await fetchProfileByIdentity(details.identity);
 
-		const user = await User.findOne({where: filter}) ?? elseThrow(new AuthenticationError());
+		if(!user) {
+			return;
+		}
+
+		// Compare hashed passwords
 		const valid = await compare(details.password, user.password);
 
 		if(!valid) {
-			throw new AuthenticationError();
+			return;
 		}
 
-		ctx.req.session.userId = user.id;
-		
+		sessionSignIn(ctx, details.remember, user);
 		logger.info(`Authenticated ${user.username}`);
-
 		return user;
+	},
+	signOut: async (_, _args, ctx) => {
+		return new Promise((resolve) => {
+			ctx.req.session.destroy(resolve);
+		});
 	}
 } as GraphQLResolvers;

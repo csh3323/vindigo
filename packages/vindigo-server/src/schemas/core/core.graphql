@@ -2,19 +2,25 @@ type Query {
 	"Fetch the relevant client config"
 	config: ClientConfig!
 
+	"Fetch the user details of the current user"
+	profile: Profile
+
 	"Fetch a user by their id"
-    profileById(id: Int): User
+    profileById(id: Int): Profile
 
     "Fetch a user by their username"
-    profileByName(username: String): User 
+    profileByName(username: String): Profile 
 }
 
 type Mutation {
 	"Create a new user account"
-    register(details: UserRegistration): User
+    register(details: UserRegistration): Profile
 
     "Sign in with the given account details"
-    authenticate(details: UserAuthentication): User
+    authenticate(details: UserAuthentication): Profile
+
+    "Sign out and return if this was successful"
+    signOut: Boolean
 }
 
 type Subscription {
@@ -25,19 +31,19 @@ type Subscription {
 The details required to register a new account
 """
 input UserRegistration {
-    username: String!,
-    fullname: String!,
-    email: String!,
+    fullname: String!
+    email: String!
     password: String!
+    remember: Boolean!
 }
 
 """
 The details required to sign in
 """
 input UserAuthentication {
-    email: String
-    username: String
+    identity: String!
     password: String!
+    remember: Boolean!
 }
 
 """
@@ -59,7 +65,7 @@ type ClientConfig {
 """
 Represents a single Vindigo user
 """
-type User {
+type Profile {
     "The unique user id"
     id: Int!
 

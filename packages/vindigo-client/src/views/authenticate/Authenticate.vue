@@ -104,12 +104,8 @@ export default Vue.extend({
 	max-width: 735px;
 
 	&__left {
-		background: linear-gradient(
-			135deg,
-			rgba(2, 198, 255, 1) 0%,
-			rgba(105, 67, 255, 1) 100%
-		);
 		@mixin emissive theme("colors.blue.500");
+		background: linear-gradient(135deg, rgb(2, 198, 255) 0%, rgb(105, 67, 255) 100%);
 	}
 
 	&__right {
@@ -118,7 +114,7 @@ export default Vue.extend({
 
 	&__left,
 	&__right {
-		@apply h-96;
+		height: 25rem;
 	}
 
 	&__toggle {

@@ -12,6 +12,9 @@ export default {
 			allowAnonymous: config.authentication.anonymous_users
 		};
 	},
+	profile: async (_, _args, ctx) => {
+		return ctx.user;
+	},
 	profileById: async (_, { id }) => {
 		return User.findOne(id);
 	},

@@ -5,25 +5,36 @@
 		</h1>
 		<form>
 			<o-input
-				class="auth-box__input my-5 text-center"
-				placeholder="Full Name"
-				rounded
-			/>
-			<o-input
+				v-model="email"
 				class="auth-box__input my-5 text-center"
 				placeholder="Email Address"
+				name="email"
 				rounded
 			/>
 			<o-input
+				v-model="fullname"
+				class="auth-box__input my-5 text-center"
+				placeholder="Full Name"
+				name="name"
+				rounded
+			/>
+			<o-input
+				v-model="password"
 				class="auth-box__input my-5"
 				placeholder="Password"
 				password-reveal
 				type="password"
+				name="password"
 				rounded
 			/>
 		</form>
+		<div class="flex text-white">
+			<o-checkbox v-model="remember">
+				Remember me
+			</o-checkbox>
+		</div>
 		<div class="flex-grow" />
-		<o-button rounded>
+		<o-button rounded @click="register">
 			Register Account
 			<o-icon icon="chevron-right" class="absolute" />
 		</o-button>
@@ -39,22 +50,24 @@
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-	name: 'Signin',
-	props: [],
+	name: 'Register',
+	
 	data: () => ({
-		
+		fullname: '',
+		email: '',
+		password: '',
+		remember: false
 	}),
-	computed: {
-
-	},
-	watch: {
-
-	},
-	mounted() {
-
-	},
+	
 	methods: {
-		
+		async register() {
+			await this.$vuex.dispatch('signUp', {
+				fullname: this.fullname,
+				email: this.email,
+				password: this.password,
+				remember: this.remember
+			});
+		}
 	}
 });
 </script>

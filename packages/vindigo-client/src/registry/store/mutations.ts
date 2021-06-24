@@ -1,4 +1,5 @@
 import { identity, values } from "lodash";
+
 import { MutationTree } from "vuex";
 import { RootState } from "./state";
 
@@ -25,11 +26,13 @@ export const storeMutations: MutationTree<RootState> = {
 		state.config = config;
 	},
 
+
 	/**
-	 * Store the latest authentication tokens
+	 * Store the current user profile
 	 */
-	storeAuthToken(state, authToken: string) {
-		state.authToken = authToken;
+	storeProfile(state, profile) {
+		state.profile = profile;
+		state.isAuthed = !!profile;
 	}
 
 };

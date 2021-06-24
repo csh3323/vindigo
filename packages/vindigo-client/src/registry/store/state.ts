@@ -11,8 +11,7 @@ import { storeMutations } from "./mutations";
 export interface RootState {
 	isDark: boolean,
 	profile: any,
-	authToken: string|undefined,
-	refreshToken: string|undefined,
+	isAuthed: boolean,
 	isReady: boolean,
 	loading: Dictionary<boolean>,
 	config: ClientConfig
@@ -31,8 +30,7 @@ export function registerState() {
 		state: {
 			isDark: false,
 			profile: null,
-			authToken: localStorage.getItem('vindigo:authToken') || undefined,
-			refreshToken: localStorage.getItem('vindigo:refreshToken') || undefined,
+			isAuthed: false,
 			isReady: false,
 			loading: {
 				auth: false,

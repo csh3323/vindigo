@@ -32,7 +32,7 @@ export default Vue.extend({
 
 	computed: {
 		shouldAuth(): boolean {
-			return !this.$config.allowAnonymous;
+			return !this.$vuex.state.isAuthed;
 		},
 		...mapState(['isReady'])
 	},
