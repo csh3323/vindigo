@@ -1,4 +1,4 @@
-import Oruga from '@oruga-ui/oruga';
+import WaveUI from 'wave-ui';
 import Router from 'vue-router';
 import Store from 'vuex';
 import Transitions from 'vue2-transitions';
@@ -16,7 +16,7 @@ export function registerPlugins() {
 	Vue.use(VueEllipseProgress, 'spinner');
 	Vue.use(Transitions);
 	Vue.use(VueI18n);
-	Vue.use(Oruga);
+	Vue.use(WaveUI);
 	Vue.use(Router);
 	Vue.use(Store);
 	Vue.use(VWave);

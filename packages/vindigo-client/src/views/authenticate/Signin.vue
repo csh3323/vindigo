@@ -4,14 +4,14 @@
 			Welcome
 		</h1>
 		<form>
-			<o-input
+			<w-input
 				v-model="identity"
 				class="auth-box__input my-5 text-center"
 				placeholder="Email or Username"
 				autocomplete="off"
 				rounded
 			/>
-			<o-input
+			<w-input
 				v-model="password"
 				class="auth-box__input my-5"
 				placeholder="Password"
@@ -22,17 +22,21 @@
 			/>
 		</form>
 		<div class="flex text-white">
+			<!--
 			<o-checkbox v-model="remember">
 				Remember me
-			</o-checkbox>
+			</o-checkbox>-->
 			<div class="flex-grow" />
 			<a href="">Forgot password</a>
 		</div>
 		<div class="flex-grow" />
-		<o-button rounded @click="authenticate">
+		<w-button @click="authenticate">
 			Sign in
-			<o-icon icon="chevron-right" class="absolute" />
-		</o-button>
+			<w-icon color="white">
+				mdi mdi-chevron-right
+			</w-icon>
+		</w-button>
+		
 		<div
 			v-if="canRegister"
 			class="auth-box__toggle"
@@ -74,7 +78,7 @@ export default Vue.extend({
 			});
 
 			if(!profile) {
-				this.$oruga.notification.open('Invalid credentials');
+				// ANCHOR TODO: call notification method with text: 'Invalid credentials'
 			}
 		}
 	}

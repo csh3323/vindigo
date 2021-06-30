@@ -1,7 +1,8 @@
-import '@oruga-ui/oruga/dist/oruga.min.css';
 import './style/global.vue';
 import './style/oruga.vue';
+import 'wave-ui/dist/wave-ui.css';
 
+import WaveUI from 'wave-ui';
 import { APIService } from './api';
 import App from './views/App.vue';
 import { I18nService } from './i18n';
@@ -38,6 +39,7 @@ registerRoutes();
 registerState();
 
 // TODO Load extensions
+const waveui = new WaveUI({});
 
 // Instantiate the application
 const vue = new Vue({
@@ -45,6 +47,7 @@ const vue = new Vue({
 	router: routing.complete(),
 	store: store.complete(),
 	i18n: i18n.complete(),
+	waveui: waveui,
 	render: (m) => {
 		return m(App);
 	}

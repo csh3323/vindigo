@@ -878,11 +878,6 @@
     "@opencensus/core" "^0.0.8"
     uuid "^3.2.1"
 
-"@oruga-ui/oruga@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@oruga-ui/oruga/-/oruga-0.4.2.tgz#0d304c330a1cbd7014fd05a405744f745cbdacea"
-  integrity sha512-GDk0XSDvLblQMvoX2QYtoEOErCAEeTLbRVa0UUDV42n8VUR6b+DP5KFXSJMXHmPc+SjtuEn1eBctzJb++p8c1A==
-
 "@pm2/agent@~1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@pm2/agent/-/agent-1.0.8.tgz#cd15d84dbfc95427e6fccce72bc165b79f1d8579"
@@ -9776,6 +9771,11 @@ watchpack@^2.2.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+wave-ui@^1.36.1:
+  version "1.36.1"
+  resolved "https://registry.yarnpkg.com/wave-ui/-/wave-ui-1.36.1.tgz#7040c7236577c5da93bed89bbf6431277cfbec62"
+  integrity sha512-lkhz64KwEc0W9Tt0ZpIbtNNWxuLVwOvmYOwqtryY/5NaApPV9xvR7vwxHjswmUH9GImPcX9SuORPuB34WPPfLw==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"

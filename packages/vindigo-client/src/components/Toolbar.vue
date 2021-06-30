@@ -54,9 +54,10 @@
 				</template>
 
 				<div class="toolbar__account-menu rounded-2xl p-3 w-60 mt-3">
+					<!-- ANCHOR TODO: change oruga button to WaveUI Button
 					<o-button rounded @click="$store.dispatch('signOut')">
 						Sign out
-					</o-button>
+					</o-button>-->
 				</div>
 			</o-dropdown>
 		</div>

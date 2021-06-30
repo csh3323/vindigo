@@ -1,5 +1,5 @@
 <template>
-	<div class="h-screen bg-page-background dark:bg-gray-900">
+	<w-app class="h-screen bg-page-background dark:bg-gray-900">
 		<template v-if="isReady">
 			<authenticate v-if="shouldAuth" />
 			<router-view v-else />
@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		</fade-transition>
-	</div>
+	</w-app>
 </template>
 
 <script lang="ts">

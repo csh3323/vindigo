@@ -1,4 +1,7 @@
 <template>
+	<div />
+<!-- ANCHOR TODO: implement similar version but then in WaveUI -->
+<!--
 	<o-field>
 		<o-select v-model="selected" placeholder="Select a language">
 			<option
@@ -10,6 +13,7 @@
 			</option>
 		</o-select>
 	</o-field>
+-->
 </template>
 
 <script lang="ts">

@@ -6,8 +6,13 @@ import { RootState } from '../registry/store/state';
 
 declare module 'vue/types/vue' {
 	interface Vue {
-		$oruga: any;
 		$vuex: Store<RootState>;
 		$config: ClientConfig;
+	}
+}
+
+declare module 'vue/types/options' {
+	interface ComponentOptions<V extends Vue> {
+		waveui?: any
 	}
 }
