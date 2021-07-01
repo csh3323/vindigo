@@ -16,31 +16,38 @@ export function handleStart() {
 		}
 
 		pm2.describe(SCRIPT_NAME, (_: any, proc: ProcessDescription[]) => {
-			if(proc.length && proc[0].pm2_env!.status == 'online') {
-				consola.info('Vindigo is already running!');
+			if(!proc.length || proc[0].pm2_env!.status != 'online') {
+				consola.info('Vindigo is not currently running');
 				process.exit(0);
 			}
 
-			consola.info('Starting Vindigo daemon...');
+			consola.info('Restarting Vindigo daemon...');
 
-			pm2.start({
-				script: ENTRYPOINT,
-				name: SCRIPT_NAME,
-				autorestart: false,
-				env: {
-					VINDIGO_CLI: 'true'
-				}
-			} as StartOptions, (err: any) => {
+			pm2.stop(ENTRYPOINT, (err: any) => {
 				if(err) {
-					consola.error('Could not start process: ', err);
+					consola.error('Could not stop process: ', err);
 					process.exit(0);
 				}
-
-				consola.success('Successfully started Vindigo');
-				consola.info(chalk`- Use {cyanBright vindigo status} to view process information`);
-				consola.info(chalk`- Use {cyanBright vindigo stop} to terminate vindigo`);
-				
-				pm2.disconnect();
+	
+				pm2.start({
+					script: ENTRYPOINT,
+					name: SCRIPT_NAME,
+					autorestart: false,
+					env: {
+						VINDIGO_CLI: 'true'
+					}
+				} as StartOptions, (err: any) => {
+					if(err) {
+						consola.error('Could not start process: ', err);
+						process.exit(0);
+					}
+	
+					consola.success('Successfully restarted Vindigo');
+					consola.info(chalk`- Use {cyanBright vindigo status} to view process information`);
+					consola.info(chalk`- Use {cyanBright vindigo stop} to terminate vindigo`);
+					
+					pm2.disconnect();
+				});
 			});
 		});
 	});
