@@ -7,6 +7,7 @@ module.exports = {
 	mode: 'jit',
 	purge: ['./src/**/*.{vue,ts}'],
 	darkMode: 'class',
+	important: true,
 	theme: {
 		extend: {
 			colors: {
