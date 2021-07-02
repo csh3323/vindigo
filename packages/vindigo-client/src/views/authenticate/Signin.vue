@@ -6,26 +6,20 @@
 		<form>
 			<w-input
 				v-model="identity"
-				class="auth-box__input my-5 text-center"
+				class="auth-box__input text-center"
 				placeholder="Email or Username"
-				autocomplete="off"
-				rounded
 			/>
 			<w-input
 				v-model="password"
-				class="auth-box__input my-5"
+				class="auth-box__input my-3"
 				placeholder="Password"
-				password-reveal
 				type="password"
-				autocomplete="off"
-				rounded
 			/>
 		</form>
 		<div class="flex text-white">
-			<!--
-			<o-checkbox v-model="remember">
+			<w-checkbox v-model="remember">
 				Remember me
-			</o-checkbox>-->
+			</w-checkbox>
 			<div class="flex-grow" />
 			<a href="">Forgot password</a>
 		</div>
@@ -84,3 +78,19 @@ export default Vue.extend({
 	}
 });
 </script>
+
+<style lang="postcss" scoped>
+
+.auth-box__input {
+	@apply bg-gray-100 text-white rounded-full py-1 border-b-0;
+}
+
+</style>
+
+<style lang="postcss">
+
+.w-input__input-wrap--underline {
+	border-width: 0 0 0;
+}
+
+</style>
