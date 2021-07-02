@@ -4,44 +4,48 @@
 			SIGN UP
 		</h1>
 		<form>
-			<!-- ANCHOR TODO: implement waveUI
-			<o-input
+			<w-input
 				v-model="email"
 				class="auth-box__input my-5 text-center"
 				placeholder="Email Address"
+				autocomplete="sign-up email"
 				name="email"
-				rounded
+				round
 			/>
-			<o-input
+			<w-input
 				v-model="fullname"
 				class="auth-box__input my-5 text-center"
 				placeholder="Full Name"
+				autocomplete="sign-up name"
 				name="name"
-				rounded
+				round
 			/>
-			<o-input
+			<w-input
 				v-model="password"
 				class="auth-box__input my-5"
 				placeholder="Password"
 				password-reveal
+				autocomplete="sign-up password"
 				type="password"
 				name="password"
-				rounded
-			/>-->
+				round
+			/>
 		</form>
 		<div class="flex text-white">
-			<!--
-			<o-checkbox v-model="remember">
+			<w-checkbox v-model="remember" round>
 				Remember me
-			</o-checkbox>
-			-->
+			</w-checkbox>
 		</div>
 		<div class="flex-grow" />
-		<!-- ANCHOR TODO: implement WaveUI
-		<o-button rounded @click="register">
+		<w-button
+			round
+			class="d-block w-full h-9 auth-box__button"
+			:loading="loading"
+			@click="register"
+		>
 			Register Account
 			<o-icon icon="chevron-right" class="absolute" />
-		</o-button>-->
+		</w-button>
 
 		<div class="auth-box__toggle" @click="$emit('toggle')">
 			Already have an account?

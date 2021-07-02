@@ -1,8 +1,7 @@
-import './style/global.vue';
-import './style/oruga.vue';
 import 'wave-ui/dist/wave-ui.css';
+import './style/global.vue';
+import './style/wave.vue';
 
-import WaveUI from 'wave-ui';
 import { APIService } from './api';
 import App from './views/App.vue';
 import { I18nService } from './i18n';
@@ -10,6 +9,7 @@ import RelativeTime from 'dayjs/plugin/relativeTime';
 import { RoutingService } from "./routing";
 import { StoreService } from "./store";
 import Vue from 'vue';
+import WaveUI from 'wave-ui';
 import dayjs from 'dayjs';
 import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
@@ -38,8 +38,15 @@ registerPlugins();
 registerRoutes();
 registerState();
 
-// TODO Load extensions
-const waveui = new WaveUI({});
+// Load wave ui
+// TODO sync colors with Tailwind
+// See: https://tailwindcss.com/docs/configuration#referencing-in-java-script
+const waveui = new WaveUI({
+	disableColorShades: true,
+	colors: {
+		primary: '#3B42B2'
+	}
+});
 
 // Instantiate the application
 const vue = new Vue({

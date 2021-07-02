@@ -6,25 +6,34 @@
 		<form>
 			<w-input
 				v-model="identity"
-				class="auth-box__input text-center"
+				class="auth-box__input my-5"
 				placeholder="Email or Username"
+				autocomplete="sign-in email"
+				round
 			/>
 			<w-input
 				v-model="password"
-				class="auth-box__input my-3"
+				class="auth-box__input my-5"
 				placeholder="Password"
+				autocomplete="sign-in password"
 				type="password"
+				round
 			/>
 		</form>
 		<div class="flex text-white">
-			<w-checkbox v-model="remember">
+			<w-checkbox v-model="remember" round>
 				Remember me
 			</w-checkbox>
 			<div class="flex-grow" />
 			<a href="">Forgot password</a>
 		</div>
 		<div class="flex-grow" />
-		<w-button @click="authenticate">
+		<w-button
+			round
+			class="d-block w-full h-9 auth-box__button"
+			:loading="loading"
+			@click="authenticate"
+		>
 			Sign in
 			<w-icon color="white">
 				mdi mdi-chevron-right
@@ -54,7 +63,8 @@ export default Vue.extend({
 	data: () => ({
 		identity: '',
 		password: '',
-		remember: false
+		remember: false,
+		loading: false
 	}),
 	
 	computed: {
@@ -65,6 +75,8 @@ export default Vue.extend({
 
 	methods: {
 		async authenticate() {
+			this.loading = true;
+
 			const profile = await this.$vuex.dispatch('signIn', {
 				identity: this.identity,
 				password: this.password,
@@ -72,25 +84,11 @@ export default Vue.extend({
 			});
 
 			if(!profile) {
-				// ANCHOR TODO: call notification method with text: 'Invalid credentials'
+				this.$waveui.notify('Invalid details', 'error');
 			}
+
+			this.loading = false;
 		}
 	}
 });
 </script>
-
-<style lang="postcss" scoped>
-
-.auth-box__input {
-	@apply bg-gray-100 text-white rounded-full py-1 border-b-0;
-}
-
-</style>
-
-<style lang="postcss">
-
-.w-input__input-wrap--underline {
-	border-width: 0 0 0;
-}
-
-</style>

@@ -1,4 +1,3 @@
-import WaveUI from 'wave-ui';
 import Router from 'vue-router';
 import Store from 'vuex';
 import Transitions from 'vue2-transitions';
@@ -7,6 +6,7 @@ import VWave from 'v-wave';
 import Vue from 'vue';
 import VueEllipseProgress from 'vue-ellipse-progress';
 import VueI18n from 'vue-i18n';
+import WaveUI from 'wave-ui';
 import { store } from '..';
 
 /**

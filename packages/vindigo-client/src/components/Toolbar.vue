@@ -21,46 +21,52 @@
 
 		<div class="toolbar__divider"/> -->
 
-		<icon-btn
-			class="mx-3 text-gray-600 dark:text-gray-100"
-			icon="mdi-magnify"
+		<w-button
+			v-wave
+			class="bg-transparent border-none ml-3 text-gray-600 dark:text-gray-100"
+			icon="mdi mdi-magnify"
 			to="#"
+			xl
 		/>
 
-		<icon-btn
-			class="mr-3 text-gray-600 dark:text-gray-100"
-			icon="mdi-bell"
+		<w-button
+			v-wave
+			class="bg-transparent border-none mx-3 text-gray-600 dark:text-gray-100"
+			icon="mdi mdi-bell"
 			to="#"
+			xl
 		/>
 
 		<div class="toolbar__divider" />
 
-		<div class="flex items-center ml-5 text-gray-800">
-			<o-dropdown aria-role="list" position="bottom-left">
-				<template #trigger>
+		<w-menu align-right custom>
+			<template #activator="{on}">
+				<div class="flex items-center ml-5 text-gray-800" v-on="on">
 					<h1 class="mb-0 font-semibold dark:text-gray-100">
 						Julian Mills
 					</h1>
-					<!-- <icon-btn
+					<w-icon
 						class="text-gray-600"
-						icon="mdi-chevron-down"
-						to="#"
-					/> -->
+						xl
+					>
+						mdi mdi-chevron-down
+					</w-icon>
 					<avatar
 						class="ml-2"
 						:user="10"
 						:src="require('/src/assets/profile.png')"
 					/>
-				</template>
-
-				<div class="toolbar__account-menu rounded-2xl p-3 w-60 mt-3">
-					<!-- ANCHOR TODO: change oruga button to WaveUI Button
-					<o-button rounded @click="$store.dispatch('signOut')">
-						Sign out
-					</o-button>-->
 				</div>
-			</o-dropdown>
-		</div>
+			</template>
+			<div class="toolbar__account-menu rounded-2xl p-3 w-60">
+				<w-button
+					round
+					@click="$store.dispatch('signOut')"
+				>
+					Sign out
+				</w-button>
+			</div>
+		</w-menu>
 	</header>
 </template>
 

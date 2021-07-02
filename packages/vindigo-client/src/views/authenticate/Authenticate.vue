@@ -120,9 +120,9 @@ export default Vue.extend({
 	&__toggle {
 		@apply font-light text-sm mt-3 cursor-pointer select-none text-gray-100;
 	}
-}
 
-.auth-box__input > .o-input {
-	@apply text-center;
+	&__button {
+		@apply bg-[#00000055];
+	}
 }
 </style>

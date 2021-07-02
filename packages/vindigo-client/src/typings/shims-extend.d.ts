@@ -8,6 +8,7 @@ declare module 'vue/types/vue' {
 	interface Vue {
 		$vuex: Store<RootState>;
 		$config: ClientConfig;
+		$waveui: any;
 	}
 }
 
