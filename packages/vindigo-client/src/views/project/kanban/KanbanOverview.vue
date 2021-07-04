@@ -1,24 +1,28 @@
 <template>
-	<div class="kanban__container" style="max-width: calc(100vw - 56px); overflow-x: auto">
-		<div
-			v-for="(header, index) in headers" :key="index"
-			class="kanban__item"
-		>
-			<div class="kanban__item_header">
-				<div class="kanban__item_header_left">
-					<icon class="mr-3" :icon="header.icon" />
-					<h1 class="font-bold">
-						{{ header.title }} - {{ index }}
-					</h1>
+	<!-- TODO Replace max-width calc -->
+	<div class="kanban-page" style="max-width: calc(100vw - 56px);">
+		<div class="kanban-page__header" />
+		<draggable v-model="headers" class="kanban-page__grid">
+			<div
+				v-for="header in headers" :key="header.title"
+				class="kanban-item"
+			>
+				<div class="kanban-item__header">
+					<div class="kanban-item__header-left">
+						<icon class="mr-3" :icon="header.icon" />
+						<h1 class="font-bold">
+							{{ header.title }} - {{ index }}
+						</h1>
+					</div>
+					<div class="kanban-item__header-right">
+						<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-plus" />
+						<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-chevron-down" />
+					</div>
+					<div v-if="index !== headers.length - 1" class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]" />
 				</div>
-				<div class="kanban__item_header_right">
-					<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-plus" />
-					<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-chevron-down" />
-				</div>
-				<div v-if="index !== headers.length - 1" class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]" />
+				<div class="kanban-item__body" />
 			</div>
-			<div class="kanban__item_body" style="height: 94.3189%" />
-		</div>
+		</draggable>
 	</div>
 </template>
 
@@ -29,44 +33,50 @@ export default {
 		headers: [
 			{ title: 'Completed', icon: 'mdi-check', order: 0, items: [] },
 			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'Backlog', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'Errors', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'Something', icon: 'mdi-check', order: 1, items: [] }
+			{ title: 'Backlog', icon: 'mdi-check', order: 1, items: [] }
 		]
 	})
 };
 </script>
 
 <style lang="postcss" scoped>
-.kanban__container {
-	@apply flex h-full max-w-[100%] overflow-y-hidden;
+.kanban-page {
+	@apply h-full relative;
 
-	.kanban__item {
-		@apply min-w-[350px] max-w-[350px];
+	&__header {
+		@apply h-12 bg-[#14A7F4] inset-x-0 top-0 absolute;
+	}
 
-		.kanban__item_header {
-			@apply flex items-center justify-between bg-[#14A7F4] h-12 relative text-white px-5;
+	&__grid {
+		@apply flex h-full overflow-y-hidden overflow-x-scroll;
+	}
+}
 
-			.kanban__item_header_left {
-				@apply flex items-center;
+.kanban-item {
+	@apply min-w-[350px] max-w-[350px] flex flex-col;
 
-				h1 {
-					@apply mt-[-3px];
-				}
+	.kanban-item__header {
+		@apply flex items-center justify-between h-12 relative text-white px-5;
+
+		&-left {
+			@apply flex items-center;
+
+			h1 {
+				@apply mt-[-3px];
 			}
-			
-			.kanban__item_header_right {
-				@apply flex items-center;
-			}
 		}
+		
+		&-right {
+			@apply flex items-center;
+		}
+	}
 
-		.kanban__item_body {
-			@apply bg-[#F1F2F6] p-4;
-		}
+	&__body {
+		@apply bg-[#F1F2F6] p-4 flex-grow;
+	}
 
-		&:nth-child(even) .kanban__item_body {
-			@apply bg-[#EAECF2];
-		}
+	&:nth-child(even) &__body {
+		@apply bg-[#EAECF2];
 	}
 }
 </style>
