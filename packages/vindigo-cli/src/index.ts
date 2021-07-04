@@ -3,6 +3,7 @@ import { handleMigrateDown, handleMigrateMake, handleMigrateStatus, handleMigrat
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { handleInit } from './handler/init';
+import { handleRestart } from './handler/restart';
 import { handleRun } from './handler/run';
 import { handleStart } from './handler/start';
 import { handleStatus } from './handler/status';
@@ -26,6 +27,11 @@ yargs
 		command: 'stop',
 		describe: 'Terminate the Vindigo server',
 		handler: handleStop
+	})
+	.command({
+		command: 'restart',
+		describe: 'Restart the Vindigo server',
+		handler: handleRestart
 	})
 	.command({
 		command: 'status',
