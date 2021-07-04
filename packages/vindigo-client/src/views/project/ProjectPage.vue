@@ -1,15 +1,17 @@
 <template>
-	<section class="project-page grid">
+	<section class="project-page flex h-screen">
 		<sidebar
 			class="bg-[#2f3a41]"
 			:open.sync="open"
 		/>
-		<section>
+		<section class="flex flex-col flex-grow">
 			<toolbar class="pl-0">
-				<icon-btn
-					class="mx-3 text-gray-700"
-					icon="mdi-chevron-down"
+				<w-button
+					v-wave
+					class="bg-transparent mx-3 text-gray-700"
+					icon="mdi mdi-chevron-down"
 					to="#"
+					xl
 				/>
 				<div class="flex flex-col">
 					<h1 class="font-bold">
@@ -21,7 +23,7 @@
 					</small>
 				</div>
 			</toolbar>
-			<main role="main" class="grid max-w-[100%] h-full">
+			<main role="main" class="flex-grow">
 				<transition>
 					<keep-alive>
 						<router-view />
@@ -58,11 +60,6 @@ export default Vue.extend({
 .mdi-star {
 	@apply text-yellow-400 ml-1;
 	font-size: 1.1rem;
-}
-
-.project-page {
-	grid-template-columns: 56px auto;
-	grid-template-rows: 100vh;
 }
 
 .app__header > .app__header_container {

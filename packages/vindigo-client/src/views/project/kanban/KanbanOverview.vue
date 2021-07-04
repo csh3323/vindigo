@@ -29,53 +29,48 @@ export default {
 		headers: [
 			{ title: 'Completed', icon: 'mdi-check', order: 0, items: [] },
 			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
-			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] }
+			{ title: 'Backlog', icon: 'mdi-check', order: 1, items: [] },
+			{ title: 'Errors', icon: 'mdi-check', order: 1, items: [] },
+			{ title: 'Something', icon: 'mdi-check', order: 1, items: [] }
 		]
 	})
 };
 </script>
 
 <style lang="postcss" scoped>
+.kanban__container {
+	@apply flex h-full max-w-[100%] overflow-y-hidden;
 
-    .kanban__container {
+	.kanban__item {
+		@apply max-w-[200px];
 
-        @apply flex h-full max-w-[100%] overflow-y-hidden;
+		.kanban__item_header {
+			@apply flex items-center justify-between bg-[#14A7F4] h-12 relative text-white px-5;
 
-        .kanban__item {
+			.kanban__item_header_left {
+				@apply flex items-center;
 
-            @apply min-w-[400px];
+				h1 {
+					@apply mt-[-3px];
+				}
+			}
+			
+			.kanban__item_header_right {
+				@apply flex items-center;
+			}
+		}
 
-            .kanban__item_header {
-                @apply flex items-center justify-between bg-[#14A7F4] h-12 relative text-white px-5;
+		&:nth-child(odd) {
+			.kanban__item_body {
+				@apply bg-[#F1F2F6] p-4;
+			}
+		}
 
-                .kanban__item_header_left {
-                    @apply flex items-center;
-
-                    h1 {
-                        @apply text-[1.21rem] mt-[-3px];
-                    }
-                }
-                
-                .kanban__item_header_right {
-                    @apply flex items-center;
-                }
-            }
-
-            &:nth-child(odd) {
-                .kanban__item_body {
-                    @apply bg-[#F1F2F6] p-4;
-                }
-            }
-
-            &:nth-child(even) {
-                .kanban__item_body {
-                    @apply bg-[#EAECF2] p-4;
-                }
-            }
-        }
-    }
-
+		&:nth-child(even) {
+			.kanban__item_body {
+				@apply bg-[#EAECF2] p-4;
+			}
+		}
+	}
+}
 </style>

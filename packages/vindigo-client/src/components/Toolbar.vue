@@ -45,10 +45,7 @@
 					<h1 class="mb-0 font-semibold dark:text-gray-100">
 						Julian Mills
 					</h1>
-					<w-icon
-						class="text-gray-600"
-						xl
-					>
+					<w-icon class="text-gray-600" xl>
 						mdi mdi-chevron-down
 					</w-icon>
 					<avatar

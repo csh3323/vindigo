@@ -5,6 +5,8 @@ import { storeActions } from "./actions";
 import { storeGetters } from "./getters";
 import { storeMutations } from "./mutations";
 
+const isDarkMode = localStorage.getItem('vindigo:dark') == 'true';
+
 /**
  * The root state for the vindigo client
  */
@@ -28,7 +30,7 @@ export function registerState() {
 		actions: storeActions,
 		getters: storeGetters,
 		state: {
-			isDark: false,
+			isDark: isDarkMode,
 			profile: null,
 			isAuthed: false,
 			isReady: false,

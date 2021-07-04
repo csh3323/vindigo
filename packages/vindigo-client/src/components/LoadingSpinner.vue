@@ -2,6 +2,7 @@
 	<spinner
 		loading
 		class="loading-overlay__spinner"
+		:empty-color="emptyColor"
 		:color="spinnerGradient"
 		:size="115"
 	>
@@ -27,5 +28,11 @@ export default Vue.extend({
 			]
 		}
 	}),
+
+	computed: {
+		emptyColor(): string|undefined {
+			return this.$vuex.state.isDark ? '#111' : undefined;
+		}
+	}
 });
 </script>

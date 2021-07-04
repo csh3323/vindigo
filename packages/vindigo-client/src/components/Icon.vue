@@ -39,11 +39,3 @@ export default Vue.extend({
 	}
 });
 </script>
-
-<style lang="postcss">
-.icon-button {
-    font-feature-settings: "liga";
-    text-indent: 0;
-    transition: .3s cubic-bezier(.25,.8,.5,1), visibility 0s;
-}
-</style>

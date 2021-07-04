@@ -31,7 +31,7 @@
 				{{ boardName }}
 			</div>
 			<section class="auth-box block laptop:flex mx-auto">
-				<div class="auth-box__left rounded-2xl laptop:rounded-tr-none laptop:rounded-br-none flex-1 px-8 py-4 text-center">
+				<div class="auth-box__left">
 					<div class="relative h-full">
 						<zoom-x-transition>
 							<component
@@ -42,7 +42,7 @@
 						</zoom-x-transition>
 					</div>
 				</div>
-				<div class="auth-box__right rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white dark:bg-gray-100 hidden laptop:block">
+				<div class="auth-box__right">
 					<div class="h-full flex items-center justify-center">
 						<img :src="require('/src/assets/illustration.png')">
 					</div>
@@ -104,16 +104,22 @@ export default Vue.extend({
 	max-width: 735px;
 
 	&__left {
-		@mixin emissive theme("colors.blue.500");
-		background: linear-gradient(135deg, rgb(2, 198, 255) 0%, rgb(105, 67, 255) 100%);
+		@apply rounded-2xl laptop:rounded-tr-none laptop:rounded-br-none flex-1 px-8 py-4 text-center dark:z-10;
+		@mixin emissive theme("colors.blue.500"), 0.85;
+
+		background: linear-gradient(
+			135deg,
+			rgb(2, 198, 255) 0%,
+			rgb(105, 67, 255) 100%
+		);
 	}
 
 	&__right {
+		@apply rounded-tr-2xl rounded-br-2xl flex-1 px-8 py-4 bg-white dark:bg-gray-800 hidden laptop:block;
 		@mixin emissive theme("colors.gray.300");
 	}
 
-	&__left,
-	&__right {
+	&__left, &__right {
 		height: 25rem;
 	}
 
@@ -123,6 +129,16 @@ export default Vue.extend({
 
 	&__button {
 		@apply bg-[#00000055];
+	}
+
+	/* Dark mode emission overrrides */
+
+	.dark &__left {
+		@mixin emissive theme("colors.blue.500"), 0.5;
+	}
+
+	.dark &__right {
+		@mixin emissive theme("colors.black");
 	}
 }
 </style>

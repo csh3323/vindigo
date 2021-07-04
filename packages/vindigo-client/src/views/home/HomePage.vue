@@ -91,6 +91,10 @@ export default Vue.extend({
 .home-page {
     .activity-card { 
         @mixin emissive theme('colors.purple.500');
+
+		.dark & {
+			@mixin emissive theme('colors.purple.500'), 0.45;
+		}
     }
 }
 </style>

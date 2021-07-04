@@ -33,6 +33,14 @@ export const storeMutations: MutationTree<RootState> = {
 	storeProfile(state, profile) {
 		state.profile = profile;
 		state.isAuthed = !!profile;
+	},
+
+	/**
+	 * Set whether dark mode is enabled
+	 */
+	setDarkMode(state, enabled) {
+		localStorage.setItem('vindigo:dark', enabled);
+		state.isDark = enabled;
 	}
 
 };
