@@ -121,11 +121,9 @@ module.exports = {
 			errors: true,
 			warnings: false
 		},
-		proxy: [
-			{
-				context: () => true,
-				target: 'http://localhost:8085',
-			}
-		]
+		proxy: {
+			'/graphql': 'http://localhost:8085',
+			'/subscription': 'http://localhost:8085',
+		}
 	}
 };

@@ -18,6 +18,29 @@
 	} 
 }
 
-/* Stupid chrome stuff */
+/* Scrollbar */
+
+::-webkit-scrollbar {
+	width: 17px;
+	height: 17px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 1px solid #fff;
+	border-radius: 10rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+::-webkit-scrollbar-track-piece:start {
+	background: transparent;
+}
+
+::-webkit-scrollbar-track-piece:end {
+	background: transparent;
+}
 
 </style>

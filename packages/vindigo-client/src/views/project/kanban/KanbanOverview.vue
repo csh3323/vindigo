@@ -42,7 +42,7 @@ export default {
 	@apply flex h-full max-w-[100%] overflow-y-hidden;
 
 	.kanban__item {
-		@apply max-w-[200px];
+		@apply min-w-[350px] max-w-[350px];
 
 		.kanban__item_header {
 			@apply flex items-center justify-between bg-[#14A7F4] h-12 relative text-white px-5;
@@ -60,16 +60,12 @@ export default {
 			}
 		}
 
-		&:nth-child(odd) {
-			.kanban__item_body {
-				@apply bg-[#F1F2F6] p-4;
-			}
+		.kanban__item_body {
+			@apply bg-[#F1F2F6] p-4;
 		}
 
-		&:nth-child(even) {
-			.kanban__item_body {
-				@apply bg-[#EAECF2] p-4;
-			}
+		&:nth-child(even) .kanban__item_body {
+			@apply bg-[#EAECF2];
 		}
 	}
 }

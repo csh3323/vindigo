@@ -1,4 +1,3 @@
-import 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css';
 import 'wave-ui/dist/wave-ui.css';
 import './style/global.vue';
 import './style/wave.vue';
