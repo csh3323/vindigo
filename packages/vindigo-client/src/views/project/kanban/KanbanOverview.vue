@@ -16,7 +16,7 @@
 					<div class="kanban-item__header-left">
 						<icon class="mr-3" :icon="header.icon" />
 						<h1 class="font-bold">
-							{{ header.title }} - {{ index }}
+							{{ header.title }}
 						</h1>
 					</div>
 					<div class="kanban-item__header-right">
