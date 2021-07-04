@@ -2,7 +2,12 @@
 	<!-- TODO Replace max-width calc -->
 	<div class="kanban-page" style="max-width: calc(100vw - 56px);">
 		<div class="kanban-page__header" />
-		<draggable v-model="headers" class="kanban-page__grid">
+		<draggable
+			v-model="headers"
+			class="kanban-page__grid"
+			handle=".kanban-item__header"
+			:animation="250"
+		>
 			<div
 				v-for="header in headers" :key="header.title"
 				class="kanban-item"
@@ -56,7 +61,7 @@ export default {
 	@apply min-w-[350px] max-w-[350px] flex flex-col;
 
 	.kanban-item__header {
-		@apply flex items-center justify-between h-12 relative text-white px-5;
+		@apply flex items-center justify-between h-12 relative text-white px-5 cursor-move;
 
 		&-left {
 			@apply flex items-center;
@@ -68,6 +73,10 @@ export default {
 		
 		&-right {
 			@apply flex items-center;
+		}
+
+		&-left, &-right {
+			@apply cursor-auto;
 		}
 	}
 
