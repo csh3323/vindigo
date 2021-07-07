@@ -8,7 +8,7 @@
 			<toolbar class="pl-0">
 				<w-button
 					v-wave
-					class="bg-transparent mx-3 text-gray-700"
+					class="mx-3 text-gray-700"
 					icon="mdi mdi-chevron-down"
 					to="#"
 					xl

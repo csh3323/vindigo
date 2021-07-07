@@ -3,17 +3,17 @@ import { Knex } from 'knex';
 exports.up = async ({ schema }: Knex) => {
 	return schema.createTable('users', (table) => {
 		table.increments();
-		table.string('username').notNullable();
-		table.string('email').notNullable();
+		table.string('username');
+		table.string('email');
 		table.string('password');
 		table.string('bio');
-		table.string('name').notNullable();
-		table.string('role').notNullable();
-		table.string('language').notNullable();
-		table.timestamp('created_at').notNullable();
-		table.timestamp('last_seen_at').notNullable();
-		table.boolean('is_enabled').notNullable().defaultTo(true);
-		table.boolean('is_verified').notNullable().defaultTo(true);
+		table.string('name');
+		table.string('role');
+		table.string('language');
+		table.timestamp('created_at');
+		table.timestamp('last_seen_at');
+		table.boolean('is_enabled').defaultTo(true);
+		table.boolean('is_verified').defaultTo(true);
 	});
 };
 

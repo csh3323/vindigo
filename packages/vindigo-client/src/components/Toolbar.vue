@@ -12,7 +12,8 @@
 
 		<div class="flex-grow" />
 
-		<!-- TODO Implement icon buttons prop -->
+		<!-- TODO[epic=example] Implement icon buttons prop -->
+
 		<!-- <icon-btn
 			class="text-gray-600 mx-3"
 			icon="mdi-plus-circle-outline"
@@ -23,7 +24,7 @@
 
 		<w-button
 			v-wave
-			class="bg-transparent border-none ml-3 text-gray-600 dark:text-gray-100"
+			class="ml-3 text-gray-600 dark:text-gray-100"
 			icon="mdi mdi-magnify"
 			to="#"
 			xl
@@ -31,7 +32,7 @@
 
 		<w-button
 			v-wave
-			class="bg-transparent border-none mx-3 text-gray-600 dark:text-gray-100"
+			class="mx-3 text-gray-600 dark:text-gray-100"
 			icon="mdi mdi-bell"
 			to="#"
 			xl

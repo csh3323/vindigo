@@ -22,9 +22,14 @@
 	}
 }
 
+/* Buttons */
 .w-button {
 	&--round .w-button__loader {
 		@apply rounded-full;
+	}
+
+	&--icon {
+		@apply bg-transparent border-none !important;
 	}
 }
 

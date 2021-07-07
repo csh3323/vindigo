@@ -13,6 +13,7 @@ module.exports = {
 	context: path.join(__dirname, "."),
 	entry: path.join(__dirname, "src/index.ts"),
 	mode: environment,
+	devtool: devtool,
 	resolve: {
 		alias: {
 			'vue$': 'vue/dist/vue.runtime.esm.js'
