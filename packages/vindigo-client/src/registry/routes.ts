@@ -32,6 +32,36 @@ export function registerRoutes() {
 	});
 
 	routing.defineRoute({
+		path: '/projects',
+		name: 'Project Overview',
+		component: undefined
+	});
+
+	routing.defineRoute({
+		path: '/teams',
+		name: 'Teams Overview',
+		component: undefined
+	});
+
+	routing.defineRoute({
+		path: '/activity',
+		name: 'Activity Overview',
+		component: undefined
+	});
+
+	routing.defineRoute({
+		path: '/help',
+		name: 'Help Overview',
+		component: undefined
+	});
+
+	routing.defineRoute({
+		path: '/settings',
+		name: 'Profile Settings',
+		component: undefined
+	});
+
+	routing.defineRoute({
 		path: '/project/:project/',
 		name: 'Project Container',
 		component: ProjectPage,
