@@ -34,6 +34,14 @@
 				</section>
 				<section-title class="mt-10" icon="mdi-briefcase">
 					{{ $t('HOMEPAGE_SECTION_TEAMS') }}
+					<div class="flex-grow" />
+					<w-button
+						v-wave
+						class="bg-transparent border-none ml-3 text-gray-600 dark:text-gray-100"
+						icon="mdi mdi-plus"
+						to="#"
+						xl
+					/>
 				</section-title>
 				<section class="grid grid-cols-6 gap-5 pt-4">
 					<board-tile
