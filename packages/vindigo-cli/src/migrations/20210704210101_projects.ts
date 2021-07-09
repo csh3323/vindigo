@@ -4,7 +4,6 @@ exports.up = async function({schema}: Knex) {
 	return schema
 		.createTable('projects', (table) => {
 			table.increments();
-			table.string('slug').unique('project_slug');
 			table.string('name');
 			table.text('description');
 			table.text('cover_image');
@@ -20,10 +19,10 @@ exports.up = async function({schema}: Knex) {
 		})
 		.createTable('teams', (table) => {
 			table.increments();
-			table.string('slug').unique('team_slug');
 			table.string('name');
 			table.text('description');
-			table.text('logo');
+			table.text('logo_image');
+			table.timestamp('created_at');
 		})
 		.createTable('project_members', (table) => {
 			table.increments();
