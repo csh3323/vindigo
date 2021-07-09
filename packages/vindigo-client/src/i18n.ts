@@ -64,11 +64,7 @@ export class I18nService {
 	 * @param lang The locale code
 	 */
 	public async activate(lang: string) {
-		if(vue.$i18n.locale === lang) {
-			return this.setI18nLanguage(lang);
-		}
-
-		if(this.cachedLangs.includes(lang)) {
+		if(vue.$i18n.locale === lang || this.cachedLangs.includes(lang)) {
 			return this.setI18nLanguage(lang);
 		}
 
@@ -110,4 +106,5 @@ export interface Language {
 	id: string;
 	name: string;
 	dayjs: string;
+	icon?: string;
 }
