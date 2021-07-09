@@ -109,7 +109,7 @@
 						Help
 					</router-link>
 					<router-link 
-						to="" class="toolbar-list__item"
+						to="/settings" class="toolbar-list__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
