@@ -3,6 +3,7 @@ import KanbanPage from '../views/project/kanban/KanbanOverview.vue';
 import ProjectHome from '../views/project/ProjectHome.vue';
 import ProjectPage from '../views/project/ProjectPage.vue';
 import TasksPage from '../views/project/tasks/TasksOverview.vue';
+import SettingsPage from '../views/settings/Settings.vue';
 import { routing } from "..";
 
 /**
@@ -16,7 +17,7 @@ export function registerRoutes() {
 		component: HomePage,
 		meta: {
 			title: ''
-		} 
+		}
 	});
 
 	routing.defineRoute({
@@ -58,7 +59,7 @@ export function registerRoutes() {
 	routing.defineRoute({
 		path: '/settings',
 		name: 'Profile Settings',
-		component: undefined
+		component: SettingsPage
 	});
 
 	routing.defineRoute({
