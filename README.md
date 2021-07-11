@@ -74,11 +74,14 @@ The CLI provides many more commands used to manage your Vindigo setup. The follo
 ./vindigo <cmd> [options]
 
 Commands:
-  vindigo start    Launch the Vindigo server
-  vindigo stop     Terminate the Vindigo server
-  vindigo status   Show the current daemon status
-  vindigo init     Configure your vindigo installation
-  vindigo run      Start the Vindigo server in the foreground
+  vindigo start                     Launch the Vindigo server
+  vindigo stop                      Terminate the Vindigo server
+  vindigo status                    Show the current daemon status
+  vindigo init                      Configure your vindigo installation
+  vindigo run                       Start the Vindigo server in the foreground
+  vindigo migrate:apply [--all]     Apply pending database migrations
+  vindigo migrate:rollback [-all]   Rollback a database migration
+  vindigo migrate:status            View the current database migration status
 
 Options:
   --version  Show version number
