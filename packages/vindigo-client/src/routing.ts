@@ -1,6 +1,7 @@
 import VueRouter, { RouteConfig, RouterOptions } from "vue-router";
 import { getRouteMeta, logger, updateTitle } from "./util";
 
+import { Optional } from "./typings/types";
 import { isString } from "lodash";
 
 /**
@@ -56,7 +57,7 @@ export class RoutingService {
 	 * @param name The route
 	 * @returns The route config if it is defined
 	 */
-	public getRoute(name: string): RouteConfig|undefined {
+	public getRoute(name: string): Optional<RouteConfig> {
 		return this.index[name];
 	}
 

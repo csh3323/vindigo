@@ -40,30 +40,34 @@
 
 		<div class="toolbar__divider" />
 
-		<w-menu align-right custom>
+		<w-menu
+			align-right
+			custom
+		>
 			<template #activator="{on}">
-				<div class="flex items-center ml-5 text-gray-800" v-on="on">
+				<div
+					class="flex items-center ml-5 text-gray-800 cursor-pointer"
+					v-on="on"
+				>
 					<h1 class="mb-0 font-semibold dark:text-gray-100">
-						Julian Mills
+						{{ userName }}
 					</h1>
-					<w-icon class="text-gray-600" xl>
-						mdi mdi-chevron-down
-					</w-icon>
 					<avatar
 						class="ml-2"
-						:user="10"
-						:src="require('/src/assets/profile.png')"
+						:profile="$vuex.state.profile"
+						:open-profile="false"
 					/>
 				</div>
 			</template>
-			<div class="toolbar__account-menu bg-white rounded-xl py-3 w-60">
-				<p class="text-center mb-3">
-					Your Acccount
+			<div class="account-menu">
+				<p class="text-center mb-3 text-gray-500 font-semibold">
+					{{ $t('TOOLBAR_YOUR_ACCOUNT') }}
 				</p>
 				<w-divider />
-				<div class="toolbar-list rounded-b-2xl">
-					<router-link 
-						to="/profile/10" class="toolbar-list__item" 
+				<div class="account-menu__list">
+					<router-link
+						to="/profile/10"
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -71,8 +75,9 @@
 						</w-icon>
 						Your profile
 					</router-link>
-					<router-link 
-						to="" class="toolbar-list__item"
+					<router-link
+						to=""
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -80,8 +85,9 @@
 						</w-icon>
 						Your projects
 					</router-link>
-					<router-link 
-						to="" class="toolbar-list__item"
+					<router-link
+						to=""
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -89,8 +95,9 @@
 						</w-icon>
 						Your teams
 					</router-link>
-					<router-link 
-						to="" class="toolbar-list__item"
+					<router-link
+						to=""
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -99,8 +106,9 @@
 						Your activity
 					</router-link>
 					<w-divider />
-					<router-link 
-						to="" class="toolbar-list__item"
+					<router-link
+						to=""
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -108,8 +116,9 @@
 						</w-icon>
 						Help
 					</router-link>
-					<router-link 
-						to="/settings" class="toolbar-list__item"
+					<router-link
+						to="/settings"
+						class="account-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -118,16 +127,15 @@
 						Settings
 					</router-link>
 					<w-divider />
-					<router-link
-						to="" 
-						class="toolbar-list__item text-red-400" 
-						tag="div" @click="$store.dispatch('signOut')"
+					<div
+						class="account-menu__item text-red-400"
+						@click="$store.dispatch('signOut')"
 					>
 						<w-icon size="1.1rem">
 							mdi mdi-logout
 						</w-icon>
 						Sign out
-					</router-link>
+					</div>
 				</div>
 			</div>
 		</w-menu>
@@ -137,6 +145,7 @@
 <script lang="ts">
 import Vue, { PropType } from "vue";
 import { IconButton } from "../model/button";
+import { Optional } from "../typings/types";
 
 export default Vue.extend({
 	name: "Toolbar",
@@ -145,36 +154,39 @@ export default Vue.extend({
 			type: Object as PropType<IconButton[]>,
 		},
 	},
-	data: () => ({
-
-	}),
+	
 	computed: {
 		logoUrl(): boolean {
 			return this.$store.state.isDark
 				? require("/src/assets/vindigo-white.svg")
 				: require("/src/assets/vindigo-black.svg");
 		},
+		userName(): Optional<string> {
+			return this.$vuex.state.profile?.fullName;
+		}
 	},
 });
 </script>
 
 <style lang="postcss">
+.account-menu {
+	@apply bg-white overflow-hidden rounded-xl pt-3 w-60;
+	@mixin emissive theme("colors.gray.400");
 
-.toolbar-list {
+	&__list {
+		@apply overflow-hidden pb-1;
+	}
 
 	&__item {
-
-		@apply px-3 py-1 cursor-pointer bg-white;
-
-		transition: .15s background-color ease-in-out;
-
-		&:hover {
-			@apply bg-gray-100;
-		}
+		@apply px-3 py-2 cursor-pointer transition-colors hover:bg-gray-100;
 
 		.w-icon {
 			@apply mt-[-3px] mr-1;
 		}
+	}
+
+	.w-divider {
+		@apply my-1;
 	}
 }
 
@@ -188,10 +200,6 @@ export default Vue.extend({
 
 	.o-drop__trigger {
 		@apply flex items-center;
-	}
-
-	&__account-menu {
-		@mixin emissive theme('colors.gray.400');
 	}
 }
 </style>

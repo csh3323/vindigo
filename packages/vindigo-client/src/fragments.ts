@@ -6,8 +6,9 @@ import { gql } from "graphql-tag";
 export const profileFragment = gql`
 	fragment AllProfileFields on Profile {
 		id
-		name
 		email
 		username
+		fullName
+		firstName
 	}
 `;

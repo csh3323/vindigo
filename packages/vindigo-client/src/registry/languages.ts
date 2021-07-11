@@ -1,17 +1,17 @@
-import { Language } from "../i18n";
+import { Language } from '../i18n';
 
 const languages: Language[] = [
 	{
-		id: "en-US",
-		name: "English (United States)",
-		dayjs: "en",
-		icon: "gb"
+		id: 'en-US',
+		name: 'English (United States)',
+		dayjs: 'en',
+		icon: 'us'
 	},
 	{
-		id: "nl-NL",
-		name: "Dutch",
-		dayjs: "nl",
-		icon: "nl"
+		id: 'nl-NL',
+		name: 'Dutch',
+		dayjs: 'nl',
+		icon: 'nl'
 	}
 ];
 

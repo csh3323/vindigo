@@ -38,8 +38,6 @@ export class DatabaseService {
 				namingStrategy: new SnakeNamingStrategy(),
 				entities: this.models,
 			});
-
-			console.log('registered', this.models);
 		} catch (err) {
 			logger.error('Error instantiating database connection: ' + err.message);
 		}

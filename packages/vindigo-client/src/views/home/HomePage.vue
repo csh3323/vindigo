@@ -5,9 +5,8 @@
 		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center">
 			<!-- Display just "Welcome" when user is signed out -->
 			<avatar
-				:user="10"
 				:size="80"
-				:src="require('/src/assets/profile.png')"
+				:profile="$vuex.state.profile"
 				:open-profile="false"
 			/>
 			<div class="pl-6 dark:text-gray-100">
@@ -15,7 +14,7 @@
 					{{ $t('HOMEPAGE_WELCOME') }}
 				</h2>
 				<h1 class="font-extrabold text-2xl">
-					Julian
+					{{ firstName }}
 				</h1>
 			</div>
 		</div>
@@ -75,20 +74,23 @@ import Vue from 'vue';
 import { commerce } from 'faker';
 import ActivityCard from './ActivityCard.vue';
 import FocusTasks from './FocusTasks.vue';
+import { Optional } from '../../typings/types';
 
 export default Vue.extend({
 	name: 'HomePage',
 	components: { ActivityCard, FocusTasks },
-    
-	data: () => ({
-        
-	}),
+
+	computed: {
+		firstName(): Optional<string> {
+			return this.$vuex.state.profile?.firstName;
+		}
+	},
 
 	methods: {
-		getBoardName() {
+		getBoardName(): string {
 			return commerce.productName();
 		},
-		getTeamName() {
+		getTeamName(): string {
 			return commerce.department() + ' Team';
 		}
 	}
@@ -96,13 +98,11 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-.home-page {
-    .activity-card { 
-        @mixin emissive theme('colors.purple.500');
+.home-page .activity-card { 
+	@mixin emissive theme('colors.purple.500');
 
-		.dark & {
-			@mixin emissive theme('colors.purple.500'), 0.45;
-		}
-    }
+	.dark & {
+		@mixin emissive theme('colors.purple.500'), 0.45;
+	}
 }
 </style>

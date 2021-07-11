@@ -18,6 +18,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Optional } from '../typings/types';
 
 export default Vue.extend({
 	data: () => ({
@@ -30,7 +31,7 @@ export default Vue.extend({
 	}),
 
 	computed: {
-		emptyColor(): string|undefined {
+		emptyColor(): Optional<string> {
 			return this.$vuex.state.isDark ? '#111' : undefined;
 		}
 	}

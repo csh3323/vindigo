@@ -69,11 +69,17 @@ type Profile {
     "The unique user id"
     id: Int!
 
-    "The full name of the user"
-    name: String! 
+    "The user avatar path, may be null"
+    avatar: String
 
-    "The public email address"
-    email: String!
+    "The full name of the user"
+    fullName: String! 
+
+    "The first name of the user"
+    firstName: String!
+
+    "The public email address, may be null"
+    email: String
 
     "The username of the user"
     username: String!

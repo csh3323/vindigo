@@ -1,5 +1,7 @@
 import { ClientConfig } from "../../model/config";
 import { Dictionary } from "vue-router/types/router";
+import { Optional } from "../../typings/types";
+import { Profile } from "../../model/profile";
 import { store } from "../..";
 import { storeActions } from "./actions";
 import { storeGetters } from "./getters";
@@ -12,7 +14,7 @@ const isDarkMode = localStorage.getItem('vindigo:dark') == 'true';
  */
 export interface RootState {
 	isDark: boolean,
-	profile: any,
+	profile: Optional<Profile>,
 	isAuthed: boolean,
 	isReady: boolean,
 	loading: Dictionary<boolean>,
