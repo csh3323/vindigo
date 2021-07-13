@@ -31,7 +31,9 @@ export class I18nService {
 		this.languageList = languages;
 		this.languageIndex = keyBy(languages, (lang => lang.id));
 
-		this.fetchTranslations(this.defaultLang).then(() => {
+		const initialLang = localStorage.getItem('vindigo:lang') || this.defaultLang;
+
+		this.fetchTranslations(initialLang).then(() => {
 			vue.$store.commit('setLoaded', 'i18n');
 		});
 	}
@@ -78,6 +80,7 @@ export class I18nService {
 		dayjs.locale(language.dayjs);
 		this.currLang = language;
 		vue.$i18n.locale = lang;
+		localStorage.setItem('vindigo:lang', lang);
 	}
 
 	private async fetchTranslations(lang: string) {

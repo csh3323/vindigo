@@ -3,9 +3,7 @@ import { User } from "../../../models/user";
 import { config } from "../../..";
 
 export default {
-	config: async (_, _args, ctx) => {
-		console.log(ctx.user);
-		
+	config: async (_, _args) => {
 		return {
 			instanceName: config.general.name,
 			allowRegister: config.authentication.registrations,
@@ -19,6 +17,9 @@ export default {
 			user.lastSeenAt = new Date();
 			user.save();
 		}
+
+		// console.log(user);
+		// console.log('avatar', user?.avatar);
 
 		return user;
 	},

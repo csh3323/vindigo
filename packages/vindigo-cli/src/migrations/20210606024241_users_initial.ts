@@ -6,6 +6,7 @@ exports.up = async ({ schema }: Knex) => {
 		table.string('username');
 		table.string('email');
 		table.string('password');
+		table.string('avatar');
 		table.string('bio');
 		table.string('name');
 		table.string('role');
