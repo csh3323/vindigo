@@ -31,9 +31,12 @@
 	</div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
 	name: 'KanbanOverview',
+
 	data: () => ({
 		headers: [
 			{ title: 'Completed', icon: 'mdi-check', order: 0, items: [] },
@@ -41,7 +44,7 @@ export default {
 			{ title: 'Backlog', icon: 'mdi-check', order: 1, items: [] }
 		]
 	})
-};
+});
 </script>
 
 <style lang="postcss" scoped>

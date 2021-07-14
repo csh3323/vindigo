@@ -143,16 +143,15 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
-import { IconButton } from "../model/button";
+import Vue from "vue";
 import { Optional } from "../typings/types";
 
 export default Vue.extend({
 	name: "Toolbar",
 	props: {
-		buttons: {
-			type: Object as PropType<IconButton[]>,
-		},
+		// buttons: {
+		// 	type: Object as PropType<IconButton[]>,
+		// },
 	},
 	
 	computed: {

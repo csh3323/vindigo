@@ -14,7 +14,9 @@
 					class="sidebar__item py-1 w-14 h-14 flex items-center justify-center cursor-pointer hover:bg-[#293238]"
 					@click="currentIndex = item.rank"
 				>
-					<icon :icon="item.icon" class="text-white" />
+					<w-icon xl class="text-white">
+						mdi {{ item.icon }}
+					</w-icon>
 				</li>
 			</router-link>
 		</ol>
@@ -32,7 +34,7 @@ export default Vue.extend({
 		open: {
 			required: true,
 			type: Boolean,
-		},
+		}
 	},
 	data: () => ({
 		listItems: [] as any[],
@@ -53,15 +55,15 @@ export default Vue.extend({
 		// initializing list items
 		this.listItems = _.chain(route.children)
 			.map((child) => ({
-				icon: child.meta.icon,
-				rank: child.meta.order,
+				icon: child.meta?.icon,
+				rank: child.meta?.order,
 				href: child.path
 			}))
 			.orderBy(item => item.rank, 'asc')
 			.value();
 
 		// set the current default index
-		this.currentIndex = this.$route.meta.order;
+		this.currentIndex = this.$route.meta?.order;
 	}
 });
 </script>

@@ -7,6 +7,10 @@
 
 .sortable-drag { opacity: 0; }
 
+.grabbing * {
+    cursor: grabbing;
+}
+
 /* Custom utilities */
 @layer utilities {
 	@variants responsive {
