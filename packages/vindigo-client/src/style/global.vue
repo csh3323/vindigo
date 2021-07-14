@@ -7,10 +7,6 @@
 
 .sortable-drag { opacity: 0; }
 
-.grabbing * {
-    cursor: grabbing;
-}
-
 /* Custom utilities */
 @layer utilities {
 	@variants responsive {
@@ -27,8 +23,8 @@
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-	width: 17px;
-	height: 17px;
+	width: 15px;
+	height: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
