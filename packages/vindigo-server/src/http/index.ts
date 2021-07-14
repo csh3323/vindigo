@@ -189,6 +189,7 @@ export class HTTPService {
 	 */
 	private registerStatic() {
 		const clientPath = path.join(__dirname, '../../../vindigo-client/dist');
+		const publicPath = path.join(__dirname, '../../../../data/public');
 		const indexPath = path.join(clientPath, 'index.html');
 
 		// Exit the server if the client distribution
@@ -197,6 +198,9 @@ export class HTTPService {
 			logger.error('Failed to locate client distribution files. Make sure vindigo-client has been built before starting the server.');
 			process.exit(0);
 		}
+
+		// Load public resources
+		this.express.use('/data', express.static(publicPath));
 
 		// Load any static resources
 		this.express.use(express.static(clientPath));

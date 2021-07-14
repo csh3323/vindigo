@@ -123,8 +123,9 @@ module.exports = {
 			warnings: false
 		},
 		proxy: {
+			'/data': 'http://localhost:8085',
 			'/graphql': 'http://localhost:8085',
-			'/subscription': 'http://localhost:8085',
+			'/subscription': 'http://localhost:8085'
 		}
 	}
 };
