@@ -6,8 +6,7 @@
 					v-if="imgSrc"
 					:src="imgSrc"
 					:style="imgStyle"
-					class="rounded-full"
-					style="image-rendering: crisp-edges;"
+					class="avatar__img"
 				>
 				<div
 					v-else
@@ -79,6 +78,13 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
+.avatar__img {
+	@apply rounded-full;
+
+	image-rendering: crisp-edges;
+	object-fit: cover;
+}
+
 .avatar__placeholder {
 	@apply bg-gray-300 rounded-full flex items-center justify-center font-bold;
 }
