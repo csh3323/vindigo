@@ -1,16 +1,16 @@
-import { ISchemaProvider, ResolverContext } from "./provider";
 import { IncomingMessage, createServer } from "http";
-import { buildSchema, getAddress } from "./helpers";
-import { database, logger } from "..";
-import express, { Request } from "express";
+import { buildSchema, getAddress } from "./util/http";
+import { database, logger } from ".";
+import express, { Request, Response } from "express";
 
-import { ApiError } from "./errors";
+import { ApiError } from "./util/errors";
 import { GraphQLError } from "graphql";
-import { IServerConfig } from "../util/config";
+import { IResolvers } from "graphql-tools";
+import { IServerConfig } from "./util/config";
 import { Server } from "http";
-import { Session } from "../models/session";
+import { Session } from "./models/session";
 import { TypeormStore } from "connect-typeorm";
-import { User } from "../models/user";
+import { User } from "./models/user";
 import WebSocket from 'ws';
 import cors from "cors";
 import depthLimit from "graphql-depth-limit";
@@ -21,6 +21,12 @@ import path from "path";
 import session from 'express-session';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import ws from "ws";
+
+/**
+ * Used to enable type checking for resolver
+ * declarations while including correct resolver context
+ */
+export type GraphQLResolvers<Source = void> = IResolvers<Source, ResolverContext>
 
 /**
  * The service in charge of serving http requests
@@ -210,4 +216,36 @@ export class HTTPService {
 			res.sendFile(indexPath);
 		});
 	}
+}
+
+/**
+ * A provider of a GraphQL Schema together with
+ * implementation resolvers.
+ */
+export interface ISchemaProvider {
+
+	/**
+	 * The unique identification of this schema
+	 */
+	id: string;
+
+	/**
+	 * The schema associated with this module, if present
+	 */
+	schema: string;
+
+	/**
+	 * The associated graphql schema resolvers, if present
+	 */
+	resolvers: GraphQLResolvers<any>;
+
+}
+
+/**
+ * The context instance passed to resolvers
+ */
+export interface ResolverContext extends Record<PropertyKey, any> {
+	req: Request;
+	res: Response;
+	user?: User;
 }

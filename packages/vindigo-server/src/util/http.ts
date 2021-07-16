@@ -1,7 +1,7 @@
 import { GraphQLFileLoader, loadSchemaSync, makeExecutableSchema } from "graphql-tools";
 
 import { GraphQLSchema } from "graphql";
-import { ISchemaProvider } from "./provider";
+import { ISchemaProvider } from "../http";
 import { IncomingMessage } from "http";
 import { merge } from "lodash";
 import { readFileSync } from "fs";
@@ -40,14 +40,4 @@ export function readSchema(path: string): GraphQLSchema {
 	return loadSchemaSync(path, {
 		loaders: [new GraphQLFileLoader()]
 	});
-}
-
-/**
- * Throw the given error. Useful in combination with
- * the nullish coalescing operator.
- * 
- * @param type The error type
- */
-export function elseThrow(err: Error): never {
-	throw err;
 }

@@ -1,4 +1,4 @@
-import { GraphQLResolvers } from "../../../http/provider";
+import { GraphQLResolvers } from "../../../http";
 import { User } from "../../../models/user";
 import { config } from "../../..";
 

@@ -1,4 +1,5 @@
 type Query {
+
 	"Fetch the relevant client config"
 	config: ClientConfig!
 
@@ -13,6 +14,7 @@ type Query {
 }
 
 type Mutation {
+
 	"Create a new user account"
     register(details: UserRegistration): Profile
 
@@ -52,6 +54,7 @@ The client config should be queried on application launch
 and provide hints about authentication, UI, and more.
 """
 type ClientConfig {
+
 	"The name of the current Vindigo instance"
 	instanceName: String!
 
@@ -66,6 +69,7 @@ type ClientConfig {
 Represents a single Vindigo user
 """
 type Profile {
+    
     "The unique user id"
     id: Int!
 

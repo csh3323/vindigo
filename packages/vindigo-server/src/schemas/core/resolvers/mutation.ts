@@ -1,8 +1,8 @@
-import { GraphQLResolvers, ResolverContext } from '../../../http/provider';
+import { GraphQLResolvers, ResolverContext } from '../../../http';
 import { compare, hash } from 'bcrypt';
 import { fetchProfileByEmail, fetchProfileByIdentity, fetchProfileByUsername, generateUsername } from '../fetchers/profile';
 
-import { ApiError } from '../../../http/errors';
+import { ApiError } from '../../../util/errors';
 import { User } from '../../../models/user';
 import { logger } from '../../..';
 

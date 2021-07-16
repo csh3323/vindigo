@@ -1,0 +1,19 @@
+extend type Query {
+	"List out all public projects"
+	publicTeams(skip: Int, take: Int): [Project!]!
+
+	"List out recently viewed projects"
+	teams(skip: Int, take: Int): [Project!]!
+}
+
+extend type Mutation {
+	
+}
+
+type Project {
+
+}
+
+type Task {
+
+}

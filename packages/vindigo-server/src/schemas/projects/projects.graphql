@@ -1,0 +1,92 @@
+extend type Query {
+
+	"List out all public projects"
+	projects(
+		mode: ProjectListMode!,
+		skip: Int,
+		take: Int
+	): [Project!]!
+
+}
+
+extend type Mutation {
+	
+}
+
+"""
+Projects are the container in which tasks
+are created, managed, and modified. Projects
+are always owned by a specific user, while other
+users and teams can be invited to it.
+"""
+type Project {
+	id: Int!
+	createdAt: String!
+	lastModifiedAt: String!
+	name: String!
+	description: String
+	coverImage: String
+	backgroundImage: String
+	isClosed: Boolean!
+	creator: User!
+	tasks: [Task!]!
+	members: [ProjectMember!]!
+	teams: [ProjectTeam!]!
+}
+
+"""
+Tasks are the most important concept in Vindigo and
+represent a single operation. Tasks 
+"""
+type Task {
+	id: Int!
+	summary: String!
+	description: String
+	assignees: [User!]!
+	comments(skip: Int, take: Int): [Comment!]!
+	commentAmount: Int!
+	isWatching: Boolean!
+	parentTask: Task
+	childTasks: [Task!]!
+	childAmount: Int!
+	changeHistory: [String!]!
+	changeHistoryAmount: Int!
+}
+
+"""
+A comment left on a Task
+"""
+type Comment {
+	id: Int!
+	author: User!
+	content: String!
+	createdAt: String!
+}
+
+"""
+A single user that is participating on a project
+"""
+type ProjectMember {
+	member: User!
+	accessLevel: String!
+}
+
+"""
+A single team that is participating on a project
+"""
+type ProjectTeam {
+	team: Team
+	accessLevel: String!
+}
+
+enum ProjectListMode {
+
+	"Projects owned by the user"
+	PERSONAL,
+
+	"Projects marked as public"
+	PUBLIC,
+
+	"Most recently viewed projects"
+	RECENTS
+}
