@@ -1,4 +1,4 @@
-import { ISchemaProvider } from '../../http/provider';
+import { ISchemaProvider } from '../../http';
 import Mutation from './resolvers/mutation';
 import Profile from './resolvers/profile';
 import Query from './resolvers/query';

@@ -17,6 +17,7 @@ import depthLimit from "graphql-depth-limit";
 import { existsSync } from "fs";
 import { graphqlHTTP } from "express-graphql";
 import helmet from "helmet";
+import { isProduction } from "./util/helpers";
 import path from "path";
 import session from 'express-session';
 import { useServer } from 'graphql-ws/lib/use/ws';
@@ -57,10 +58,10 @@ export class HTTPService {
 		const app = this.express;
 		const port = this.config.general.port;
 		const secret = this.config.authentication.secret;
-		const isProduction = process.env.NODE_ENV == 'production';
 		const sessionRepo = database.connection.getRepository(Session);
+		const production = isProduction();
 
-		if(isProduction) {
+		if(production) {
 			app.set('trust proxy', 1);
 		}
 
@@ -82,8 +83,8 @@ export class HTTPService {
 			saveUninitialized: false,
 			cookie: {
 				httpOnly: true,
-				secure: isProduction,
-				sameSite: isProduction
+				secure: production,
+				sameSite: production
 			}
 		}));
 
@@ -94,6 +95,10 @@ export class HTTPService {
 		this.server.listen(port, () => {
 			logger.success('Vindigo Server running on port ' + port);
 		});
+
+		if(!this.server.listening) {
+			logger.error('Failed to bind to port');
+		}
 	}
 
 	/**
@@ -102,7 +107,6 @@ export class HTTPService {
 	public stop() {
 		logger.info('Stopping HTTP Service');
 		this.server.close();
-
 	}
 
 	/**
@@ -119,6 +123,7 @@ export class HTTPService {
 	 * @param provider The provider
 	 */
 	public defineProvider(provider: ISchemaProvider) {
+		logger.debug(`Defining ${provider.id} schema`);
 		this.providers.push(provider);
 	}
 
@@ -194,8 +199,8 @@ export class HTTPService {
 	 * serving the vindigo client.
 	 */
 	private registerStatic() {
-		const clientPath = path.join(__dirname, '../../../vindigo-client/dist');
-		const publicPath = path.join(__dirname, '../../../../data/public');
+		const clientPath = path.join(__dirname, '../../vindigo-client/dist');
+		const publicPath = path.join(__dirname, '../../../data/public');
 		const indexPath = path.join(clientPath, 'index.html');
 
 		// Exit the server if the client distribution

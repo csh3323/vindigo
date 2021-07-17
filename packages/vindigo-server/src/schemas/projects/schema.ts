@@ -9,9 +9,9 @@ import { join } from "path";
  */
 export class ProjectsSchema implements ISchemaProvider {
 
-	public id = 'project'
+	public id = 'projects'
 
-	public schema = join(__dirname, 'project.graphql');
+	public schema = join(__dirname, 'projects.graphql');
 
 	public resolvers = {
 		Query,

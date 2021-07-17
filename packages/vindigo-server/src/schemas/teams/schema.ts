@@ -9,7 +9,7 @@ import { join } from "path";
  */
 export class TeamsSchema implements ISchemaProvider {
 
-	public id = 'project'
+	public id = 'teams'
 
 	public schema = join(__dirname, 'teams.graphql');
 

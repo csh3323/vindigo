@@ -9,10 +9,6 @@ extend type Query {
 
 }
 
-extend type Mutation {
-	
-}
-
 """
 Projects are the container in which tasks
 are created, managed, and modified. Projects
@@ -28,7 +24,7 @@ type Project {
 	coverImage: String
 	backgroundImage: String
 	isClosed: Boolean!
-	creator: User!
+	creator: Profile!
 	tasks: [Task!]!
 	members: [ProjectMember!]!
 	teams: [ProjectTeam!]!
@@ -36,13 +32,15 @@ type Project {
 
 """
 Tasks are the most important concept in Vindigo and
-represent a single operation. Tasks 
+represent a single task witin a project.
 """
 type Task {
 	id: Int!
 	summary: String!
 	description: String
-	assignees: [User!]!
+	createdAt: String!
+	lastModifiedAt: String!
+	assignees: [Profile!]!
 	comments(skip: Int, take: Int): [Comment!]!
 	commentAmount: Int!
 	isWatching: Boolean!
@@ -58,7 +56,7 @@ A comment left on a Task
 """
 type Comment {
 	id: Int!
-	author: User!
+	author: Profile!
 	content: String!
 	createdAt: String!
 }
@@ -67,7 +65,7 @@ type Comment {
 A single user that is participating on a project
 """
 type ProjectMember {
-	member: User!
+	member: Profile!
 	accessLevel: String!
 }
 

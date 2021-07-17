@@ -5,6 +5,7 @@ import path, { basename } from "path";
 
 import chalk from 'chalk';
 import consola from "consola";
+import { isProduction } from 'vindigo-server/dist/util/helpers';
 
 export async function handleMigrateMake(args: any) {
 	assertInWorkingDirectory();
@@ -103,7 +104,7 @@ function buildConnection({ database }: IServerConfig): Knex.StaticConnectionConf
 
 function initMigrator(config: IServerConfig): Knex.Migrator {
 	const options: Knex.Config = {
-		debug: process.env.NODE_ENV == 'development',
+		debug: !isProduction(),
 		log: {
 			warn: (msg) => {
 				consola.warn(msg);

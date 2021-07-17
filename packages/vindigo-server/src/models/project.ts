@@ -36,4 +36,7 @@ export class Project extends BaseEntity {
 	@Column()
 	public isClosed: boolean;
 
+	@Column()
+	public isPublic: boolean;
+
 }

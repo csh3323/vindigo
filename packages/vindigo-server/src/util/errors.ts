@@ -16,13 +16,38 @@ export class ApiError extends Error {
 }
 
 /**
- * Thrown when authentication fails without providing
- * a specific reason for the failure.
+ * Thrown when an operation expects an active session
+ * but none was found.
  */
-export class AuthenticationError extends ApiError {
+export class MissingSessionError extends ApiError {
 
 	public constructor() {
-		super('auth-failed');
+		super('session-missing', 'A session is required');
+	}
+
+}
+
+/**
+ * Thrown when a request for pagination exceeds the maximum
+ * amount of items.
+ */
+export class PaginationOverflowError extends ApiError {
+
+	public constructor(max: number) {
+		super('pagination-overflow', `Cannot request more than ${max} entries`);
+	}
+
+}
+
+/**
+ * Thrown when a feature has not yet been implemented
+ * 
+ * TODO Temporary! Remove all instances before v1 release
+ */
+export class NotImplementedError extends ApiError {
+
+	public constructor() {
+		super('not-implemented', 'This feature has not yet been implemented');
 	}
 
 }
