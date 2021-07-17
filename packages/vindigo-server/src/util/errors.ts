@@ -22,7 +22,7 @@ export class ApiError extends Error {
 export class MissingSessionError extends ApiError {
 
 	public constructor() {
-		super('session-missing', 'A session is required');
+		super('session-missing', 'An active session is required for this operation');
 	}
 
 }
@@ -35,6 +35,18 @@ export class PaginationOverflowError extends ApiError {
 
 	public constructor(max: number) {
 		super('pagination-overflow', `Cannot request more than ${max} entries`);
+	}
+
+}
+
+/**
+ * Thrown when a user provided argument is considered
+ * invalid during validation.
+ */
+export class InvalidArgumentError extends ApiError {
+
+	public constructor(msg: string) {
+		super('invalid-argument', msg);
 	}
 
 }

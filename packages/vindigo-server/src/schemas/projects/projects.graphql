@@ -9,6 +9,22 @@ extend type Query {
 
 }
 
+extend type Mutation {
+
+	"Create a new project with given details"
+	createProject(details: ProjectCreationInput): Project
+	
+}
+
+"""
+Creation details used to instance a new project
+"""
+input ProjectCreationInput {
+	name: String!
+	public: Boolean!
+	description: String
+}
+
 """
 Projects are the container in which tasks
 are created, managed, and modified. Projects

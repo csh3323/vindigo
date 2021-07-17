@@ -65,10 +65,13 @@ export default {
 			throw new ApiError('invalid-request');
 		}
 
+		logger.debug(`Authenticating ${details.identity}`);
+		
 		// Find the user profile
 		const user = await fetchProfileByIdentity(details.identity);
 
 		if(!user) {
+			logger.debug(`Identity not found`);
 			return;
 		}
 
@@ -76,6 +79,7 @@ export default {
 		const valid = await compare(details.password, user.password);
 
 		if(!valid) {
+			logger.debug(`Password missmatch`);
 			return;
 		}
 
