@@ -44,7 +44,7 @@
 				</div>
 				<div class="auth-box__right">
 					<div class="h-full flex items-center justify-center">
-						<img :src="require('/src/assets/illustration.png')">
+						<img :src="require('/src/assets/login-illustration.svg')">
 					</div>
 				</div>
 			</section>
