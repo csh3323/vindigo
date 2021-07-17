@@ -11,6 +11,7 @@ exports.up = async function({schema}: Knex) {
 			table.integer('creator_id');
 			table.boolean('is_visible');
 			table.boolean('is_closed');
+			table.boolean('is_public');
 			table.timestamp('created_at');
 			table.timestamp('last_modified_at');
 
@@ -23,6 +24,22 @@ exports.up = async function({schema}: Knex) {
 			table.text('description');
 			table.text('logo_image');
 			table.timestamp('created_at');
+		})
+		.createTable('tasks', (table) => {
+			table.increments();
+			table.timestamp('created_at');
+			table.timestamp('last_modified_at');
+			table.string('summary');
+			table.text('description');
+		})
+		.createTable('child_tasks', (table) => {
+			table.increments();
+			table.integer('parent_task');
+			table.integer('child_task');
+
+			// Define relations
+			table.foreign('parent_task').references('tasks.id').onDelete('CASCADE');
+			table.foreign('child_task').references('tasks.id').onDelete('CASCADE');
 		})
 		.createTable('project_members', (table) => {
 			table.increments();
@@ -50,6 +67,8 @@ exports.down = async function({schema}: Knex) {
 	return schema
 		.dropTable('projects')
 		.dropTable('teams')
+		.dropTable('tasks')
+		.dropTable('child_tasks')
 		.dropTable('project_members')
 		.dropTable('project_teams');
 };

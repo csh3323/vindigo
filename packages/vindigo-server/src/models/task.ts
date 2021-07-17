@@ -14,7 +14,7 @@ export class Task extends BaseEntity {
 	public createdAt: Date;
 
 	@Column()
-	public lastSeenAt: Date;
+	public lastModifiedAt: Date;
 
 	@Column()
 	public summary: string;
