@@ -24,10 +24,10 @@
 			<w-checkbox v-model="remember" round>
 				Remember me
 			</w-checkbox>
-			<div class="flex-grow" />
+			<spacer />
 			<a href="">Forgot password</a>
 		</div>
-		<div class="flex-grow" />
+		<spacer />
 		<w-button
 			round
 			class="d-block w-full h-9 auth-box__button"

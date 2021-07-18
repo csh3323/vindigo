@@ -1,10 +1,10 @@
 {
 	"TOOLBAR_YOUR_ACCOUNT": "Your Account",
 	"HOMEPAGE_WELCOME": "Welcome back,",
-	"HOMEPAGE_SECTION_RECENTS": "Recent projects",
+	"HOMEPAGE_SECTION_PROJECTS": "Your projects",
 	"HOMEPAGE_SECTION_TEAMS": "Your teams",
 	"HOMEPAGE_SECTION_ACTIVITY": "Activity",
-	"HOMEPAGE_SECTION_TASKS": "Focus tasks",
+	"HOMEPAGE_SECTION_FOCUS": "Focus task",
 	"VIEW_HOME": "Project overview",
 	"VIEW_TASKS": "Tasks",
 	"VIEW_KANBAN": "Kanban",

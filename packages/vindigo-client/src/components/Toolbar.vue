@@ -10,7 +10,7 @@
 			</router-link>
 		</slot>
 
-		<div class="flex-grow" />
+		<spacer />
 
 		<!-- TODO[epic=example] Implement icon buttons prop -->
 
