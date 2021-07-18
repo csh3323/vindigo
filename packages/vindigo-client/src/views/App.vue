@@ -1,5 +1,5 @@
 <template>
-	<w-app class="h-screen bg-page-background dark:bg-gray-900">
+	<w-app class="min-h-screen bg-page-background dark:bg-gray-900">
 		<template v-if="isReady">
 			<authenticate v-if="shouldAuth" />
 			<router-view v-else />

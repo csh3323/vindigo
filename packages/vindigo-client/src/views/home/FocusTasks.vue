@@ -3,7 +3,7 @@
 		<section-title icon="mdi-check-circle-outline">
 			{{ $t('HOMEPAGE_SECTION_FOCUS') }}
 		</section-title>
-		<div class="focus-tasks__content rounded-2xl p-4 bg-[#DDE0EB] dark:bg-gray-800 mt-2 h-96">
+		<div class="focus-tasks__content rounded-2xl p-4 bg-[#DDE0EB] dark:bg-gray-800 mt-2 h-36">
 			<div class="text-gray-500">
 				<router-link to="/project/demo">
 					Demo project

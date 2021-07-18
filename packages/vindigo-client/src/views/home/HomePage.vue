@@ -20,7 +20,7 @@
 		</div>
 		
 		<main class="container grid grid-cols-7 laptop:gap-16">
-			<div class="col-span-full laptop:col-span-5 pt-8">
+			<div class="col-span-full laptop:col-span-5 py-8">
 				<your-projects />
 				<your-teams />
 			</div>
