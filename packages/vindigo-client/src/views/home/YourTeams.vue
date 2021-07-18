@@ -48,12 +48,12 @@ export default Vue.extend({
 		teams: [
 			{
 				id: 1,
-				logo: 'https://trello-logos.s3.amazonaws.com/7bef2b73918e3f51c89f7e42a54bca7b/30.png',
+				logo: '/data/teams/1.png',
 				name: 'Exodius Studios'
 			},
 			{
 				id: 2,
-				logo: 'https://trello-logos.s3.amazonaws.com/fe7092cd4b8281c2ff55d19c48ecb9da/30.png',
+				logo: '/data/teams/1.png',
 				name: 'Smash Wizards'
 			}
 		]
