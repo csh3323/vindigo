@@ -39,12 +39,16 @@
 		<spacer />
 		<w-button
 			round
-			class="d-block w-full h-9 auth-box__button"
+			class="w-full h-9 auth-box__button"
+			color="white"
+			bg-color="indigo-600"
 			:loading="loading"
 			@click="register"
 		>
 			Register Account
-			<o-icon icon="chevron-right" class="absolute" />
+			<w-icon>
+				mdi mdi-chevron-right
+			</w-icon>
 		</w-button>
 
 		<div class="auth-box__toggle" @click="$emit('toggle')">

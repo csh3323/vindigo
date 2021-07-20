@@ -127,8 +127,8 @@ export default Vue.extend({
 		@apply font-light text-sm mt-3 cursor-pointer select-none text-gray-100;
 	}
 
-	&__button {
-		@apply bg-[#00000055];
+	&__button i {
+		transform: translateY(1px);
 	}
 
 	/* Dark mode emission overrrides */
