@@ -8,12 +8,14 @@ import { storeGetters } from "./getters";
 import { storeMutations } from "./mutations";
 
 const isDarkMode = localStorage.getItem('vindigo:dark') == 'true';
+const initialLang = localStorage.getItem('vindigo:lang') || 'en-US';
 
 /**
  * The root state for the vindigo client
  */
 export interface RootState {
 	isDark: boolean,
+	language: string,
 	profile: Optional<Profile>,
 	isAuthed: boolean,
 	isReady: boolean,
@@ -33,6 +35,7 @@ export function registerState() {
 		getters: storeGetters,
 		state: {
 			isDark: isDarkMode,
+			language: initialLang,
 			profile: null,
 			isAuthed: false,
 			isReady: false,

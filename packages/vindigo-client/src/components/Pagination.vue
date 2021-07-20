@@ -5,16 +5,15 @@
 			class="pagination__prev w-8 h-8 mx-1 rounded-full"
 			icon="mdi mdi-chevron-left"
 			bg-color="transparent"
-			xl
+			lg
 			:disabled="value <= 1"
 			@click="$emit('input', value - 1)"
 		/>
 		<w-button
-			v-for="i in visiblePages"
-			:key="i"
-			class="pagination__btn w-8 h-8 mx-1 rounded-full"
+			v-for="(i, j) in visiblePages"
+			:key="j"
+			class="pagination__btn w-7 h-7 mx-1 rounded-full"
 			:class="buttonClass(i)"
-			xl
 			@click="$emit('input', i)"
 		>
 			{{ i }}
@@ -24,7 +23,7 @@
 			class="pagination__next w-8 h-8 mx-1 rounded-full"
 			icon="mdi mdi-chevron-right"
 			bg-color="transparent"
-			xl
+			lg
 			:disabled="value >= total"
 			@click="$emit('input', value + 1)"
 		/>
@@ -87,7 +86,7 @@ export default Vue.extend({
 	@apply flex justify-center;
 
 	&__btn {
-		@apply bg-[#D5D7DF] text-gray-900 font-semibold text-base !important;
+		@apply bg-[#D5D7DF] text-gray-900 font-semibold text-sm !important;
 
 		&--active {
 			@apply bg-purple-500 text-white !important;

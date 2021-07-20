@@ -18,28 +18,25 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Toolbar from '../../components/Toolbar.vue';
 import languages from '../../registry/languages';
 import { i18n } from '../../';
 
 export default Vue.extend({
 	name: 'VindigoSettings',
-	components: { Toolbar },
-	props: {
 
-	},
 	data: () => ({
-		language: i18n.current.id,
 		languages: languages
 	}),
-	watch: {
-		language(lang: string) {
-			i18n.activate(lang);
-			console.log('[language]: changed');
+
+	computed: {
+		language: {
+			get(): string|undefined {
+				return this.$vuex.state.language;
+			},
+			set(lang: string) {
+				i18n.activate(lang);
+			}
 		}
-	},
-	mounted() {
-		
 	}
 });
 </script>

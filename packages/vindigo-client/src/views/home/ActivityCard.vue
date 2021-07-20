@@ -1,6 +1,6 @@
 <template>
 	<section class="activity-card">
-		<section-title icon="mdi-chart-line-variant">
+		<section-title icon="mdi mdi-chart-line-variant">
 			{{ $t('HOMEPAGE_SECTION_ACTIVITY') }}
 		</section-title>
 		<div class="activity-card__content flex flex-col rounded-3xl p-4 bg-purple-500 mt-2 h-52">

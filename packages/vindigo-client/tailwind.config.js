@@ -12,11 +12,12 @@ module.exports = {
 		extend: {
 			colors: {
 				'gray': colors.trueGray,
-				'page-background': '#FAF8FE'
+				'page-background': '#FAF8FE',
+				'page-foreground': '#ebe9ef'
 			}
 		},
 		fontFamily: {
-			'sans': ['Open Sans', 'ui-sans-serif', 'system-ui'],
+			'sans': ['Ubuntu', 'ui-sans-serif', 'system-ui'],
 			'mono': ['JetBrains Mono', 'ui-monospace', 'Consolas', 'system-ui']
 		},
 		container: {

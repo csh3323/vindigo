@@ -1,5 +1,5 @@
 <template>
-	<section class="home-page">
+	<section ref="pageView" class="home-page">
 		<toolbar class="pl-0" />
 
 		<div class="h-80 laptop:h-72 -mt-14 bg-white dark:bg-gray-800 flex items-center justify-center">
@@ -20,11 +20,11 @@
 		</div>
 		
 		<main class="container grid grid-cols-7 laptop:gap-16">
-			<div class="col-span-full laptop:col-span-5 py-8">
+			<div class="col-span-full laptop:col-span-4 desktop:col-span-5 py-8">
 				<your-projects />
 				<your-teams />
 			</div>
-			<aside class="col-span-full laptop:col-span-2 order-first laptop:order-none -mt-20">
+			<aside class="col-span-full laptop:col-span-3 desktop:col-span-2 order-first laptop:order-none -mt-20">
 				<activity-card />
 				<focus-tasks class="pt-8" />
 			</aside>
@@ -54,6 +54,18 @@ export default Vue.extend({
 		firstName(): Optional<string> {
 			return this.$vuex.state.profile?.firstName;
 		}
+	},
+
+	methods: {
+		getScrollView() {
+			return this.$refs.pageView;
+		}
 	}
 });
 </script>
+
+<style lang="postcss">
+.home-page {
+	@apply overflow-y-scroll h-screen;
+}
+</style>

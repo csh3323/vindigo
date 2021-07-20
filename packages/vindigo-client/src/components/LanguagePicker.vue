@@ -23,10 +23,12 @@ import { i18n } from '..';
 export default Vue.extend({
 	name: 'LanguagePicker',
 
-	data: () => ({
-		selected: i18n.current.id,
-		languages: i18n.languageList
-	}),
+	data: function() {
+		return {
+			selected: this.$vuex.state.language,
+			languages: i18n.languageList
+		};
+	},
 
 	watch: {
 		selected(value) {

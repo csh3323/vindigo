@@ -1,6 +1,5 @@
 import Avatar from '../components/Avatar.vue';
 import BoardTile from '../components/BoardTile.vue';
-import Icon from '../components/Icon.vue';
 import LanguagePicker from '../components/LanguagePicker.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import Pagination from '../components/Pagination.vue';
@@ -21,5 +20,4 @@ export function registerComponents() {
 	Vue.component('Toolbar', Toolbar);
 	Vue.component('Spacer', Spacer);
 	Vue.component('Avatar', Avatar);
-	Vue.component('Icon', Icon);
 }

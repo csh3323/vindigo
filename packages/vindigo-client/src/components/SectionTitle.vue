@@ -1,6 +1,8 @@
 <template>
-	<div class="home-subtitle text-gray-600 dark:text-gray-400 font-semibold flex items-center">
-		<icon :icon="icon" size="32" />
+	<div class="home-subtitle text-gray-600 dark:text-gray-400 font-semibold flex items-center text-lg">
+		<w-icon class="mr-2">
+			{{ icon }}
+		</w-icon>
 		<slot />
 	</div>
 </template>

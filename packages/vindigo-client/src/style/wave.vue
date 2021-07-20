@@ -1,6 +1,10 @@
 <style lang="postcss">
 
 /* Input fields */
+.w-input {
+	@apply overflow-hidden;
+}
+
 .w-input__input-wrap {
 	@apply border-none ring-4 ring-white bg-white ring-opacity-30 text-sm h-9;
 
@@ -24,6 +28,12 @@
 
 /* Buttons */
 .w-button {
+	@apply leading-none;
+
+	&:not(&--outline) {
+		@apply border-none;
+	}
+
 	&--round .w-button__loader {
 		@apply rounded-full;
 	}

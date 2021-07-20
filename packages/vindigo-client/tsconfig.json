@@ -2,10 +2,11 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"outDir": "dist",
-		"rootDir": "src",
+		"rootDir": ".",
 		"sourceMap": true,
 		"lib": ["ESNext", "DOM"],
-		"module": "esnext"
+		"module": "esnext",
+		"allowJs": true
 	},
 	"typeRoots": [
 		"./node_modules/@types",

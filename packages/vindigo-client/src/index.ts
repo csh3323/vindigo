@@ -11,6 +11,7 @@ import { RoutingService } from "./routing";
 import { StoreService } from "./store";
 import Vue from 'vue';
 import WaveUI from 'wave-ui';
+import { buildThemeConfig } from './util';
 import dayjs from 'dayjs';
 import { registerComponents } from './registry/components';
 import { registerPlugins } from './registry/plugins';
@@ -40,13 +41,9 @@ registerRoutes();
 registerState();
 
 // Load wave ui
-// TODO sync colors with Tailwind
-// See: https://tailwindcss.com/docs/configuration#referencing-in-java-script
 const waveui = new WaveUI({
 	disableColorShades: true,
-	colors: {
-		primary: '#3B42B2'
-	}
+	colors: buildThemeConfig()
 });
 
 // Instantiate the application
@@ -60,6 +57,9 @@ const vue = new Vue({
 		return m(App);
 	}
 });
+
+// Start the language service
+i18n.initialize();
 
 // Store a global reference
 Object.defineProperty(window, 'vindigo', {

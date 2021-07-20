@@ -41,6 +41,14 @@ export const storeMutations: MutationTree<RootState> = {
 	setDarkMode(state, enabled) {
 		localStorage.setItem('vindigo:dark', enabled);
 		state.isDark = enabled;
+	},
+
+	/**
+	 * Set the currently loaded interface language
+	 */
+	setLanguage(state, language) {
+		localStorage.setItem('vindigo:lang', language);
+		state.language = language;
 	}
 
 };

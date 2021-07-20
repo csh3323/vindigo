@@ -1,5 +1,9 @@
 <template>
-	<header class="toolbar flex items-center px-3 bg-white dark:bg-gray-800 h-14">
+	<header
+		ref="toolbar"
+		class="toolbar"
+		:class="toolbarClass"
+	>
 		<slot>
 			<router-link to="/">
 				<img
@@ -145,9 +149,14 @@
 <script lang="ts">
 import Vue from "vue";
 import { Optional } from "../typings/types";
+import { Scrollable } from '../mixin/scrollable';
 
 export default Vue.extend({
 	name: "Toolbar",
+	mixins: [
+		Scrollable
+	],
+
 	props: {
 		// buttons: {
 		// 	type: Object as PropType<IconButton[]>,
@@ -162,8 +171,19 @@ export default Vue.extend({
 		},
 		userName(): Optional<string> {
 			return this.$vuex.state.profile?.fullName;
+		},
+		toolbarClass(): any {
+			return {
+				'toolbar--sticky': (this as any).isScrolling
+			};
 		}
 	},
+
+	methods: {
+		getScrollView() {
+			return this.$el.parentElement;
+		}
+	}
 });
 </script>
 
@@ -190,11 +210,17 @@ export default Vue.extend({
 }
 
 .toolbar {
+	@apply flex items-center px-3 bg-white dark:bg-gray-800 h-14 sticky top-0 z-10 transition-shadow;
+
 	&__divider {
 		background-color: #e1e1e1;
 		width: 2px;
 
 		@apply h-10;
+	}
+
+	&--sticky {
+		@apply shadow-lg;
 	}
 
 	.o-drop__trigger {

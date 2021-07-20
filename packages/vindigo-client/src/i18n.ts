@@ -1,10 +1,11 @@
+import { store, vue } from ".";
+
 import { Dictionary } from "vue-router/types/router";
 import VueI18n from "vue-i18n";
 import dayjs from "dayjs";
 import { keyBy } from "lodash";
 import languages from "./registry/languages";
 import { logger } from "./util";
-import { vue } from ".";
 
 /**
  * The service in charge of interface translations
@@ -16,33 +17,26 @@ export class I18nService {
 	public languageList: Language[] = [];
 
 	private logger = logger('I18n');
-	private options: VueI18n.I18nOptions;
+	private options!: VueI18n.I18nOptions;
 	private cachedLangs: string[] = [];
-	private defaultLang = 'en-US'
 	private initialized = false;
-	private currLang!: Language;
 
-	public constructor() {		
-		this.options = {
-			locale: this.defaultLang,
-			fallbackLocale: this.defaultLang
-		};
+	/**
+	 * Initialize the language service
+	 */
+	public initialize() {		
+		const initialLang = store.instance.state.language;
 		
 		this.languageList = languages;
 		this.languageIndex = keyBy(languages, (lang => lang.id));
-
-		const initialLang = localStorage.getItem('vindigo:lang') || this.defaultLang;
+		this.options = {
+			locale: initialLang,
+			fallbackLocale: initialLang
+		};
 
 		this.fetchTranslations(initialLang).then(() => {
-			vue.$store.commit('setLoaded', 'i18n');
+			store.instance.commit('setLoaded', 'i18n');
 		});
-	}
-
-	/**
-	 * Returns the current language
-	 */
-	public get current(): Language {
-		return this.currLang;
 	}
 
 	/**
@@ -77,10 +71,9 @@ export class I18nService {
 		const language = this.languageIndex[lang];
 
 		document.documentElement.setAttribute('lang', lang);
+		store.instance.commit('setLanguage', lang);
 		dayjs.locale(language.dayjs);
-		this.currLang = language;
 		vue.$i18n.locale = lang;
-		localStorage.setItem('vindigo:lang', lang);
 	}
 
 	private async fetchTranslations(lang: string) {

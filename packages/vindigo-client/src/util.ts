@@ -1,5 +1,8 @@
+import { Dictionary, find, forEach, isObject } from "lodash";
+
 import { Route } from "vue-router";
-import { find } from "lodash";
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../tailwind.config.js';
 
 /**
  * Create a logger instance that prepends all messages
@@ -57,4 +60,26 @@ export function getRouteMeta(route: Route, key: string): any {
 	});
 	
 	return found?.meta?.[key];
+}
+
+/**
+ * Build a Wave UI color theme based on the current tailwind theme
+ * 
+ * @returns Theme
+ */
+export function buildThemeConfig(): Dictionary<string> {
+	const config = resolveConfig(tailwindConfig as any).theme.colors || {};
+	const colors: any = {};
+
+	forEach(config, (value, name) => {
+		if(isObject(value)) {
+			forEach(value, (color, shade) => {
+				colors[`${name}-${shade}`] = color;
+			});
+		} else {
+			colors[name] = value;
+		}
+	});
+
+	return colors;
 }

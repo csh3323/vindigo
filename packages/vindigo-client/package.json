@@ -10,6 +10,7 @@
         "@babel/core": "^7.14.3",
         "@types/faker": "^5.5.6",
         "@types/lodash": "^4.14.170",
+        "@types/tailwindcss": "^2.2.1",
         "@types/vuedraggable": "^2.23.2",
         "autoprefixer": "^10.2.5",
         "cross-env": "^7.0.3",

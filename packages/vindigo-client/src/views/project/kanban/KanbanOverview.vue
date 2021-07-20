@@ -14,14 +14,20 @@
 			>
 				<div class="kanban-item__header">
 					<div class="kanban-item__header-left">
-						<icon class="mr-3" :icon="header.icon" />
+						<w-icon class="mr-3">
+							mdi {{ header.icon }}
+						</w-icon>
 						<h1 class="font-bold">
 							{{ header.title }}
 						</h1>
 					</div>
 					<div class="kanban-item__header-right">
-						<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-plus" />
-						<icon class="text-[rgba(255,255,255,0.8)]" icon="mdi-chevron-down" />
+						<w-icon class="text-[rgba(255,255,255,0.8)]">
+							mdi mdi-plus
+						</w-icon>
+						<w-icon class="text-[rgba(255,255,255,0.8)]">
+							mdi-chevron-down
+						</w-icon>
 					</div>
 					<div v-if="index !== headers.length - 1" class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]" />
 				</div>
