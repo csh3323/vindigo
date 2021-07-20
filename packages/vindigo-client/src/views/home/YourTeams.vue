@@ -1,6 +1,6 @@
 <template>
 	<section class="your-teams mt-8">
-		<section-title icon="mdi mdi-account-group">
+		<!-- <section-title icon="mdi mdi-account-group" class="mb-4">
 			{{ $t('HOMEPAGE_SECTION_TEAMS') }}
 			<spacer />
 			<w-button
@@ -14,23 +14,37 @@
 				</w-icon>
 				New team
 			</w-button>
-		</section-title>
+		</section-title> -->
 		<div
 			v-for="team in teams"
 			:key="team.id"
 			class="your-teams__team-row mb-8"
 		>
-			<div class="your-teams__toolbar p-2 flex flex-row items-center bg-page-foreground rounded-lg">
+			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground rounded-lg">
 				<w-image
 					:src="team.logo"
 					class="rounded-lg overflow-hidden"
-					height="27"
-					width="27"
+					height="38"
+					width="38"
 				/>
-				<span class="font-semibold pl-2 text-base">
-					{{ team.name }}
-				</span>
+				<div class="pl-3 flex flex-col">
+					<span class="font-semibold text-base">
+						{{ team.name }}
+					</span>
+					<span class="text-sm">
+						Member
+					</span>
+				</div>
 				<spacer />
+				<w-button
+					outline
+					color="indigo-600"
+				>
+					Visit team
+					<w-icon>
+						mdi mdi-arrow-right
+					</w-icon>
+				</w-button>
 			</div>
 			<div class="grid grid-cols-12 gap-5 pt-4">
 				<board-tile
@@ -79,7 +93,7 @@ export default Vue.extend({
 			return commerce.department() + ' Team';
 		},
 		demoCount(): number {
-			return 1 + datatype.number(3);
+			return 1 + datatype.number(6);
 		}
 	}
 });

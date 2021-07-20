@@ -26,7 +26,7 @@
 							mdi mdi-plus
 						</w-icon>
 						<w-icon class="text-[rgba(255,255,255,0.8)]">
-							mdi-chevron-down
+							mdi mdi-chevron-down
 						</w-icon>
 					</div>
 					<div v-if="index !== headers.length - 1" class="absolute right-0 top-[4px] h-[40px] w-[2px] bg-[rgba(255,255,255,0.4)]" />

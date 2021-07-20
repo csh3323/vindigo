@@ -3,6 +3,10 @@
 /* Input fields */
 .w-input {
 	@apply overflow-hidden;
+
+	&:not(&--outline) {
+		@apply border-none;
+	}
 }
 
 .w-input__input-wrap {
@@ -28,7 +32,7 @@
 
 /* Buttons */
 .w-button {
-	@apply leading-none;
+	@apply leading-none px-4 py-4 rounded-lg ml-2 font-semibold;
 
 	&:not(&--outline) {
 		@apply border-none;

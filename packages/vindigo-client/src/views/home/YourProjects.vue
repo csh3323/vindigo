@@ -7,14 +7,13 @@
 				class="rounded-lg max-w-max"
 				inner-icon-left="mdi mdi-magnify"
 				placeholder="Search projects..."
-				bg-color="gray-200"
+				bg-color="page-foreground"
 				color="gray-700"
 			/>
 			<w-button
 				v-wave
 				color="white"
 				bg-color="indigo-600"
-				class="px-4 py-4 rounded-lg ml-2 font-semibold"
 			>
 				<w-icon class="mr-2">
 					mdi mdi-plus
