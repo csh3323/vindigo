@@ -1,16 +1,10 @@
 <template>
-	<section class="your-projects">
-		<section-title icon="mdi mdi-folder-open">
-			{{ $t('HOMEPAGE_SECTION_PROJECTS') }}
+	<section v-if="projects.length > 0" class="your-projects mb-5">
+		<section-title icon="mdi mdi-star">
+			{{ $t('HOMEPAGE_SECTION_STARRED') }}
 		</section-title>
 		<w-divider />
-		<project-list :projects="projects" :rows="2">
-			<template #empty>
-				<div class="bg-white p-3">
-					You have not joined any projects yet!
-				</div>
-			</template>
-		</project-list>
+		<project-list :projects="projects" :rows="1" />
 	</section>
 </template>
 

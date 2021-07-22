@@ -29,6 +29,14 @@
 		<w-button
 			v-wave
 			class="ml-3 text-gray-600 dark:text-gray-100"
+			icon="mdi mdi-plus"
+			to="#"
+			xl
+		/>
+
+		<w-button
+			v-wave
+			class="ml-3 text-gray-600 dark:text-gray-100"
 			icon="mdi mdi-magnify"
 			to="#"
 			xl

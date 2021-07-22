@@ -21,6 +21,7 @@
 		
 		<main class="container grid grid-cols-7 laptop:gap-16">
 			<div class="col-span-full laptop:col-span-4 desktop:col-span-5 py-8">
+				<starred-projects />
 				<your-projects />
 				<your-teams />
 			</div>
@@ -37,6 +38,7 @@ import Vue from 'vue';
 import ActivityCard from './ActivityCard.vue';
 import FocusTasks from './FocusTasks.vue';
 import { Optional } from '../../typings/types';
+import StarredProjects from './StarredProjects.vue';
 import YourProjects from './YourProjects.vue';
 import YourTeams from './YourTeams.vue';
 
@@ -46,6 +48,7 @@ export default Vue.extend({
 	components: {
 		ActivityCard,
 		FocusTasks,
+		StarredProjects,
 		YourProjects,
 		YourTeams
 	},

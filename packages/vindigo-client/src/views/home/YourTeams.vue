@@ -1,8 +1,8 @@
 <template>
-	<section class="your-teams mt-8">
-		<!-- <section-title icon="mdi mdi-account-group" class="mb-4">
+	<section class="your-teams mt-5">
+		<section-title icon="mdi mdi-account-group">
 			{{ $t('HOMEPAGE_SECTION_TEAMS') }}
-			<spacer />
+			<!-- <spacer />
 			<w-button
 				v-wave
 				color="white"
@@ -13,8 +13,9 @@
 					mdi mdi-plus
 				</w-icon>
 				New team
-			</w-button>
-		</section-title> -->
+			</w-button> -->
+		</section-title>
+		<w-divider class="mb-4" />
 		<div
 			v-for="team in teams"
 			:key="team.id"
@@ -46,20 +47,13 @@
 					</w-icon>
 				</w-button>
 			</div>
-			<div class="grid grid-cols-12 gap-5 pt-4">
-				<board-tile
-					v-for="i in demoCount()"
-					:key="i"
-					class="col-span-12 laptop:col-span-6 desktop:col-span-3" 
-					:name="getTeamName()"
-				/>
-			</div>
-			<pagination
-				:value="1"
-				:visible="5"
-				:total="1"
-				class="mt-4"
-			/>
+			<project-list :projects="team.projects" :rows="2">
+				<template #empty>
+					<div class="bg-white p-3">
+						This team has no projects yet
+					</div>
+				</template>
+			</project-list>
 		</div>
 	</section>
 </template>
@@ -74,26 +68,39 @@ export default Vue.extend({
 
 	data: () => ({
 		page: 0,
-		teams: [
+		teams: [] as any[]
+	}),
+
+	created() {
+		this.teams = [
 			{
 				id: 1,
 				logo: '/data/teams/1.png',
-				name: 'Exodius Studios'
+				name: 'Exodius Studios',
+				projects: this.genProjects()
 			},
 			{
 				id: 2,
 				logo: '/data/teams/2.png',
-				name: 'Smash Wizards'
+				name: 'Smash Wizards',
+				projects: this.genProjects()
 			}
-		]
-	}),
+		];
+	},
 
 	methods: {
-		getTeamName(): string {
-			return commerce.department() + ' Team';
-		},
-		demoCount(): number {
-			return 1 + datatype.number(6);
+		genProjects(): any {
+			const amount = datatype.number(20);
+			const projects: any[] = [];
+
+			for(let i = 0; i < amount; i++) {
+				projects.push({
+					id: datatype.uuid(),
+					name: commerce.productName()
+				});
+			} 
+
+			return projects;
 		}
 	}
 });

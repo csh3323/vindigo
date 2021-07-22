@@ -6,7 +6,7 @@
 			icon="mdi mdi-chevron-left"
 			bg-color="transparent"
 			lg
-			:disabled="value <= 1"
+			:disabled="pageNumber <= 1"
 			@click="$emit('input', value - 1)"
 		/>
 		<w-button
@@ -14,7 +14,7 @@
 			:key="j"
 			class="pagination__btn w-7 h-7 mx-1 rounded-full"
 			:class="buttonClass(i)"
-			@click="$emit('input', i)"
+			@click="$emit('input', i - 1)"
 		>
 			{{ i }}
 		</w-button>
@@ -24,7 +24,7 @@
 			icon="mdi mdi-chevron-right"
 			bg-color="transparent"
 			lg
-			:disabled="value >= total"
+			:disabled="pageNumber >= total"
 			@click="$emit('input', value + 1)"
 		/>
 	</div>
@@ -56,6 +56,9 @@ export default Vue.extend({
 	},
 
 	computed: {
+		pageNumber(): number {
+			return this.value + 1;
+		},
 		visiblePages(): number[] {
 			if(this.visible % 2 == 0) {
 				throw new Error('visible must be odd');
@@ -65,15 +68,15 @@ export default Vue.extend({
 			const offset = Math.floor(amount / 2);
 
 			return range(
-				Math.min(Math.max(this.value - offset, 1), this.total - amount + 1),
-				Math.min(Math.max(this.value + offset, amount), this.total) + 1
+				Math.min(Math.max(this.pageNumber - offset, 1), this.total - amount + 1),
+				Math.min(Math.max(this.pageNumber + offset, amount), this.total) + 1
 			);
 		}
 	},
 
 	methods: {
 		buttonClass(i: number): any {
-			return i == this.value || !this.total
+			return i == this.pageNumber || !this.total
 				? 'pagination__btn--active'
 				: undefined;
 		}

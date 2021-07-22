@@ -5,7 +5,7 @@
 			:open.sync="open"
 		/>
 		<section class="flex flex-col flex-grow">
-			<toolbar class="pl-0">
+			<toolbar class="project-toolbar pl-0">
 				<w-button
 					v-wave
 					class="mx-3 text-gray-700"
@@ -57,7 +57,7 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-.mdi-star {
+.project-toolbar .mdi-star {
 	@apply text-yellow-400 ml-1;
 	font-size: 1.1rem;
 }

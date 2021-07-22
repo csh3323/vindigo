@@ -4,6 +4,7 @@ import LanguagePicker from '../components/LanguagePicker.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import Pagination from '../components/Pagination.vue';
 import SectionTitle from '../components/SectionTitle.vue';
+import ProjectList from '../components/ProjectList.vue';
 import Spacer from '../components/Spacer.vue';
 import Toolbar from '../components/Toolbar.vue';
 import Vue from 'vue';
@@ -15,6 +16,7 @@ export function registerComponents() {
 	Vue.component('LanguagePicker', LanguagePicker);
 	Vue.component('LoadingSpinner', LoadingSpinner);
 	Vue.component('SectionTitle', SectionTitle);
+	Vue.component('ProjectList', ProjectList);
 	Vue.component('Pagination', Pagination);
 	Vue.component('BoardTile', BoardTile);
 	Vue.component('Toolbar', Toolbar);
