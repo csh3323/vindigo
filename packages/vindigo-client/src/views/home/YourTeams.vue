@@ -20,14 +20,14 @@
 			:key="team.id"
 			class="your-teams__team-row mb-8"
 		>
-			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground rounded-lg">
+			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground dark:bg-page-foreground-dark rounded-lg">
 				<w-image
 					:src="team.logo"
 					class="rounded-lg overflow-hidden"
 					height="38"
 					width="38"
 				/>
-				<div class="pl-3 flex flex-col">
+				<div class="pl-3 flex flex-col dark:text-white">
 					<span class="font-semibold text-base">
 						{{ team.name }}
 					</span>

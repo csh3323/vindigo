@@ -13,7 +13,8 @@ module.exports = {
 			colors: {
 				'gray': colors.trueGray,
 				'page-background': '#FAF8FE',
-				'page-foreground': '#ebe9ef'
+				'page-foreground': '#ebe9ef',
+				'page-foreground-dark': '#262626'
 			}
 		},
 		fontFamily: {
