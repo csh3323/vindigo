@@ -4,7 +4,7 @@
 			{{ $t('HOMEPAGE_SECTION_PROJECTS') }}
 			<spacer />
 			<w-input
-				class="rounded-lg max-w-max"
+				class="max-w-max rounded-lg overflow-hidden"
 				inner-icon-left="mdi mdi-magnify"
 				placeholder="Search projects..."
 				bg-color="page-foreground"

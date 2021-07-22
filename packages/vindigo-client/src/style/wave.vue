@@ -2,8 +2,6 @@
 
 /* Input fields */
 .w-input {
-	@apply overflow-hidden;
-
 	&:not(&--outline) {
 		@apply border-none;
 	}
