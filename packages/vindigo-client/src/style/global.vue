@@ -23,26 +23,23 @@
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-	width: 15px;
-	height: 15px;
+	width: 13px;
+	height: 13px;
+	background-color: rgba(0, 0, 0, 0.13);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.4);
-	border: 1px solid #fff;
-	border-radius: 10rem;
+	border-radius: 10px;
+	background-color: #00aeff;
+	box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2);
+	transition: background-color .4s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: #008cff;
 }
 
-::-webkit-scrollbar-track-piece:start {
-	background: transparent;
+::-webkit-scrollbar-thumb:active {
+	background-color: #0066ff;
 }
-
-::-webkit-scrollbar-track-piece:end {
-	background: transparent;
-}
-
 </style>
