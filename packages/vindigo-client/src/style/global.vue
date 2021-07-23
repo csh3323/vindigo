@@ -23,23 +23,22 @@
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-	width: 13px;
-	height: 13px;
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.13);
 }
 
 ::-webkit-scrollbar-thumb {
-	border-radius: 10px;
-	background-color: #00aeff;
-	box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.2);
-	transition: background-color .4s;
+	background-image: linear-gradient(#fd4290, #7f50ff);
+	overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #008cff;
+	background-color: #9b77f1;
 }
 
 ::-webkit-scrollbar-thumb:active {
-	background-color: #0066ff;
+	background-color: rgb(99, 74, 156);
 }
 </style>
