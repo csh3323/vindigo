@@ -16,49 +16,45 @@
 
 		<spacer />
 
-		<!-- TODO[epic=example] Implement icon buttons prop -->
+		<!-- The search container -->
+		<div class="toolbar__search">
+			<w-input
+				class="rounded-lg overflow-hidden mr-4"
+				inner-icon-left="mdi mdi-magnify"
+				placeholder="Search projects, teams, tasks, people..."
+				bg-color="gray-200"
+				color="gray-700"
+			/>
+		</div>
 
-		<!-- <icon-btn
-			class="text-gray-600 mx-3"
-			icon="mdi-plus-circle-outline"
-			to="#"
-		/>
-
-		<div class="toolbar__divider"/> -->
-
+		<!-- Create new button -->
 		<w-button
 			v-wave
-			class="ml-3 text-gray-600 dark:text-gray-100"
-			icon="mdi mdi-plus"
-			to="#"
-			xl
-		/>
-
-		<w-button
-			v-wave
-			class="ml-3 text-gray-600 dark:text-gray-100"
-			icon="mdi mdi-magnify"
+			class="mr-0 text-indigo-600 dark:text-gray-100"
+			icon="mdi mdi-plus-circle"
 			to="#"
 			xl
 		/>
 
+		<!-- Notification button -->
 		<w-button
 			v-wave
-			class="mx-3 text-gray-600 dark:text-gray-100"
+			class="mr-3 text-gray-600 dark:text-gray-100"
 			icon="mdi mdi-bell"
 			to="#"
 			xl
 		/>
 
-		<div class="toolbar__divider" />
+		<div class="toolbar__divider mr-4" />
 
+		<!-- Account menu -->
 		<w-menu
 			align-right
 			custom
 		>
 			<template #activator="{on}">
 				<div
-					class="flex items-center ml-5 text-gray-800 cursor-pointer"
+					class="flex items-center text-gray-800 cursor-pointer"
 					v-on="on"
 				>
 					<h1 class="mb-0 font-semibold dark:text-gray-100">
@@ -225,6 +221,18 @@ export default Vue.extend({
 		width: 2px;
 
 		@apply h-10;
+	}
+	
+	&__search {
+		@apply absolute inset-x-0 mx-auto max-w-sm opacity-80 hover:opacity-100 transition-opacity;
+
+		input {
+			@apply text-gray-800;
+
+			&::placeholder {
+				@apply text-gray-500;
+			}
+		}
 	}
 
 	&--sticky {

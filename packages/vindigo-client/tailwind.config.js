@@ -12,6 +12,7 @@ module.exports = {
 		extend: {
 			colors: {
 				'gray': colors.trueGray,
+				'gray-150': '#efefef',
 				'page-background': '#FAF8FE',
 				'page-foreground': '#ebe9ef',
 				'page-foreground-dark': '#262626'
