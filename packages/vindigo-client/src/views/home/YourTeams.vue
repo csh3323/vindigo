@@ -1,5 +1,5 @@
 <template>
-	<section class="your-teams mt-5">
+	<section class="your-teams">
 		<section-title icon="mdi mdi-account-group">
 			{{ $t('HOMEPAGE_SECTION_TEAMS') }}
 			<!-- <spacer />
@@ -15,11 +15,10 @@
 				New team
 			</w-button> -->
 		</section-title>
-		<w-divider class="mb-4" />
 		<div
 			v-for="team in teams"
 			:key="team.id"
-			class="your-teams__team-row mb-8"
+			class="your-teams__team-row mt-4 mb-14"
 		>
 			<div class="your-teams__toolbar p-2 px-3 flex flex-row items-center bg-page-foreground dark:bg-page-foreground-dark rounded-lg">
 				<w-image
@@ -47,7 +46,11 @@
 					</w-icon>
 				</w-button>
 			</div>
-			<project-list :projects="team.projects" :rows="2">
+			<project-list
+				class="mb-5"
+				:projects="team.projects"
+				:rows="2"
+			>
 				<template #empty>
 					<div class="bg-white p-3">
 						This team has no projects yet

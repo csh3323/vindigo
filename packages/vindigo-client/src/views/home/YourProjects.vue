@@ -1,9 +1,8 @@
 <template>
-	<section class="your-projects">
+	<section class="your-projects mb-14">
 		<section-title icon="mdi mdi-folder-open">
 			{{ $t('HOMEPAGE_SECTION_PROJECTS') }}
 		</section-title>
-		<w-divider />
 		<project-list :projects="projects" :rows="2">
 			<template #empty>
 				<div class="bg-white p-3">

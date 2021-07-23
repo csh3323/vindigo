@@ -1,9 +1,8 @@
 <template>
-	<section v-if="projects.length > 0" class="your-projects mb-5">
+	<section v-if="projects.length > 0" class="your-projects mb-14">
 		<section-title icon="mdi mdi-star">
 			{{ $t('HOMEPAGE_SECTION_STARRED') }}
 		</section-title>
-		<w-divider />
 		<project-list :projects="projects" :rows="1" />
 	</section>
 </template>
