@@ -2,75 +2,57 @@
 	<section class="settings-page">
 		<toolbar class="pl-0" />
 		<main class="container mt-4" role="main">
-			<w-select 
-				v-model="language" 
-				:items="languages"
-				:inner-icon-left="`flag-icon flag-icon-${languageFlag}`"
-				item-label-key="name"
-				item-value-key="id"
-				label="Language"
-				class="language-picker"
+			<w-tabs
+				:items="settingTabs" center 
+				:transition="false"
+				:fill-bar="true"
 			>
-				<template #item="{ item }">
-					<span :class="['mr-2', 'flag-icon', `flag-icon-${item.icon}`]" />
-					{{ item.name }}
+				<template #item-content="{ item }">
+					<section class="container">
+						<div class="py-5">
+							<component :is="item.content" />
+						</div>
+					</section>
 				</template>
-			</w-select>
-			<w-switch
-				v-model="darkMode"
-				label="Dark Mode"
-				class="mt-4"
-			/>
+			</w-tabs>
 		</main>
 	</section>
 </template>
 
 <script lang="ts">
+
 import Vue from 'vue';
-import languages from '../../registry/languages';
-import { i18n } from '../../';
-import { Language } from '../../i18n';
-import { find } from 'lodash';
+import AppearenceTab from './tabs/AppearenceTab.vue';
+import GeneralTab from './tabs/GeneralTab.vue';
+import PrivacyTab from './tabs/PrivacyTab.vue';
+import AccountTab from './tabs/AccountTab.vue';
 
 export default Vue.extend({
 	name: 'VindigoSettings',
-
 	data: () => ({
-		languages: languages
-	}),
 
-	computed: {
-		languageFlag(): string {
-			return find(this.languages, (lang: Language) => lang.id == this.language)?.icon || '';
-		},
-		language: {
-			get(): string|undefined {
-				return this.$vuex.state.language;
-			},
-			set(lang: string) {
-				i18n.activate(lang);
-			}
-		},
-		darkMode: {
-			get(): boolean {
-				return this.$vuex.state.isDark;
-			},
-			set(value: boolean) {
-				this.$vuex.commit('setDarkMode', value);
-			}
-		}
-	}
+		settingTabs: [
+			{ title: 'General', content: GeneralTab },
+			{ title: 'Appearence', content: AppearenceTab },
+			{ title: 'Privacy', content: PrivacyTab },
+			{ title: 'Account', content: AccountTab }
+		]
+	})
 });
 </script>
 
 <style lang="postcss">
-.language-picker {
-	.w-select__icon {
-		@apply rounded-none;
-	}
 
-	.w-select__selection {
-		@apply pl-2;
+.settings-page > main {
+	@apply pt-5;
+}
+
+.w-tabs {
+	@apply border-none;
+
+	&__content-wrap {
+		@apply rounded-b-md bg-white dark:bg-gray-800;
 	}
 }
+
 </style>

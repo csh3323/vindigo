@@ -45,4 +45,30 @@
 	}
 }
 
+/** Divider */
+.w-divider {
+	@apply my-3 bg-gray-900 dark:bg-gray-300;
+}
+
+/** Select */
+.w-select {
+	@apply dark:text-white;
+
+	&__selection, &__label {
+		@apply dark:text-gray-50;
+	}
+
+	&__menu {
+		@apply bg-gray-700;
+	}
+}
+
+/** List */
+.w-list {
+
+	&__item-label.primary {
+		@apply dark:bg-white;
+	}
+}
+
 </style>
