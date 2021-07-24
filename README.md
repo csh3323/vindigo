@@ -28,7 +28,10 @@ At its core, Vindigo offers an efficient way of creating, listing, and viewing y
 - Extensible with plugins and an easy to use API
 - Fully open source and licensed under [MIT](https://github.com/ExodiusStudios/vindigo/blob/master/LICENSE)
 
-## Installation
+## Docker installation
+You can find the production ready [vindigo image](https://hub.docker.com/r/macjuul/vindigo) on Docker Hub. Visit the docker hub page for instructions on how to run Vindigo using docker directly or using docker-compose.
+
+## Manual installation
 
 ### Prerequisites
 Vindigo is built using [node](https://nodejs.org/en/) which means you will need to install NodeJS version 12 or higher. Make sure you also also have npm, the package manager for node (it usually comes bundled directly with node).
@@ -104,6 +107,11 @@ yarn workspace vindigo-cli watch     # Automatically compile the CLI
 You can now access Vindigo on `http://localhost:8080`.
 
 Any changes made to the code will result in your changes being compiled live. Keep in mind while the CLI is automatically compiled you will still need to execute it manually.
+
+### Developing with VSCode
+When your editor of choice is Visual Studio Code, you will be able to find pre defined tasks you can use during development.
+
+Simply navigate to `Terminal > Run Task...` and select which operation you want to execute.
 
 ### Building distribution files
 Distributes files are built separately for all packages, however all can be built with a single command.
