@@ -49,6 +49,9 @@ yargs
 		builder: () => yargs.option('force', {
 			alias: 'F',
 			describe: 'Allow overriding of the existing config'
+		}).option('defaults', {
+			alias: 'D',
+			describe: 'Use default values without prompt'
 		}),
 		handler: handleInit
 	})

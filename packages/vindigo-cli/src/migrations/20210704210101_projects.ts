@@ -8,7 +8,7 @@ exports.up = async function({schema}: Knex) {
 			table.text('description');
 			table.text('cover_image');
 			table.text('background_image');
-			table.integer('creator_id');
+			table.integer('creator_id').unsigned().notNullable();
 			table.boolean('is_visible');
 			table.boolean('is_closed');
 			table.boolean('is_public');
@@ -34,8 +34,8 @@ exports.up = async function({schema}: Knex) {
 		})
 		.createTable('child_tasks', (table) => {
 			table.increments();
-			table.integer('parent_task');
-			table.integer('child_task');
+			table.integer('parent_task').unsigned().notNullable();
+			table.integer('child_task').unsigned().notNullable();
 
 			// Define relations
 			table.foreign('parent_task').references('tasks.id').onDelete('CASCADE');
@@ -43,8 +43,8 @@ exports.up = async function({schema}: Knex) {
 		})
 		.createTable('project_members', (table) => {
 			table.increments();
-			table.integer('user_id');
-			table.integer('project_id');
+			table.integer('user_id').unsigned().notNullable();
+			table.integer('project_id').unsigned().notNullable();
 			table.string('access_level');
 
 			// Define relations
@@ -53,8 +53,8 @@ exports.up = async function({schema}: Knex) {
 		})
 		.createTable('project_teams', (table) => {
 			table.increments();
-			table.integer('team_id');
-			table.integer('project_id');
+			table.integer('team_id').unsigned().notNullable();
+			table.integer('project_id').unsigned().notNullable();
 			table.string('access_level');
 
 			// Define relations

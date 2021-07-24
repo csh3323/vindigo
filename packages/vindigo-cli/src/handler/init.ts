@@ -24,10 +24,7 @@ export async function handleInit(args: any) {
 		return;
 	}
 
-	consola.info('Welcome to the Vindigo setup utility!');
-	consola.info(chalk`Answer the following questions to complete the setup`);
-
-	const values: any = await inquirer.prompt([
+	const questions = [
 		{
 			name: 'URL',
 			message: 'How will users access Vindigo?',
@@ -50,7 +47,7 @@ export async function handleInit(args: any) {
 			name: 'DB_DRIVER',
 			message: 'Choose database driver',
 			type: 'list',
-			default: 'MySQL',
+			default: 'mysql',
 			choices: [
 				{ name: 'MySQL', value: 'mysql'},
 				{ name: 'PostgreSQL', value: 'postgresql'},
@@ -61,40 +58,36 @@ export async function handleInit(args: any) {
 			name: 'DB_HOSTNAME',
 			message: 'Database hostname',
 			type: 'input',
-			when: (q: any) => q.DB_DRIVER != 'sqlite',
-			default: '127.0.0.1'
+			default: '127.0.0.1',
+			when: (q: any) => q.DB_DRIVER != 'sqlite'
 		},
 		{
 			name: 'DB_PORT',
 			message: 'Database port',
 			type: 'number',
-			when: (q: any) => q.DB_DRIVER != 'sqlite',
-			default: (q: any) => q.DB_DRIVER == 'mysql' ? 3306 : 5432
+			default: (q: any) => q.DB_DRIVER == 'mysql' ? 3306 : 5432,
+			when: (q: any) => q.DB_DRIVER != 'sqlite'
 		},
 		{
 			name: 'DB_USERNAME',
 			message: 'Database username',
 			type: 'input',
+			default: 'vindigo',
 			when: (q: any) => q.DB_DRIVER != 'sqlite'
 		},
 		{
 			name: 'DB_PASSWORD',
 			message: 'Database password',
 			type: 'input',
-			when: (q: any) => q.DB_DRIVER != 'sqlite'
-		},
-		{
-			name: 'DB_PASSWORD',
-			message: 'Database password',
-			type: 'input',
+			default: '',
 			when: (q: any) => q.DB_DRIVER != 'sqlite'
 		},
 		{
 			name: 'DB_NAME',
 			message: 'Database name',
 			type: 'input',
-			when: (q: any) => q.DB_DRIVER != 'sqlite',
-			default: 'vindigo'
+			default: 'vindigo',
+			when: (q: any) => q.DB_DRIVER != 'sqlite'
 		},
 		{
 			name: 'DB_NAME',
@@ -103,10 +96,40 @@ export async function handleInit(args: any) {
 			default: 'data/database.sqlite',
 			when: (q: any) => q.DB_DRIVER == 'sqlite'
 		}
-	]);
+	];
+
+	let values: any = {};
+
+	if(args.defaults) {
+		// Skip the inquirer prompt and automatically pull
+		// all default values from the questions.
+		
+		for(const question of questions) {
+			if(question.default) {
+				let value: any;
+
+				if(question.when && !question.when(values)) continue;
+
+				if(typeof question.default == 'function') {
+					value = question.default(values);
+				} else {
+					value = question.default;
+				}
+
+				values[question.name] = value;
+			}
+		}
+	} else {
+		// Delagate prompting to inquirer
+		
+		consola.info('Welcome to the Vindigo setup utility!');
+		consola.info(chalk`Answer the following questions to complete the setup`);
+
+		values = await inquirer.prompt(questions);
+	}
 
 	values['GEN_DATE'] = new Date().toString();
-	values['JWT_SECRET'] = randomBytes(64).toString('hex');
+	values['JWT_SECRET'] = randomBytes(32).toString('hex');
 	
 	const defaultConfig = readFileSync(DEFAULT_CONFIG, 'utf-8');
 	const replacements: any = Object.fromEntries(Object.entries(values).map(([k, v]) => [`%${k}%`, v]));

@@ -3,6 +3,7 @@ import { Connection, createConnection } from "typeorm";
 import { IServerConfig } from "./util/config";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { logger } from ".";
+import { pollDatabase } from "./util/helpers";
 
 /**
  * The service used to connect to the database
@@ -26,6 +27,9 @@ export class DatabaseService {
 
 		// database config options
 		const options = this.config.database;
+		
+		// Attempt a database connection
+		await pollDatabase(logger, options);
 
 		try {
 			this.connection = await createConnection({

@@ -1,0 +1,6 @@
+.git
+.pid
+Dockerfile
+docker-compose.yml
+node_modules
+data

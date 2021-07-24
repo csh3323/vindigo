@@ -1,18 +1,18 @@
 import { IServerConfig, readConfig } from 'vindigo-server/dist/util/config';
 import { assertConfigExists, assertInWorkingDirectory, getResource } from "../util";
+import { isProduction, pollDatabase } from 'vindigo-server/dist/util/helpers';
 import knex, { Knex } from "knex";
 import path, { basename } from "path";
 
 import chalk from 'chalk';
 import consola from "consola";
-import { isProduction } from 'vindigo-server/dist/util/helpers';
 
 export async function handleMigrateMake(args: any) {
 	assertInWorkingDirectory();
 	assertConfigExists();
 
 	const config = readConfig();
-	const migrator = initMigrator(config);
+	const migrator = await initMigrator(config);
     
 	const fullName = await migrator.make(args.name, {
 		directory: path.join(__dirname, '../../src/migrations')
@@ -29,7 +29,7 @@ export async function handleMigrateUp(args: any) {
 	assertConfigExists();
     
 	const config = readConfig();
-	const migrator = initMigrator(config);
+	const migrator = await initMigrator(config);
 	const list = await migrator.list();
 
 	if(list[1].length < 1) {
@@ -53,7 +53,7 @@ export async function handleMigrateDown(args: any) {
 	assertConfigExists();
     
 	const config = readConfig();
-	const migrator = initMigrator(config);
+	const migrator = await initMigrator(config);
 	const list = await migrator.list();
 	
 	if(list[0].length < 1) {
@@ -79,7 +79,7 @@ export async function handleMigrateStatus() {
 	assertConfigExists();
 
 	const config = readConfig();
-	const migrator = initMigrator(config);
+	const migrator = await initMigrator(config);
 	const current = await getCurrent(migrator);
 	const list = await migrator.list();
 
@@ -102,7 +102,12 @@ function buildConnection({ database }: IServerConfig): Knex.StaticConnectionConf
 	};
 }
 
-function initMigrator(config: IServerConfig): Knex.Migrator {
+async function initMigrator(config: IServerConfig): Promise<Knex.Migrator> {
+
+	// Attempt to establish a connection to the database
+	// and fail with a user error upon timeout.
+	await pollDatabase(consola, config.database);
+	
 	const options: Knex.Config = {
 		debug: !isProduction(),
 		log: {

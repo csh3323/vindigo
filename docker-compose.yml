@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  vindigo:
+    image: vindigo
+    ports:
+      - 8085:8085
+    volumes:
+      - ./vindigo-data:/vindigo/data
+  database:
+    image: mariadb:10.5
+    volumes:
+       - vindigo-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+volumes:
+  vindigo-data:
