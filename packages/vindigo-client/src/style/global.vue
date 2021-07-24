@@ -30,15 +30,15 @@
 }
 
 ::-webkit-scrollbar-thumb {
-	background-image: linear-gradient(#fd4290, #7f50ff);
+	background-color: #3c5770;
 	overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #9b77f1;
+	background-color: #3e71a1;
 }
 
 ::-webkit-scrollbar-thumb:active {
-	background-color: rgb(99, 74, 156);
+	background-color: #2c4d6d;
 }
 </style>
