@@ -11,6 +11,7 @@
 url = "%URL%"
 hostname = "127.0.0.1"
 port = %PORT%
+secure = true
 maintenance = false
 check_version = true
 name = "%NAME%"

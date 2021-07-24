@@ -72,9 +72,13 @@ export class HTTPService {
 			ttl: 86400
 		}).connect(sessionRepo);
 
-		// Configure express
-		app.use(cors());
-		app.use(helmet());
+		// Apply security middleware
+		if(this.config.general.secure) {
+			app.use(cors());
+			app.use(helmet());
+		}
+
+		// Apply session management
 		app.use(session({
 			name: 'session',
 			secret: secret,
