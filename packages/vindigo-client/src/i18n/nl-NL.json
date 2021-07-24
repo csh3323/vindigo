@@ -1,5 +1,10 @@
 {
 	"TOOLBAR_YOUR_ACCOUNT": "Jouw Account",
+	"TOOLBAR_CREATE": "Nieuwe aanmaken...",
+	"TOOLBAR_CREATE_PROJECT": "Project aanmaken",
+	"TOOLBAR_CREATE_PROJECT_DESC": "Alle taken zijn onderdeel van een project.",
+	"TOOLBAR_CREATE_TEAM": "Team aanmaken",
+	"TOOLBAR_CREATE_TEAM_DESC": "Teams bevatten een groep gebruikers met toegang tot dezelfde selectie projecten.",
 	"HOMEPAGE_WELCOME": "Welkom terug,",
 	"HOMEPAGE_SECTION_PROJECTS": "Jouw projecten",
 	"HOMEPAGE_SECTION_STARRED": "Favoriete projecten",

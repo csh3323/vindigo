@@ -21,20 +21,54 @@
 			<w-input
 				class="rounded-lg overflow-hidden mr-4"
 				inner-icon-left="mdi mdi-magnify"
-				placeholder="Search projects, teams, tasks, people..."
+				placeholder="Search anything..."
 				bg-color="gray-200"
 				color="gray-700"
 			/>
 		</div>
 
 		<!-- Create new button -->
-		<w-button
-			v-wave
-			class="mr-0 text-indigo-600 dark:text-gray-100"
-			icon="mdi mdi-plus-circle"
-			to="#"
-			xl
-		/>
+		<w-menu
+			align-center
+			custom
+		>
+			<template #activator="{on}">
+				<w-button
+					v-wave
+					class="mr-0 text-indigo-600 dark:text-gray-100"
+					icon="mdi mdi-plus-circle"
+					to="#"
+					xl
+					v-on="on"
+				/>
+			</template>
+			<div class="toolbar-menu">
+				<p class="toolbar-menu__title">
+					{{ $t('TOOLBAR_CREATE') }}
+				</p>
+				<w-divider />
+				<div class="toolbar-menu__list">
+					<div class="toolbar-menu__item">
+						<w-icon size="1.1rem">
+							mdi mdi-folder-open
+						</w-icon>
+						{{ $t('TOOLBAR_CREATE_PROJECT') }}
+						<p class="text-gray-400">
+							{{ $t('TOOLBAR_CREATE_PROJECT_DESC') }}
+						</p>
+					</div>
+					<div class="toolbar-menu__item">
+						<w-icon size="1.1rem">
+							mdi mdi-account-group
+						</w-icon>
+						{{ $t('TOOLBAR_CREATE_TEAM') }}
+						<p class="text-gray-400">
+							{{ $t('TOOLBAR_CREATE_TEAM_DESC') }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</w-menu>
 
 		<!-- Notification button -->
 		<w-button
@@ -67,15 +101,15 @@
 					/>
 				</div>
 			</template>
-			<div class="account-menu">
-				<p class="text-center mb-3 text-gray-500 font-semibold">
+			<div class="toolbar-menu">
+				<p class="toolbar-menu__title">
 					{{ $t('TOOLBAR_YOUR_ACCOUNT') }}
 				</p>
 				<w-divider />
-				<div class="account-menu__list">
+				<div class="toolbar-menu__list">
 					<router-link
 						to="/profile/10"
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -85,7 +119,7 @@
 					</router-link>
 					<router-link
 						to=""
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -95,7 +129,7 @@
 					</router-link>
 					<router-link
 						to=""
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -105,7 +139,7 @@
 					</router-link>
 					<router-link
 						to=""
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -116,7 +150,7 @@
 					<w-divider />
 					<router-link
 						to=""
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -126,7 +160,7 @@
 					</router-link>
 					<router-link
 						to="/settings"
-						class="account-menu__item"
+						class="toolbar-menu__item"
 						tag="div"
 					>
 						<w-icon size="1.1rem">
@@ -136,7 +170,7 @@
 					</router-link>
 					<w-divider />
 					<div
-						class="account-menu__item text-red-400"
+						class="toolbar-menu__item text-red-400"
 						@click="$store.dispatch('signOut')"
 					>
 						<w-icon size="1.1rem">
@@ -192,27 +226,6 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-.account-menu {
-	@apply bg-white overflow-hidden rounded-xl pt-3 w-60;
-	@mixin emissive theme("colors.gray.400");
-
-	&__list {
-		@apply overflow-hidden pb-1;
-	}
-
-	&__item {
-		@apply px-3 py-2 cursor-pointer transition-colors hover:bg-gray-100;
-
-		.w-icon {
-			@apply mt-[-3px] mr-1;
-		}
-	}
-
-	.w-divider {
-		@apply my-1;
-	}
-}
-
 .toolbar {
 	@apply flex items-center px-3 bg-white dark:bg-gray-800 h-14 sticky top-0 z-10 transition-shadow;
 
@@ -241,6 +254,35 @@ export default Vue.extend({
 
 	.o-drop__trigger {
 		@apply flex items-center;
+	}
+}
+
+.toolbar-menu {
+	@apply bg-white overflow-hidden rounded-xl pt-3 w-60;
+	@mixin emissive theme("colors.gray.400");
+
+	&__title {
+		@apply text-center mb-3 text-gray-800 font-semibold;
+	}
+
+	&__list {
+		@apply overflow-hidden pb-1;
+	}
+
+	&__item {
+		@apply px-3 py-2 cursor-pointer transition-colors text-gray-700 hover:bg-gray-100;
+
+		.w-icon {
+			@apply mt-[-3px] mr-1;
+		}
+
+		p {
+			@apply text-sm;
+		}
+	}
+
+	.w-divider {
+		@apply my-1;
 	}
 }
 </style>

@@ -1,5 +1,10 @@
 {
 	"TOOLBAR_YOUR_ACCOUNT": "Your Account",
+	"TOOLBAR_CREATE": "Create New...",
+	"TOOLBAR_CREATE_PROJECT": "Create project",
+	"TOOLBAR_CREATE_PROJECT_DESC": "All tasks are scoped to a single project",
+	"TOOLBAR_CREATE_TEAM": "Create team",
+	"TOOLBAR_CREATE_TEAM_DESC": "Teams represent a group of users that share the same projects.",
 	"HOMEPAGE_WELCOME": "Welcome back,",
 	"HOMEPAGE_SECTION_PROJECTS": "Your projects",
 	"HOMEPAGE_SECTION_STARRED": "Starred projects",
