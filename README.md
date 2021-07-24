@@ -3,7 +3,9 @@
 <p align="center">
   <a href="https://github.com/ExodiusStudios/vindigo/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/ExodiusStudios/vindigo"> 
-  </a> 
+  </a>
+  <img src="https://img.shields.io/github/workflow/status/ExodiusStudios/vindigo/Docker%20Deploy">
+  <img src="https://img.shields.io/discord/414532188722298881">
 </p>
 
 ---
