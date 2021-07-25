@@ -98,9 +98,9 @@
 							<w-icon size="1.1rem">
 								{{ item.icon }}
 							</w-icon>
-							{{ item.title }}
+							{{ $t(item.title) }}
 							<p class="text-gray-400">
-								{{ item.description }}
+								{{ $t(item.description) }}
 							</p>
 						</div>
 					</template>
