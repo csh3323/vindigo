@@ -1,9 +1,14 @@
 <template functional>
-	<div>
-		<h1>Under development</h1>
+	<div class="privacy-tab">
+		<h1 class="privacy-tab__dev-title">Under development</h1>
 	</div>
 </template>
 
 <style lang="postcss">
-	h1 { text-align: center }
+	.privacy-tab {
+
+		&__dev-title {
+			@apply text-center;
+		}
+	}
 </style>
