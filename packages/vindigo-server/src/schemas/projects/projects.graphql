@@ -7,6 +7,8 @@ extend type Query {
 		take: Int
 	): [Project!]!
 
+	"Perform a search query"
+    search(query: String!): SearchResult!
 }
 
 extend type Mutation {
@@ -94,6 +96,15 @@ A single team that is participating on a project
 type ProjectTeam {
 	team: Team
 	accessLevel: String!
+}
+
+"""
+
+"""
+type SearchResult {
+	projects: [Project!]!
+	users: [Profile!]!
+	teams: [Team!]!
 }
 
 enum ProjectListMode {
