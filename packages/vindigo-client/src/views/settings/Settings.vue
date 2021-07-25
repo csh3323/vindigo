@@ -42,17 +42,18 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
+.settings-page {
+	
+	main {
+		@apply pt-5;
+	}
 
-.settings-page > main {
-	@apply pt-5;
-}
+	.w-tabs {
+		@apply border-none;
 
-.w-tabs {
-	@apply border-none;
-
-	&__content-wrap {
-		@apply rounded-b-md bg-white dark:bg-gray-800;
+		&__content-wrap {
+			@apply rounded-b-md bg-white dark:bg-gray-800;
+		}
 	}
 }
-
 </style>

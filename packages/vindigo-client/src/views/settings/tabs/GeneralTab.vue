@@ -4,7 +4,7 @@
 			<w-select 
 				v-model="language" 
 				:items="languages"
-				:inner-icon-left="`flag-icon flag-icon-${languageFlag}`"
+				:inner-icon-left="`flag-icon flag-icon-${languageFlag} lang-icon`"
 				item-label-key="name"
 				item-value-key="id"
 				label="Language"
@@ -46,7 +46,7 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss">
-
-
-
+.lang-icon {
+	@apply rounded-none pointer-events-none;
+}
 </style>
