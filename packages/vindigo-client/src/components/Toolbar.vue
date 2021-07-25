@@ -404,7 +404,7 @@ export default Vue.extend({
 	}
 
 	.w-divider {
-		@apply my-1;
+		@apply my-1 border-gray-200;
 	}
 }
 
