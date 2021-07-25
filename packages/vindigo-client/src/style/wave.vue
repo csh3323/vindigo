@@ -73,7 +73,7 @@
 	}
 
 	&__menu {
-		@apply bg-gray-700;
+		@apply dark:bg-gray-700;
 	}
 }
 

@@ -10,7 +10,7 @@ type Query {
     profileById(id: Int): Profile
 
     "Fetch a user by their username"
-    profileByName(username: String): Profile 
+    profileByName(username: String): Profile
 }
 
 type Mutation {
