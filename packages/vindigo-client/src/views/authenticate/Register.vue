@@ -69,17 +69,22 @@ export default Vue.extend({
 		fullname: '',
 		email: '',
 		password: '',
-		remember: false
+		remember: false,
+		loading: false
 	}),
 	
 	methods: {
 		async register() {
+			this.loading = true;
+
 			await this.$vuex.dispatch('signUp', {
 				fullname: this.fullname,
 				email: this.email,
 				password: this.password,
 				remember: this.remember
 			});
+
+			this.loading = false;
 		}
 	}
 });
