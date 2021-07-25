@@ -5,12 +5,14 @@
 	"TOOLBAR_CREATE_PROJECT_DESC": "All tasks are scoped to a single project",
 	"TOOLBAR_CREATE_TEAM": "Create team",
 	"TOOLBAR_CREATE_TEAM_DESC": "Teams represent a group of users that share the same projects.",
+	
 	"HOMEPAGE_WELCOME": "Welcome back,",
 	"HOMEPAGE_SECTION_PROJECTS": "Your projects",
 	"HOMEPAGE_SECTION_STARRED": "Starred projects",
 	"HOMEPAGE_SECTION_TEAMS": "Your teams",
 	"HOMEPAGE_SECTION_ACTIVITY": "Activity",
 	"HOMEPAGE_SECTION_FOCUS": "Focus task",
+
 	"VIEW_HOME": "Project overview",
 	"VIEW_TASKS": "Tasks",
 	"VIEW_KANBAN": "Kanban",
