@@ -15,7 +15,7 @@
 					<router-link
 						v-for="project in item.content"
 						:key="project.id"
-						:to="project.projectUrl"
+						:to="project.projectUrl || '/'"
 						class="project-tile"
 					>
 						<div class="project-tile__title">
