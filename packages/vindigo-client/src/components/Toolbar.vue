@@ -29,7 +29,7 @@
 
 		<!-- Create new button -->
 		<w-menu
-			v-model="creationMenu"
+			hide-on-menu-click
 			align-center
 			custom
 		>
@@ -49,30 +49,22 @@
 				</p>
 				<w-divider />
 				<div class="toolbar-menu__list">
-					<div
-						class="toolbar-menu__item"
-						@click="openProjectCreation"
-					>
-						<w-icon size="1.1rem">
-							mdi mdi-folder-open
-						</w-icon>
-						{{ $t('TOOLBAR_CREATE_PROJECT') }}
-						<p class="text-gray-400">
-							{{ $t('TOOLBAR_CREATE_PROJECT_DESC') }}
-						</p>
-					</div>
-					<div
-						class="toolbar-menu__item"
-						@click="openTeamCreation"
-					>
-						<w-icon size="1.1rem">
-							mdi mdi-account-group
-						</w-icon>
-						{{ $t('TOOLBAR_CREATE_TEAM') }}
-						<p class="text-gray-400">
-							{{ $t('TOOLBAR_CREATE_TEAM_DESC') }}
-						</p>
-					</div>
+					<template v-for="(item, i) in creationItems">
+						<w-divider v-if="item == MENU_DIVIDER" :key="i" />
+						<div
+							v-else :key="i"
+							class="toolbar-menu__item"
+							@click="item.handler"
+						>
+							<w-icon size="1.1rem">
+								{{ item.icon }}
+							</w-icon>
+							{{ item.title }}
+							<p class="text-gray-400">
+								{{ item.description }}
+							</p>
+						</div>
+					</template>
 				</div>
 			</div>
 		</w-menu>
@@ -273,13 +265,15 @@ import { Optional } from "../typings/types";
 import { Scrollable } from "../mixin/scrollable";
 import { api } from "..";
 import { gql } from "@apollo/client/core";
+import { MENU_DIVIDER, ToolbarCreationItem } from '../helpers';
+import { forEach } from "lodash";
 
 export default Vue.extend({
 	name: "Toolbar",
 	mixins: [Scrollable],
 
 	data: () => ({
-		creationMenu: false,
+		MENU_DIVIDER,
 
 		// Project creation
 		newProjectDialog: false,
@@ -307,6 +301,50 @@ export default Vue.extend({
 				"toolbar--sticky": (this as any).isScrolling,
 			};
 		},
+		creationItems(): any {
+			const items: any[] = [
+				{
+					icon: 'mdi mdi-folder-open',
+					title: 'TOOLBAR_CREATE_PROJECT',
+					description: 'TOOLBAR_CREATE_PROJECT_DESC',
+					handler: this.openProjectCreation
+				},
+				{
+					icon: 'mdi mdi-account-group',
+					title: 'TOOLBAR_CREATE_TEAM',
+					description: 'TOOLBAR_CREATE_TEAM_DESC',
+					handler: this.openTeamCreation
+				}
+			];
+
+			let separated = false;
+
+			for(const matched of this.$route.matched) {
+				const creation = matched.meta.creation as ToolbarCreationItem[];
+
+				if(creation) {
+					const component = matched.instances.default as any;
+					const entries = creation.map((item) => {
+						const handler = typeof item.handler == 'string'
+							? component[item.handler]?.bind(component)
+							: item.handler;
+
+						return { ...item, handler };
+					});
+
+					if(entries.length > 0) {
+						if(!separated) {
+							items.push(MENU_DIVIDER);
+							separated = true;
+						}
+
+						items.push(...entries);
+					}
+				}
+			}
+
+			return items;
+		}
 	},
 
 	methods: {
@@ -314,12 +352,10 @@ export default Vue.extend({
 			return this.$el.parentElement;
 		},
 		openProjectCreation() {
-			this.creationMenu = false;
 			this.newProjectDialog = true;
 			this.newProjectName = "";
 		},
 		openTeamCreation() {
-			this.creationMenu = false;
 			this.createTeamDialog = true;
 			this.createTeamName = "";
 		},

@@ -5,6 +5,8 @@
 	"TOOLBAR_CREATE_PROJECT_DESC": "Alle taken zijn onderdeel van een project.",
 	"TOOLBAR_CREATE_TEAM": "Team aanmaken",
 	"TOOLBAR_CREATE_TEAM_DESC": "Teams bevatten een groep gebruikers met toegang tot dezelfde selectie projecten.",
+	"TOOLBAR_CREATE_TASK": "Taak aanmaken",
+	"TOOLBAR_CREATE_TASK_DESC": "Taken kunnen toegevoegd worden aan je huidige project en worden gebruikt om een enkele doelstelling bij te houden.",
 	
 	"HOMEPAGE_WELCOME": "Welkom terug,",
 	"HOMEPAGE_SECTION_PROJECTS": "Jouw projecten",

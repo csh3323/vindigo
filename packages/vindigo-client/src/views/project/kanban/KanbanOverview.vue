@@ -49,7 +49,14 @@ export default Vue.extend({
 			{ title: 'In progress', icon: 'mdi-check', order: 1, items: [] },
 			{ title: 'Backlog', icon: 'mdi-check', order: 1, items: [] }
 		]
-	})
+	}),
+
+	methods: {
+		test() {
+			alert('KEENUS');
+			console.log(this);
+		}
+	}
 });
 </script>
 

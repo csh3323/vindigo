@@ -1,10 +1,11 @@
+import { routing, vue } from "..";
+
 import HomePage from '../views/home/HomePage.vue';
 import KanbanPage from '../views/project/kanban/KanbanOverview.vue';
 import ProjectHome from '../views/project/ProjectHome.vue';
 import ProjectPage from '../views/project/ProjectPage.vue';
-import TasksPage from '../views/project/tasks/TasksOverview.vue';
 import SettingsPage from '../views/settings/Settings.vue';
-import { routing } from "..";
+import TasksPage from '../views/project/tasks/TasksOverview.vue';
 
 /**
  * Register all routing endpoints
@@ -68,7 +69,15 @@ export function registerRoutes() {
 		component: ProjectPage,
 		redirect: '/project/:project/overview',
 		meta: {
-			title: false
+			title: false,
+			creation: [
+				{
+					icon: 'mdi mdi-text-box-check',
+					title: 'TOOLBAR_CREATE_TASK',
+					description: 'TOOLBAR_CREATE_DESC',
+					handler: 'createTask'
+				}
+			]
 		},
 		children: [
 			{
@@ -98,7 +107,15 @@ export function registerRoutes() {
 				meta: {
 					name: 'VIEW_KANBAN',
 					icon: 'mdi-view-column',
-					order: 2
+					order: 2,
+					creation: [
+						{
+							icon: 'mdi mdi-eye',
+							title: 'Bruh',
+							description: 'Moment',
+							handler: 'test'
+						}
+					]
 				}
 			},
 			{

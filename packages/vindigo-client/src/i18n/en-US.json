@@ -5,6 +5,8 @@
 	"TOOLBAR_CREATE_PROJECT_DESC": "All tasks are scoped to a single project",
 	"TOOLBAR_CREATE_TEAM": "Create team",
 	"TOOLBAR_CREATE_TEAM_DESC": "Teams represent a group of users that share the same projects.",
+	"TOOLBAR_CREATE_TASK": "Create task",
+	"TOOLBAR_CREATE_TASK_DESC": "Tasks can be created in your current project and are used to track a single objective.",
 	
 	"HOMEPAGE_WELCOME": "Welcome back,",
 	"HOMEPAGE_SECTION_PROJECTS": "Your projects",

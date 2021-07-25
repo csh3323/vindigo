@@ -22,6 +22,20 @@
 						{{ $t($route.meta.name) }}
 					</small>
 				</div>
+
+				<template #creation-list>
+					<div
+						class="toolbar-menu__item"
+					>
+						<w-icon size="1.1rem">
+							mdi mdi-text-box-check
+						</w-icon>
+						{{ $t('TOOLBAR_CREATE_TASK') }}
+						<p class="text-gray-400">
+							{{ $t('TOOLBAR_CREATE_TASK_DESC') }}
+						</p>
+					</div>
+				</template>
 			</toolbar>
 			<main role="main" class="flex-grow">
 				<transition>
@@ -52,6 +66,13 @@ export default Vue.extend({
 	created() {
 		// TODO Use real project title
 		updateTitle('Example Project');
+	},
+
+	methods: {
+		// NOTE Invoked from creation menu
+		createTask() {
+
+		}
 	}
 });
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<router-link to="/">
-			Go home
+			Go home or go away
 		</router-link>
 	</div>
 </template>
