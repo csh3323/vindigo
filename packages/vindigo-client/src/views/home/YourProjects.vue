@@ -14,25 +14,35 @@
 </template>
 
 <script lang="ts">
-import { commerce, datatype } from 'faker';
+import { gql } from '@apollo/client/core';
 import Vue from 'vue';
+import { api } from '../..';
 
 export default Vue.extend({
 	name: 'YourProjects',
 
-	computed: {
-		projects(): any {
-			const amount = datatype.number(20);
-			const projects: any[] = [];
+	data: () => ({
+		projects: [] as any[]
+	}),
 
-			for(let i = 0; i < amount; i++) {
-				projects.push({
-					id: datatype.uuid(),
-					name: commerce.productName()
-				});
-			} 
+	mounted() {
+		this.fetchPersonalProjects();
+	},
 
-			return projects;
+	methods: {
+		async fetchPersonalProjects() {
+			const res = await api.query(gql`
+				query {
+					projects(mode: PERSONAL) {
+						id
+						name
+						coverImage
+						projectUrl
+					}
+				}
+			`);
+
+			this.projects = res.projects;
 		}
 	}
 });

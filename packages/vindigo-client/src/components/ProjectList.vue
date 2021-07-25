@@ -12,13 +12,16 @@
 		>
 			<template #item-content="{ item }">
 				<div class="grid grid-cols-12 gap-5 pt-4">
-					<!-- TODO Rename to project-tile -->
-					<board-tile
+					<router-link
 						v-for="project in item.content"
 						:key="project.id"
-						class="col-span-12 laptop:col-span-6 desktop:col-span-3" 
-						:name="project.name"
-					/>
+						:to="project.projectUrl"
+						class="project-tile"
+					>
+						<div class="project-tile__title">
+							{{ project.name }}
+						</div>
+					</router-link>
 				</div>
 			</template>
 		</w-tabs>
@@ -91,6 +94,14 @@ export default Vue.extend({
 
 	.w-tabs__content {
 		@apply p-0;
+	}
+}
+
+.project-tile {
+	@apply h-32 bg-[#DDE0EB] dark:bg-[#202127] rounded-xl p-4 col-span-12 laptop:col-span-6 desktop:col-span-3;
+
+	&__title {
+		@apply text-gray-700 dark:text-gray-200 font-bold;
 	}
 }
 </style>

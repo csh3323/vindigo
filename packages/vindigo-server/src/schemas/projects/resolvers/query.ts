@@ -1,5 +1,4 @@
 import { MissingSessionError, NotImplementedError } from "../../../util/errors";
-import { database, logger } from "../../..";
 
 import { FindConditions } from "typeorm";
 import { GraphQLResolvers } from "../../../http";
@@ -28,7 +27,7 @@ export default {
 				};
 				break;
 			}
-			case 'RECENTS': {
+			case 'STARRED': {
 				throw new NotImplementedError();
 			}
 			default: {

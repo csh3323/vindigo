@@ -29,6 +29,7 @@
 
 		<!-- Create new button -->
 		<w-menu
+			v-model="creationMenu"
 			align-center
 			custom
 		>
@@ -48,7 +49,10 @@
 				</p>
 				<w-divider />
 				<div class="toolbar-menu__list">
-					<div class="toolbar-menu__item">
+					<div
+						class="toolbar-menu__item"
+						@click="openProjectCreation"
+					>
 						<w-icon size="1.1rem">
 							mdi mdi-folder-open
 						</w-icon>
@@ -57,7 +61,10 @@
 							{{ $t('TOOLBAR_CREATE_PROJECT_DESC') }}
 						</p>
 					</div>
-					<div class="toolbar-menu__item">
+					<div
+						class="toolbar-menu__item"
+						@click="openTeamCreation"
+					>
 						<w-icon size="1.1rem">
 							mdi mdi-account-group
 						</w-icon>
@@ -181,26 +188,111 @@
 				</div>
 			</div>
 		</w-menu>
+
+		<!-- ANCHOR Project creation dialog -->
+		<w-dialog
+			v-model="newProjectDialog"
+			dialog-class="rounded-xl"
+			width="600"
+		>
+			<section-title icon="mdi mdi-folder-multiple-plus">
+				Create new project
+			</section-title>
+			
+			<div class="p-2">
+				<label class="text-gray-500 mb-1 mt-3 block text-sm">
+					Project name
+				</label>
+				<w-input
+					v-model="newProjectName"
+					class="rounded-lg overflow-hidden"
+					bg-color="gray-200"
+					color="gray-700"
+				/>
+
+				<label class="text-gray-500 mb-1 mt-3 block text-sm">
+					Description <small>(optional)</small>
+				</label>
+				<w-textarea
+					v-model="newProjectDesc"
+					class="rounded-lg overflow-hidden"
+					bg-color="gray-200"
+					color="gray-700"
+					rows="3"
+				/>
+
+				<label class="text-gray-500 mb-1 mt-3 block text-sm">
+					Invite members <small>(optional)</small>
+				</label>
+
+				<div class="addition-list">
+					<!-- TODO Implement member addition -->
+					<avatar
+						v-for="i in tempMemberCount"
+						:key="i"
+						class="-mr-2 mb-1 block"
+						:profile="$vuex.state.profile"
+						:open-profile="false"
+						:size="46"
+					/>
+					<div
+						v-if="tempMemberCount < 12"
+						class="addition-list"
+						@click="tempMemberCount++"
+					>
+						<w-icon class="addition-list__add-btn">
+							mdi mdi-plus
+						</w-icon>
+					</div>
+				</div>
+
+				<div class="flex mt-5">
+					<spacer />
+					<w-button
+						v-wave
+						color="white"
+						bg-color="indigo-600"
+						:loading="newProjectLoading"
+						:disabled="!newProjectName"
+						@click="createProject"
+					>
+						<w-icon class="mr-2">
+							mdi mdi-plus
+						</w-icon>
+						Create project
+					</w-button>
+				</div>
+			</div>
+		</w-dialog>
 	</header>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { Optional } from "../typings/types";
-import { Scrollable } from '../mixin/scrollable';
+import { Scrollable } from "../mixin/scrollable";
+import { api } from "..";
+import { gql } from "@apollo/client/core";
 
 export default Vue.extend({
 	name: "Toolbar",
-	mixins: [
-		Scrollable
-	],
+	mixins: [Scrollable],
 
-	props: {
-		// buttons: {
-		// 	type: Object as PropType<IconButton[]>,
-		// },
-	},
-	
+	data: () => ({
+		creationMenu: false,
+
+		// Project creation
+		newProjectDialog: false,
+		newProjectName: "",
+		newProjectDesc: "",
+		newProjectLoading: false,
+		tempMemberCount: 1,
+
+		// Team creation
+		createTeamDialog: false,
+		createTeamName: "",
+	}),
+
 	computed: {
 		logoUrl(): boolean {
 			return this.$store.state.isDark
@@ -212,16 +304,46 @@ export default Vue.extend({
 		},
 		toolbarClass(): any {
 			return {
-				'toolbar--sticky': (this as any).isScrolling
+				"toolbar--sticky": (this as any).isScrolling,
 			};
-		}
+		},
 	},
 
 	methods: {
 		getScrollView() {
 			return this.$el.parentElement;
+		},
+		openProjectCreation() {
+			this.creationMenu = false;
+			this.newProjectDialog = true;
+			this.newProjectName = "";
+		},
+		openTeamCreation() {
+			this.creationMenu = false;
+			this.createTeamDialog = true;
+			this.createTeamName = "";
+		},
+		async createProject() {
+			this.newProjectLoading = true;
+
+			await api.query(gql`
+				mutation ($data: ProjectCreationInput!) {
+					createProject(details: $data) {
+						id
+					}
+				}
+			`, {
+				data: {
+					name: this.newProjectName,
+					description: this.newProjectDesc,
+					public: false
+				}
+			});
+
+			this.newProjectLoading = false;
+			this.newProjectDialog = false;
 		}
-	}
+	},
 });
 </script>
 
@@ -235,7 +357,7 @@ export default Vue.extend({
 
 		@apply h-10;
 	}
-	
+
 	&__search {
 		@apply absolute inset-x-0 mx-auto max-w-sm opacity-80 hover:opacity-100 transition-opacity;
 
@@ -283,6 +405,15 @@ export default Vue.extend({
 
 	.w-divider {
 		@apply my-1;
+	}
+}
+
+.addition-list {
+	@apply flex;
+
+	&__add-btn {
+		@apply bg-indigo-600 w-12 h-12 m-1 rounded-full ring-4 ring-indigo-600 ring-opacity-40
+		flex justify-center items-center text-white cursor-pointer;
 	}
 }
 </style>

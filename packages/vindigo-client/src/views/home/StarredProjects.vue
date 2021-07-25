@@ -8,7 +8,6 @@
 </template>
 
 <script lang="ts">
-import { commerce, datatype } from 'faker';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -16,17 +15,7 @@ export default Vue.extend({
 
 	computed: {
 		projects(): any {
-			const amount = datatype.number(20);
-			const projects: any[] = [];
-
-			for(let i = 0; i < amount; i++) {
-				projects.push({
-					id: datatype.uuid(),
-					name: commerce.productName()
-				});
-			} 
-
-			return projects;
+			return [];
 		}
 	}
 });

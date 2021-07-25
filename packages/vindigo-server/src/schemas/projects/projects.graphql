@@ -12,7 +12,7 @@ extend type Query {
 extend type Mutation {
 
 	"Create a new project with given details"
-	createProject(details: ProjectCreationInput): Project
+	createProject(details: ProjectCreationInput!): Project!
 	
 }
 
@@ -33,13 +33,16 @@ users and teams can be invited to it.
 """
 type Project {
 	id: Int!
+	slug: String!
+	name: String!
 	createdAt: String!
 	lastModifiedAt: String!
-	name: String!
+	projectUrl: String!
 	description: String
 	coverImage: String
 	backgroundImage: String
 	isClosed: Boolean!
+	isStarred: Boolean!
 	creator: Profile!
 	tasks: [Task!]!
 	members: [ProjectMember!]!
@@ -98,9 +101,10 @@ enum ProjectListMode {
 	"Projects owned by the user"
 	PERSONAL,
 
-	"Projects marked as public"
-	PUBLIC,
+	"Any project starred by the user"
+	STARRED,
 
-	"Most recently viewed projects"
-	RECENTS
+	"Projects marked as public"
+	PUBLIC
+
 }
