@@ -18,13 +18,52 @@
 
 		<!-- The search container -->
 		<div class="toolbar__search">
-			<w-input
-				class="rounded-lg overflow-hidden mr-4"
-				inner-icon-left="mdi mdi-magnify"
-				placeholder="Search anything..."
-				bg-color="gray-200"
-				color="gray-700"
-			/>
+			<div class="relative">
+				<w-input
+					v-model="search"
+					class="rounded-lg overflow-hidden"
+					inner-icon-left="mdi mdi-magnify"
+					placeholder="Search anything..."
+					bg-color="gray-200"
+					color="gray-700"
+				/>
+				<w-menu
+					class="toolbar__search-result"
+					:value="search.length > 0 && Object.values(searchResults).length === 3"
+					detach-to=".toolbar__search>.relative"
+					min-width="100%"
+				>
+					<div v-if="searchResults.users && searchResults.users.length > 0">
+						<b>Users</b>
+						<w-divider style="margin: 10px -13px" />
+						<div 
+							v-for="(user, index) in searchResults.users" :key="index"
+						>
+							{{ user.fullName }}
+						</div>
+					</div>
+					<w-divider style="margin: 10px -13px" />
+					<div v-if="searchResults.teams && searchResults.teams.length > 0">
+						<b>Teams</b>
+						<w-divider style="margin: 10px -13px" />
+						<div 
+							v-for="(team, index) in searchResults.teams" :key="index"
+						>
+							{{ team }}
+						</div>
+					</div>
+					<w-divider style="margin: 10px -13px" />
+					<div v-if="searchResults.projects && searchResults.projects.length > 0">
+						<b>Projects</b>
+						<w-divider style="margin: 10px -13px" />
+						<div 
+							v-for="(project, index) in searchResults.projects" :key="index"
+						>
+							{{ project.name }}
+						</div>
+					</div>
+				</w-menu>
+			</div>
 		</div>
 
 		<!-- Create new button -->
@@ -266,7 +305,13 @@ import { Scrollable } from "../mixin/scrollable";
 import { api } from "..";
 import { gql } from "@apollo/client/core";
 import { MENU_DIVIDER, ToolbarCreationItem } from '../helpers';
-import { forEach } from "lodash";
+import _ from "lodash";
+
+interface SearchInterface {
+	projects: object[];
+	teams: object[];
+	users: object[];
+}
 
 export default Vue.extend({
 	name: "Toolbar",
@@ -285,6 +330,10 @@ export default Vue.extend({
 		// Team creation
 		createTeamDialog: false,
 		createTeamName: "",
+
+		// Search field
+		search: "" as string,
+		searchResults: {} as SearchInterface
 	}),
 
 	computed: {
@@ -347,6 +396,29 @@ export default Vue.extend({
 		}
 	},
 
+	watch: {
+		search: _.debounce(async function () {
+			this.searchResults = {};
+			await api.query(gql`
+				query ($sq: String!) {
+					search(query: $sq) {
+						projects {
+							name
+						}
+						users {
+							fullName
+						}
+						teams {
+							id
+						}
+					}
+				}
+			`, { sq: this.search }).then((res) => {
+				this.searchResults = res.search;
+			});
+		}, 1000)
+	},
+
 	methods: {
 		getScrollView() {
 			return this.$el.parentElement;
@@ -404,6 +476,12 @@ export default Vue.extend({
 				@apply text-gray-500;
 			}
 		}
+
+		.w-card {
+			left: 0 !important;
+			top: 28px !important;
+			@apply rounded-md bg-white;
+		}
 	}
 
 	&--sticky {
@@ -452,4 +530,5 @@ export default Vue.extend({
 		flex justify-center items-center text-white cursor-pointer;
 	}
 }
+
 </style>
