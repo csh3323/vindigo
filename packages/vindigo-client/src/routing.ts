@@ -3,6 +3,7 @@ import { getRouteMeta, logger, updateTitle } from "./util";
 
 import { Optional } from "./typings/types";
 import { isString } from "lodash";
+import { store } from ".";
 
 /**
  * The service in charge of managing routing 
@@ -75,6 +76,14 @@ export class RoutingService {
 		const router = new VueRouter(this.options);
 		
 		router.beforeEach((to, _from, next) => {
+			store.instance.commit('setWaiting', true);
+			next();
+		});
+
+		router.beforeResolve((to, _from, next) => {
+			store.instance.commit('setWaiting', false);
+			store.instance.commit('setLoaded', 'route');
+
 			const title = getRouteMeta(to, 'title');
 
 			if(isString(title)) {

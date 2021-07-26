@@ -20,6 +20,13 @@ export const storeMutations: MutationTree<RootState> = {
 	},
 
 	/**
+	 * Set whether the loading bar is visible
+	 */
+	setWaiting(state, value) {
+		state.isWaiting = value;
+	},
+
+	/**
 	 * Save the config instance
 	 */
 	storeConfig(state, config) {

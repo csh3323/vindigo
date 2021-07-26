@@ -53,10 +53,24 @@ export default Vue.extend({
 		YourTeams
 	},
 
+	beforeRouteEnter(_to, _from, next) {
+		console.log('ALPHA');
+
+		setTimeout(() => {
+			next(() => {
+				console.log('DELTA');
+			});
+		}, 3000);
+	},
+
 	computed: {
 		firstName(): Optional<string> {
 			return this.$vuex.state.profile?.firstName;
 		}
+	},
+
+	mounted() {
+		console.log('mounted');
 	},
 
 	methods: {

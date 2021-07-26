@@ -1,4 +1,3 @@
-import Draggable from 'vuedraggable';
 import Router from 'vue-router';
 import Store from 'vuex';
 import Transitions from 'vue2-transitions';
@@ -22,8 +21,6 @@ export function registerPlugins() {
 	Vue.use(Store);
 	Vue.use(VWave);
 	Vue.use(Trend);
-
-	Vue.component('Draggable', Draggable);
 
 	// Provide a type safe store reference
 	// since Vuex 3 does not yet support

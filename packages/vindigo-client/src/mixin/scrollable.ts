@@ -4,8 +4,6 @@ import Vue from 'vue';
 /**
  * Create a scrollable mixin that sets the `isScrolling` field
  * when the given ref element is scrolled.
- * 
- * @param ref The scroll view ref
  */
 export const Scrollable = Vue.extend({
 	name: 'Scrollable',

@@ -19,6 +19,7 @@ export interface RootState {
 	profile: Optional<Profile>,
 	isAuthed: boolean,
 	isReady: boolean,
+	isWaiting: boolean,
 	loading: Dictionary<boolean>,
 	config: ClientConfig
 }
@@ -39,10 +40,12 @@ export function registerState() {
 			profile: null,
 			isAuthed: false,
 			isReady: false,
+			isWaiting: false,
 			loading: {
-				auth: false,
-				i18n: false,
-				config: false
+				auth: false,	// Authentication status
+				i18n: false,	// Language file download
+				route: false,	// beforeResolve called
+				config: false	// Config fetched
 			},
 			config: {
 				instanceName: '',

@@ -4,6 +4,16 @@
 		class="toolbar"
 		:class="toolbarClass"
 	>
+		<w-progress
+			top
+			absolute
+			size="0.275em"
+			class="toolbar__waiter"
+			color="blue"
+			:value="progress"
+			:class="waiterClass"
+		/>
+
 		<slot>
 			<router-link to="/">
 				<img
@@ -305,7 +315,8 @@ import { Scrollable } from "../mixin/scrollable";
 import { api } from "..";
 import { gql } from "@apollo/client/core";
 import { MENU_DIVIDER, ToolbarCreationItem } from '../helpers';
-import _ from "lodash";
+import { debounce } from "lodash";
+import { mapState } from "vuex";
 
 interface SearchInterface {
 	projects: object[];
@@ -320,6 +331,9 @@ export default Vue.extend({
 	data: () => ({
 		MENU_DIVIDER,
 
+		progress: 0,
+		executeSearchDebounced: null as unknown as Function,
+
 		// Project creation
 		newProjectDialog: false,
 		newProjectName: "",
@@ -333,10 +347,14 @@ export default Vue.extend({
 
 		// Search field
 		search: "" as string,
-		searchResults: {} as SearchInterface
+		searchResults: {} as SearchInterface|{}
 	}),
 
 	computed: {
+		...mapState([
+			'isWaiting'
+		]),
+
 		logoUrl(): boolean {
 			return this.$store.state.isDark
 				? require("/src/assets/vindigo-white.svg")
@@ -344,6 +362,11 @@ export default Vue.extend({
 		},
 		userName(): Optional<string> {
 			return this.$vuex.state.profile?.fullName;
+		},
+		waiterClass(): any {
+			return {
+				'toolbar__waiter--active': this.isWaiting
+			};
 		},
 		toolbarClass(): any {
 			return {
@@ -397,26 +420,22 @@ export default Vue.extend({
 	},
 
 	watch: {
-		search: _.debounce(async function () {
-			this.searchResults = {};
-			await api.query(gql`
-				query ($sq: String!) {
-					search(query: $sq) {
-						projects {
-							name
-						}
-						users {
-							fullName
-						}
-						teams {
-							id
-						}
-					}
-				}
-			`, { sq: this.search }).then((res) => {
-				this.searchResults = res.search;
-			});
-		}, 1000)
+		search() {
+			this.executeSearchDebounced();
+		},
+		isWaiting() {
+			this.progress = 0;
+		}
+	},
+
+	created() {
+		this.executeSearchDebounced = debounce(this.executeSearch, 500);
+
+		setInterval(() => {
+			if(this.isWaiting) {
+				this.progress += Math.random() * 15;
+			}
+		}, 150);
 	},
 
 	methods: {
@@ -450,6 +469,29 @@ export default Vue.extend({
 
 			this.newProjectLoading = false;
 			this.newProjectDialog = false;
+		},
+		async executeSearch() {
+			this.searchResults = {};
+
+			const res = await api.query(gql`
+				query ($sq: String!) {
+					search(query: $sq) {
+						projects {
+							name
+						}
+						users {
+							fullName
+						}
+						teams {
+							id
+						}
+					}
+				}
+			`, {
+				sq: this.search
+			});
+
+			this.searchResults = res.search;
 		}
 	},
 });
@@ -458,6 +500,14 @@ export default Vue.extend({
 <style lang="postcss">
 .toolbar {
 	@apply flex items-center px-3 bg-white dark:bg-gray-800 h-14 sticky top-0 z-10 transition-shadow;
+
+	&__waiter {
+		@apply z-20 rounded-none -translate-y-1 transition-transform;
+
+		&--active {
+			@apply translate-y-0;
+		}
+	}
 
 	&__divider {
 		background-color: #e1e1e1;

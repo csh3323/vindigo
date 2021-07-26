@@ -23,22 +23,22 @@
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-	width: 12px;
-	height: 12px;
+	width: 11px;
+	height: 11px;
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.13);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #3c5770;
+	background-color: #788592;
 	overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #3e71a1;
+	background-color: #607d97;
 }
 
 ::-webkit-scrollbar-thumb:active {
-	background-color: #2c4d6d;
+	background-color: #445e77;
 }
 </style>
