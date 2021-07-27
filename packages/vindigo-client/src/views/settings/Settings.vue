@@ -3,7 +3,8 @@
 		<toolbar class="pl-0" />
 		<main class="container mt-4" role="main">
 			<w-tabs
-				:items="settingTabs" center 
+				:items="settingTabs"
+				center
 				:transition="false"
 				:fill-bar="true"
 			>
@@ -20,30 +21,32 @@
 </template>
 
 <script lang="ts">
-
-import Vue from 'vue';
-import AppearenceTab from './tabs/AppearenceTab.vue';
-import GeneralTab from './tabs/GeneralTab.vue';
-import PrivacyTab from './tabs/PrivacyTab.vue';
-import AccountTab from './tabs/AccountTab.vue';
+import Vue from "vue";
+import AppearenceTab from "./tabs/AppearenceTab.vue";
+import GeneralTab from "./tabs/GeneralTab.vue";
+import PrivacyTab from "./tabs/PrivacyTab.vue";
+import AccountTab from "./tabs/AccountTab.vue";
 
 export default Vue.extend({
-	name: 'VindigoSettings',
-	data: () => ({
-
-		settingTabs: [
-			{ title: 'General', content: GeneralTab },
-			{ title: 'Appearence', content: AppearenceTab },
-			{ title: 'Privacy', content: PrivacyTab },
-			{ title: 'Account', content: AccountTab }
-		]
-	})
+	name: "VindigoSettings",
+	computed: {
+		settingTabs() {
+			return [
+				{ title: this.$t("SETTINGS_GENERAL"), content: GeneralTab },
+				{
+					title: this.$t("SETTINGS_APPEARANCE"),
+					content: AppearenceTab,
+				},
+				{ title: this.$t("SETTINGS_PRIVACY"), content: PrivacyTab },
+				{ title: this.$t("SETTINGS_ACCOUNT"), content: AccountTab },
+			];
+		},
+	},
 });
 </script>
 
 <style lang="postcss">
 .settings-page {
-	
 	main {
 		@apply pt-5;
 	}

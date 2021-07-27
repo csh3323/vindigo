@@ -6,7 +6,7 @@
 					<w-icon class="mr-2" style="margin-top: -2px">
 						mdi mdi-information-outline
 					</w-icon>
-					Dark mode
+					{{$t('SETTINGS_DARK_MODE')}}
 				</label>
 				<spacer />
 				<w-switch

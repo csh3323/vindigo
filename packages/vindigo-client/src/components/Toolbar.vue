@@ -23,7 +23,7 @@
 					v-model="search"
 					class="rounded-lg overflow-hidden"
 					inner-icon-left="mdi mdi-magnify"
-					placeholder="Search anything..."
+					:placeholder="$t('TOOLBAR_SEARCH')"
 					bg-color="gray-200"
 					color="gray-700"
 				/>
@@ -141,7 +141,7 @@
 			</template>
 			<div class="toolbar-menu">
 				<p class="toolbar-menu__title">
-					{{ $t('TOOLBAR_YOUR_ACCOUNT') }}
+					{{ $t('YOUR_ACCOUNT') }}
 				</p>
 				<w-divider />
 				<div class="toolbar-menu__list">
@@ -153,7 +153,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-account
 						</w-icon>
-						Your profile
+						{{ $t('YOUR_ACCOUNT_PROFILE') }}
 					</router-link>
 					<router-link
 						to=""
@@ -163,7 +163,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-animation
 						</w-icon>
-						Your projects
+						{{ $t('YOUR_ACCOUNT_PROJECTS') }}
 					</router-link>
 					<router-link
 						to=""
@@ -173,7 +173,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-briefcase
 						</w-icon>
-						Your teams
+						{{ $t('YOUR_ACCOUNT_TEAMS') }}
 					</router-link>
 					<router-link
 						to=""
@@ -183,7 +183,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-google-analytics
 						</w-icon>
-						Your activity
+						{{ $t('YOUR_ACCOUNT_ACTIVITY') }}
 					</router-link>
 					<w-divider />
 					<router-link
@@ -194,7 +194,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-help-circle-outline
 						</w-icon>
-						Help
+						{{ $t('YOUR_ACCOUNT_HELP') }}
 					</router-link>
 					<router-link
 						to="/settings"
@@ -204,7 +204,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-cog-outline
 						</w-icon>
-						Settings
+						{{ $t('YOUR_ACCOUNT_SETTINGS') }}
 					</router-link>
 					<w-divider />
 					<div
@@ -214,7 +214,7 @@
 						<w-icon size="1.1rem">
 							mdi mdi-logout
 						</w-icon>
-						Sign out
+						{{ $t('YOUR_ACCOUNT_SIGN_OUT') }}
 					</div>
 				</div>
 			</div>

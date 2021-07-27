@@ -1,5 +1,4 @@
 {
-	"TOOLBAR_YOUR_ACCOUNT": "Your Account",
 	"TOOLBAR_CREATE": "Create New...",
 	"TOOLBAR_CREATE_PROJECT": "Create project",
 	"TOOLBAR_CREATE_PROJECT_DESC": "All tasks are scoped to a single project",
@@ -7,6 +6,16 @@
 	"TOOLBAR_CREATE_TEAM_DESC": "Teams represent a group of users that share the same projects.",
 	"TOOLBAR_CREATE_TASK": "Create task",
 	"TOOLBAR_CREATE_TASK_DESC": "Tasks can be created in your current project and are used to track a single objective.",
+	"TOOLBAR_SEARCH": "Search anything...",
+
+	"YOUR_ACCOUNT": "Your Account",
+	"YOUR_ACCOUNT_PROFILE": "Your Profile",
+	"YOUR_ACCOUNT_PROJECTS": "Your Projects",
+	"YOUR_ACCOUNT_TEAMS": "Your Teams",
+	"YOUR_ACCOUNT_ACTIVITY": "Your Activity",
+	"YOUR_ACCOUNT_HELP": "Help",
+	"YOUR_ACCOUNT_SETTINGS": "Settings",
+	"YOUR_ACCOUNT_SIGN_OUT": "Sign Out",
 	
 	"HOMEPAGE_WELCOME": "Welcome back,",
 	"HOMEPAGE_SECTION_PROJECTS": "Your projects",
@@ -19,5 +28,12 @@
 	"VIEW_TASKS": "Tasks",
 	"VIEW_KANBAN": "Kanban",
 	"VIEW_CALENDAR": "Calendar",
-	"VIEW_WHITEBOARD": "Whiteboard"
+	"VIEW_WHITEBOARD": "Whiteboard",
+
+	"SETTINGS_GENERAL": "General",
+	"SETTINGS_APPEARANCE": "Appearance",
+	"SETTINGS_PRIVACY": "Privacy",
+	"SETTINGS_ACCOUNT": "Account",
+	"SETTINGS_LANGUAGE": "Language",
+	"SETTINGS_DARK_MODE": "Dark Mode"
 }

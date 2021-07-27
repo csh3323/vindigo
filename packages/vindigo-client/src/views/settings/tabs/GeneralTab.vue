@@ -7,7 +7,7 @@
 				:inner-icon-left="`flag-icon flag-icon-${languageFlag} lang-icon`"
 				item-label-key="name"
 				item-value-key="id"
-				label="Language"
+				:label="$t('SETTINGS_LANGUAGE')"
 				class="language-picker"
 			/>
 			<small class="d-block mt-3">

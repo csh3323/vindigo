@@ -1,5 +1,4 @@
 {
-	"TOOLBAR_YOUR_ACCOUNT": "Jouw Account",
 	"TOOLBAR_CREATE": "Nieuwe aanmaken...",
 	"TOOLBAR_CREATE_PROJECT": "Project aanmaken",
 	"TOOLBAR_CREATE_PROJECT_DESC": "Alle taken zijn onderdeel van een project.",
@@ -7,7 +6,17 @@
 	"TOOLBAR_CREATE_TEAM_DESC": "Teams bevatten een groep gebruikers met toegang tot dezelfde selectie projecten.",
 	"TOOLBAR_CREATE_TASK": "Taak aanmaken",
 	"TOOLBAR_CREATE_TASK_DESC": "Taken kunnen toegevoegd worden aan je huidige project en worden gebruikt om een enkele doelstelling bij te houden.",
+	"TOOLBAR_SEARCH": "Doorzoek alles...",
 	
+	"YOUR_ACCOUNT": "Jouw Account",
+	"YOUR_ACCOUNT_PROFILE": "Jouw Profile",
+	"YOUR_ACCOUNT_PROJECTS": "Jouw Projecten",
+	"YOUR_ACCOUNT_TEAMS": "Jouw Organisaties",
+	"YOUR_ACCOUNT_ACTIVITY": "Jouw Activiteiten",
+	"YOUR_ACCOUNT_HELP": "Hulp",
+	"YOUR_ACCOUNT_SETTINGS": "Instellingen",
+	"YOUR_ACCOUNT_SIGN_OUT": "Afmelden",
+
 	"HOMEPAGE_WELCOME": "Welkom terug,",
 	"HOMEPAGE_SECTION_PROJECTS": "Jouw projecten",
 	"HOMEPAGE_SECTION_STARRED": "Favoriete projecten",
@@ -19,5 +28,12 @@
 	"VIEW_TASKS": "Takenlijst",
 	"VIEW_KANBAN": "Kanban",
 	"VIEW_CALENDAR": "Kalender",
-	"VIEW_WHITEBOARD": "Witbord"
+	"VIEW_WHITEBOARD": "Witbord",
+
+	"SETTINGS_GENERAL": "Algemeen",
+	"SETTINGS_APPEARANCE": "Uiterlijk",
+	"SETTINGS_PRIVACY": "Privacy",
+	"SETTINGS_ACCOUNT": "Account",
+	"SETTINGS_LANGUAGE": "Taal",
+	"SETTINGS_DARK_MODE": "Donkere Modus"
 }
