@@ -21,8 +21,29 @@
 		
 		<main class="container grid grid-cols-7 laptop:gap-16">
 			<div class="col-span-full laptop:col-span-4 desktop:col-span-5 py-8">
-				<starred-projects />
-				<your-projects />
+				<!-- Starred projects -->
+				<section v-if="starred.length > 0" class="your-projects mb-14">
+					<section-title icon="mdi mdi-star">
+						{{ $t('HOMEPAGE_SECTION_STARRED') }}
+					</section-title>
+					<project-list :projects="starred" :rows="1" />
+				</section>
+
+				<!-- Your projects -->
+				<section class="your-projects mb-14">
+					<section-title icon="mdi mdi-folder-open">
+						{{ $t('HOMEPAGE_SECTION_PROJECTS') }}
+					</section-title>
+					<project-list :projects="projects" :rows="2">
+						<template #empty>
+							<div class="bg-white p-3">
+								You have not joined any projects yet!
+							</div>
+						</template>
+					</project-list>
+				</section>
+				
+				<!-- Your teams -->
 				<your-teams />
 			</div>
 			<aside class="col-span-full laptop:col-span-3 desktop:col-span-2 order-first laptop:order-none -mt-20">
@@ -38,9 +59,22 @@ import Vue from 'vue';
 import ActivityCard from './ActivityCard.vue';
 import FocusTasks from './FocusTasks.vue';
 import { Optional } from '../../typings/types';
-import StarredProjects from './StarredProjects.vue';
-import YourProjects from './YourProjects.vue';
 import YourTeams from './YourTeams.vue';
+import { api } from '../..';
+import gql from 'graphql-tag';
+
+function fetchPersonalProjects() {
+	return api.query(gql`
+		query {
+			projects(mode: PERSONAL) {
+				id
+				name
+				coverImage
+				projectUrl
+			}
+		}
+	`);
+}
 
 export default Vue.extend({
 	name: 'HomePage',
@@ -48,20 +82,23 @@ export default Vue.extend({
 	components: {
 		ActivityCard,
 		FocusTasks,
-		StarredProjects,
-		YourProjects,
 		YourTeams
 	},
 
-	beforeRouteEnter(_to, _from, next) {
-		console.log('ALPHA');
+	async beforeRouteEnter(_to, _from, next) {
+		const [projects] = await Promise.all([
+			fetchPersonalProjects()
+		]);
 
-		setTimeout(() => {
-			next(() => {
-				console.log('DELTA');
-			});
-		}, 3000);
+		next((vm: any) => {
+			vm.projects = projects.projects;
+		});
 	},
+
+	data: () => ({
+		starred: [],
+		projects: [],
+	}),
 
 	computed: {
 		firstName(): Optional<string> {
@@ -69,8 +106,8 @@ export default Vue.extend({
 		}
 	},
 
-	mounted() {
-		console.log('mounted');
+	created() {
+		console.log('projects = ', this.projects);
 	},
 
 	methods: {
