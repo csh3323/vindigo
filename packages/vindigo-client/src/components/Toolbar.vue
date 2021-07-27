@@ -332,6 +332,7 @@ export default Vue.extend({
 		MENU_DIVIDER,
 
 		progress: 0,
+		progressTask: null as any,
 		executeSearchDebounced: null as unknown as Function,
 
 		// Project creation
@@ -431,11 +432,15 @@ export default Vue.extend({
 	created() {
 		this.executeSearchDebounced = debounce(this.executeSearch, 500);
 
-		setInterval(() => {
+		this.progressTask = setInterval(() => {
 			if(this.isWaiting) {
-				this.progress += Math.random() * 15;
+				this.progress += Math.random() * 20;
 			}
-		}, 150);
+		}, 100);
+	},
+
+	destroyed() {
+		clearInterval(this.progressTask);
 	},
 
 	methods: {
